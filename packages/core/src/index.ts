@@ -50,6 +50,8 @@ export type {
   EmbedNode,
   BlockNode,
   DocNode,
+  Node,
+  ASTNode,
   SearchResult,
   NodeInfo,
   ValidationResult,

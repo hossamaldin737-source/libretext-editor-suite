@@ -48,4 +48,58 @@ export const customerRecordsTemplate: DocumentTemplate = {
   ]),
 };
 
-export const baseTemplates: DocumentTemplate[] = [customerRecordsTemplate];
+export const arabicNameSearchCensusTemplate: DocumentTemplate = {
+  id: 'base-arabic-search',
+  name: 'سجل البحث والتدقيق بالأسماء العربية | Arabic Name & Search Audit',
+  domain: 'base',
+  description: 'قالب قاعدة بيانات للتحقق من الأسماء والهمزات والمطابقة الذكية وتوحيد النصوص',
+  doc: builder.doc([
+    builder.heading(1, [builder.text('سجل التحقق من الأسماء والمطابقة الذكية')]),
+    builder.paragraph([
+      builder.text('جدول تدقيق سجلات الموظفين والعملاء مع دعم مطابقة الأسماء بتوحيد الهمزات والتاء المربوطة.'),
+    ]),
+    builder.table([
+      builder.tableRow([
+        builder.tableCell([builder.paragraph([builder.text('الرقم الوظيفي')])]),
+        builder.tableCell([builder.paragraph([builder.text('الاسم المسجل')])]),
+        builder.tableCell([builder.paragraph([builder.text('القسم / الإدارة')])]),
+        builder.tableCell([builder.paragraph([builder.text('المدينة')])]),
+        builder.tableCell([builder.paragraph([builder.text('حالة التدقيق')])]),
+      ]),
+      builder.tableRow([
+        builder.tableCell([builder.paragraph([builder.text('EMP-501')])]),
+        builder.tableCell([builder.paragraph([builder.text('أحمد إبراهيم')])]),
+        builder.tableCell([builder.paragraph([builder.text('الهندسة والتطوير')])]),
+        builder.tableCell([builder.paragraph([builder.text('الرياض')])]),
+        builder.tableCell([builder.paragraph([builder.text('مطابق معتمد')])]),
+      ]),
+      builder.tableRow([
+        builder.tableCell([builder.paragraph([builder.text('EMP-502')])]),
+        builder.tableCell([builder.paragraph([builder.text('احمد ابراهيم')])]),
+        builder.tableCell([builder.paragraph([builder.text('الدعم الفني')])]),
+        builder.tableCell([builder.paragraph([builder.text('جدة')])]),
+        builder.tableCell([builder.paragraph([builder.text('يحتاج توحيد همزات')])]),
+      ]),
+      builder.tableRow([
+        builder.tableCell([builder.paragraph([builder.text('EMP-503')])]),
+        builder.tableCell([builder.paragraph([builder.text('فاطمه الزهراء')])]),
+        builder.tableCell([builder.paragraph([builder.text('الموارد البشرية')])]),
+        builder.tableCell([builder.paragraph([builder.text('الدمام')])]),
+        builder.tableCell([builder.paragraph([builder.text('يحتاج توحيد تاء مربوطة')])]),
+      ]),
+      builder.tableRow([
+        builder.tableCell([builder.paragraph([builder.text('EMP-504')])]),
+        builder.tableCell([builder.paragraph([builder.text('مُحَمَّد عَبْدُ الله')])]),
+        builder.tableCell([builder.paragraph([builder.text('المالية والمحاسبة')])]),
+        builder.tableCell([builder.paragraph([builder.text('مكة المكرمة')])]),
+        builder.tableCell([builder.paragraph([builder.text('مشكول - تمت إزالة التشكيل')])]),
+      ]),
+    ]),
+  ]),
+};
+
+export const baseTemplates: DocumentTemplate[] = [
+  customerRecordsTemplate,
+  arabicNameSearchCensusTemplate,
+];
+

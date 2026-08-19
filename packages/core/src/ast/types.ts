@@ -248,6 +248,10 @@ export interface DocNode {
   readonly content: readonly BlockNode[];
 }
 
+// ─── الاتحاد الشامل لجميع العقد ───
+export type Node = BlockNode | InlineNode | DocNode;
+export type ASTNode = Node;
+
 // ─── نتائج البحث ───
 export interface SearchResult {
   readonly nodeId: NodeId;

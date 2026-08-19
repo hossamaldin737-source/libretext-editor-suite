@@ -137,7 +137,7 @@ export class CommandRegistry {
   canExecute(cmd: Command, state: EditorState): boolean {
     const reg = this.registrations.get(cmd.type);
     if (!reg) return false;
-    if (!reg.isEnabled?.(cmd, state)) return false;
+    if (reg.isEnabled && !this.isEnabled(cmd, state)) return false;
     if (reg.canExecute) {
       try { return reg.canExecute(cmd, state); } catch { return false; }
     }
