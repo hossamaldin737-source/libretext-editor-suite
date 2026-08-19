@@ -1,0 +1,76 @@
+/**
+ * ============================================================
+ * 📄 الملف: LICENSE
+ * 📂 المسار: LICENSE
+ * 🎯 الهدف الرئيسي: ملف الترخيص الرسمي للمشروع (MIT License)
+ *    مع ذكر جميع المصادر المفتوحة المقتبسة.
+ * 📋 المعايير:
+ *    - يجب أن يحتوي على ترخيص MIT الكامل.
+ *    - يجب أن يذكر جميع المصادر المفتوحة المقتبسة.
+ *    - يجب أن يحتوي على اسم المالك الكامل.
+ * 🧪 الاختبارات: لا توجد اختبارات (ملف ترخيص).
+ * 🏷️ المعرف: LEGAL-001
+ * 📅 تاريخ الإنشاء: 2026-08-19
+ * 👤 المالك: Hossam El-Din Abdel-Moaty El-Khouly - All rights reserved
+ * ⚖️ الترخيص: MIT License
+ * 📚 المصادر المقتبسة:
+ *    - ProseMirror (https://prosemirror.net/) - MIT License
+ *    - Quill.js (https://quilljs.com/) - BSD 3-Clause License
+ *    - TipTap (https://tiptap.dev/) - MIT License
+ *    - Milkdown (https://milkdown.dev/) - MIT License
+ *    - Toast UI Editor (https://github.com/nhn/tui.editor) - MIT License
+ *    - Vite (https://vitejs.dev/) - MIT License
+ *    - Vitest (https://vitest.dev/) - MIT License
+ * ============================================================
+ */
+
+MIT License
+
+Copyright (c) 2026 Hossam El-Din Abdel-Moaty El-Khouly - All rights reserved
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+## المصادر المفتوحة المقتبسة
+
+هذا المشروع يستلهم من المشاريع مفتوحة المصدر التالية، وجميع الاقتباسات تمت وفق شروط التراخيص المذكورة:
+
+1. **ProseMirror** (MIT License) - https://prosemirror.net/
+   - التأثير: نظام الحالة والعمليات (State & Transactions)
+
+2. **Quill.js** (BSD 3-Clause License) - https://quilljs.com/
+   - التأثير: نموذج العمليات (Deltas)
+
+3. **TipTap** (MIT License) - https://tiptap.dev/
+   - التأثير: نظام الإضافات (Plugin System)
+
+4. **Milkdown** (MIT License) - https://milkdown.dev/
+   - التأثير: محول Markdown
+
+5. **Toast UI Editor** (MIT License) - https://github.com/nhn/tui.editor
+   - التأثير: دعم WYSIWYG الهجين
+
+6. **Vite** (MIT License) - https://vitejs.dev/
+   - التأثير: أداة البناء (Library Mode)
+
+7. **Vitest** (MIT License) - https://vitest.dev/
+   - التأثير: إطار الاختبارات
+
+جميع الاقتباسات تمت وفق شروط التراخيص المذكورة أعلاه، مع الإشارة إلى المصادر الأصلية.

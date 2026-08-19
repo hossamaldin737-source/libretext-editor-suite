@@ -1,0 +1,34 @@
+{
+  "name": "@libretext/core",
+  "version": "0.0.0",
+  "type": "module",
+  "description": "النواة المجردة لمشروع LibreText Editor Suite - Headless core with AST, State, Operations, and Indexer",
+  "author": "Hossam El-Din Abdel-Moaty El-Khouly",
+  "license": "MIT",
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite build --watch",
+    "clean": "rm -rf dist",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "~5.8.2",
+    "vite": "^6.2.3",
+    "vite-plugin-dts": "^4.0.0",
+    "vitest": "^3.0.0"
+  }
+}
