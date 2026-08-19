@@ -55,10 +55,10 @@ export function expandCellRange(from: string, to: string): string[] {
   if (!fromMatch || !toMatch) {
     throw new Error(`Invalid range: ${from}:${to}`);
   }
-  const fromCol = columnToIndex(fromMatch[1]);
-  const fromRow = parseInt(fromMatch[2], 10);
-  const toCol = columnToIndex(toMatch[1]);
-  const toRow = parseInt(toMatch[2], 10);
+  const fromCol = columnToIndex(fromMatch[1]!);
+  const fromRow = parseInt(fromMatch[2]!, 10);
+  const toCol = columnToIndex(toMatch[1]!);
+  const toRow = parseInt(toMatch[2]!, 10);
   const refs: string[] = [];
   for (let row = fromRow; row <= toRow; row++) {
     for (let col = fromCol; col <= toCol; col++) {

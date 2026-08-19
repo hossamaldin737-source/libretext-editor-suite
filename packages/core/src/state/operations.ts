@@ -5,25 +5,25 @@
  * 📄 الملف: operations.ts
  * 📂 المسار: packages/core/src/state/operations.ts
  * 🎯 الهدف الرئيسي: تعريف جميع عمليات التحرير المتاحة على المستند
- *    بما في ذلك الإضافة والحذف والتحريك والتحديث مع ضمان عدم التغيير.
+ *    (كتلية ومضمنة ومكانية) وتطبيقها مع ضمان عدم التغيير (Immutable).
  * 📋 المعايير:
- *    - يجب أن تكون كل عملية غير قابلة للتغيير (Immutable).
- *    - يجب أن تُعيد حالة جديدة بدلاً من تعديل الحالة الحالية.
- *    - يجب أن تدعم جميع أنواع الكتل.
+ *    - كل عملية هي اتحاد متمايز (Discriminated Union) بأنواع حمولة آمنة.
+ *    - كل عملية تُعيد مستنداً جديداً بدلاً من تعديل الحالي.
+ *    - دعم العمليات المكانية (spatial-move) والنصية (text-update) والصيغ.
  * 🧪 الاختبارات:
  *    - packages/core/tests/state/operations.test.ts
- *    - اختبار كل عملية على حدة
- *    - اختبار سلاسل العمليات
+ *    - packages/core/tests/state/editor-state.test.ts
  * 🏷️ المعرف: CORE-005
  * 📅 تاريخ الإنشاء: 2026-08-19
  * 🧠 الطريقة المبتكرة | Innovative Pattern:
- *    Immutable Operation Chain — سلسلة عمليات غير قابلة للتغيير.
+ *    Discriminated Union Operations + Recursive Tree Application
  * ⚠️ نقاط الخطر الإلزامية | Mandatory Gotchas:
  *    1. عدم تعديل المصفوفات الأصلية (spread operator دائماً).
  *    2. التأكد من أن كل عملية تُعيد مستنداً كاملاً وصالحاً.
+ *    3. العمليات المكانية تتطلب حقلاً position في العقدة الهدف.
  * 🩹 البرمجة الدفاعية | Defensive Coding:
- *    - فحص وجود العقدة قبل التعديل.
- *    - إرجاع الحالة الأصلية إذا فشلت العملية.
+ *    - فحص وجود العقدة قبل التعديل (تُعيد الحاوية كما هي عند الغياب).
+ *    - إرجاع المستند الأصلي إذا لم تُطبَّق العملية.
  * 👤 المالك: Hossam El-Din Abdel-Moaty El-Khouly - All rights reserved
  * ⚖️ الترخيص: MIT License
  * 📚 المصادر المقتبسة:
@@ -32,9 +32,18 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-import type {BlockNode, DocNode, InlineNode, NodeId} from '../ast/types';
+import type {BlockNode, DocNode, InlineNode, NodeId, LogicalPosition} from '../ast/types';
+import {
+  findAndUpdateBlock,
+  findAndUpdateInline,
+  insertInArray,
+  insertInlineIntoBlock,
+  moveBlockInTree,
+  removeBlocks,
+  removeInlineFromBlocks,
+} from './tree';
 
-// ─── تعريف العملية ───
+// ─── أنواع العمليات ───
 export type OperationType =
   | 'insert-block'
   | 'delete-block'
@@ -42,66 +51,87 @@ export type OperationType =
   | 'move-block'
   | 'insert-inline'
   | 'delete-inline'
-  | 'update-inline';
+  | 'update-inline'
+  | 'spatial-move'
+  | 'text-update'
+  | 'formula-update';
 
-export interface Operation {
-  readonly type: OperationType;
+export interface InsertBlockOperation {
+  readonly type: 'insert-block';
   readonly targetId: NodeId;
-  readonly payload?: unknown;
-  readonly position?: 'before' | 'after';
+  readonly payload: BlockNode;
   readonly referenceId?: NodeId;
+  readonly position?: 'before' | 'after';
 }
 
-// ─── دوال تطبيق العمليات ───
-
-function findAndUpdateBlock(
-  blocks: readonly BlockNode[],
-  targetId: NodeId,
-  updater: (node: BlockNode) => BlockNode,
-): BlockNode[] {
-  return blocks.map((block) => {
-    if (block.id === targetId) {
-      return updater(block);
-    }
-    if ('content' in block && Array.isArray(block.content)) {
-      if (block.type === 'list-item') {
-        return {
-          ...block,
-          content: findAndUpdateBlock(block.content as BlockNode[], targetId, updater),
-          nested: block.nested
-            ? findAndUpdateBlock(block.nested, targetId, updater)
-            : block.nested,
-        };
-      }
-      if (block.type === 'blockquote' || block.type === 'table-cell') {
-        return {
-          ...block,
-          content: findAndUpdateBlock(block.content as BlockNode[], targetId, updater),
-        };
-      }
-    }
-    if (block.type === 'table') {
-      return {
-        ...block,
-        rows: block.rows.map((row) => ({
-          ...row,
-          cells: row.cells.map((cell) => ({
-            ...cell,
-            content: findAndUpdateBlock(cell.content, targetId, updater),
-          })),
-        })),
-      };
-    }
-    return block;
-  });
+export interface DeleteBlockOperation {
+  readonly type: 'delete-block';
+  readonly targetId: NodeId;
 }
 
-function insertInArray<T>(arr: readonly T[], item: T, referenceId: NodeId, position: 'before' | 'after'): T[] {
-  const index = arr.findIndex((i) => (i as T & {id?: string}).id === referenceId);
-  if (index === -1) return [...arr, item];
-  const insertIndex = position === 'before' ? index : index + 1;
-  return [...arr.slice(0, insertIndex), item, ...arr.slice(insertIndex)];
+export interface UpdateBlockOperation {
+  readonly type: 'update-block';
+  readonly targetId: NodeId;
+  readonly payload: (node: BlockNode) => BlockNode;
 }
+
+export interface MoveBlockOperation {
+  readonly type: 'move-block';
+  readonly targetId: NodeId;
+  readonly referenceId?: NodeId;
+  readonly position?: 'before' | 'after';
+}
+
+export interface InsertInlineOperation {
+  readonly type: 'insert-inline';
+  readonly targetId: NodeId;
+  readonly payload: InlineNode;
+  readonly referenceId?: NodeId;
+  readonly position?: 'before' | 'after';
+}
+
+export interface DeleteInlineOperation {
+  readonly type: 'delete-inline';
+  readonly targetId: NodeId;
+}
+
+export interface UpdateInlineOperation {
+  readonly type: 'update-inline';
+  readonly targetId: NodeId;
+  readonly payload: (node: InlineNode) => InlineNode;
+}
+
+export interface SpatialMoveOperation {
+  readonly type: 'spatial-move';
+  readonly targetId: NodeId;
+  readonly payload: LogicalPosition;
+}
+
+export interface TextUpdateOperation {
+  readonly type: 'text-update';
+  readonly targetId: NodeId;
+  readonly payload: {readonly content: string};
+}
+
+export interface FormulaUpdateOperation {
+  readonly type: 'formula-update';
+  readonly targetId: NodeId;
+  readonly payload: {readonly expression: string};
+}
+
+export type Operation =
+  | InsertBlockOperation
+  | DeleteBlockOperation
+  | UpdateBlockOperation
+  | MoveBlockOperation
+  | InsertInlineOperation
+  | DeleteInlineOperation
+  | UpdateInlineOperation
+  | SpatialMoveOperation
+  | TextUpdateOperation
+  | FormulaUpdateOperation;
+
+// ─── تطبيق العمليات ───
 
 /**
  * تطبيق عملية على المستند.
@@ -110,44 +140,79 @@ function insertInArray<T>(arr: readonly T[], item: T, referenceId: NodeId, posit
 export function applyOperation(doc: DocNode, operation: Operation): DocNode {
   switch (operation.type) {
     case 'insert-block': {
-      const newBlock = operation.payload as BlockNode;
-      if (!newBlock) return doc;
       if (operation.referenceId && operation.position) {
         return {
           ...doc,
-          content: insertInArray(doc.content, newBlock, operation.referenceId, operation.position),
+          content: insertInArray(doc.content, operation.payload, operation.referenceId, operation.position),
         };
       }
-      return {...doc, content: [...doc.content, newBlock]};
+      return {...doc, content: [...doc.content, operation.payload]};
     }
 
     case 'delete-block':
-      return {
-        ...doc,
-        content: doc.content.filter((block) => block.id !== operation.targetId),
-      };
+      return {...doc, content: removeBlocks(doc.content, operation.targetId)};
 
-    case 'update-block': {
-      const updater = operation.payload as (node: BlockNode) => BlockNode;
-      if (!updater) return doc;
+    case 'update-block':
       return {
         ...doc,
-        content: findAndUpdateBlock(doc.content, operation.targetId, updater),
+        content: findAndUpdateBlock(doc.content, operation.targetId, operation.payload),
       };
-    }
 
     case 'move-block': {
-      const block = doc.content.find((b) => b.id === operation.targetId);
-      if (!block) return doc;
-      const without = doc.content.filter((b) => b.id !== operation.targetId);
-      if (operation.referenceId && operation.position) {
-        return {
-          ...doc,
-          content: insertInArray(without, block, operation.referenceId, operation.position),
-        };
-      }
-      return {...doc, content: [...without, block]};
+      const {blocks} = moveBlockInTree(
+        doc.content,
+        operation.targetId,
+        operation.referenceId,
+        operation.position,
+      );
+      return {...doc, content: blocks};
     }
+
+    case 'insert-inline':
+      return {
+        ...doc,
+        content: insertInlineIntoBlock(
+          doc.content,
+          operation.targetId,
+          operation.payload,
+          operation.referenceId,
+          operation.position,
+        ),
+      };
+
+    case 'delete-inline':
+      return {...doc, content: removeInlineFromBlocks(doc.content, operation.targetId)};
+
+    case 'update-inline':
+      return {
+        ...doc,
+        content: findAndUpdateInline(doc.content, operation.targetId, operation.payload),
+      };
+
+    case 'spatial-move':
+      return {
+        ...doc,
+        content: findAndUpdateBlock(doc.content, operation.targetId, (node) => ({
+          ...node,
+          position: operation.payload,
+        }) as unknown as BlockNode),
+      };
+
+    case 'text-update':
+      return {
+        ...doc,
+        content: findAndUpdateInline(doc.content, operation.targetId, (node) =>
+          node.type === 'text' ? {...node, text: operation.payload.content} : node,
+        ),
+      };
+
+    case 'formula-update':
+      return {
+        ...doc,
+        content: findAndUpdateInline(doc.content, operation.targetId, (node) =>
+          node.type === 'text' ? {...node, formula: operation.payload.expression} : node,
+        ),
+      };
 
     default:
       return doc;

@@ -79,11 +79,11 @@ export class FormulaParser {
   }
 
   private peek(): Token {
-    return this.tokens[this.pos];
+    return this.tokens[this.pos]!;
   }
 
   private advance(): Token {
-    return this.tokens[this.pos++];
+    return this.tokens[this.pos++]!;
   }
 
   private check(type: TokenType): boolean {

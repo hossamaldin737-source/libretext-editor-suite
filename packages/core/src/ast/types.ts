@@ -36,6 +36,13 @@
 // ─── المعرف الفريد ───
 export type NodeId = string & {readonly __brand: 'NodeId'};
 
+// ─── الموقع المكاني (لـ Impress) ───
+export interface LogicalPosition {
+  readonly x: number;
+  readonly y: number;
+  readonly unit?: 'px' | 'cm' | 'inch' | 'pt';
+}
+
 // ─── أنواع العناصر المضمنة (Inline Node Types) ───
 export type InlineNodeType =
   | 'text'

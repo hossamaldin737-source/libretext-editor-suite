@@ -87,7 +87,7 @@ export class FormulaEvaluator {
         return this.visitCell(node.ref);
       case 'range':
         const values = this.visitRange(node.from, node.to);
-        return values.length > 0 ? values[0] : null;
+        return values.length > 0 ? (values[0] ?? null) : null;
       case 'unary':
         return this.visitUnary(node.op, node.operand);
       case 'binary':
@@ -199,13 +199,14 @@ export class FormulaEvaluator {
     if (args.length !== 3) {
       throw new EvaluationError('IF requires exactly 3 arguments');
     }
-    const condition = this.evaluate(args[0]);
-    const branch = Boolean(condition) ? args[1] : args[2];
-    if (branch.kind === 'range') {
-      const values = this.visitRange(branch.from, branch.to);
-      return values.length > 0 ? values[0] : null;
+    const condition = this.evaluate(args[0]!);
+    const branchArg = Boolean(condition) ? args[1] : args[2];
+    if (!branchArg) return null;
+    if (branchArg.kind === 'range' && 'from' in branchArg && 'to' in branchArg) {
+      const values = this.visitRange(branchArg.from, branchArg.to);
+      return values.length > 0 ? (values[0] ?? null) : null;
     }
-    return this.evaluate(branch);
+    return this.evaluate(branchArg);
   }
 
   private coerceToNumber(value: EvaluationResult): number {

@@ -30,7 +30,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import { executeCommand, undoCommand, CommandExecutor } from '../../src/command/executor';
 import { CommandType, SpatialCommand, TextCommand } from '../../src/command/types';
-import type { EditorState } from '@libretext/core';
+import type { FullEditorState } from '@libretext/core';
 
 // Mock the core module
 vi.mock('@libretext/core', () => ({
@@ -47,7 +47,10 @@ vi.mock('@libretext/core', () => ({
 
 describe('ALGO-002: CommandExecutor', () => {
   const mockDoc = { id: 'root', type: 'doc', content: [] };
-  const mockState = { document: mockDoc, selection: null } as unknown as EditorState;
+  const mockState = {
+    editor: { document: mockDoc, selection: null, canUndo: false, canRedo: false },
+    _history: { past: [], future: [] },
+  } as unknown as FullEditorState;
 
   const spatialCmdDelta: SpatialCommand = {
     type: CommandType.SPATIAL,
@@ -71,42 +74,40 @@ describe('ALGO-002: CommandExecutor', () => {
     const result = executeCommand(spatialCmdDelta, mockState);
     expect(result.success).toBe(true);
     expect(result.state).not.toBe(mockState);
-    expect((result.state.document as any).lastOp).toMatchObject({
-      type: 'SPATIAL_MOVE',
-      id: 'node-1',
-      x: 10,
-      y: 20,
+    expect((result.state.editor.document as any).lastOp).toMatchObject({
+      type: 'spatial-move',
+      targetId: 'node-1',
+      payload: { x: 10, y: 20 },
     });
   });
 
   it('should undo SpatialCommand by inverting coordinates when no previous values', () => {
     const result = undoCommand(spatialCmdDelta, mockState);
     expect(result.success).toBe(true);
-    expect((result.state.document as any).lastOp).toMatchObject({
-      type: 'SPATIAL_MOVE',
-      id: 'node-1',
-      x: -10,
-      y: -20,
+    expect((result.state.editor.document as any).lastOp).toMatchObject({
+      type: 'spatial-move',
+      targetId: 'node-1',
+      payload: { x: -10, y: -20 },
     });
   });
 
   it('should undo SpatialCommand using previousX/previousY if provided', () => {
     const result = undoCommand(spatialCmdAbsolute, mockState);
     expect(result.success).toBe(true);
-    expect((result.state.document as any).lastOp).toMatchObject({
-      type: 'SPATIAL_MOVE',
-      id: 'node-1',
-      x: 50,
-      y: 60,
+    expect((result.state.editor.document as any).lastOp).toMatchObject({
+      type: 'spatial-move',
+      targetId: 'node-1',
+      payload: { x: 50, y: 60 },
     });
   });
 
   it('should execute TextCommand correctly', () => {
     const result = executeCommand(textCmd, mockState);
     expect(result.success).toBe(true);
-    expect((result.state.document as any).lastOp).toMatchObject({
-      type: 'TEXT_UPDATE',
-      content: 'Hello',
+    expect((result.state.editor.document as any).lastOp).toMatchObject({
+      type: 'text-update',
+      targetId: 'node-2',
+      payload: { content: 'Hello' },
     });
   });
 
@@ -154,9 +155,9 @@ describe('ALGO-002: CommandExecutor', () => {
     const undoRes = executor2.undoLast(exec2.state);
     expect(undoRes.success).toBe(true);
     expect(executor2.getHistoryLength()).toBe(0);
-    expect((undoRes.state.document as any).lastOp).toMatchObject({
-      x: -10,
-      y: -20,
+    expect((undoRes.state.editor.document as any).lastOp).toMatchObject({
+      type: 'spatial-move',
+      payload: { x: -10, y: -20 },
     });
   });
 

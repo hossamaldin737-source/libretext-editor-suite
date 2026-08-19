@@ -69,7 +69,7 @@ function readNumber(input: string, start: number): ReadResult {
   let i = start;
   let num = '';
   
-  while (i < input.length && isDigit(input[i])) {
+  while (i < input.length && isDigit(input[i]!)) {
     num += input[i];
     i++;
   }
@@ -77,10 +77,7 @@ function readNumber(input: string, start: number): ReadResult {
   if (i < input.length && input[i] === '.') {
     num += '.';
     i++;
-    // If it has multiple dots, we should throw here, or wait.
-    // The test expects "Invalid number format" for "1.2.3"
-    // Let's read digits, then if there's another dot, throw.
-    while (i < input.length && isDigit(input[i])) {
+    while (i < input.length && isDigit(input[i]!)) {
       num += input[i];
       i++;
     }
@@ -102,7 +99,7 @@ function readNumber(input: string, start: number): ReadResult {
 
 /** قراءة نص داخل علامات اقتباس */
 function readString(input: string, start: number): ReadResult {
-  const quote = input[start];
+  const quote = input[start]!;
   let i = start + 1;
   let str = '';
   
@@ -126,15 +123,15 @@ function readWord(input: string, start: number): ReadResult {
   let i = start;
   let letters = '';
   
-  while (i < input.length && isLetter(input[i])) {
+  while (i < input.length && isLetter(input[i]!)) {
     letters += input[i];
     i++;
   }
   
   // مرجع خلية (حروف + أرقام)
-  if (i < input.length && isDigit(input[i])) {
+  if (i < input.length && isDigit(input[i]!)) {
     let digits = '';
-    while (i < input.length && isDigit(input[i])) {
+    while (i < input.length && isDigit(input[i]!)) {
       digits += input[i];
       i++;
     }
@@ -160,7 +157,7 @@ function readWord(input: string, start: number): ReadResult {
 
 /** قراءة معامل أو علامة ترقيم (تُعيد ReadResult للاتساق) */
 function readOperatorOrPunct(input: string, start: number): ReadResult {
-  const ch = input[start];
+  const ch = input[start]!;
   const two = input.slice(start, start + 2);
   let token: Token;
   let next: number;
@@ -204,7 +201,7 @@ export function tokenize(input: string): readonly Token[] {
   let i = 0;
   
   while (i < input.length) {
-    const ch = input[i];
+    const ch = input[i]!;
     
     // تخطي المسافات
     if (isWhitespace(ch)) {

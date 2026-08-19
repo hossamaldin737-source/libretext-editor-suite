@@ -58,9 +58,12 @@ export function search(
 
   if (useRegex) {
     try {
-      const flags = caseSensitive ? 'g' : 'gi';
+      const flags = caseSensitive ? '' : 'i';
       const regex = new RegExp(query, flags);
-      matcher = (text: string) => regex.test(text);
+      matcher = (text: string) => {
+        regex.lastIndex = 0;
+        return regex.test(text);
+      };
     } catch {
       return [];
     }

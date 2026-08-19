@@ -10,7 +10,15 @@
 
 // Command Pattern Exports
 export * from './command/types';
-export * from './command/executor';
+export {
+  CommandExecutor,
+  SpatialCommandHandler,
+  TextCommandHandler,
+  FormulaCommandHandler,
+  executeCommand,
+  undoCommand,
+} from './command/executor';
+export type {CommandOpResult} from './command/executor';
 export * from './command/registry';
 
 // Formula AST & Evaluator Exports
@@ -21,3 +29,6 @@ export * from './formula/functions';
 export * from './formula/evaluator';
 export * from './formula/cell-utils';
 export * from './formula/registry';
+
+// Spatial Translation Exports
+export * from './spatial/types';

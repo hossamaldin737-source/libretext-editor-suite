@@ -26,6 +26,7 @@ export type {
   BlockNodeType,
   MarkType,
   Mark,
+  LogicalPosition,
   TextNode,
   BoldNode,
   ItalicNode,
