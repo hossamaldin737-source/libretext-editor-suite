@@ -4,106 +4,194 @@
   * ═══════════════════════════════════════════════════════════════════════════
   * 📄 الملف: registry.ts
   * 📂 المسار: packages/algorithms/src/command/registry.ts
-  * 🎯 الهدف الرئيسي: سجل لمعالجات الأوامر يتيح التسجيل والفحص والتوجيه (Dispatch)
-  * 📋 المعايير: صفر اعتماديات خارجية، برمجة دفاعية صارمة، تسجيل حسب نوع الأمر
+  * 🎯 الهدف الرئيسي: سجل أوامر مع canExecute + isEnabled + Event Callbacks
+  * 📋 المعايير: صفر اعتماديات خارجية، برمجة دفاعية صارمة، تسجيل حسب نوع
   * 🧪 الاختبارات: packages/algorithms/tests/command/registry.test.ts
   * 🏷️ المعرف: ALGO-003
   * 📅 تاريخ الإنشاء: 2026-08-19
+  * 🔄 آخر تحديث: 2026-08-19 (v2: canExecute + isEnabled + callbacks)
   * ═══════════════════════════════════════════════════════════════════════════
   * 🧠 الطريقة المبتكرة | Innovative Pattern:
-  *    Registry Pattern + Type-Safe Dispatch + Default Singleton Registry
+  *    Registry + Canary Pattern + Guard Hooks + Lightweight Event System
   * ═══════════════════════════════════════════════════════════════════════════
   * ⚠️ نقاط الخطر الإلزامية | Mandatory Gotchas:
   *    1. إعادة تسجيل نفس نوع الأمر (تضارب المعالجات)
-  *    2. توجيه أمر لا يمتلك معالجاً مسجلاً (خطأ في وقت التشغيل)
+  *    2. canExecute يجب أن يكون خالياً من الآثار الجانبية (pure)
+  *    3. isEnabled كاذب موجب يمنع التنفيذ للnoDB
   * ═══════════════════════════════════════════════════════════════════════════
   * 🩹 البرمجة الدفاعية | Defensive Coding:
   *    - التحقق من صحة المدخلات قبل التسجيل
-  *    - رسائل خطأ واضحة عند غياب المعالج
+  *    - canExecute/isEnabled مُلفّفتان بـ try/catch以防 كسر التنفيذ
+  * ═══════════════════════════════════════════════════════════════════════════
+  * 🔗 الملفات المرتبطة | Linked Files:
+  *    - 📇 الفهرس: FUNCTION_INDEX.md
+  *    - 📦 التبعيات: ./types.ts (Command)
+  *    - 🧪 اختبارات: tests/command/registry.test.ts
+  * ═══════════════════════════════════════════════════════════════════════════
+  * 📊 الدوال والخوارزميات | Functions & Algorithms:
+  *    - register(): تسجيل معالج مع canExecute/isEnabled (#L72)
+  *    - get(): الحصول على معالج مسجل (#L100)
+  *    - canExecute(): فحص قابلية التنفيذ (#L120)
+  *    - isEnabled(): فحص تنشيط الأمر (#L136)
+  *    - dispatch(): تنفيذ الأمر مع Event (#L149)
+  * ═══════════════════════════════════════════════════════════════════════════
+  * 📝 ملاحظات التطوير | Development Notes:
+  *    - canExecute و isEnabled يجب أن يكونا نقيين (pure) بدون آثار جانبية
+  *    - Callbacks مسجلة عبر onBefore/onAfter لا EventBus خارجي
+  * ═══════════════════════════════════════════════════════════════════════════
+  * 📖 برامج مرجعية وخطط معالجة | Reference & Treatment Plans:
+  *    - 🔧 خطة المعالجة: مُحسّن بناءً على webpainter-next CommandRegistry
+  *    - 📖 مرجع تقني: Command Pattern (GoF) + ProseMirror State Commands
   * ═══════════════════════════════════════════════════════════════════════════
   * 👤 المالك: Hossam El-Din Abdel-Moaty El-Khouly - All rights reserved
   * ⚖️ الترخيص: MIT License
-  * 📚 المصادر المقتبسة: ProseMirror (MIT) - Command Registry Inspiration
   * ═══════════════════════════════════════════════════════════════════════════
   */
 
 import type { EditorState } from '@libretext/core';
 import type { Command } from './types';
 
-/**
- * معالج أوامر يحوّل حالة المحرر (State-Transforming Handler)
- * يعيد حالة جديدة غير قابلة للتغيير (Immutable)
- */
+// ─── الأنواع ───
+
+/** معالج أوامر يحوّل حالة المحرر (State-Transforming Handler) */
 export type StateCommandHandler = (
   cmd: Command,
   state: EditorState
 ) => EditorState;
 
-/**
- * سجل الأوامر - يدير خريطة من أنواع الأوامر إلى معالجاتها
- */
+/** شرط يمكن لحسابه ما إذا كان الأمر قابلاً للتنفيذ */
+export type CanExecuteFn = (
+  cmd: Command,
+  state: EditorState
+) => boolean;
+
+/** شرط ما إذا كان الأمر مفعلاً (can be invoked) */
+export type IsEnabledFn = (
+  cmd: Command,
+  state: EditorState
+) => boolean;
+
+/** حدث ما قبل/بعد التنفيذ */
+export interface CommandEvent {
+  readonly type: 'before' | 'after';
+  readonly command: Command;
+  readonly state: EditorState;
+}
+
+/** callback مسجل */
+export type CommandEventListener = (event: CommandEvent) => void;
+
+/** خيارات التسجيل المتقدمة */
+export interface CommandRegistration {
+  readonly handler: StateCommandHandler;
+  readonly canExecute?: CanExecuteFn;
+  readonly isEnabled?: IsEnabledFn;
+}
+
+// ─── CommandRegistry ───
+
 export class CommandRegistry {
-  private readonly handlers: Map<string, StateCommandHandler>;
+  private readonly registrations = new Map<string, CommandRegistration>();
+  private readonly listeners: CommandEventListener[] = [];
 
-  constructor() {
-    this.handlers = new Map<string, StateCommandHandler>();
-  }
+  constructor() {}
 
-  /**
-   * تسجيل معالج لنوع أمر محدد
-   * @throws Error إذا كان النوع فارغاً أو المعالج غير صالح أو مسجل مسبقاً
-   */
-  register(type: string, handler: StateCommandHandler): void {
+  // ── التسجيل ──
+
+  /** تسجيل معالج لنوع أمر مع canExecute/isEnabled اختياريين */
+  register(type: string, handler: StateCommandHandler, opts?: {
+    canExecute?: CanExecuteFn;
+    isEnabled?: IsEnabledFn;
+  }): void {
     this.validateRegistration(type, handler);
-    this.handlers.set(type, handler);
+    this.registrations.set(type, {
+      handler,
+      canExecute: opts?.canExecute,
+      isEnabled: opts?.isEnabled,
+    });
   }
 
-  /**
-   * إزالة معالج مسجل
-   * @returns true إذا تمت الإزالة، false إذا لم يكن موجوداً
-   */
+  /** إزالة معالج مسجل */
   unregister(type: string): boolean {
-    return this.handlers.delete(type);
+    return this.registrations.delete(type);
   }
 
-  /**
-   * التحقق من وجود معالج لنوع معين
-   */
+  /** التحقق من وجود معالج */
   has(type: string): boolean {
-    return this.handlers.has(type);
+    return this.registrations.has(type);
   }
 
-  /**
-   * الحصول على معالج لنوع معين
-   */
+  /** الحصول على معالج لنوع معين */
   get(type: string): StateCommandHandler | undefined {
-    return this.handlers.get(type);
+    return this.registrations.get(type)?.handler;
   }
 
-  /**
-   * قائمة بجميع أنواع الأوامر المسجلة
-   */
+  /** قائمة بجميع أنواع الأوامر المسجلة */
   list(): readonly string[] {
-    return Array.from(this.handlers.keys());
+    return Array.from(this.registrations.keys());
   }
 
-  /**
-   * توجيه الأمر إلى معالجه المناسب بناءً على نوع الأمر
-   * @throws Error إذا لم يوجد معالج لنوع الأمر
-   */
+  // ── الفحص ──
+
+  /** هل يمكن تنفيذ الأمر بناءً على شرط canExecute؟ */
+  canExecute(cmd: Command, state: EditorState): boolean {
+    const reg = this.registrations.get(cmd.type);
+    if (!reg) return false;
+    if (!reg.isEnabled?.(cmd, state)) return false;
+    if (reg.canExecute) {
+      try { return reg.canExecute(cmd, state); } catch { return false; }
+    }
+    return true;
+  }
+
+  /** هل الأمر مفعّل (can be invoked) بناءً على شرط isEnabled؟ */
+  isEnabled(cmd: Command, state: EditorState): boolean {
+    const reg = this.registrations.get(cmd.type);
+    if (!reg) return false;
+    if (reg.isEnabled) {
+      try { return reg.isEnabled(cmd, state); } catch { return false; }
+    }
+    return true;
+  }
+
+  // ── التنفيذ ──
+
+  /** توجيه الأمر إلى معالجه مع Event emissions */
   dispatch(cmd: Command, state: EditorState): EditorState {
-    const handler = this.handlers.get(cmd.type);
-    if (!handler) {
+    const reg = this.registrations.get(cmd.type);
+    if (!reg) {
       throw new Error(
         `No handler registered for command type: "${cmd.type}"`
       );
     }
-    return handler(cmd, state);
+    if (!this.isEnabled(cmd, state)) {
+      throw new Error(`Command "${cmd.type}" is disabled`);
+    }
+    this.emit({ type: 'before', command: cmd, state });
+    const newState = reg.handler(cmd, state);
+    this.emit({ type: 'after', command: cmd, state: newState });
+    return newState;
   }
 
-  /**
-   * التحقق من صحة مدخلات التسجيل (برمجة دفاعية)
-   */
+  // ── Events ──
+
+  /** تسجيل مستمع لأحداث الأوامر */
+  on(listener: CommandEventListener): () => void {
+    this.listeners.push(listener);
+    return () => {
+      const idx = this.listeners.indexOf(listener);
+      if (idx >= 0) this.listeners.splice(idx, 1);
+    };
+  }
+
+  private emit(event: CommandEvent): void {
+    for (const l of this.listeners) {
+      try { l(event); } catch { /* swallow listener errors */ }
+    }
+  }
+
+  // ── التحقق ──
+
   private validateRegistration(
     type: string,
     handler: StateCommandHandler
@@ -114,46 +202,32 @@ export class CommandRegistry {
     if (typeof handler !== 'function') {
       throw new Error('Command handler must be a function');
     }
-    if (this.handlers.has(type)) {
+    if (this.registrations.has(type)) {
       throw new Error(`Handler for command type "${type}" is already registered`);
     }
   }
 }
 
-/**
- * دالة مصنّعة لإنشاء سجل أوامر جديد
- */
+// ─── الواجهة الافتراضية ───
+
 export function createCommandRegistry(): CommandRegistry {
   return new CommandRegistry();
 }
 
-/**
- * السجل الافتراضي العام (Default Singleton Registry)
- * يُستخدم للتسجيل السريع عبر registerCommand
- */
 const defaultRegistry = createCommandRegistry();
 
-/**
- * تسجيل معالج في السجل الافتراضي
- * يطابق الـ API: ALGO-CMD-004
- */
 export function registerCommand(
   type: string,
-  handler: StateCommandHandler
+  handler: StateCommandHandler,
+  opts?: { canExecute?: CanExecuteFn; isEnabled?: IsEnabledFn }
 ): void {
-  defaultRegistry.register(type, handler);
+  defaultRegistry.register(type, handler, opts);
 }
 
-/**
- * إلغاء تسجيل معالج من السجل الافتراضي
- */
 export function unregisterCommand(type: string): boolean {
   return defaultRegistry.unregister(type);
 }
 
-/**
- * توجيه أمر عبر السجل الافتراضي
- */
 export function dispatchCommand(
   cmd: Command,
   state: EditorState
@@ -161,9 +235,6 @@ export function dispatchCommand(
   return defaultRegistry.dispatch(cmd, state);
 }
 
-/**
- * الحصول على مرجع السجل الافتراضي (للاختبار أو التكامل المتقدم)
- */
 export function getDefaultRegistry(): CommandRegistry {
   return defaultRegistry;
 }

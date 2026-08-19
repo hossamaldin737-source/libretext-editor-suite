@@ -59,9 +59,15 @@ function isDigit(ch: string): boolean {
   return ch >= '0' && ch <= '9';
 }
 
-/** فحص الحروف الإنجليزية */
+/** فحص الحروف الإنجليزية والعربية والرموز المسموح بها في المعرفات */
 function isLetter(ch: string): boolean {
-  return (ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z');
+  if (!ch) return false;
+  return (
+    (ch >= 'A' && ch <= 'Z') ||
+    (ch >= 'a' && ch <= 'z') ||
+    ch === '_' ||
+    /[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]/.test(ch)
+  );
 }
 
 /** قراءة رقم (صحيح أو عشري) */
@@ -143,7 +149,7 @@ function readWord(input: string, start: number): ReadResult {
   }
   
   const upper = letters.toUpperCase();
-  const isBool = upper === 'TRUE' || upper === 'FALSE';
+  const isBool = upper === 'TRUE' || upper === 'FALSE' || upper === 'صحيح' || upper === 'خطأ';
   
   return {
     token: {

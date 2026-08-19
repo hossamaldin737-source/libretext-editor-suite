@@ -170,14 +170,13 @@ export class FormulaEvaluator {
 
   private visitCall(name: string, args: readonly FormulaAST[]): EvaluationResult {
     // Lazy Evaluation لـ IF: لا نقيم الفروع غير المناسبة
-    if (name.toUpperCase() === 'IF') {
+    const upper = name.toUpperCase().trim();
+    if (upper === 'IF' || upper === 'شرط' || upper === 'إذا' || upper === 'اذا') {
       return this.visitLazyIF(args);
     }
 
-    if (!this.context.getFunction) {
-      throw new EvaluationError(`Function "${name}" called but no getFunction provided`);
-    }
-    const fn = this.context.getFunction(name);
+    const getFn = this.context.getFunction ?? ((fnName: string) => getDefaultFunctionRegistry().get(fnName));
+    const fn = getFn(name);
     if (!fn) {
       throw new EvaluationError(`Unknown function: ${name}`);
     }

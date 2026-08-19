@@ -1,1 +1,47 @@
-{"name":"libretext-editor-suite","private":true,"version":"0.0.0","type":"module","description":"مكتبة محررات نصية متعددة الصيغ مبنية على TypeScript بمعمارية كتلية - Multi-format text editor library built with TypeScript block-based architecture","author":"Hossam El-Din Abdel-Moaty El-Khouly","license":"MIT","scripts":{"dev":"pnpm --filter @libretext/playground dev","build":"turbo run build","build:core":"pnpm --filter @libretext/core build","preview":"pnpm --filter @libretext/playground preview","test":"vitest run","test:watch":"vitest","test:coverage":"vitest run --coverage","lint":"eslint . --ext .ts,.tsx","lint:fix":"eslint . --ext .ts,.tsx --fix","format":"prettier --write .","format:check":"prettier --check .","typecheck":"tsc --noEmit","clean":"turbo run clean \u0026\u0026 rm -rf node_modules","generate:file":"tsx scripts/generate-file.ts","generate:header":"tsx scripts/generate-header.ts","turbo":"turbo"},"devDependencies":{"@types/node":"^22.14.0","@typescript-eslint/eslint-plugin":"^8.0.0","@typescript-eslint/parser":"^8.0.0","esbuild":"^0.25.0","eslint":"^9.0.0","globals":"^15.0.0","prettier":"^3.3.0","tsconfig-paths":"^4.2.0","tsx":"^4.21.0","turbo":"^2.0.0","typescript":"~5.8.2","vite":"^6.2.3","vitest":"^3.0.0","@vitest/coverage-v8":"^3.0.0"},"engines":{"node":"\u003e\u003d18","pnpm":"\u003e\u003d8"}}
+{
+  "name": "libretext-editor-suite",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "مكتبة محررات نصية متعددة الصيغ مبنية على TypeScript بمعمارية كتلية - Multi-format text editor library built with TypeScript block-based architecture",
+  "author": "Hossam El-Din Abdel-Moaty El-Khouly",
+  "license": "MIT",
+  "scripts": {
+    "dev": "pnpm --filter @libretext/playground dev",
+    "build": "turbo run build",
+    "build:core": "pnpm --filter @libretext/core build",
+    "preview": "pnpm --filter @libretext/playground preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "eslint . --ext .ts,.tsx --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "tsc --noEmit",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "generate:file": "tsx scripts/generate-file.ts",
+    "generate:header": "tsx scripts/generate-header.ts",
+    "turbo": "turbo"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "esbuild": "^0.25.0",
+    "eslint": "^9.0.0",
+    "globals": "^15.0.0",
+    "prettier": "^3.3.0",
+    "tsconfig-paths": "^4.2.0",
+    "tsx": "^4.21.0",
+    "turbo": "^2.0.0",
+    "typescript": "~5.8.2",
+    "vite": "^6.2.3",
+    "vitest": "^3.0.0",
+    "@vitest/coverage-v8": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=18",
+    "pnpm": ">=8"
+  }
+}

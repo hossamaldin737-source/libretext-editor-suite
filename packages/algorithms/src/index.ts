@@ -26,6 +26,15 @@ export * from './formula/ast';
 export * from './formula/tokenizer';
 export * from './formula/parser';
 export * from './formula/functions';
+export {
+  CEILING, TRUNC, MEDIAN, MODE,
+  COUNTBLANK, COUNTIF, SUMIF,
+} from './formula/functions-math';
+export {
+  CLEAN, LEFT, RIGHT, MID, PROPER,
+  SUBSTITUTE, REPLACE, TEXTJOIN, EXACT, REPT, SEARCH, FIND,
+} from './formula/functions-text';
+export * from './formula/functions-arabic';
 export * from './formula/evaluator';
 export * from './formula/cell-utils';
 export * from './formula/registry';
@@ -33,6 +42,7 @@ export * from './formula/registry';
 // Spatial Translation Exports
 export * from './spatial/types';
 export * from './spatial/mapper';
+export * from './spatial/transformer';
 export {
   type SpatialOpValue,
   type MoveCommand,

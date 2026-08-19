@@ -174,7 +174,7 @@ export class FormulaParser {
     }
     if (token.type === 'boolean') {
       this.advance();
-      return { kind: 'boolean', value: token.value === 'TRUE' };
+      return { kind: 'boolean', value: token.value === 'TRUE' || token.value === 'صحيح' };
     }
     if (token.type === 'cell') {
       return this.parseCellOrRange();

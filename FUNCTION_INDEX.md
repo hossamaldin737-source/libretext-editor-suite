@@ -43,9 +43,9 @@
 # 📇 فهرس الدوال والخوارزميات الشامل
 # Comprehensive Function & Algorithm Index
 
-> **تاريخ آخر تحديث:** 2026-08-19
+> **تاريخ آخر تحديث:** 2026-08-19 (v3: Arabic + Text + Math functions synced)
 > **عدد الحزم:** 7 حزم
-> **إجمالي العناصر المفهرسة:** [يُحدَّث تلقائياً]
+> **إجمالي العناصر المفهرسة:** 139 عنصر (was 89)
 
 ---
 
@@ -123,27 +123,109 @@
 
 | # | المعرف | الاسم | النوع | الملف:سطر | الوصف | المعلمات | المُعاد | التبعيات |
 |---|--------|-------|-------|-----------|-------|----------|---------|----------|
-| 1/8 | ALGO-001 | `SpatialCommand` | Type | `types.ts:56` | أمر مكاني | `type, targetId, payload` | `SpatialCommand` | لا شيء |
-| 2/8 | ALGO-001 | `TextCommand` | Type | `types.ts:72` | أمر نصي | `type, targetId, payload` | `TextCommand` | لا شيء |
-| 3/8 | ALGO-001 | `FormulaCommand` | Type | `types.ts:85` | أمر صيغة | `type, targetId, payload` | `FormulaCommand` | لا شيء |
-| 4/8 | ALGO-002 | `CommandExecutor.execute()` | Method | `executor.ts:142` | تنفيذ أمر | `cmd: Command, state: FullEditorState` | `CommandResult` | `applyOperation` |
-| 5/8 | ALGO-002 | `CommandExecutor.undo()` | Method | `executor.ts:168` | التراجع عن أمر | `cmd: Command, state: FullEditorState` | `CommandResult` | `applyOperation` |
-| 6/8 | ALGO-002 | `CommandExecutor.undoMany()` | Method | `executor.ts:207` | التراجع عن عدة أوامر | `count: number, state: FullEditorState` | `CommandResult` | `undo` |
-| 7/8 | ALGO-002 | `executeCommand()` | Function | `executor.ts:240` | تنفيذ أمر ( stehenalone) | `cmd: Command, state: FullEditorState` | `CommandResult` | `CommandExecutor` |
-| 8/8 | ALGO-003 | `CommandRegistry.register()` | Method | `registry.ts:56` | تسجيل معالج | `type: string, handler` | `void` | لا شيء |
+| 1/12 | ALGO-001 | `SpatialCommand` | Type | `types.ts:56` | أمر مكاني | `type, targetId, payload` | `SpatialCommand` | لا شيء |
+| 2/12 | ALGO-001 | `TextCommand` | Type | `types.ts:72` | أمر نصي | `type, targetId, payload` | `TextCommand` | لا شيء |
+| 3/12 | ALGO-001 | `FormulaCommand` | Type | `types.ts:85` | أمر صيغة | `type, targetId, payload` | `FormulaCommand` | لا شيء |
+| 4/12 | ALGO-002 | `CommandExecutor.execute()` | Method | `executor.ts:142` | تنفيذ أمر | `cmd, state` | `CommandResult` | `applyOperation` |
+| 5/12 | ALGO-002 | `CommandExecutor.undo()` | Method | `executor.ts:168` | التراجع عن أمر | `cmd, state` | `CommandResult` | `applyOperation` |
+| 6/12 | ALGO-002 | `CommandExecutor.undoMany()` | Method | `executor.ts:207` | التراجع عن عدة أوامر | `count, state` | `CommandResult` | `undo` |
+| 7/12 | ALGO-002 | `executeCommand()` | Function | `executor.ts:240` | تنفيذ أمر | `cmd, state` | `CommandResult` | `CommandExecutor` |
+| 8/8 | ALGO-003 | `CommandRegistry.register()` | Method | `registry.ts:72` | تسجيل معالج مع canExecute/isEnabled | `type, handler, opts?` | `void` | لا شيء |
+| 9/12 | ALGO-003 | `CommandRegistry.get()` | Method | `registry.ts:100` | الحصول على معالج مسجل | `type` | `handler?` | لا شيء |
+| 10/12 | ALGO-003 | `CommandRegistry.canExecute()` | Method | `registry.ts:120` | فحص قابلية التنفيذ | `cmd, state` | `boolean` | `isEnabled` |
+| 11/12 | ALGO-003 | `CommandRegistry.isEnabled()` | Method | `registry.ts:136` | فحص تنشيط الأمر | `cmd, state` | `boolean` | لا شيء |
+| 12/12 | ALGO-003 | `CommandRegistry.on()` | Method | `registry.ts:160` | تسجيل مستمع لأحداث الأوامر | `listener` | `unsubscribe: () => void` | لا شيء |
 
 ### 📁 formula/ — محلل الصيغ
 
-| # | الم�عرف | الاسم | النوع | الملف:سطر | الوصف | المعلمات | المُعاد | التبعيات |
-|---|---------|-------|-------|-----------|-------|----------|---------|----------|
-| 1/8 | ALGO-010 | `tokenize()` | Function | `tokenizer.ts:202` | تحويل نص لرموز | `input: string` | `Token[]` | لا شيء |
-| 2/8 | ALGO-004 | `parseFormula()` | Function | `parser.ts` | تحليل صيغة لـ AST | `tokens: Token[]` | `FormulaAST` | `tokenize` |
-| 3/8 | ALGO-005 | `FormulaEvaluator.evaluate()` | Method | `evaluator.ts:82` | تقييم صيغة | `ast: FormulaAST` | `EvaluationResult` | `visit*` |
-| 4/8 | ALGO-006 | `SUM` | Function | `functions.ts` | مجموع | `args: number[]` | `number` | لا شيء |
-| 5/8 | ALGO-006 | `AVERAGE` | Function | `functions.ts` | متوسط | `args: number[]` | `number` | لا شيء |
-| 6/8 | ALGO-006 | `IF` | Function | `functions.ts` | شرطي | `condition, then, else` | `EvaluationResult` | لا شيء |
-| 7/8 | ALGO-011 | `columnToIndex()` | Function | `cell-utils.ts` | تحويل حرف لرقم | `col: string` | `number` | لا شيء |
-| 8/8 | ALGO-012 | `FunctionRegistry.register()` | Method | `registry.ts` | تسجيل دالة مخصصة | `name, handler` | `void` | لا شيء |
+| # | المعرف | الاسم | النوع | الملف:سطر | الوصف | المعلمات | المُعاد | التبعيات |
+|---|--------|-------|-------|-----------|-------|----------|---------|----------|
+| 1/27 | ALGO-010 | `tokenize()` | Function | `tokenizer.ts:202` | تحويل نص لرموز | `input: string` | `Token[]` | لا شيء |
+| 2/27 | ALGO-004 | `parseFormula()` | Function | `parser.ts` | تحليل صيغة لـ AST | `tokens: Token[]` | `FormulaAST` | `tokenize` |
+| 3/27 | ALGO-005 | `FormulaEvaluator.evaluate()` | Method | `evaluator.ts:82` | تقييم صيغة | `ast: FormulaAST` | `EvaluationResult` | `visit*` |
+| 4/27 | ALGO-006 | `FormulaError` | Class | `functions.ts:36` | خطأ صيغة بأكواد Excel | `code, message` | `FormulaError` | لا شيء |
+| 5/27 | ALGO-006 | `isFormulaError()` | Function | `functions.ts:44` | فحص خطأ صيغة | `val: unknown` | `boolean` | لا شيء |
+| 6/27 | ALGO-006 | `SUM` | Function | `functions.ts:130` | مجموع | `...args` | `number` | لا شيء |
+| 7/27 | ALGO-006 | `AVERAGE` | Function | `functions.ts:136` | متوسط | `...args` | `number` | لا شيء |
+| 8/27 | ALGO-006 | `COUNT` | Function | `functions.ts:144` | عدد القيم الرقمية | `...args` | `number` | لا شيء |
+| 9/27 | ALGO-006 | `COUNTA` | Function | `functions.ts:148` | عدد القيم غير الفارغة | `...args` | `number` | لا شيء |
+| 10/27 | ALGO-006 | `MIN` | Function | `functions.ts:153` | أدنى قيمة | `...args` | `number` | لا شيء |
+| 11/27 | ALGO-006 | `MAX` | Function | `functions.ts:160` | أعلى قيمة | `...args` | `number` | لا شيء |
+| 12/27 | ALGO-006 | `PRODUCT` | Function | `functions.ts:167` | جداء | `...args` | `number` | لا شيء |
+| 13/27 | ALGO-006 | `ABS` | Function | `functions.ts:173` | القيمة المطلقة | `value` | `number` | لا شيء |
+| 14/27 | ALGO-006 | `ROUND` | Function | `functions.ts:181` | تقريب آمن | `value, decimals?` | `number` | لا شيء |
+| 15/27 | ALGO-006 | `FLOOR` | Function | `functions.ts:188` | تقريب للأسفل | `value` | `number` | لا شيء |
+| 16/27 | ALGO-006 | `CEIL` | Function | `functions.ts:192` | تقريب للأعلى | `value` | `number` | لا شيء |
+| 17/27 | ALGO-006 | `SQRT` | Function | `functions.ts:196` | الجذر التربيعي | `value` | `number` | لا شيء |
+| 18/27 | ALGO-006 | `POWER` | Function | `functions.ts:202` | القوة | `base, exp` | `number` | لا شيء |
+| 19/27 | ALGO-006 | `MOD` | Function | `functions.ts:206` | باقي القسمة | `dividend, divisor` | `number` | لا شيء |
+| 20/27 | ALGO-006 | `IF` | Function | `functions.ts:213` | شرطي | `condition, trueVal, falseVal` | `T` | لا شيء |
+| 21/27 | ALGO-006 | `AND` | Function | `functions.ts:217` | ومنطقية | `...args` | `boolean` | لا شيء |
+| 22/27 | ALGO-006 | `OR` | Function | `functions.ts:221` | أو منطقية | `...args` | `boolean` | لا شيء |
+| 23/27 | ALGO-006 | `NOT` | Function | `functions.ts:225` | نفي منطقية | `value` | `boolean` | لا شيء |
+| 24/27 | ALGO-006 | `CONCAT` | Function | `functions.ts:231` | وصل نصوص | `...args` | `string` | لا شيء |
+| 25/27 | ALGO-006 | `CONCATENATE` | Function | `functions.ts:235` | وصل نصوص (بديل) | `...args` | `string` | لا شيء |
+| 26/27 | ALGO-006 | `LEN` | Function | `functions.ts:239` | طول النص | `value` | `number` | لا شيء |
+| 27/27 | ALGO-006 | `UPPER/LOWER/TRIM` | Function | `functions.ts:243-255` | تحويل حالة/قص | `value` | `string` | لا شيء |
+
+### 📁 formula/ — Arabic Functions (ALGO-013)
+
+| # | المعرف | الاسم | النوع | الملف:سطر | الوصف | المعلمات | المُعاد | التبعيات |
+|---|--------|-------|-------|-----------|-------|----------|---------|----------|
+| 1/8 | ALGO-013 | `TAFQEET` | Function | `functions-arabic.ts:141` | تفقيط مبالغ بأرقام عربية | `amount, currencyCode?, prefix?, suffix?` | `string` | `convertThreeDigits, formatScaleGroup` |
+| 2/8 | ALGO-013 | `STRIP_TASHKEEL` | Function | `functions-arabic.ts:202` | إزالة حركات التشكيل | `text` | `string` | لا شيء |
+| 3/8 | ALGO-013 | `NORMALIZE_ARABIC` | Function | `functions-arabic.ts:212` | توحيد أشكال الحروف العربية | `text, normalizeTaa?` | `string` | `STRIP_TASHKEEL` |
+| 4/8 | ALGO-013 | `TO_ARABIC_NUMERALS` | Function | `functions-arabic.ts:235` | تحويل لأرقام مشرقية | `input` | `string` | لا شيء |
+| 5/8 | ALGO-013 | `TO_WESTERN_NUMERALS` | Function | `functions-arabic.ts:243` | تحويل لأرقام لاتينية | `input` | `string` | لا شيء |
+| 6/8 | ALGO-013 | `ARABIC_LEN` | Function | `functions-arabic.ts:256` | طول النص مع تجاهل التشكيل | `text, ignoreTashkeel?` | `number` | `STRIP_TASHKEEL` |
+| 7/8 | ALGO-013 | `ARABIC_MATCH` | Function | `functions-arabic.ts:266` | مطابقة ذكية للنصوص العربية | `text, pattern, isPartial?` | `boolean` | `NORMALIZE_ARABIC` |
+| 8/8 | ALGO-013 | `CurrencyConfig` | Interface | `functions-arabic.ts:48` | إعدادات العملة | `primary, primaryDual?, secondary, decimals` | `CurrencyConfig` | لا شيء |
+
+### 📁 formula/ — Text Functions (ALGO-014)
+
+| # | المعرف | الاسم | النوع | الملف:سطر | الوصف | المعلمات | المُعاد | التبعيات |
+|---|--------|-------|-------|-----------|-------|----------|---------|----------|
+| 1/14 | ALGO-014 | `CLEAN` | Function | `functions-text.ts:76` | إزالة أحرف التحكم | `text` | `string` | لا شيء |
+| 2/14 | ALGO-014 | `LEFT` | Function | `functions-text.ts:81` | اقتطاع من اليسار | `text, numChars?` | `string` | لا شيء |
+| 3/14 | ALGO-014 | `RIGHT` | Function | `functions-text.ts:89` | اقتطاع من اليمين | `text, numChars?` | `string` | لا شيء |
+| 4/14 | ALGO-014 | `MID` | Function | `functions-text.ts:99` | اقتطاع من موضع محدد (1-based) | `text, startNum, numChars` | `string` | لا شيء |
+| 5/14 | ALGO-014 | `PROPER` | Function | `functions-text.ts:127` | تحويل لحالة العنوان | `text` | `string` | لا شيء |
+| 6/14 | ALGO-014 | `SUBSTITUTE` | Function | `functions-text.ts:132` | استبدال نص بنص جديد | `text, old, new, instanceNum?` | `string` | لا شيء |
+| 7/14 | ALGO-014 | `REPLACE` | Function | `functions-text.ts:158` | استبدال حسب الموضع والطول | `oldText, startNum, numChars, newText` | `string` | لا شيء |
+| 8/14 | ALGO-014 | `TEXTJOIN` | Function | `functions-text.ts:179` | دمج نصوص مع فاصل | `delimiter, ignoreEmpty, ...args` | `string` | لا شيء |
+| 9/14 | ALGO-014 | `EXACT` | Function | `functions-text.ts:188` | مقارنة مطابقة تامة | `text1, text2` | `boolean` | لا شيء |
+| 10/14 | ALGO-014 | `REPT` | Function | `functions-text.ts:193` | تكرار نص | `text, numberTimes` | `string` | لا شيء |
+| 11/14 | ALGO-014 | `SEARCH` | Function | `functions-text.ts:201` | بحث غير حساس للحالة (1-based) | `findText, withinText, startNum?` | `number` | لا شيء |
+| 12/14 | ALGO-014 | `FIND` | Function | `functions-text.ts:211` | بحث حساس للحالة (1-based) | `findText, withinText, startNum?` | `number` | لا شيء |
+| 13/14 | ALGO-014 | `TRIM` | Function | `functions-text.ts:70` | إزالة المسافات الزائدة | `text` | `string` | لا شيء |
+| 14/14 | ALGO-014 | `LEN/LOWER/UPPER` | Function | `functions-text.ts:112-124` | حسابطول/تحويل حالة | `text` | `string/number` | لا شيء |
+
+### 📁 formula/ — Math & Statistics Functions (ALGO-015)
+
+| # | المعرف | الاسم | النوع | الملف:سطر | الوصف | المعلمات | المُعاد | التبعيات |
+|---|--------|-------|-------|-----------|-------|----------|---------|----------|
+| 1/12 | ALGO-015 | `POWER` | Function | `functions-math.ts:74` | الرفع للقوة | `number, power` | `number` | لا شيء |
+| 2/12 | ALGO-015 | `SQRT` | Function | `functions-math.ts:82` | الجذر التربيعي | `number` | `number` | لا شيء |
+| 3/12 | ALGO-015 | `MOD` | Function | `functions-math.ts:90` | باقي القسمة | `number, divisor` | `number` | لا شيء |
+| 4/12 | ALGO-015 | `FLOOR` | Function | `functions-math.ts:99` | تقريب للأسفل مع significance | `number, significance?` | `number` | لا شيء |
+| 5/12 | ALGO-015 | `CEILING` | Function | `functions-math.ts:109` | تقريب للأعلى مع significance | `number, significance?` | `number` | لا شيء |
+| 6/12 | ALGO-015 | `TRUNC` | Function | `functions-math.ts:119` | بتر الأرقام العشرية | `number, numDigits?` | `number` | لا شيء |
+| 7/12 | ALGO-015 | `MEDIAN` | Function | `functions-math.ts:128` | الوسيط الحسابي | `...args` | `number` | لا شيء |
+| 8/12 | ALGO-015 | `MODE` | Function | `functions-math.ts:142` | القيمة الأكثر تكراراً | `...args` | `number` | لا شيء |
+| 9/12 | ALGO-015 | `COUNTA` | Function | `functions-math.ts:166` | عدد القيم غير الفارغة | `...args` | `number` | لا شيء |
+| 10/12 | ALGO-015 | `COUNTBLANK` | Function | `functions-math.ts:172` | عدد القيم الفارغة | `...args` | `number` | لا شيء |
+| 11/12 | ALGO-015 | `COUNTIF` | Function | `functions-math.ts:210` | عدد المطابقات الشرطية | `range, criteria` | `number` | `matchCriteria` |
+| 12/12 | ALGO-015 | `SUMIF` | Function | `functions-math.ts:216` | مجموع المطابقات الشرطية | `range, criteria, sumRange?` | `number` | `matchCriteria` |
+
+### 📁 formula/ — Registry with Arabic Aliases (ALGO-012)
+
+| # | المعرف | الاسم | النوع | الملف:سطر | الوصف | المعلمات | المُعاد | التبعيات |
+|---|--------|-------|-------|-----------|-------|----------|---------|----------|
+| 1/5 | ALGO-012 | `FunctionRegistry.register()` | Method | `registry.ts:47` | تسجيل دالة | `name, handler` | `void` | لا شيء |
+| 2/5 | ALGO-012 | `FunctionRegistry.registerOrReplace()` | Method | `registry.ts:56` | تسجيل/استبدال (آمن لـ HMR) | `name, handler` | `void` | لا شيء |
+| 3/5 | ALGO-012 | `FunctionRegistry.registerBuiltins()` | Method | `registry.ts:76` | تسجيل جميع الدوال + المرادفات العربية | — | `this` | لا شيء |
+| 4/5 | ALGO-012 | `getBuiltinFunction()` | Function | `registry.ts:212` | استرجاع دالة من السجل الافتراضي | `name` | `FunctionHandler?` | لا شيء |
+| 5/5 | ALGO-012 | `createFunctionRegistry()` | Function | `registry.ts:196` | إنشاء سجل جديد بالدوال المدمجة | — | `FunctionRegistry` | لا شيء |
 
 ### 📁 spatial/ — الترجمة المكانية
 
@@ -165,9 +247,31 @@
 | 14/19 | ALGO-009 | `createResizeCommand()` | Function | `commands.ts:117` | مصنع أمر التحجيم | `targetId, position, width, height` | `ResizeCommand` | `validatePositiveDimensions` |
 | 15/19 | ALGO-009 | `createSelectCommand()` | Function | `commands.ts:128` | مصنع أمر التحديد | `targetIds, addToSelection?` | `SelectCommand` | لا شيء |
 | 16/19 | ALGO-009 | `createDeleteCommand()` | Function | `commands.ts:141` | مصنع أمر الحذف | `targetIds` | `DeleteCommand` | لا شيء |
-| 17/19 | ALGO-009 | `createCreateCommand()` | Function | `commands.ts:148` | مصنع أمر الإنشاء | `position, content, width?, height?` | `CreateCommand` | `validatePositiveDimensions` |
+| 17/19 | ALGO-009 | `createCreateCommand()` | Function | `commands.ts:148` | مصنع أمر الإنشاء | `position, content, w?, h?` | `CreateCommand` | `validatePositiveDimensions` |
 | 18/19 | ALGO-009 | `computeMoveDelta()` | Function | `commands.ts:172` | حساب إزاحة التحريك | `from, to` | `MoveDelta` | `validateCoordinateTypesMatch` |
 | 19/19 | ALGO-009 | `toBoundingBox()` | Function | `commands.ts:195` | تحويل لـ BoundingBox | `cmd: ResizeCommand` | `BoundingBox` | `isLogicalCoordinate` |
+
+### 📁 spatial/ — Coordinate Transformer (ALGO-010)
+
+| # | المعرف | الاسم | النوع | الملف:سطر | الوصف | المعلمات | المُعاد | التبعيات |
+|---|--------|-------|-------|-----------|-------|----------|---------|----------|
+| 1/17 | ALGO-010 | `screenToDocument()` | Function | `transformer.ts:80` | تحويل شاشة لمستند | `screenX, screenY, offset, zoom` | `Point2D` | لا شيء |
+| 2/17 | ALGO-010 | `documentToScreen()` | Function | `transformer.ts:99` | تحويل مستند لشاشة | `docX, docY, offset, zoom` | `Point2D` | لا شيء |
+| 3/17 | ALGO-010 | `applyLinearTransform()` | Function | `transformer.ts:118` | تطبيق تحويل خطي 2D | `pt, matrix` | `Point2D` | لا شيء |
+| 4/17 | ALGO-010 | `translateMatrix()` | Function | `transformer.ts:130` | مصفوفة إزاحة | `tx, ty` | `TransformMatrix` | لا شيء |
+| 5/17 | ALGO-010 | `rotationMatrix()` | Function | `transformer.ts:135` | مصفوفة دوران | `angleRad` | `TransformMatrix` | لا شيء |
+| 6/17 | ALGO-010 | `rotationAroundPointMatrix()` | Function | `transformer.ts:144` | دوران حول نقطة | `angleRad, cx, cy` | `TransformMatrix` | لا شيء |
+| 7/17 | ALGO-010 | `snapToGrid()` | Function | `transformer.ts:166` | تقريب لخط شبكية | `value, step` | `number` | لا شيء |
+| 8/17 | ALGO-010 | `snapPointToGrid()` | Function | `transformer.ts:173` | تقريب نقطة للشبكة | `pt, snap` | `Point2D` | `snapToGrid` |
+| 9/17 | ALGO-010 | `rotatePoint()` | Function | `transformer.ts:183` | دوران نقطة حول مركز | `pt, angleRad, center` | `Point2D` | `rotationAroundPointMatrix` |
+| 10/17 | ALGO-010 | `getBoundingBox()` | Function | `transformer.ts:203` | حساب Bounding Box | `points` | `BBox` | لا شيء |
+| 11/17 | ALGO-010 | `getRotatedBoundingBox()` | Function | `transformer.ts:220` | BBox مع دوران | `corners, angleRad` | `BBox` | `rotatePoint, getBoundingBox` |
+| 12/17 | ALGO-010 | `getBBoxEdges()` | Function | `transformer.ts:235` | حافة BBox | `bbox` | `BBoxEdges` | لا شيء |
+| 13/17 | ALGO-010 | `getResizeHandles()` | Function | `transformer.ts:244` | 8 نقاط تحكم سحب | `bbox` | `ResizeHandle[]` | لا شيء |
+| 14/17 | ALGO-010 | `distance()` | Function | `transformer.ts:265` | المسافة بين نقطتين | `a, b` | `number` | لا شيء |
+| 15/17 | ALGO-010 | `createBBox()` | Function | `transformer.ts:270` | إنشاء BBox | `x, y, w, h` | `BBox` | لا شيء |
+| 16/17 | ALGO-010 | `radToDeg()` | Function | `transformer.ts:195` | راديان لدرجات | `rad` | `number` | لا شيء |
+| 17/17 | ALGO-010 | `degToRad()` | Function | `transformer.ts:200` | درجات لراديان | `deg` | `number` | لا شيء |
 
 ---
 
@@ -216,9 +320,9 @@ plugins (يعتمد على core)
   ↑
 adapters (يعتمد على core + algorithms)
   ↑
-storage (يعتمد على core + algorithms) [لم يبدأ بعد]
+storage (يعتمد على core + algorithms)
   ↑
-templates (يعتمد على storage) [لم يبدأ بعد]
+templates (يعتمد على storage)
 ```
 
 ---
