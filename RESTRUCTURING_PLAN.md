@@ -1,7 +1,8 @@
 # 📌 خطة إعادة الهيكلة الشاملة | Comprehensive Restructuring Plan
 
 > **تاريخ الإنشاء:** 2026-08-19
-> **الحالة:** مسودة معمارية
+> **آخر تحديث:** 2026-08-19
+> **الحالة:** معتمدة ✓
 > **المشروع:** LibreText Editor Suite
 
 ---
@@ -10,77 +11,128 @@
 
 | # | المشكلة | الحالة الحالية | المطلوب |
 |---|---------|---------------|---------|
-| 1 | **لا توجد طبقة منطق** | لا خوارزميات، لا صيغ، لا ماكرو | محرك حسابي كامل |
-| 2 | **لا توجد ذاكرة** | لا In-Memory، لا Persistence | IndexedDB + snapshots |
-| 3 | **لا توجد قوالب** | لا Template System | مكتبة قوالب متعددة |
-| 4 | **نطاقات مفقودة** | لا Office، لا DB | توسيع النطاق |
-| 5 | **بعض الملفات كبيرة** | types.ts (271 سطر) | تقسيم < 150 سطر/ملف |
+| 1 | **لا توجد طبقة منطق** | لا خوارزميات، لا صيغ، لا ماكرو | Command Pattern + Expression Evaluator |
+| 2 | **لا توجد ذاكرة** | لا In-Memory، لا Persistence | EditorState حي + LocalStorage + IndexedDB |
+| 3 | **لا توجد قوالب** | لا Template System | Template Registry متعددة الصيغ |
+| 4 | **نطاقات مفقودة** | لا Office، لا DB | Writer, Calc, Impress, Base |
+| 5 | **لا يوجد محرك مكاني** | لا Spatial Translation | Adapter → SpatialMapper → Core |
 
 ---
 
-## 🏗️ المعمارية الجديدة المقترحة
+## 🏗️ المعمارية الجديدة — قبول معماري معتمد
 
-### الشجرة الهيكلية المعتمدة (الجديدة + الموجودة)
+### 1. طبقة المنطق والدوال (Logic & Formula Engine)
+
+```
+Command Pattern → Expression Evaluator → Built-in Functions
+```
+
+- **Command Pattern:** كل عملية تحرير هي أمر نقي (SpatialCommand) يُنفذ على النواة
+- **Expression Evaluator:** محلل تعبيرات تنازلي (Recursive Descent) لدوال جداول البيانات
+- **Built-in Functions:** SUM, AVERAGE, IF, CONCAT, COUNT, MIN, MAX, ROUND, ABS
+
+### 2. محرك الترجمة المكانية (Spatial Translation Engine)
+
+```
+Adapter (mouse coords) → SpatialMapper (logical coords) → Core (pure commands)
+```
+
+- **Adapter:** تلتقط إحداثيات الماوس الخام (clientX, clientY)
+- **SpatialMapper:** يحولها إلى إحداثيات منطقية:
+  - `LogicalCoordinate`: إحداثيات ديكارتية (لـ Impress)
+  - `GridCoordinate`: إحداثيات شبكية (لـ Calc و Base)
+- **Core:** تستقبل أمر نقي (SpatialCommand) دون معرفة تفاصيل الأجهزة
+
+### 3. النطاقات المكتبية الأربعة (Full Office Suite)
+
+| النطاق | الوصف | الإحداثيات |
+|--------|-------|-----------|
+| **Writer** | نصوص ومستندات | Character/Paragraph Position |
+| **Calc** | جداول وحسابات | GridCoordinate (A1, B2) |
+| **Impress** | شائح وعروض | LogicalCoordinate (cm, inch) |
+| **Base** | سجلات وقواعد بيانات | GridCoordinate + Record ID |
+
+### 4. الذاكرة والقوالب (Storage & Templates)
+
+```
+EditorState (حي) → LocalStorage (مؤقت) → IndexedDB (دائم)
+         ↓
+Template Registry (قوالب جاهزة)
+```
+
+- **ذاكرة حية:** داخل `EditorState` (Immutable Snapshots)
+- **مخزن مؤقت:** `localStorage` (تفضيلات المستخدم)
+- **مخزن دائم:** `IndexedDB` (مستندات محفوظة)
+- **سجل القوالب:** `Template Registry` (قوالب متعددة الصيغ)
+
+### 5. قواعد الصيانة الصارمة
+
+| القاعدة | الحد |
+|---------|------|
+| حد أقصى سطر/ملف | **250 سطر** |
+| حد أقصى سطر/دالة | **50 سطر** |
+| الثيم | **الفاتح النقي حصراً** |
+| التفاعل | **الماوس فقط + قوائم سياقية** |
+
+---
+
+## 🌳 الشجرة الهيكلية الجديدة
 
 ```
 packages/
-├── core/                          # [CORE] النواة المجردة (موجود - محفوظ)
+├── core/                          # [CORE] النواة المجردة (موجود - محفوظ 100%)
 │   ├── src/
-│   │   ├── ast/                   # CORE-001..003 (موجود - محفوظ)
-│   │   ├── state/                 # CORE-004..006 (موجود - محفوظ)
-│   │   ├── indexer/               # CORE-007..008 (موجود - محفوظ)
-│   │   └── utils/                 # CORE-009..010 (موجود - محفوظ)
+│   │   ├── ast/                   # CORE-001..003
+│   │   ├── state/                 # CORE-004..006
+│   │   ├── indexer/               # CORE-007..008
+│   │   └── utils/                 # CORE-009..010
 │
-├── algorithms/                    # [ALGO] طبقة الخوارزميات والمنطق (جديد)
+├── algorithms/                    # [ALGO] طبقة المنطق والدوال (جديد)
 │   ├── src/
-│   │   ├── formula/               # ALGO-001..003 محلل الصيغ
-│   │   │   ├── parser.ts          # محلل تنازلي (Recursive Descent)
+│   │   ├── command/               # ALGO-001..003 Command Pattern
+│   │   │   ├── types.ts           # أنواع الأوامر
+│   │   │   ├── executor.ts        # منفذ الأوامر
+│   │   │   └── registry.ts        # سجل الأوامر
+│   │   ├── formula/               # ALGO-004..006 Expression Evaluator
+│   │   │   ├── parser.ts          # محلل تنازلي (PEMDAS)
 │   │   │   ├── evaluator.ts       # مُقيّم التعابير
-│   │   │   └── functions.ts       # دوال مدمجة (SUM, AVG, IF, etc.)
-│   │   ├── text/                  # ALGO-004..006 خوارزميات النص
-│   │   │   ├── diff.ts            # خوارزمية المقارنة (Diff)
-│   │   │   ├── search.ts          # بحث متقدم (Regex, Fuzzy)
-│   │   │   └── sort.ts            # ترتيب متعدد المعايير
-│   │   ├── math/                  # ALGO-007..009 رياضيات
-│   │   │   ├── statistics.ts      # إحصائيات (Mean, Median, StdDev)
-│   │   │   ├── units.ts           # تحويل الوحدات
-│   │   │   └── date.ts            # حسابات التاريخ والوقت
+│   │   │   └── functions.ts       # دوال مدمجة
+│   │   ├── spatial/               # ALGO-007..009 Spatial Translation
+│   │   │   ├── types.ts           # أنواع الإحداثيات
+│   │   │   ├── mapper.ts          # المترجم المكاني
+│   │   │   └── commands.ts        # أوامر مكانية
 │   │   └── index.ts               # Barrel Export
 │
 ├── storage/                       # [STORE] طبقة التخزين (جديد)
 │   ├── src/
 │   │   ├── memory.ts              # STORE-001 In-Memory Store
-│   │   ├── indexeddb.ts           # STORE-002 IndexedDB Adapter
-│   │   ├── localStorage.ts        # STORE-003 localStorage Adapter
+│   │   ├── localStorage.ts        # STORE-002 localStorage Adapter
+│   │   ├── indexeddb.ts           # STORE-003 IndexedDB Adapter
 │   │   ├── snapshots.ts           # STORE-004 Undo/Redo Snapshots
 │   │   └── index.ts               # Barrel Export
 │
 ├── templates/                     # [TPL] نظام القوالب (جديد)
 │   ├── src/
 │   │   ├── registry.ts            # TPL-001 Template Registry
-│   │   ├── markdown/              # TPL-002 قوالب Markdown
-│   │   ├── html/                  # TPL-003 قوالب HTML
-│   │   ├── pdf/                   # TPL-004 قوالب PDF
-│   │   ├── latex/                 # TPL-005 قوالب LaTeX
-│   │   ├── office/                # TPL-006 قوالب Office
+│   │   ├── writer/                # TPL-002 قوالب Writer
+│   │   ├── calc/                  # TPL-003 قوالب Calc
+│   │   ├── impress/               # TPL-004 قوالب Impress
+│   │   ├── base/                  # TPL-005 قوالب Base
 │   │   └── index.ts               # Barrel Export
 │
-├── serializers/                   # [SER] المحولات (موجود - محفوظ)
-│   ├── src/
-│   │   ├── basic/                 # SER-001..003 (موجود - محفوظ)
-│   │   └── advanced/              # SER-004..005 (موجود - محفوظ)
+├── serializers/                   # [SER] المحولات (موجود - محفوظ 100%)
+│   ├── src/basic/                 # SER-001..003
+│   └── src/advanced/              # SER-004..005
 │
-├── plugins/                       # [PLUG] الإضافات (موجود - محفوظ)
-│   ├── src/
-│   │   ├── mermaid/               # PLUG-001 (موجود - محفوظ)
-│   │   └── math/                  # PLUG-002 (موجود - محفوظ)
+├── plugins/                       # [PLUG] الإضافات (موجود - محفوظ 100%)
+│   ├── src/mermaid/               # PLUG-001
+│   └── src/math/                  # PLUG-002
 │
-├── adapters/                      # [ADAP] طبقات التكيف (موجود - محفوظ)
-│   ├── src/
-│   │   ├── react/                 # ADAP-001 (موجود - محفوظ)
-│   │   ├── vue/                   # ADAP-002 (موجود - محفوظ)
-│   │   ├── web-component/         # ADAP-003 (موجود - محفوظ)
-│   │   └── vanilla/               # ADAP-004 (موجود - محفوظ)
+├── adapters/                      # [ADAP] طبقات التكيف (موجود - محفوظ 100%)
+│   ├── src/react/                 # ADAP-001
+│   ├── src/vue/                   # ADAP-002
+│   ├── src/web-component/         # ADAP-003
+│   └── src/vanilla/               # ADAP-004
 │
 └── docs/                          # [DOC] التوثيق (موجود - محفوظ)
 ```
@@ -89,68 +141,69 @@ packages/
 
 ## 📋 المراحل الجديدة
 
-### المرحلة A: طبقة الخوارزميات (ALGO) — الأولوية القصوى
+### المرحلة A: طبقة المنطق والدوال (ALGO) — الأولوية القصوى
 
 | المعرف | المكون | الوصف | سطر/ملف |
 |--------|--------|-------|---------|
-| ALGO-001 | `formula/parser.ts` | محلل تنازلي للصيغ (PEMDAS) | < 150 |
-| ALGO-002 | `formula/evaluator.ts` | مُقيّم التعابير الحسابية | < 150 |
-| ALGO-003 | `formula/functions.ts` | دوال مدمجة (SUM, AVG, IF, CONCAT) | < 150 |
-| ALGO-004 | `text/diff.ts` | خوارزمية المقارنة (Myers/LCS) | < 150 |
-| ALGO-005 | `text/search.ts` | بحث متقدم (Regex, Fuzzy) | < 150 |
-| ALGO-006 | `text/sort.ts` | ترتيب متعدد المعايير | < 150 |
-| ALGO-007 | `math/statistics.ts` | إحصائيات وصفية | < 150 |
-| ALGO-008 | `math/units.ts` | تحويل الوحدات | < 150 |
-| ALGO-009 | `math/date.ts` | حسابات التاريخ | < 150 |
+| ALGO-001 | `command/types.ts` | أنواع الأوامر (SpatialCommand, TextCommand) | ≤ 250 |
+| ALGO-002 | `command/executor.ts` | منفذ الأوامر (Command Executor) | ≤ 250 |
+| ALGO-003 | `command/registry.ts` | سجل الأوامر (Command Registry) | ≤ 250 |
+| ALGO-004 | `formula/parser.ts` | محلل تنازلي للصيغ (PEMDAS) | ≤ 250 |
+| ALGO-005 | `formula/evaluator.ts` | مُقيّم التعابير الحسابية | ≤ 250 |
+| ALGO-006 | `formula/functions.ts` | دوال مدمجة (SUM, AVG, IF) | ≤ 250 |
+| ALGO-007 | `spatial/types.ts` | أنواع الإحداثيات المكانية | ≤ 250 |
+| ALGO-008 | `spatial/mapper.ts` | المترجم المكاني (SpatialMapper) | ≤ 250 |
+| ALGO-009 | `spatial/commands.ts` | أوامر مكانية (SpatialCommand) | ≤ 250 |
 
 ### المرحلة B: طبقة التخزين (STORE)
 
 | المعرف | المكون | الوصف | سطر/ملف |
 |--------|--------|-------|---------|
-| STORE-001 | `memory.ts` | In-Memory Store مع CRUD | < 150 |
-| STORE-002 | `indexeddb.ts` | IndexedDB Adapter | < 150 |
-| STORE-003 | `localStorage.ts` | localStorage Adapter | < 150 |
-| STORE-004 | `snapshots.ts` | Undo/Redo Snapshots | < 150 |
+| STORE-001 | `memory.ts` | In-Memory Store مع CRUD | ≤ 250 |
+| STORE-002 | `localStorage.ts` | localStorage Adapter | ≤ 250 |
+| STORE-003 | `indexeddb.ts` | IndexedDB Adapter | ≤ 250 |
+| STORE-004 | `snapshots.ts` | Undo/Redo Snapshots | ≤ 250 |
 
 ### المرحلة C: نظام القوالب (TPL)
 
 | المعرف | المكون | الوصف | سطر/ملف |
 |--------|--------|-------|---------|
-| TPL-001 | `registry.ts` | Template Registry | < 150 |
-| TPL-002 | `markdown/` | قوالب Markdown (أكاديمي، تقني، مدونة) | < 150 |
-| TPL-003 | `html/` | قوالب HTML (صفحة، نموذج، بطاقة) | < 150 |
-| TPL-004 | `pdf/` | قوالب PDF (شهادة، تقرير، سيرة ذاتية) | < 150 |
-| TPL-005 | `latex/` | قوالب LaTeX (ورقة بحثية، كتاب) | < 150 |
-| TPL-006 | `office/` | قوالب Office (Word, Excel, PPT) | < 150 |
+| TPL-001 | `registry.ts` | Template Registry | ≤ 250 |
+| TPL-002 | `writer/` | قوالب Writer (خطاب، تقرير، مقال) | ≤ 250 |
+| TPL-003 | `calc/` | قوالب Calc (ميزانية، تتبع، إحصاء) | ≤ 250 |
+| TPL-004 | `impress/` | قوالب Impress (عرض تقديمي، سلايد) | ≤ 250 |
+| TPL-005 | `base/` | قوالب Base (سجل، فهرس، استعلام) | ≤ 250 |
 
-### المرحلة D: نطاقات إضافية (POST-PONE)
+### المرحلة D: نطاقات مكتبية (OFFICE)
 
 | النطاق | الوصف |
 |--------|-------|
-| Office Format Support | قراءة/كتابة Word, Excel, PPT |
-| Database Connector | ربط مع SQLite, JSON DB |
-| Collaboration Engine | تعاون لحظي |
-| Version Control | نظام إصدارات |
+| Writer | معالج كلمات كامل (Format, Style, Table, Image) |
+| Calc | جداول حسابية (Formula, Chart, Pivot) |
+| Impress | عروض تقديمية (Slide, Theme, Animation) |
+| Base | قواعد بيانات (Table, Query, Form, Report) |
 
 ---
 
-## 📏 قيود الصيانة
+## 📊 الإحصائيات المتوقعة
 
-1. **حد أقصى 150 سطر لكل ملف** — تقسيم الملفات الكبيرة
-2. **لا اعتماديات خارجية في Core/Algorithms** — Zero-Dependency
-3. **كل خوارزمية لها بطاقة في Algorithms Registry** — التوثيق الإلزامي
-4. **كل قالب له معرف فريد** — التسجيل في Template Registry
-5. **كل تخزين له واجهة موحّدة** — StorageAdapter Interface
+| البند | الحالي | بعد إعادة الهيكلة |
+|-------|--------|-------------------|
+| عدد الحزم | 5 | 8 |
+| عدد الملفات | 36 | ~55 |
+| إجمالي الأسطر | 3,903 | ~7,500 |
+| حد أقصى سطر/ملف | 271 | ≤ 250 |
+| حد أقصى سطر/دالة | غير محدد | ≤ 50 |
+| عدد الاختبارات | 120 | ~200+ |
 
 ---
 
 ## 🔄 خارطة الطريق التنفيذية
 
 ```
-المرحلة A (الخوارزميات) → المرحلة B (التخزين) → المرحلة C (القوالب) → المرحلة D (النطاقات)
-         ↓                        ↓                        ↓                        ↓
-    27 ملف جديد              4 ملفات جديدة           6 مجلدات جديدة         تخطيط لاحق
-    < 4,050 سطر             < 600 سطر               < 900 سطر
+المرحلة A (ALGO) → المرحلة B (STORE) → المرحلة C (TPL) → المرحلة D (OFFICE)
+    9 ملفات            4 ملفات           5 مجلدات          4 نطاقات
+   ≤ 2,250 سطر        ≤ 1,000 سطر       ≤ 1,250 سطر       تخطيط لاحق
 ```
 
 ---
@@ -162,15 +215,5 @@ packages/
 3. **اختبارات لكل خوارزمية** — تغطية >= 95%
 4. **توثيق كل معادلة** — في Algorithms Registry
 5. **فصل التبعيات** — لا دورة بين الحزم
-
----
-
-## 📊 الإحصائيات المتوقعة بعد إعادة الهيكلة
-
-| البند | الحالي | بعد إعادة الهيكلة |
-|-------|--------|-------------------|
-| عدد الحزم | 5 | 8 |
-| عدد الملفات | 36 | ~73 |
-| إجمالي الأسطر | 3,903 | ~9,453 |
-| حد أقصى سطر/ملف | 271 | ≤ 150 |
-| عدد الاختبارات | 120 | ~250+ |
+6. **حد 250 سطر/ملف** — تقسيم أي ملف يتجاوز الحد
+7. **حد 50 سطر/دالة** — تقسيم أي دالة تتجاوز الحد

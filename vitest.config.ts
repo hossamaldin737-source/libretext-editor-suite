@@ -6,6 +6,12 @@ export default defineConfig({
     alias: {
       '@libretext/core': path.resolve(__dirname, 'packages/core/src'),
       '@libretext/core/*': path.resolve(__dirname, 'packages/core/src/*'),
+      '@libretext/algorithms': path.resolve(__dirname, 'packages/algorithms/src'),
+      '@libretext/algorithms/*': path.resolve(__dirname, 'packages/algorithms/src/*'),
+      '@libretext/storage': path.resolve(__dirname, 'packages/storage/src'),
+      '@libretext/storage/*': path.resolve(__dirname, 'packages/storage/src/*'),
+      '@libretext/templates': path.resolve(__dirname, 'packages/templates/src'),
+      '@libretext/templates/*': path.resolve(__dirname, 'packages/templates/src/*'),
     },
   },
   test: {
@@ -17,7 +23,7 @@ export default defineConfig({
           name: 'node',
           globals: true,
           environment: 'node',
-          include: ['packages/{core,serializers,plugins}/tests/**/*.test.ts'],
+          include: ['packages/{core,algorithms,storage,templates,serializers,plugins}/tests/**/*.test.ts'],
         },
       },
       {

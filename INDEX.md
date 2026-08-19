@@ -29,6 +29,9 @@
 |----------------|---------------|-------------|---------------------|
 | `INFRA-*` | البنية التحتية | ملفات الإعداد، الأدوات، السكربتات | Configuration files, tools, scripts |
 | `CORE-*` | النواة | AST، State، Operations، Indexer | AST, State, Operations, Indexer |
+| `ALGO-*` | الخوارزميات | Command Pattern، Expression Evaluator، Spatial | Algorithms, Formulas, Spatial |
+| `STORE-*` | التخزين | In-Memory، localStorage، IndexedDB | Memory, localStorage, IndexedDB |
+| `TPL-*` | القوالب | Template Registry، قوالب النطاقات | Template Registry, Domain Templates |
 | `SER-*` | المحولات | Markdown، HTML، PDF، LaTeX، إلخ | Markdown, HTML, PDF, LaTeX, etc. |
 | `PLUG-*` | الإضافات | Plugin API، الإضافات الرسمية | Plugin API, Official plugins |
 | `ADAP-*` | طبقات التكيف | React، Vue، Web Components | React, Vue, Web Components |
@@ -87,6 +90,54 @@ libretext-editor-suite/
 │   │   └── 📁 tests/                            # [TEST-CORE] اختبارات النواة / Core tests
 │   │       ├── [TEST-CORE-001] ast/types.test.ts          # اختبارات AST / AST tests
 │   │       └── [TEST-CORE-002] state/editor-state.test.ts # اختبارات الحالة / State tests
+│   │
+│   ├── 📁 algorithms/                          # [ALGO] طبقة المنطق والخوارزميات / Logic & Algorithm Layer
+│   │   ├── package.json
+│   │   │
+│   │   ├── 📁 src/
+│   │   │   ├── [ALGO-010] index.ts              # Barrel Export
+│   │   │   │
+│   │   │   ├── 📁 command/                      # [ALGO-001..003] Command Pattern
+│   │   │   │   ├── [ALGO-001] types.ts          # أنواع الأوامر / Command types
+│   │   │   │   ├── [ALGO-002] executor.ts       # منفذ الأوامر / Command executor
+│   │   │   │   └── [ALGO-003] registry.ts       # سجل الأوامر / Command registry
+│   │   │   │
+│   │   │   ├── 📁 formula/                      # [ALGO-004..006] Expression Evaluator
+│   │   │   │   ├── [ALGO-004] parser.ts         # محلل تنازلي / Recursive descent parser
+│   │   │   │   ├── [ALGO-005] evaluator.ts      # مُقيّم التعابير / Expression evaluator
+│   │   │   │   └── [ALGO-006] functions.ts      # دوال مدمجة / Built-in functions
+│   │   │   │
+│   │   │   └── 📁 spatial/                      # [ALGO-007..009] Spatial Translation Engine
+│   │   │       ├── [ALGO-007] types.ts          # أنواع الإحداثيات / Coordinate types
+│   │   │       ├── [ALGO-008] mapper.ts         # المترجم المكاني / Spatial mapper
+│   │   │       └── [ALGO-009] commands.ts       # أوامر مكانية / Spatial commands
+│   │   │
+│   │   └── 📁 tests/                            # [TEST-ALGO] اختبارات الخوارزميات / Algorithm tests
+│   │
+│   ├── 📁 storage/                              # [STORE] طبقة التخزين / Storage Layer
+│   │   ├── package.json
+│   │   │
+│   │   ├── 📁 src/
+│   │   │   ├── [STORE-005] index.ts             # Barrel Export
+│   │   │   ├── [STORE-001] memory.ts            # In-Memory Store
+│   │   │   ├── [STORE-002] localStorage.ts      # localStorage Adapter
+│   │   │   ├── [STORE-003] indexeddb.ts         # IndexedDB Adapter
+│   │   │   └── [STORE-004] snapshots.ts         # Undo/Redo Snapshots
+│   │   │
+│   │   └── 📁 tests/                            # [TEST-STORE] اختبارات التخزين / Storage tests
+│   │
+│   ├── 📁 templates/                            # [TPL] نظام القوالب / Template System
+│   │   ├── package.json
+│   │   │
+│   │   ├── 📁 src/
+│   │   │   ├── [TPL-006] index.ts               # Barrel Export
+│   │   │   ├── [TPL-001] registry.ts            # Template Registry
+│   │   │   ├── 📁 writer/                       # [TPL-002] قوالب Writer
+│   │   │   ├── 📁 calc/                         # [TPL-003] قوالب Calc
+│   │   │   ├── 📁 impress/                      # [TPL-004] قوالب Impress
+│   │   │   └── 📁 base/                         # [TPL-005] قوالب Base
+│   │   │
+│   │   └── 📁 tests/                            # [TEST-TPL] اختبارات القوالب / Template tests
 │   │
 │   ├── 📁 serializers/                          # [SER] المحولات / Serializers
 │   │   ├── 📁 markdown/                         # [SER-001] محول Markdown / Markdown serializer
@@ -169,58 +220,92 @@ libretext-editor-suite/
 |-----------|-------------|-------------|---------------------|---------------|
 | `INFRA-001` | `/package.json` | الحزمة الجذرية | Root package.json | تم |
 | `INFRA-002` | `/tsconfig.base.json` | إعدادات TypeScript الأساسية | Base TypeScript config | تم |
-| `INFRA-003` | `/scripts/generate-file.ts` | سكربت توليد الملفات | File generator script | لم يبدأ |
-| `INFRA-004` | `/scripts/generate-header.ts` | سكربت توليد الترويسة | Header generator script | لم يبدأ |
-| `INFRA-004` | `/scripts/README.md` | دليل استخدام السكربت | Scripts usage guide | لم يبدأ |
-| `INFRA-005` | `packages/core/package.json` | إعدادات حزمة النواة | Core package config | لم يبدأ |
+| `INFRA-003` | `/scripts/generate-file.ts` | سكربت توليد الملفات | File generator script | تم |
+| `INFRA-004` | `/scripts/generate-header.ts` | سكربت توليد الترويسة | Header generator script | تم |
+| `INFRA-005` | `packages/core/package.json` | إعدادات حزمة النواة | Core package config | تم |
 | `INFRA-006` | `/pnpm-workspace.yaml` | إعدادات pnpm Workspace | pnpm workspace config | تم |
 | `INFRA-007-01` | `/.github/workflows/ci.yml` | سير عمل التحقق | CI workflow | لم يبدأ |
 | `INFRA-007-02` | `/.github/workflows/release.yml` | سير عمل الإصدار | Release workflow | لم يبدأ |
-| `INFRA-007-03` | `/.github/ISSUE_TEMPLATE/` | قوالب Issues | Issue templates | لم يبدأ |
 | `INFRA-008-01` | `/.opencode/opencode.jsonc` | إعدادات OpenCode | OpenCode config | لم يبدأ |
-| `INFRA-012` | `packages/core/vite.config.ts` | إعدادات Vite | Vite build config | لم يبدأ |
+| `INFRA-012` | `packages/core/vite.config.ts` | إعدادات Vite | Vite build config | تم |
 
 ### النواة - Core
 
 | المعرف ID | المسار Path | الوصف Arabic | Description English | الحالة Status |
 |-----------|-------------|-------------|---------------------|---------------|
-| `CORE-001` | `packages/core/src/ast/types.ts` | تعريفات الأنواع | Type definitions | لم يبدأ |
-| `CORE-002` | `packages/core/src/ast/schema.ts` | مخطط AST | AST schema | لم يبدأ |
-| `CORE-003` | `packages/core/src/ast/builder.ts` | بناء الكتل | Block builder | لم يبدأ |
-| `CORE-004` | `packages/core/src/state/editor-state.ts` | حالة المحرر | Editor state | لم يبدأ |
-| `CORE-005` | `packages/core/src/state/operations.ts` | عمليات التحرير | Edit operations | لم يبدأ |
-| `CORE-006` | `packages/core/src/state/history.ts` | التراجع والإعادة | Undo/Redo history | لم يبدأ |
-| `CORE-007` | `packages/core/src/indexer/indexer.ts` | الفهرسة | Indexer | لم يبدأ |
-| `CORE-008` | `packages/core/src/indexer/search.ts` | واجهة البحث | Search interface | لم يبدأ |
-| `CORE-009` | `packages/core/src/utils/id.ts` | توليد المعرفات | ID generation | لم يبدأ |
-| `CORE-010` | `packages/core/src/utils/validation.ts` | التحقق من الصحة | Validation | لم يبدأ |
-| `CORE-011` | `packages/core/src/index.ts` | التصدير العام | Public exports | لم يبدأ |
+| `CORE-001` | `packages/core/src/ast/types.ts` | تعريفات الأنواع | Type definitions | تم |
+| `CORE-002` | `packages/core/src/ast/schema.ts` | مخطط AST | AST schema | تم |
+| `CORE-003` | `packages/core/src/ast/builder.ts` | بناء الكتل | Block builder | تم |
+| `CORE-004` | `packages/core/src/state/editor-state.ts` | حالة المحرر | Editor state | تم |
+| `CORE-005` | `packages/core/src/state/operations.ts` | عمليات التحرير | Edit operations | تم |
+| `CORE-006` | `packages/core/src/state/history.ts` | التراجع والإعادة | Undo/Redo history | تم |
+| `CORE-007` | `packages/core/src/indexer/indexer.ts` | الفهرسة | Indexer | تم |
+| `CORE-008` | `packages/core/src/indexer/search.ts` | واجهة البحث | Search interface | تم |
+| `CORE-009` | `packages/core/src/utils/id.ts` | توليد المعرفات | ID generation | تم |
+| `CORE-010` | `packages/core/src/utils/validation.ts` | التحقق من الصحة | Validation | تم |
+| `CORE-011` | `packages/core/src/index.ts` | التصدير العام | Public exports | تم |
+
+### الخوارزميات - Algorithms (ALGO)
+
+| المعرف ID | المسار Path | الوصف Arabic | Description English | الحالة Status |
+|-----------|-------------|-------------|---------------------|---------------|
+| `ALGO-001` | `packages/algorithms/src/command/types.ts` | أنواع الأوامر | Command types | لم يبدأ |
+| `ALGO-002` | `packages/algorithms/src/command/executor.ts` | منفذ الأوامر | Command executor | لم يبدأ |
+| `ALGO-003` | `packages/algorithms/src/command/registry.ts` | سجل الأوامر | Command registry | لم يبدأ |
+| `ALGO-004` | `packages/algorithms/src/formula/parser.ts` | محلل تنازلي للصيغ | Expression parser | لم يبدأ |
+| `ALGO-005` | `packages/algorithms/src/formula/evaluator.ts` | مُقيّم التعابير | Expression evaluator | لم يبدأ |
+| `ALGO-006` | `packages/algorithms/src/formula/functions.ts` | دوال مدمجة | Built-in functions | لم يبدأ |
+| `ALGO-007` | `packages/algorithms/src/spatial/types.ts` | أنواع الإحداثيات المكانية | Spatial coordinate types | لم يبدأ |
+| `ALGO-008` | `packages/algorithms/src/spatial/mapper.ts` | المترجم المكاني | Spatial mapper | لم يبدأ |
+| `ALGO-009` | `packages/algorithms/src/spatial/commands.ts` | أوامر مكانية | Spatial commands | لم يبدأ |
+| `ALGO-010` | `packages/algorithms/src/index.ts` | Barrel Export | Public exports | لم يبدأ |
+
+### التخزين - Storage (STORE)
+
+| المعرف ID | المسار Path | الوصف Arabic | Description English | الحالة Status |
+|-----------|-------------|-------------|---------------------|---------------|
+| `STORE-001` | `packages/storage/src/memory.ts` | In-Memory Store | In-memory store | لم يبدأ |
+| `STORE-002` | `packages/storage/src/localStorage.ts` | localStorage Adapter | localStorage adapter | لم يبدأ |
+| `STORE-003` | `packages/storage/src/indexeddb.ts` | IndexedDB Adapter | IndexedDB adapter | لم يبدأ |
+| `STORE-004` | `packages/storage/src/snapshots.ts` | Undo/Redo Snapshots | Undo/redo snapshots | لم يبدأ |
+| `STORE-005` | `packages/storage/src/index.ts` | Barrel Export | Public exports | لم يبدأ |
+
+### القوالب - Templates (TPL)
+
+| المعرف ID | المسار Path | الوصف Arabic | Description English | الحالة Status |
+|-----------|-------------|-------------|---------------------|---------------|
+| `TPL-001` | `packages/templates/src/registry.ts` | Template Registry | Template registry | لم يبدأ |
+| `TPL-002` | `packages/templates/src/writer/` | قوالب Writer | Writer templates | لم يبدأ |
+| `TPL-003` | `packages/templates/src/calc/` | قوالب Calc | Calc templates | لم يبدأ |
+| `TPL-004` | `packages/templates/src/impress/` | قوالب Impress | Impress templates | لم يبدأ |
+| `TPL-005` | `packages/templates/src/base/` | قوالب Base | Base templates | لم يبدأ |
+| `TPL-006` | `packages/templates/src/index.ts` | Barrel Export | Public exports | لم يبدأ |
 
 ### المحولات - Serializers
 
 | المعرف ID | المسار Path | الوصف Arabic | Description English | الحالة Status |
 |-----------|-------------|-------------|---------------------|---------------|
-| `SER-001` | `packages/serializers/markdown/` | محول Markdown | Markdown serializer | لم يبدأ |
-| `SER-002` | `packages/serializers/html/` | محول HTML | HTML serializer | لم يبدأ |
-| `SER-003` | `packages/serializers/txt/` | محول TXT | TXT serializer | لم يبدأ |
-| `SER-004` | `packages/serializers/pdf/` | محول PDF | PDF serializer | لم يبدأ |
-| `SER-005` | `packages/serializers/latex/` | محول LaTeX | LaTeX serializer | لم يبدأ |
+| `SER-001` | `packages/serializers/markdown/` | محول Markdown | Markdown serializer | تم |
+| `SER-002` | `packages/serializers/html/` | محول HTML | HTML serializer | تم |
+| `SER-003` | `packages/serializers/txt/` | محول TXT | TXT serializer | تم |
+| `SER-004` | `packages/serializers/pdf/` | محول PDF | PDF serializer | تم |
+| `SER-005` | `packages/serializers/latex/` | محول LaTeX | LaTeX serializer | تم |
 
 ### طبقات التكيف - Adapters
 
 | المعرف ID | المسار Path | الوصف Arabic | Description English | الحالة Status |
 |-----------|-------------|-------------|---------------------|---------------|
-| `ADAP-001` | `packages/adapters/react/` | React Adapter | React adapter | لم يبدأ |
-| `ADAP-002` | `packages/adapters/vue/` | Vue Adapter | Vue adapter | لم يبدأ |
-| `ADAP-003` | `packages/adapters/web-component/` | Web Component | Web Component adapter | لم يبدأ |
-| `ADAP-004` | `packages/adapters/vanilla/` | Vanilla JS | Vanilla JS adapter | لم يبدأ |
+| `ADAP-001` | `packages/adapters/react/` | React Adapter | React adapter | تم |
+| `ADAP-002` | `packages/adapters/vue/` | Vue Adapter | Vue adapter | تم |
+| `ADAP-003` | `packages/adapters/web-component/` | Web Component | Web Component adapter | تم |
+| `ADAP-004` | `packages/adapters/vanilla/` | Vanilla JS | Vanilla JS adapter | تم |
 
 ### الإضافات - Plugins
 
 | المعرف ID | المسار Path | الوصف Arabic | Description English | الحالة Status |
 |-----------|-------------|-------------|---------------------|---------------|
-| `PLUG-001` | `packages/plugins/mermaid/` | رسوم بيانية | Diagram plugin | لم يبدأ |
-| `PLUG-002` | `packages/plugins/math/` | معادلات LaTeX | Math/LaTeX plugin | لم يبدأ |
+| `PLUG-001` | `packages/plugins/mermaid/` | رسوم بيانية | Diagram plugin | تم |
+| `PLUG-002` | `packages/plugins/math/` | معادلات LaTeX | Math/LaTeX plugin | تم |
 
 ### الملعب التجريبي - Playground
 
@@ -244,139 +329,16 @@ libretext-editor-suite/
 | `DOC-ADMIN-07` | `/API Registry.md` | سجل الـ APIs والخوارزميات | API & algorithms registry | تم |
 | `DOC-ADMIN-08` | `/SystemInventory.json` | جرد النظام | System inventory | تم |
 | `DOC-GUIDE-01` | `/CONTRIBUTING.md` | دليل المساهمة | Contribution guide | تم |
-| `DOC-GUIDE-002` | `docs/guides/getting-started.md` | دليل البدء السريع | Getting started guide | لم يبدأ |
-| `DOC-GUIDE-003` | `docs/guides/architecture.md` | دليل المعمارية | Architecture guide | لم يبدأ |
-| `DOC-GUIDE-004` | `docs/guides/plugin-development.md` | دليل تطوير الإضافات | Plugin development guide | لم يبدأ |
-| `DOC-API-001` | `docs/api/api-reference.md` | وثائق API | API reference | لم يبدأ |
-| `DOC-EX-001` | `docs/examples/basic-usage.md` | مثال أساسي | Basic usage example | لم يبدأ |
-| `DOC-EX-002` | `docs/examples/advanced-usage.md` | مثال متقدم | Advanced usage example | لم يبدأ |
 
 ### الاختبارات - Tests
 
 | المعرف ID | المسار Path | الوصف Arabic | Description English | الحالة Status |
 |-----------|-------------|-------------|---------------------|---------------|
-| `TEST-CORE-001` | `packages/core/tests/ast/types.test.ts` | اختبارات AST | AST tests | لم يبدأ |
-| `TEST-CORE-002` | `packages/core/tests/state/editor-state.test.ts` | اختبارات الحالة | State tests | لم يبدأ |
+| `TEST-CORE-001` | `packages/core/tests/ast/types.test.ts` | اختبارات AST | AST tests | تم |
+| `TEST-CORE-002` | `packages/core/tests/state/editor-state.test.ts` | اختبارات الحالة | State tests | تم |
 
 ### التراخيص - Legal
 
 | المعرف ID | المسار Path | الوصف Arabic | Description English | الحالة Status |
 |-----------|-------------|-------------|---------------------|---------------|
 | `LEGAL-001` | `/LICENSE` | ترخيص MIT | MIT License | تم |
-
----
-
-## البروميت الإلزامي للعميل التنفيذي
-## Mandatory Prompt for Executive Agent
-
-> **ملاحظة:** يجب على أي عميل تنفيذي (AI Agent) يعمل على هذا الالتزام بتطبيق الترويسة التالية على **كل ملف** في المشروع.
-
-> **Note:** Any executive agent (AI Agent) working on this project **MUST** apply the following header to **every file**.
-
----
-
-### بروميت فهرسة الملفات بالعربية
-### File Indexing Prompt (Arabic)
-
-```markdown
-# بروميت العميل التنفيذي: فهرسة الملفات
-
-أنت عميل تنفيذي (AI Agent) متخصص في تنظيم وإدارة مشاريع البرمجيات.
-مهمتك هي إضافة ترويسة (Header) باللغة العربية إلى أعلى كل ملف في المشروع،
-وفق المعايير التالية:
-
-## الترويسة القياسية (يجب إضافتها في بداية كل ملف)
-
-/**
- * ============================================================
- * 📄 الملف: [اسم الملف]
- * 📂 المسار: [المسار الكامل للملف]
- * 🎯 الهدف الرئيسي: [وصف دقيق لما يفعله هذا الملف]
- * 📋 المعايير: [معايير القبول الخاصة بهذا الملف]
- * 🧪 الاختبارات: [الاختبارات المرتبطة بهذا الملف]
- * 🏷️ المعرف: [معرف فريد للملف حسب فهرسة المشروع]
- * 📅 تاريخ الإنشاء: [YYYY-MM-DD]
- * 👤 المالك: [Hossam El-Din Abdel-Moaty El-Khouly - All rights reserved]
- * ⚖️ الترخيص: MIT License
- * 📚 المصادر المقتبسة: [المصادر المفتوحة التي استفدت منها]
- * ============================================================
- */
-
-## التعليمات الإلزامية:
-
-1. اقرأ محتوى كل ملف لفهم وظيفته بدقة.
-2. اكتب الترويسة بالعربية الفصحى مع محتوى مفيد.
-3. حدد المعرف الفريد لكل ملف وفق فهرسة المشروع أعلاه.
-4. اذكر المصادر المفتوحة التي استفدت منها بدقة.
-5. اكتب اسم المالك (اسمك الكامل) وبيان الترخيص (MIT).
-6. إذا كان الملف يحتوي على اختبارات، اذكرها في حقل 🧪 الاختبارات.
-7. لا تغير محتوى الملف الأصلي، فقط أضف الترويسة في الأعلى.
-
-## قائمة الملفات المستهدفة (حسب الأولوية):
-
-### المرحلة 0: البنية التحتية (INFRA)
-1. /package.json [INFRA-001]
-2. /tsconfig.base.json [INFRA-002]
-3. /scripts/generate-file.ts [INFRA-003]
-4. /scripts/README.md [INFRA-004]
-5. packages/core/package.json [INFRA-005]
-6. /pnpm-workspace.yaml [INFRA-006]
-
-### المرحلة 1: النواة (CORE)
-7. packages/core/src/ast/types.ts [CORE-001]
-8. packages/core/src/ast/schema.ts [CORE-002]
-9. packages/core/src/ast/builder.ts [CORE-003]
-10. packages/core/src/state/editor-state.ts [CORE-004]
-11. packages/core/src/state/operations.ts [CORE-005]
-12. packages/core/src/state/history.ts [CORE-006]
-13. packages/core/src/indexer/indexer.ts [CORE-007]
-14. packages/core/src/indexer/search.ts [CORE-008]
-15. packages/core/src/utils/id.ts [CORE-009]
-16. packages/core/src/utils/validation.ts [CORE-010]
-17. packages/core/src/index.ts [CORE-011]
-18. packages/core/vite.config.ts [INFRA-012]
-
-### الاختبارات
-19. packages/core/tests/ast/types.test.ts [TEST-CORE-001]
-20. packages/core/tests/state/editor-state.test.ts [TEST-CORE-002]
-
-### ملفات الإدارة
-21. PLAN.md [DOC-ADMIN-01]
-22. JOURNAL.md [DOC-ADMIN-02]
-23. INDEX.md [DOC-ADMIN-03]
-24. LICENSE [LEGAL-001]
-25. CONTRIBUTING.md [DOC-GUIDE-01]
-```
-
----
-
-## مثال تطبيقي للترويسة
-## Header Application Example
-
-```typescript
-/**
- * ============================================================
- * 📄 الملف: editor-state.ts
- * 📂 المسار: packages/core/src/state/editor-state.ts
- * 🎯 الهدف الرئيسي: إدارة حالة المستند في المحرر، وتوفير واجهة
- *    للتعامل مع الكتل (Blocks) والفهرسة (Indexer) بطريقة غير
- *    قابلة للتغيير (Immutable).
- * 📋 المعايير:
- *    - يجب أن تكون الحالة غير قابلة للتغيير (Immutable).
- *    - يجب أن تعمل في بيئة Node.js والمتصفح.
- *    - يجب أن تُعيد حالة جديدة عند كل تطبيق لعملية.
- * 🧪 الاختبارات:
- *    - packages/core/tests/state/editor-state.test.ts
- *    - اختبار إنشاء حالة فارغة
- *    - اختبار تطبيق العمليات
- *    - اختبار الفهرسة التلقائية
- * 🏷️ المعرف: CORE-004
- * 📅 تاريخ الإنشاء: 2026-08-19
- * 👤 المالك: Hossam El-Din Abdel-Moaty El-Khouly - All rights reserved
- * ⚖️ الترخيص: MIT License
- * 📚 المصادر المقتبسة:
- *    - ProseMirror (https://prosemirror.net/) - الإلهام لنظام الحالة.
- *    - Quill.js (https://quilljs.com/) - الإلهام لنظام العمليات.
- * ============================================================
- */
-```

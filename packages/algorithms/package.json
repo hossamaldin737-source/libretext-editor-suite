@@ -1,0 +1,34 @@
+{
+  "name": "@libretext/algorithms",
+  "version": "0.0.0",
+  "type": "module",
+  "description": "طبقة المنطق والخوارزميات - Command Pattern, Expression Evaluator, Spatial Translation Engine",
+  "author": "Hossam El-Din Abdel-Moaty El-Khouly",
+  "license": "MIT",
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite build --watch",
+    "clean": "rm -rf dist",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@libretext/core": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "~5.8.2",
+    "vite": "^6.2.3",
+    "vite-plugin-dts": "^4.0.0",
+    "vitest": "^3.0.0"
+  }
+}

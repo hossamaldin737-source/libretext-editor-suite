@@ -88,7 +88,7 @@
 
 ### 2. 📂 نظام المعرفات (ID System)
 - كل ملف يجب أن يكون له **معرف فريد** وفق فهرسة المشروع في `INDEX.md`.
-- البادئات: `INFRA-*`, `CORE-*`, `SER-*`, `PLUG-*`, `ADAP-*`, `PLAY-*`, `DOC-*`, `SEC-*`, `TEST-*`, `LEGAL-*`.
+- البادئات: `INFRA-*`, `CORE-*`, `ALGO-*`, `STORE-*`, `TPL-*`, `SER-*`, `PLUG-*`, `ADAP-*`, `PLAY-*`, `DOC-*`, `SEC-*`, `TEST-*`, `LEGAL-*`.
 - يجب تحديث `INDEX.md` عند إضافة أي ملف جديد.
 
 ### 3. 📜 توثيق المصادر المفتوحة (Open Source Attribution)
@@ -105,6 +105,40 @@
 - النواة (`@libretext/core`) يجب أن تكون **بصفر اعتماديات خارجية**.
 - كل حزمة يجب أن تُصدَّر بشكل مستقل.
 - لا import بين الحزم إلا عبر الاعتماديات الرسمية.
+
+### 5.1 📏 حدود الكود الصارمة (Code Size Limits) — غير قابلة للتفاوض
+- 🚫 **ممنوع** تجاوز **250 سطر** في أي ملف واحد.
+- 🚫 **ممنوع** تجاوز **50 سطر** في أي دالة واحدة.
+- ✅ **إلزامي:** تقسيم أي ملف يتجاوز 250 سطر إلى ملفات فرعية.
+- ✅ **إلزامي:** تقسيم أي دالة تتجاوز 50 سطر إلى دوال مساعدة.
+- **الاستثناء:** ملفات التوثيق (.md) والاختبارات (.test.ts) ليست خاضعة لهذا الحد.
+
+### 5.2 🧠 طبقة المنطق والخوارزميات (Logic & Algorithm Layer)
+- حزمة `@libretext/algorithms` مسؤولة عن: Command Pattern + Expression Evaluator + Built-in Functions.
+- **Command Pattern:** كل عملية تحرير هي أمر نقي (SpatialCommand) يُنفذ على النواة.
+- **Expression Evaluator:** محلل تعبيرات تنازلي (Recursive Descent) لدوال جداول البيانات.
+- **Built-in Functions:** SUM, AVERAGE, IF, CONCAT, COUNT, MIN, MAX, ROUND, ABS.
+
+### 5.3 🌐 محرك الترجمة المكانية (Spatial Translation Engine)
+- **Adapter** تلتقط إحداثيات الماوس الخام (clientX, clientY).
+- **SpatialMapper** يحولها إلى إحداثيات منطقية:
+  - `LogicalCoordinate`: إحداثيات ديكارتية (لـ Impress)
+  - `GridCoordinate`: إحداثيات شبكية (لـ Calc و Base)
+- **Core** تستقبل أمر نقي (SpatialCommand) دون معرفة تفاصيل الأجهزة.
+
+### 5.4 🏢 النطاقات المكتبية الأربعة (Office Domains)
+| النطاق | الوصف | الإحداثيات |
+|--------|-------|-----------|
+| **Writer** | نصوص ومستندات | Character/Paragraph Position |
+| **Calc** | جداول وحسابات | GridCoordinate (A1, B2) |
+| **Impress** | شائح وعروض | LogicalCoordinate (cm, inch) |
+| **Base** | سجلات وقواعد بيانات | GridCoordinate + Record ID |
+
+### 5.5 💾 الذاكرة والقوالب (Storage & Templates)
+- **ذاكرة حية:** داخل `EditorState` (Immutable Snapshots).
+- **مخزن مؤقت:** `localStorage` (تفضيلات المستخدم).
+- **مخزن دائم:** `IndexedDB` (مستندات محفوظة).
+- **سجل القوالب:** `Template Registry` (قوالب متعددة الصيغ).
 
 ### 6. 🧪 الاختبارات (Testing)
 - يجب كتابة اختبارات لكل وظيفة جديدة.
@@ -191,17 +225,20 @@
 
 | المعرف | المرحلة | الحالة |
 |---------|---------|--------|
-| PHASE-00 | بيئة التطوير | لم تبدأ |
-| PHASE-01 | النواة Core | لم تبدأ |
-| PHASE-02 | المحولات الأساسية | لم تبدأ |
-| PHASE-03 | المحولات المتقدمة | لم تبدأ |
-| PHASE-04 | نظام الإضافات | لم تبدأ |
-| PHASE-05 | طبقات التكيف | لم تبدأ |
-| PHASE-06 | الملعب التجريبي | لم تبدأ |
-| PHASE-07 | التوثيق الشامل | لم تبدأ |
-| PHASE-08 | الأمان والتدقيق | لم تبدأ |
-| PHASE-09 | الاختبارات الشاملة | لم تبدأ |
-| PHASE-10 | النشر والتوزيع | لم تبدأ |
+| PHASE-00 | بيئة التطوير | تم ✓ |
+| PHASE-01 | النواة Core | تم ✓ |
+| PHASE-02 | المحولات الأساسية | تم ✓ |
+| PHASE-03 | المحولات المتقدمة | تم ✓ |
+| PHASE-04 | نظام الإضافات | تم ✓ |
+| PHASE-05 | طبقات التكيف | تم ✓ |
+| PHASE-06 | طبقة المنطق والخوارزميات | لم تبدأ |
+| PHASE-07 | طبقة التخزين | لم تبدأ |
+| PHASE-08 | نظام القوالب | لم تبدأ |
+| PHASE-09 | الملعب التجريبي | لم تبدأ |
+| PHASE-10 | التوثيق الشامل | لم تبدأ |
+| PHASE-11 | الأمان والتدقيق | لم تبدأ |
+| PHASE-12 | الاختبارات الشاملة | لم تبدأ |
+| PHASE-13 | النشر والتوزيع | لم تبدأ |
 
 ---
 
@@ -219,6 +256,36 @@ libretext-editor-suite/
 │   │   │   └── 📁 utils/           # [CORE-009..010] دوال مساعدة
 │   │   ├── 📁 tests/               # [TEST-CORE] اختبارات النواة
 │   │   └── 📄 package.json         # [INFRA-005]
+│   │
+│   ├── 📁 algorithms/              # [ALGO] طبقة المنطق والخوارزميات
+│   │   ├── 📁 src/
+│   │   │   ├── 📁 command/         # [ALGO-001..003] Command Pattern
+│   │   │   ├── 📁 formula/         # [ALGO-004..006] Expression Evaluator
+│   │   │   ├── 📁 spatial/         # [ALGO-007..009] Spatial Translation
+│   │   │   └── 📄 index.ts         # Barrel Export
+│   │   ├── 📁 tests/               # [TEST-ALGO] اختبارات الخوارزميات
+│   │   └── 📄 package.json
+│   │
+│   ├── 📁 storage/                 # [STORE] طبقة التخزين
+│   │   ├── 📁 src/
+│   │   │   ├── 📄 memory.ts        # [STORE-001] In-Memory Store
+│   │   │   ├── 📄 localStorage.ts  # [STORE-002] localStorage Adapter
+│   │   │   ├── 📄 indexeddb.ts     # [STORE-003] IndexedDB Adapter
+│   │   │   ├── 📄 snapshots.ts     # [STORE-004] Undo/Redo Snapshots
+│   │   │   └── 📄 index.ts         # Barrel Export
+│   │   ├── 📁 tests/               # [TEST-STORE] اختبارات التخزين
+│   │   └── 📄 package.json
+│   │
+│   ├── 📁 templates/               # [TPL] نظام القوالب
+│   │   ├── 📁 src/
+│   │   │   ├── 📄 registry.ts      # [TPL-001] Template Registry
+│   │   │   ├── 📁 writer/          # [TPL-002] قوالب Writer
+│   │   │   ├── 📁 calc/            # [TPL-003] قوالب Calc
+│   │   │   ├── 📁 impress/         # [TPL-004] قوالب Impress
+│   │   │   ├── 📁 base/            # [TPL-005] قوالب Base
+│   │   │   └── 📄 index.ts         # Barrel Export
+│   │   ├── 📁 tests/               # [TEST-TPL] اختبارات القوالب
+│   │   └── 📄 package.json
 │   │
 │   ├── 📁 serializers/             # [SER] المحولات
 │   │   ├── 📁 markdown/            # [SER-001]
@@ -272,6 +339,9 @@ libretext-editor-suite/
 | الحزمة | المستهلك | الوظيفة |
 |--------|---------|---------|
 | `@libretext/core` | جميع الحزم الأخرى | النواة المجردة (AST, State, Operations, Indexer) |
+| `@libretext/algorithms` | core, storage, templates | Command Pattern, Expression Evaluator, Spatial Translation |
+| `@libretext/storage` | core, algorithms | In-Memory, localStorage, IndexedDB, Snapshots |
+| `@libretext/templates` | storage, adapters | Template Registry (Writer, Calc, Impress, Base) |
 | `@libretext/serializers-basic` | playground, adapters | Markdown, HTML, TXT serializers |
 | `@libretext/serializers-advanced` | playground, adapters | PDF, LaTeX serializers |
 | `@libretext/plugins` | playground, adapters | Mermaid, Math plugins |

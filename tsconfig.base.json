@@ -25,6 +25,12 @@
     "paths": {
       "@libretext/core": ["./packages/core/src"],
       "@libretext/core/*": ["./packages/core/src/*"],
+      "@libretext/algorithms": ["./packages/algorithms/src"],
+      "@libretext/algorithms/*": ["./packages/algorithms/src/*"],
+      "@libretext/storage": ["./packages/storage/src"],
+      "@libretext/storage/*": ["./packages/storage/src/*"],
+      "@libretext/templates": ["./packages/templates/src"],
+      "@libretext/templates/*": ["./packages/templates/src/*"],
       "@libretext/serializers-basic": ["./packages/serializers/src/basic"],
       "@libretext/serializers-advanced": ["./packages/serializers/src/advanced"],
       "@libretext/adapters": ["./packages/adapters/src"],

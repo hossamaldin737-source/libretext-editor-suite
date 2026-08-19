@@ -73,6 +73,25 @@ importers:
         specifier: ^3.0.0
         version: 3.2.7(@types/node@22.20.1)(jsdom@25.0.1)(tsx@4.23.12)
 
+  packages/algorithms:
+    dependencies:
+      '@libretext/core':
+        specifier: workspace:*
+        version: link:../core
+    devDependencies:
+      typescript:
+        specifier: ~5.8.2
+        version: 5.8.3
+      vite:
+        specifier: ^6.2.3
+        version: 6.4.3(@types/node@22.20.1)(tsx@4.23.12)
+      vite-plugin-dts:
+        specifier: ^4.0.0
+        version: 4.5.4(@types/node@22.20.1)(rollup@4.62.4)(typescript@5.8.3)(vite@6.4.3(@types/node@22.20.1)(tsx@4.23.12))
+      vitest:
+        specifier: ^3.0.0
+        version: 3.2.7(@types/node@22.20.1)(jsdom@25.0.1)(tsx@4.23.12)
+
   packages/core:
     devDependencies:
       typescript:
@@ -108,6 +127,44 @@ importers:
         version: 3.2.7(@types/node@22.20.1)(jsdom@25.0.1)(tsx@4.23.12)
 
   packages/serializers:
+    dependencies:
+      '@libretext/core':
+        specifier: workspace:*
+        version: link:../core
+    devDependencies:
+      typescript:
+        specifier: ~5.8.2
+        version: 5.8.3
+      vite:
+        specifier: ^6.2.3
+        version: 6.4.3(@types/node@22.20.1)(tsx@4.23.12)
+      vite-plugin-dts:
+        specifier: ^4.0.0
+        version: 4.5.4(@types/node@22.20.1)(rollup@4.62.4)(typescript@5.8.3)(vite@6.4.3(@types/node@22.20.1)(tsx@4.23.12))
+      vitest:
+        specifier: ^3.0.0
+        version: 3.2.7(@types/node@22.20.1)(jsdom@25.0.1)(tsx@4.23.12)
+
+  packages/storage:
+    dependencies:
+      '@libretext/core':
+        specifier: workspace:*
+        version: link:../core
+    devDependencies:
+      typescript:
+        specifier: ~5.8.2
+        version: 5.8.3
+      vite:
+        specifier: ^6.2.3
+        version: 6.4.3(@types/node@22.20.1)(tsx@4.23.12)
+      vite-plugin-dts:
+        specifier: ^4.0.0
+        version: 4.5.4(@types/node@22.20.1)(rollup@4.62.4)(typescript@5.8.3)(vite@6.4.3(@types/node@22.20.1)(tsx@4.23.12))
+      vitest:
+        specifier: ^3.0.0
+        version: 3.2.7(@types/node@22.20.1)(jsdom@25.0.1)(tsx@4.23.12)
+
+  packages/templates:
     dependencies:
       '@libretext/core':
         specifier: workspace:*

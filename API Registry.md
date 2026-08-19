@@ -4,23 +4,13 @@
  * ═══════════════════════════════════════════════════════════════════════════
  * 📄 الملف: API Registry.md
  * 📂 المسار: API Registry.md
- * 🎯 الهدف الرئيسي: سجل شامل لجميع الـ APIs والخوارزميات في المشروع
- *    مع معلماتها والقيم المُعادة وأمثلة الاستخدام.
- * 📋 المعايير:
- *    - يجب تحديث هذا الملف عند إضافة أي API جديد.
- *    - يجب تسجيل: الاسم، المعرف، المعلمات، القيمة المُعادة، أمثلة.
- * 🧪 الاختبارات: لا توجد اختبارات (ملف إداري).
+ * 🎯 الهدف الرئيسي: سجل شامل لجميع الـ APIs والخوارزميات
+ * 📋 المعايير: تحديث عند إضافة أي API جديد
+ * 🧪 الاختبارات: لا توجد (ملف إداري)
  * 🏷️ المعرف: DOC-ADMIN-07
  * 📅 تاريخ الإنشاء: 2026-08-19
- * 🧠 الطريقة المبتكرة | Innovative Pattern:
- *    API-First Design + Type-Safe Contracts
- * ⚠️ نقاط الخطر الإلزامية | Mandatory Gotchas:
- *    1. عدم تسجيل API قبل كتابة اختبارات له.
- *    2. التأكد من وثائق JSDoc كاملة لكل API.
  * 👤 المالك: Hossam El-Din Abdel-Moaty El-Khouly - All rights reserved
  * ⚖️ الترخيص: MIT License
- * 📚 المصادر المقتبسة:
- *    - webpainter-next Algorithms and Math Registry.md - النمط الأساسي.
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
@@ -30,11 +20,15 @@
 ---
 
 ## فهرس APIs العامة
-## General API Index
 
 | البادئة Prefix | المجال Domain | الوصف Arabic | Description English |
 |----------------|---------------|-------------|---------------------|
 | `CORE-API-*` | APIs النواة | create, apply, undo, redo | Core APIs |
+| `ALGO-CMD-*` | APIs الأوامر | execute, undo, register | Command APIs |
+| `ALGO-FRM-*` | APIs الصيغ | parse, evaluate, functions | Formula APIs |
+| `ALGO-SPR-*` | APIs المكانية | translate, map, grid | Spatial APIs |
+| `STORE-API-*` | APIs التخزين | memory, localStorage, IndexedDB | Storage APIs |
+| `TPL-API-*` | APIs القوالب | register, get, apply | Template APIs |
 | `SER-API-*` | APIs المحولات | serialize, deserialize | Serializer APIs |
 | `PLUG-API-*` | APIs الإضافات | register, unregister | Plugin APIs |
 | `ADAP-API-*` | APIs طبقات التكيف | useEditor, Provider | Adapter APIs |
@@ -42,114 +36,144 @@
 
 ---
 
-## 1. Core APIs — APIs النواة
-## packages/core/src/
+## 1. Core APIs
 
-### 1.1 Editor State APIs
-
-| المعرف ID | الاسم Name | الوصف Arabic | المعلمات Params | القيمة المُعادة Returns | الحالة Status |
-|-----------|-----------|-------------|----------------|------------------------|---------------|
-| `CORE-API-001` | `createEditorState` | إنشاء حالة محرر جديدة | `doc?: DocNode, options?: StateOptions` | `EditorState` | لم يبدأ |
-| `CORE-API-002` | `applyOperation` | تطبيق عملية على الحالة | `state: EditorState, op: Operation` | `EditorState` | لم يبدأ |
-| `CORE-API-003` | `getDocument` | استخراج المستند من الحالة | `state: EditorState` | `DocNode` | لم يبدأ |
-| `CORE-API-004` | `getStateSnapshot` | أخذ لقطة للحالة | `state: EditorState` | `StateSnapshot` | لم يبدأ |
-
-### 1.2 History APIs
-
-| المعرف ID | الاسم Name | الوصف Arabic | المعلمات Params | القيمة المُعادة Returns | الحالة Status |
-|-----------|-----------|-------------|----------------|------------------------|---------------|
-| `CORE-API-005` | `undo` | التراجع عن آخر عملية | `state: EditorState` | `EditorState` | لم يبدأ |
-| `CORE-API-006` | `redo` | إعادة العملية المحذوفة | `state: EditorState` | `EditorState` | لم يبدأ |
-| `CORE-API-007` | `canUndo` | التحقق من إمكانية التراجع | `state: EditorState` | `boolean` | لم يبدأ |
-| `CORE-API-008` | `canRedo` | التحقق من إمكانية الإعادة | `state: EditorState` | `boolean` | لم يبدأ |
-
-### 1.3 Indexer APIs
-
-| المعرف ID | الاسم Name | الوصف Arabic | المعلمات Params | القيمة المُعادة Returns | الحالة Status |
-|-----------|-----------|-------------|----------------|------------------------|---------------|
-| `CORE-API-009` | `createIndexer` | إنشاء فهرس جديد | `doc: DocNode` | `Indexer` | لم يبدأ |
-| `CORE-API-010` | `search` | بحث في المستند | `indexer: Indexer, query: string` | `SearchResult[]` | لم يبدأ |
-| `CORE-API-011` | `getNodeById` | البحث عن عقدة بالمعرف | `indexer: Indexer, id: string` | `NodeInfo \| null` | لم يبدأ |
-| `CORE-API-012` | `getNodesByType` | البحث عن عقد حسب النوع | `indexer: Indexer, type: string` | `NodeInfo[]` | لم يبدأ |
+| المعرف ID | الاسم Name | المعلمات Params | القيمة المُعادة Returns | الحالة |
+|-----------|-----------|----------------|------------------------|--------|
+| `CORE-API-001` | `createEditorState` | `doc?: DocNode` | `EditorState` | تم |
+| `CORE-API-002` | `applyOperation` | `state, op` | `EditorState` | تم |
+| `CORE-API-003` | `getDocument` | `state` | `DocNode` | تم |
+| `CORE-API-004` | `undo` | `state` | `EditorState` | تم |
+| `CORE-API-005` | `redo` | `state` | `EditorState` | تم |
+| `CORE-API-006` | `canUndo` | `state` | `boolean` | تم |
+| `CORE-API-007` | `canRedo` | `state` | `boolean` | تم |
+| `CORE-API-008` | `createIndexer` | `doc` | `Indexer` | تم |
+| `CORE-API-009` | `search` | `indexer, query` | `SearchResult[]` | تم |
 
 ---
 
-## 2. Serializer APIs — APIs المحولات
-## packages/serializers/
+## 2. Command APIs
 
-| المعرف ID | الحزمة Package | الاسم Name | الوصف Arabic | المعلمات Params | القيمة المُعادة Returns | الحالة Status |
-|-----------|---------------|-----------|-------------|----------------|------------------------|---------------|
-| `SER-API-001` | `serializers-basic` | `MarkdownSerializer.serialize` | تحويل إلى Markdown | `doc: DocNode` | `string` | لم يبدأ |
-| `SER-API-002` | `serializers-basic` | `MarkdownSerializer.parse` | تحليل Markdown | `md: string` | `DocNode` | لم يبدأ |
-| `SER-API-003` | `serializers-basic` | `HtmlSerializer.serialize` | تحويل إلى HTML | `doc: DocNode, options?: HtmlOptions` | `string` | لم يبدأ |
-| `SER-API-004` | `serializers-basic` | `HtmlSerializer.parse` | تحليل HTML | `html: string` | `DocNode` | لم يبدأ |
-| `SER-API-005` | `serializers-basic` | `TxtSerializer.serialize` | تحويل إلى نص عادي | `doc: DocNode` | `string` | لم يبدأ |
-| `SER-API-006` | `serializers-advanced` | `PdfSerializer.serialize` | تحويل إلى PDF | `doc: DocNode, options?: PdfOptions` | `Uint8Array` | لم يبدأ |
-| `SER-API-007` | `serializers-advanced` | `LatexSerializer.serialize` | تحويل إلى LaTeX | `doc: DocNode` | `string` | لم يبدأ |
+| المعرف ID | الاسم Name | المعلمات Params | القيمة المُعادة Returns | الحالة |
+|-----------|-----------|----------------|------------------------|--------|
+| `ALGO-CMD-001` | `createSpatialCommand` | `type, targetId, payload` | `SpatialCommand` | لم يبدأ |
+| `ALGO-CMD-002` | `executeCommand` | `cmd, state` | `EditorState` | لم يبدأ |
+| `ALGO-CMD-003` | `undoCommand` | `cmd, state` | `EditorState` | لم يبدأ |
+| `ALGO-CMD-004` | `registerCommand` | `type, handler` | `void` | لم يبدأ |
 
 ---
 
-## 3. Plugin APIs — APIs الإضافات
-## packages/plugins/
+## 3. Formula APIs
 
-| المعرف ID | الحزمة Package | الاسم Name | الوصف Arabic | المعلمات Params | القيمة المُعادة Returns | الحالة Status |
-|-----------|---------------|-----------|-------------|----------------|------------------------|---------------|
-| `PLUG-API-001` | `plugins` | `createPlugin` | إنشاء إضافة جديدة | `config: PluginConfig` | `Plugin` | لم يبدأ |
-| `PLUG-API-002` | `plugins` | `registerPlugin` | تسجيل إضافة | `state: EditorState, plugin: Plugin` | `EditorState` | لم يبدأ |
-| `PLUG-API-003` | `plugins` | `unregisterPlugin` | إلغاء تسجيل إضافة | `state: EditorState, pluginId: string` | `EditorState` | لم يبدأ |
-| `PLUG-API-004` | `plugins` | `getPlugin` | جلب إضافة بالمعرف | `state: EditorState, pluginId: string` | `Plugin \| null` | لم يبدأ |
-| `PLUG-API-005` | `plugins-mermaid` | `MermaidPlugin.render` | رسم مخطط | `code: string` | `string (SVG)` | لم يبدأ |
-| `PLUG-API-006` | `plugins-math` | `MathPlugin.render` | رسم معادلة LaTeX | `formula: string` | `string (HTML)` | لم يبدأ |
-
----
-
-## 4. Adapter APIs — APIs طبقات التكيف
-## packages/adapters/
-
-| المعرف ID | الحزمة Package | الاسم Name | الوصف Arabic | المعلمات Params | القيمة المُعادة Returns | الحالة Status |
-|-----------|---------------|-----------|-------------|----------------|------------------------|---------------|
-| `ADAP-API-001` | `adapters-react` | `useEditor` | React Hook للمحرر | `options: UseEditorOptions` | `EditorInstance` | لم يبدأ |
-| `ADAP-API-002` | `adapters-react` | `EditorProvider` | React Provider | `children, options: EditorProviderProps` | `JSX.Element` | لم يبدأ |
-| `ADAP-API-003` | `adapters-vue` | `useEditor` | Vue Composable | `options: UseEditorOptions` | `EditorInstance` | لم يبدأ |
-| `ADAP-API-004` | `adapters-web-component` | `<libre-text-editor>` | Web Component | `attributes: EditorAttributes` | `HTMLElement` | لم يبدأ |
-| `ADAP-API-005` | `adapters-vanilla` | `createEditor` | Vanilla JS API | `element: HTMLElement, options: EditorOptions` | `EditorInstance` | لم يبدأ |
+| المعرف ID | الاسم Name | المعلمات Params | القيمة المُعادة Returns | الحالة |
+|-----------|-----------|----------------|------------------------|--------|
+| `ALGO-FRM-001` | `parseFormula` | `expression: string` | `FormulaAST` | لم يبدأ |
+| `ALGO-FRM-002` | `evaluateFormula` | `ast, context` | `number/string` | لم يبدأ |
+| `ALGO-FRM-003` | `SUM` | `...values: number[]` | `number` | لم يبدأ |
+| `ALGO-FRM-004` | `AVERAGE` | `...values: number[]` | `number` | لم يبدأ |
+| `ALGO-FRM-005` | `IF` | `condition, trueVal, falseVal` | `T` | لم يبدأ |
+| `ALGO-FRM-006` | `CONCAT` | `...strings: string[]` | `string` | لم يبدأ |
+| `ALGO-FRM-007` | `COUNT` | `...values: unknown[]` | `number` | لم يبدأ |
+| `ALGO-FRM-008` | `MIN` | `...values: number[]` | `number` | لم يبدأ |
+| `ALGO-FRM-009` | `MAX` | `...values: number[]` | `number` | لم يبدأ |
+| `ALGO-FRM-010` | `ROUND` | `value, decimals?` | `number` | لم يبدأ |
+| `ALGO-FRM-011` | `ABS` | `value: number` | `number` | لم يبدأ |
 
 ---
 
-## 5. Utility APIs — APIs الأدوات المساعدة
-## packages/core/src/utils/
+## 4. Spatial APIs
 
-| المعرف ID | الملف File | الاسم Name | الوصف Arabic | المعلمات Params | القيمة المُعادة Returns | الحالة Status |
-|-----------|-----------|-----------|-------------|----------------|------------------------|---------------|
-| `UTIL-API-001` | `id.ts` | `generateId` | توليد معرف فريد | `prefix?: string` | `string` | لم يبدأ |
-| `UTIL-API-002` | `validation.ts` | `validateDocument` | التحقق من صحة المستند | `doc: DocNode` | `ValidationResult` | لم يبدأ |
-| `UTIL-API-003` | `validation.ts` | `validateNode` | التحقق من صحة عقدة | `node: BlockNode` | `ValidationResult` | لم يبدأ |
-| `UTIL-API-004` | `validation.ts` | `sanitizeHtml` | تنقية HTML | `html: string, options?: SanitizeOptions` | `string` | لم يبدأ |
+| المعرف ID | الاسم Name | المعلمات Params | القيمة المُعادة Returns | الحالة |
+|-----------|-----------|----------------|------------------------|--------|
+| `ALGO-SPR-001` | `translateCoords` | `raw, domain` | `LogicalCoordinate/GridCoordinate` | لم يبدأ |
+| `ALGO-SPR-002` | `createLogicalCoordinate` | `x, y, unit?` | `LogicalCoordinate` | لم يبدأ |
+| `ALGO-SPR-003` | `createGridCoordinate` | `row, col` | `GridCoordinate` | لم يبدأ |
+| `ALGO-SPR-004` | `gridToLabel` | `coord` | `string` | لم يبدأ |
+| `ALGO-SPR-005` | `labelToGrid` | `label: string` | `GridCoordinate` | لم يبدأ |
 
 ---
 
-## 6. الخوارزميات والتحويلات
-## Algorithms & Transformations
+## 5. Storage APIs
 
-| المعرف ID | الاسم Name | الوصف Arabic | المدخلات Input | المخرجات Output | الحالة Status |
-|-----------|-----------|-------------|---------------|----------------|---------------|
-| `ALGO-001` | AST Diff Algorithm | خوارزمية فروقات AST | `oldDoc: DocNode, newDoc: DocNode` | `Operation[]` | لم يبدأ |
-| `ALGO-002` | Node Traversal | اجتياز العقد | `doc: DocNode, visitor: VisitorFn` | `void` | لم يبدأ |
-| `ALGO-003` | Text Search (BM) | بحث نصي (Boyer-Moore) | `text: string, pattern: string` | `number[]` | لم ي早晚 |
-| `ALGO-004` | Markdown Parsing | تحليل Markdown | `md: string` | `DocNode` | لم يبدأ |
-| `ALGO-005` | HTML Sanitization | تنقية HTML | `html: string` | `string` | لم يبدأ |
+| المعرف ID | الاسم Name | المعلمات Params | القيمة المُعادة Returns | الحالة |
+|-----------|-----------|----------------|------------------------|--------|
+| `STORE-API-001` | `MemoryStore.create` | `config?` | `MemoryStore` | لم يبدأ |
+| `STORE-API-002` | `LocalStorageStore.create` | `config` | `LocalStorageStore` | لم يبدأ |
+| `STORE-API-003` | `IndexedDBStore.create` | `config` | `Promise<IDBStore>` | لم يبدأ |
+| `STORE-API-004` | `SnapshotManager.create` | `maxSnapshots?` | `SnapshotManager` | لم يبدأ |
+| `STORE-API-005` | `store.save` | `doc, key` | `Promise<void>` | لم يبدأ |
+| `STORE-API-006` | `store.load` | `key: string` | `Promise<DocNode|null>` | لم يبدأ |
+
+---
+
+## 6. Template APIs
+
+| المعرف ID | الاسم Name | المعلمات Params | القيمة المُعادة Returns | الحالة |
+|-----------|-----------|----------------|------------------------|--------|
+| `TPL-API-001` | `TemplateRegistry.create` | `options?` | `TemplateRegistry` | لم يبدأ |
+| `TPL-API-002` | `registry.register` | `template` | `void` | لم يبدأ |
+| `TPL-API-003` | `registry.get` | `id: string` | `Template|null` | لم يبدأ |
+| `TPL-API-004` | `registry.list` | `domain?` | `Template[]` | لم يبدأ |
+| `TPL-API-005` | `registry.apply` | `templateId` | `DocNode` | لم يبدأ |
+
+---
+
+## 7. Serializer APIs
+
+| المعرف ID | الحزمة | الاسم Name | المعلمات Params | القيمة المُعادة Returns | الحالة |
+|-----------|--------|-----------|----------------|------------------------|--------|
+| `SER-API-001` | basic | `MarkdownSerializer.serialize` | `doc` | `string` | تم |
+| `SER-API-002` | basic | `HtmlSerializer.serialize` | `doc` | `string` | تم |
+| `SER-API-003` | basic | `TxtSerializer.serialize` | `doc` | `string` | تم |
+| `SER-API-004` | advanced | `PdfSerializer.serialize` | `doc` | `Uint8Array` | تم |
+| `SER-API-005` | advanced | `LatexSerializer.serialize` | `doc` | `string` | تم |
+
+---
+
+## 8. Plugin APIs
+
+| المعرف ID | الاسم Name | المعلمات Params | القيمة المُعادة Returns | الحالة |
+|-----------|-----------|----------------|------------------------|--------|
+| `PLUG-API-001` | `createPlugin` | `config` | `Plugin` | تم |
+| `PLUG-API-002` | `MermaidPlugin.render` | `code` | `string (SVG)` | تم |
+| `PLUG-API-003` | `MathPlugin.render` | `formula` | `string (HTML)` | تم |
+
+---
+
+## 9. Adapter APIs
+
+| المعرف ID | الاسم Name | المعلمات Params | القيمة المُعادة Returns | الحالة |
+|-----------|-----------|----------------|------------------------|--------|
+| `ADAP-API-001` | React `useEditor` | `options` | `EditorInstance` | تم |
+| `ADAP-API-002` | React `EditorProvider` | `children, options` | `JSX.Element` | تم |
+| `ADAP-API-003` | Vue `useEditor` | `options` | `EditorInstance` | تم |
+| `ADAP-API-004` | `<libre-text-editor>` | `attributes` | `HTMLElement` | تم |
+| `ADAP-API-005` | Vanilla `createEditor` | `element, options` | `EditorInstance` | تم |
+
+---
+
+## 10. Utility APIs
+
+| المعرف ID | الملف File | الاسم Name | المعلمات Params | القيمة المُعادة Returns | الحالة |
+|-----------|-----------|-----------|----------------|------------------------|--------|
+| `UTIL-API-001` | `id.ts` | `generateId` | `prefix?` | `string` | تم |
+| `UTIL-API-002` | `validation.ts` | `validateDocument` | `doc` | `ValidationResult` | تم |
+| `UTIL-API-003` | `validation.ts` | `validateNode` | `node` | `ValidationResult` | تم |
 
 ---
 
 ## إحصائيات التسجيل
-## Registration Statistics
 
-| الفئة Category | العدد Count | مكتمل Completed | قيد العمل In Progress | لم يبدأ Not Started |
-|----------------|-------------|-----------------|----------------------|---------------------|
-| Core APIs | 12 | 0 | 0 | 12 |
-| Serializer APIs | 7 | 0 | 0 | 7 |
-| Plugin APIs | 6 | 0 | 0 | 6 |
-| Adapter APIs | 5 | 0 | 0 | 5 |
-| Utility APIs | 4 | 0 | 0 | 4 |
-| Algorithms | 5 | 0 | 0 | 5 |
-| **المجموع Total** | **39** | **0** | **0** | **39** |
+| الفئة Category | العدد Count | مكتمل | قيد العمل | لم يبدأ |
+|----------------|-------------|-------|----------|---------|
+| Core APIs | 9 | 9 | 0 | 0 |
+| Command APIs | 4 | 0 | 0 | 4 |
+| Formula APIs | 11 | 0 | 0 | 11 |
+| Spatial APIs | 5 | 0 | 0 | 5 |
+| Storage APIs | 6 | 0 | 0 | 6 |
+| Template APIs | 5 | 0 | 0 | 5 |
+| Serializer APIs | 5 | 5 | 0 | 0 |
+| Plugin APIs | 3 | 3 | 0 | 0 |
+| Adapter APIs | 5 | 5 | 0 | 0 |
+| Utility APIs | 3 | 3 | 0 | 0 |
+| **المجموع Total** | **56** | **25** | **0** | **31** |
