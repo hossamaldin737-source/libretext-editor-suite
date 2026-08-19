@@ -156,16 +156,31 @@
 
 ---
 
-## (التاريخ التالي سيُضاف هنا)
+## 2026-08-19 — إنجاز طبقة المنطق والخوارزميات (PHASE-06)
 
 ### المنجزات
-- (ستضاف بعد اعتماد الخطة)
+- تنفيذ `ALGO-007` (`packages/algorithms/src/spatial/types.ts`) الإصدار v3:
+  - دعم الأصفار البادئة في تسميات الخلايا (`A01` تعادل `A1`).
+  - دعم الأعمدة متعددة الأحرف (`AA`, `AB`, `XFD`).
+  - تمييز كامل بين `LogicalCoordinate` و `GridCoordinate`.
+- تنفيذ `ALGO-008` (`packages/algorithms/src/spatial/mapper.ts`) الإصدار v2:
+  - محرك الترجمة المكانية الشامل `translateCoords` و `translateToGrid` و `translateToLogical`.
+  - تحويل الوحدات القياسية (px, cm, mm, in, pt).
+  - حماية من القسمة على صفر، والحدود القصوى `maxRow` و `maxCol`.
+  - خريطة الوحدات الافتراضية للنطاقات المكتبية الأربعة (`DOMAIN_DEFAULT_UNIT`).
+- كتابة اختبارات شاملة في `packages/algorithms/tests/spatial/mapper.test.ts` و `types.test.ts`.
+- تحديث `FUNCTION_INDEX.md` و `API Registry.md` و `INDEX.md`.
+- **التحقق الشامل:** نجاح جميع الاختبارات الـ 369 في 20 ملف اختبار عبر Vitest.
 
 ### قيد العمل
-- (ستضاف)
+- تنفيذ `ALGO-009` (`packages/algorithms/src/spatial/commands.ts`) الإصدار v2:
+  - مصانع الأوامر المكانية: `createMoveCommand`, `createResizeCommand`, `createSelectCommand`, `createDeleteCommand`, `createCreateCommand`.
+  - دوال الحساب والتحويل: `computeMoveDelta` (مع Discriminated Union: `kind: 'logical' | 'grid'`), و `toBoundingBox`.
+  - معالجة دفاعية وفحص دقيق لمنع خلط الوحدات والتحقق من الأبعاد الموجبة وصحة المحتوى.
+- كتابة اختبارات شاملة في `packages/algorithms/tests/spatial/commands.test.ts` (23 اختبار).
+- تحديث `FUNCTION_INDEX.md` و `API Registry.md` و `INDEX.md`.
+- **التحقق الشامل:** نجاح جميع الاختبارات الـ 395 في 21 ملف اختبار عبر Vitest بنسبة 100%.
 
-### التحديات
-- (ستضاف)
-
-### ملاحظات
-- (ستضاف)
+### قيد العمل
+- اكتمال PHASE-06 (طبقة المنطق والخوارزميات) بنسبة 100%.
+- المرحلة التالية: PHASE-07 (طبقة التخزين `@libretext/storage`).

@@ -56,10 +56,10 @@
 
 | المعرف ID | الاسم Name | المعلمات Params | القيمة المُعادة Returns | الحالة |
 |-----------|-----------|----------------|------------------------|--------|
-| `ALGO-CMD-001` | `createSpatialCommand` | `type, targetId, payload` | `SpatialCommand` | لم يبدأ |
-| `ALGO-CMD-002` | `executeCommand` | `cmd, state` | `EditorState` | لم يبدأ |
-| `ALGO-CMD-003` | `undoCommand` | `cmd, state` | `EditorState` | لم يبدأ |
-| `ALGO-CMD-004` | `registerCommand` | `type, handler` | `void` | لم يبدأ |
+| `ALGO-CMD-001` | `createSpatialCommand` | `type, targetId, payload` | `SpatialCommand` | تم |
+| `ALGO-CMD-002` | `executeCommand` | `cmd, state` | `EditorState` | تم |
+| `ALGO-CMD-003` | `undoCommand` | `cmd, state` | `EditorState` | تم |
+| `ALGO-CMD-004` | `registerCommand` | `type, handler` | `void` | تم |
 
 ---
 
@@ -67,17 +67,17 @@
 
 | المعرف ID | الاسم Name | المعلمات Params | القيمة المُعادة Returns | الحالة |
 |-----------|-----------|----------------|------------------------|--------|
-| `ALGO-FRM-001` | `parseFormula` | `expression: string` | `FormulaAST` | لم يبدأ |
-| `ALGO-FRM-002` | `evaluateFormula` | `ast, context` | `number/string` | لم يبدأ |
-| `ALGO-FRM-003` | `SUM` | `...values: number[]` | `number` | لم يبدأ |
-| `ALGO-FRM-004` | `AVERAGE` | `...values: number[]` | `number` | لم يبدأ |
-| `ALGO-FRM-005` | `IF` | `condition, trueVal, falseVal` | `T` | لم يبدأ |
-| `ALGO-FRM-006` | `CONCAT` | `...strings: string[]` | `string` | لم يبدأ |
-| `ALGO-FRM-007` | `COUNT` | `...values: unknown[]` | `number` | لم يبدأ |
-| `ALGO-FRM-008` | `MIN` | `...values: number[]` | `number` | لم يبدأ |
-| `ALGO-FRM-009` | `MAX` | `...values: number[]` | `number` | لم يبدأ |
-| `ALGO-FRM-010` | `ROUND` | `value, decimals?` | `number` | لم يبدأ |
-| `ALGO-FRM-011` | `ABS` | `value: number` | `number` | لم يبدأ |
+| `ALGO-FRM-001` | `parseFormula` | `expression: string` | `FormulaAST` | تم |
+| `ALGO-FRM-002` | `evaluateFormula` | `ast, context` | `number/string` | تم |
+| `ALGO-FRM-003` | `SUM` | `...values: number[]` | `number` | تم |
+| `ALGO-FRM-004` | `AVERAGE` | `...values: number[]` | `number` | تم |
+| `ALGO-FRM-005` | `IF` | `condition, trueVal, falseVal` | `T` | تم |
+| `ALGO-FRM-006` | `CONCAT` | `...strings: string[]` | `string` | تم |
+| `ALGO-FRM-007` | `COUNT` | `...values: unknown[]` | `number` | تم |
+| `ALGO-FRM-008` | `MIN` | `...values: number[]` | `number` | تم |
+| `ALGO-FRM-009` | `MAX` | `...values: number[]` | `number` | تم |
+| `ALGO-FRM-010` | `ROUND` | `value, decimals?` | `number` | تم |
+| `ALGO-FRM-011` | `ABS` | `value: number` | `number` | تم |
 
 ---
 
@@ -85,11 +85,18 @@
 
 | المعرف ID | الاسم Name | المعلمات Params | القيمة المُعادة Returns | الحالة |
 |-----------|-----------|----------------|------------------------|--------|
-| `ALGO-SPR-001` | `translateCoords` | `raw, domain` | `LogicalCoordinate/GridCoordinate` | لم يبدأ |
-| `ALGO-SPR-002` | `createLogicalCoordinate` | `x, y, unit?` | `LogicalCoordinate` | لم يبدأ |
-| `ALGO-SPR-003` | `createGridCoordinate` | `row, col` | `GridCoordinate` | لم يبدأ |
-| `ALGO-SPR-004` | `gridToLabel` | `coord` | `string` | لم يبدأ |
-| `ALGO-SPR-005` | `labelToGrid` | `label: string` | `GridCoordinate` | لم يبدأ |
+| `ALGO-SPR-001` | `translateCoords` | `raw, domain, config` | `SpatialCoordinate` | تم |
+| `ALGO-SPR-002` | `createLogicalCoordinate` | `x, y, unit?` | `LogicalCoordinate` | تم |
+| `ALGO-SPR-003` | `createGridCoordinate` | `row, col` | `GridCoordinate` | تم |
+| `ALGO-SPR-004` | `gridToLabel` | `coord` | `string` | تم |
+| `ALGO-SPR-005` | `labelToGrid` | `label: string` | `GridCoordinate` | تم |
+| `ALGO-SPR-006` | `createMoveCommand` | `targetId, from, to` | `MoveCommand` | تم |
+| `ALGO-SPR-007` | `createResizeCommand` | `targetId, position, width, height` | `ResizeCommand` | تم |
+| `ALGO-SPR-008` | `createSelectCommand` | `targetIds, addToSelection?` | `SelectCommand` | تم |
+| `ALGO-SPR-009` | `createDeleteCommand` | `targetIds` | `DeleteCommand` | تم |
+| `ALGO-SPR-010` | `createCreateCommand` | `position, content, width?, height?` | `CreateCommand` | تم |
+| `ALGO-SPR-011` | `computeMoveDelta` | `from, to` | `MoveDelta` | تم |
+| `ALGO-SPR-012` | `toBoundingBox` | `cmd: ResizeCommand` | `BoundingBox` | تم |
 
 ---
 
@@ -167,13 +174,13 @@
 | الفئة Category | العدد Count | مكتمل | قيد العمل | لم يبدأ |
 |----------------|-------------|-------|----------|---------|
 | Core APIs | 9 | 9 | 0 | 0 |
-| Command APIs | 4 | 0 | 0 | 4 |
-| Formula APIs | 11 | 0 | 0 | 11 |
-| Spatial APIs | 5 | 0 | 0 | 5 |
+| Command APIs | 4 | 4 | 0 | 0 |
+| Formula APIs | 11 | 11 | 0 | 0 |
+| Spatial APIs | 12 | 12 | 0 | 0 |
 | Storage APIs | 6 | 0 | 0 | 6 |
 | Template APIs | 5 | 0 | 0 | 5 |
 | Serializer APIs | 5 | 5 | 0 | 0 |
 | Plugin APIs | 3 | 3 | 0 | 0 |
 | Adapter APIs | 5 | 5 | 0 | 0 |
 | Utility APIs | 3 | 3 | 0 | 0 |
-| **المجموع Total** | **56** | **25** | **0** | **31** |
+| **المجموع Total** | **63** | **52** | **0** | **11** |

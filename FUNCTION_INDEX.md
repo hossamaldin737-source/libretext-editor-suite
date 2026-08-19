@@ -149,9 +149,25 @@
 
 | # | المعرف | الاسم | النوع | الملف:سطر | الوصف | المعلمات | المُعاد | التبعيات |
 |---|--------|-------|-------|-----------|-------|----------|---------|----------|
-| 1/3 | ALGO-007 | `LogicalCoordinate` | Type | `types.ts` | إحداثيات ديكارتية | `x, y, unit?` | `LogicalCoordinate` | لا شيء |
-| 2/3 | ALGO-007 | `GridCoordinate` | Type | `types.ts` | إحداثيات شبكية | `row, col` | `GridCoordinate` | لا شيء |
-| 3/3 | ALGO-007 | `gridToLabel()` | Function | `types.ts` | تحويل شبكية لاسم | `grid: GridCoordinate` | `string` | لا شيء |
+| 1/19 | ALGO-007 | `LogicalCoordinate` | Interface | `types.ts:47` | إحداثيات ديكارتية | `x, y, unit` | `LogicalCoordinate` | لا شيء |
+| 2/19 | ALGO-007 | `GridCoordinate` | Interface | `types.ts:60` | إحداثيات شبكية | `row, col` | `GridCoordinate` | لا شيء |
+| 3/19 | ALGO-007 | `createLogicalCoordinate()` | Function | `types.ts:102` | إنشاء إحداثيات ديكارتية | `x, y, unit?` | `LogicalCoordinate` | لا شيء |
+| 4/19 | ALGO-007 | `createGridCoordinate()` | Function | `types.ts:115` | إنشاء إحداثيات شبكية | `row, col` | `GridCoordinate` | لا شيء |
+| 5/19 | ALGO-007 | `gridToLabel()` | Function | `types.ts:131` | تحويل شبكية لاسم خلية | `coord` | `string` | `indexToColumnLabel` |
+| 6/19 | ALGO-007 | `labelToGrid()` | Function | `types.ts:142` | تحويل اسم خلية لشبكية | `label` | `GridCoordinate` | `columnLabelToIndex` |
+| 7/19 | ALGO-007 | `isValidCellLabel()` | Function | `types.ts:167` | التحقق من صحة اسم خلية | `label` | `boolean` | لا شيء |
+| 8/19 | ALGO-008 | `convertLength()` | Function | `mapper.ts:121` | تحويل بين وحدتين | `value, from, to` | `number` | `unitToPx, pxToUnit` |
+| 9/19 | ALGO-008 | `translateToLogical()` | Function | `mapper.ts:145` | تحويل لماوس إلى ديكارتي | `raw, viewport, unit?` | `LogicalCoordinate` | `createLogicalCoordinate` |
+| 10/19 | ALGO-008 | `translateToGrid()` | Function | `mapper.ts:169` | تحويل لماوس إلى شبكي | `raw, viewport, grid` | `GridCoordinate` | `createGridCoordinate` |
+| 11/19 | ALGO-008 | `translateCoords()` | Function | `mapper.ts:200` | الدالة الرئيسية للترجمة | `raw, domain, config` | `SpatialCoordinate` | `translateToGrid, translateToLogical` |
+| 12/19 | ALGO-008 | `getDomainDefaultUnit()` | Function | `mapper.ts:223` | الوحدة الافتراضية للنطاق | `domain` | `LengthUnitValue` | لا شيء |
+| 13/19 | ALGO-009 | `createMoveCommand()` | Function | `commands.ts:107` | مصنع أمر التحريك | `targetId, from, to` | `MoveCommand` | `validateCoordinateTypesMatch` |
+| 14/19 | ALGO-009 | `createResizeCommand()` | Function | `commands.ts:117` | مصنع أمر التحجيم | `targetId, position, width, height` | `ResizeCommand` | `validatePositiveDimensions` |
+| 15/19 | ALGO-009 | `createSelectCommand()` | Function | `commands.ts:128` | مصنع أمر التحديد | `targetIds, addToSelection?` | `SelectCommand` | لا شيء |
+| 16/19 | ALGO-009 | `createDeleteCommand()` | Function | `commands.ts:141` | مصنع أمر الحذف | `targetIds` | `DeleteCommand` | لا شيء |
+| 17/19 | ALGO-009 | `createCreateCommand()` | Function | `commands.ts:148` | مصنع أمر الإنشاء | `position, content, width?, height?` | `CreateCommand` | `validatePositiveDimensions` |
+| 18/19 | ALGO-009 | `computeMoveDelta()` | Function | `commands.ts:172` | حساب إزاحة التحريك | `from, to` | `MoveDelta` | `validateCoordinateTypesMatch` |
+| 19/19 | ALGO-009 | `toBoundingBox()` | Function | `commands.ts:195` | تحويل لـ BoundingBox | `cmd: ResizeCommand` | `BoundingBox` | `isLogicalCoordinate` |
 
 ---
 

@@ -32,3 +32,21 @@ export * from './formula/registry';
 
 // Spatial Translation Exports
 export * from './spatial/types';
+export * from './spatial/mapper';
+export {
+  type SpatialOpValue,
+  type MoveCommand,
+  type ResizeCommand,
+  type SelectCommand,
+  type DeleteCommand,
+  type CreateCommand,
+  type MoveDelta,
+  SpatialOp,
+  createMoveCommand,
+  createResizeCommand,
+  createSelectCommand,
+  createDeleteCommand,
+  createCreateCommand,
+  computeMoveDelta,
+  toBoundingBox,
+} from './spatial/commands';

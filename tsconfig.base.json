@@ -21,7 +21,7 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "allowImportingTsExtensions": true,
+    "jsx": "react-jsx",
     "paths": {
       "@libretext/core": ["./packages/core/src"],
       "@libretext/core/*": ["./packages/core/src/*"],
@@ -40,6 +40,8 @@
     }
   },
   "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
     "packages/*/src/**/*.ts",
     "packages/*/src/**/*.tsx",
     "scripts/**/*.ts",
