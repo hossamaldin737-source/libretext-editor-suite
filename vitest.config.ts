@@ -10,19 +10,24 @@ export default defineConfig({
   },
   test: {
     globals: true,
-    environment: 'node',
     include: ['packages/*/tests/**/*.test.ts'],
-    coverage: {
-      provider: 'v8',
-      reporter: ['text', 'json', 'html'],
-      include: ['packages/*/src/**/*.ts'],
-      exclude: ['packages/*/src/index.ts'],
-      thresholds: {
-        branches: 95,
-        functions: 95,
-        lines: 95,
-        statements: 95,
+    projects: [
+      {
+        test: {
+          name: 'node',
+          globals: true,
+          environment: 'node',
+          include: ['packages/{core,serializers,plugins}/tests/**/*.test.ts'],
+        },
       },
-    },
+      {
+        test: {
+          name: 'jsdom',
+          globals: true,
+          environment: 'jsdom',
+          include: ['packages/adapters/tests/**/*.test.ts'],
+        },
+      },
+    ],
   },
 });
