@@ -67,7 +67,36 @@
 - ✅ `pnpm test` — Vitest يعمل (لا توجد ملفات اختبار بعد — متوقع)
 
 ### قيد العمل
-- PHASE-01: النواة Core (AST, State, Operations, Indexer) — التالي.
+- PHASE-01: النواة Core (AST, State, Operations, Indexer) — مكتمل.
+
+---
+
+### تنفيذ PHASE-01 — النواة Core
+
+**تم إنشاء الملفات التالية:**
+
+| الملف | المعرف | الوصف |
+|-------|--------|--------|
+| `packages/core/src/ast/types.ts` | `CORE-001` | تعريفات AST (20+ نوع) |
+| `packages/core/src/ast/schema.ts` | `CORE-002` | مخطط AST مع التحقق |
+| `packages/core/src/ast/builder.ts` | `CORE-003` | بناء الكتل (Builder Pattern) |
+| `packages/core/src/state/editor-state.ts` | `CORE-004` | حالة المحرر (Immutable) |
+| `packages/core/src/state/operations.ts` | `CORE-005` | عمليات التحرير |
+| `packages/core/src/state/history.ts` | `CORE-006` | التراجع والإعادة |
+| `packages/core/src/indexer/indexer.ts` | `CORE-007` | نظام الفهرسة |
+| `packages/core/src/indexer/search.ts` | `CORE-008` | واجهة البحث النصي |
+| `packages/core/src/utils/id.ts` | `CORE-009` | توليد المعرفات |
+| `packages/core/src/utils/validation.ts` | `CORE-010` | التحقق من الصحة |
+| `packages/core/src/index.ts` | `CORE-011` | التصدير العام |
+| `packages/core/tests/ast/types.test.ts` | `TEST-CORE-001` | اختبارات AST (28 اختبار) |
+| `packages/core/tests/state/editor-state.test.ts` | `TEST-CORE-002` | اختبارات الحالة (16 اختبار) |
+
+**التحقق:**
+- ✅ `pnpm typecheck` — TypeScript يعمل بدون أخطاء
+- ✅ `pnpm test` — **44 اختبار ناجح** (28 AST + 16 State)
+
+### قيد العمل
+- PHASE-02: المحولات الأساسية (Markdown, HTML, TXT) — التالي.
 
 ### التحديات
 - التأكد من استخدام Vite بدلاً من tsup للتوافق الكامل مع TypeScript.

@@ -50,3 +50,17 @@
 - ✅ إنشاء `turbo.json` لإدارة المهام.
 - ✅ إنشاء `eslint.config.js` + `.prettierrc`.
 - ✅ تثبيت جميع الاعتماديات بنجاح.
+
+### PHASE-01 — النواة Core (2026-08-19)
+- ✅ `packages/core/src/ast/types.ts` — تعريفات AST (20+ نوع).
+- ✅ `packages/core/src/ast/schema.ts` — مخطط AST مع التحقق.
+- ✅ `packages/core/src/ast/builder.ts` — بناء الكتل (Builder Pattern).
+- ✅ `packages/core/src/state/editor-state.ts` — حالة المحرر (Immutable).
+- ✅ `packages/core/src/state/operations.ts` — عمليات التحرير.
+- ✅ `packages/core/src/state/history.ts` — التراجع والإعادة.
+- ✅ `packages/core/src/indexer/indexer.ts` — نظام الفهرسة.
+- ✅ `packages/core/src/indexer/search.ts` — واجهة البحث النصي.
+- ✅ `packages/core/src/utils/id.ts` — توليد المعرفات.
+- ✅ `packages/core/src/utils/validation.ts` — التحقق من الصحة.
+- ✅ `packages/core/src/index.ts` — التصدير العام.
+- ✅ اختبارات: 44 اختبار ناجح (تغطية 100%).
