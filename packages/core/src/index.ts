@@ -96,3 +96,5 @@ export {search, simpleSearch} from './indexer/search';
 // ─── الأدوات المساعدة ───
 export {generateId, isValidId} from './utils/id';
 export {validateDocument as validateDoc} from './utils/validation';
+export {pipe} from './utils/pipe';
+export {compose} from './utils/compose';

@@ -14,3 +14,13 @@
  */
 
 export type {AdapterOptions, Selection, EditorAdapter, AdapterFactory} from './types';
+export {
+  toLogical,
+  toGrid,
+  gridToLogical,
+  logicalToGrid,
+  type MouseCoords,
+  type GridCoordinate,
+  type LogicalCoordinate,
+  type ViewportConfig,
+} from './spatial-adapter';

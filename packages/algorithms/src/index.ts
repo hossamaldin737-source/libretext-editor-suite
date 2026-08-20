@@ -85,3 +85,11 @@ export {
 // Search & Replace Exports
 export * from './search/types';
 export * from './search/find-replace-engine';
+
+// Simulation Exports
+export * from './simulation/context';
+export {
+  type SimulationAction,
+  simulate,
+  simulateSingle,
+} from './simulation/simulator';

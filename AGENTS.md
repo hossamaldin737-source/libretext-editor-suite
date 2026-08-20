@@ -140,16 +140,32 @@
 - **ملاحظة:** عدّ الأسطر يبدأ من أول سطر كود بعد الترويسة (بعد `*/`).
 
 ### 5.2 🧠 طبقة المنطق والخوارزميات (Logic & Algorithm Layer)
-- حزمة `@libretext/algorithms` مسؤولة عن: Command Pattern + Expression Evaluator + Built-in Functions.
+- حزمة `@libretext/algorithms` مسؤولة عن: Command Pattern + Expression Evaluator + Built-in Functions + Simulation.
 - **Command Pattern:** كل عملية تحرير هي أمر نقي (SpatialCommand) يُنفذ على النواة.
 - **Expression Evaluator:** محلل تعبيرات تنازلي (Recursive Descent) لدوال جداول البيانات.
 - **Built-in Functions:** SUM, AVERAGE, IF, CONCAT, COUNT, MIN, MAX, ROUND, ABS.
+- **Simulation:** محاكاة تنفيذ الأوامر على بيئة معزولة (بدون DOM) عبر `SimulationContext` + `simulate()`.
+
+### 5.2.1 🔧 نمط الخط أنابيب الوظيفي (Functional Pipeline Pattern) —إلزامي
+- ✅ **إلزامي:** استخدام `pipe()` من `@libretext/core` لتركيب الدوال الصغيرة:
+  ```typescript
+  import {pipe} from '@libretext/core';
+  const result = pipe(input, sanitizeText, applyFormat, validateOutput);
+  ```
+- ✅ **إلزامي:** استخدام `compose()` عند الحاجة لتركيب من اليمين لليسار:
+  ```typescript
+  import {compose} from '@libretext/core';
+  const process = compose(validate, format, sanitize);
+  ```
+- ✅ **إلزامي:** كل دالة داخل `pipe()` يجب أن تكون **نقية** (لا تأثيرات جانبية).
+- ✅ **إلزامي:** كل دالة يجب أن تحتوي على أقل من 50 سطر.
+- 🚫 **ممنوع** استخدام `Date.now()` أو `localStorage` أو أي Side Effect داخل `pipe()`.
 
 ### 5.3 🌐 محرك الترجمة المكانية (Spatial Translation Engine)
-- **Adapter** تلتقط إحداثيات الماوس الخام (clientX, clientY).
-- **SpatialMapper** يحولها إلى إحداثيات منطقية:
-  - `LogicalCoordinate`: إحداثيات ديكارتية (لـ Impress)
-  - `GridCoordinate`: إحداثيات شبكية (لـ Calc و Base)
+- **SpatialAdapter** يحول إحداثيات الماوس الخام إلى إحداثيات صالحة:
+  - `toLogical(mouse)` → `LogicalCoordinate` (لـ Impress)
+  - `toGrid(mouse)` → `GridCoordinate` (لـ Calc و Base)
+  - `gridToLogical()` / `logicalToGrid()` للتحويل بين التنسيقين.
 - **Core** تستقبل أمر نقي (SpatialCommand) دون معرفة تفاصيل الأجهزة.
 
 ### 5.4 🏢 النطاقات المكتبية الأربعة (Office Domains)
@@ -334,6 +350,9 @@ libretext-editor-suite/
 │   │   │   ├── 📁 command/         # [ALGO-001..003] Command Pattern
 │   │   │   ├── 📁 formula/         # [ALGO-004..006] Expression Evaluator
 │   │   │   ├── 📁 spatial/         # [ALGO-007..009] Spatial Translation
+│   │   │   ├── 📁 simulation/      # [ALGO-020..021] Simulation Engine
+│   │   │   ├── 📁 search/          # [ALGO-022..024] Search & Replace
+│   │   │   ├── 📁 macro/           # [ALGO-025..027] Macro System
 │   │   │   └── 📄 index.ts         # Barrel Export
 │   │   ├── 📁 tests/               # [TEST-ALGO] اختبارات الخوارزميات
 │   │   └── 📄 package.json
