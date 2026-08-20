@@ -43,9 +43,9 @@
 # 📇 فهرس الدوال والخوارزميات الشامل
 # Comprehensive Function & Algorithm Index
 
-> **تاريخ آخر تحديث:** 2026-08-19 (v3: Arabic + Text + Math functions synced)
+> **تاريخ آخر تحديث:** 2026-08-20 (v4: Lookup/Date + Macro + Storage Utils synced)
 > **عدد الحزم:** 7 حزم
-> **إجمالي العناصر المفهرسة:** 139 عنصر (was 89)
+> **إجمالي العناصر المفهرسة:** 180 عنصر (was 139)
 
 ---
 
@@ -217,6 +217,22 @@
 | 11/12 | ALGO-015 | `COUNTIF` | Function | `functions-math.ts:210` | عدد المطابقات الشرطية | `range, criteria` | `number` | `matchCriteria` |
 | 12/12 | ALGO-015 | `SUMIF` | Function | `functions-math.ts:216` | مجموع المطابقات الشرطية | `range, criteria, sumRange?` | `number` | `matchCriteria` |
 
+### 📁 formula/ — Lookup & Date Functions (ALGO-016)
+
+| # | المعرف | الاسم | النوع | الملف:سطر | الوصف | المعلمات | المُعاد | التبعيات |
+|---|--------|-------|-------|-----------|-------|----------|---------|----------|
+| 1/11 | ALGO-016 | `MATCH` | Function | `functions-lookup-date.ts:48` | بحث عن موضع في مصفوفة | `lookupValue, lookupArray, matchType?` | `number` | لا شيء |
+| 2/11 | ALGO-016 | `INDEX` | Function | `functions-lookup-date.ts:86` | استرجاع قيمة من مصفوفة | `array, rowNum, colNum?` | `unknown` | لا شيء |
+| 3/11 | ALGO-016 | `VLOOKUP` | Function | `functions-lookup-date.ts:111` | البحث العمودي | `lookupValue, tableArray, colIndex, rangeLookup?` | `unknown` | لا شيء |
+| 4/11 | ALGO-016 | `XLOOKUP` | Function | `functions-lookup-date.ts:163` | البحث المتقدم ثنائي الاتجاه | `lookupValue, lookupArray, returnArray, ifNotFound?` | `unknown` | لا شيء |
+| 5/11 | ALGO-016 | `IFS` | Function | `functions-lookup-date.ts:190` | شروط متعددة | `...args` | `unknown` | لا شيء |
+| 6/11 | ALGO-016 | `SWITCH` | Function | `functions-lookup-date.ts:205` | مطابقة تعبير | `expression, ...args` | `unknown` | لا شيء |
+| 7/11 | ALGO-016 | `DATE` | Function | `functions-lookup-date.ts:227` | إنشاء تاريخ ISO | `year, month, day` | `string` | لا شيء |
+| 8/11 | ALGO-016 | `TODAY` | Function | `functions-lookup-date.ts:242` | تاريخ اليوم | — | `string` | لا شيء |
+| 9/11 | ALGO-016 | `NOW` | Function | `functions-lookup-date.ts:251` | تاريخ ووقت اللحظة | — | `string` | لا شيء |
+| 10/11 | ALGO-016 | `DATEDIF` | Function | `functions-lookup-date.ts:256` | الفرق بين تاريخين | `startDate, endDate, unit?` | `number` | لا شيء |
+| 11/11 | ALGO-016 | `flatten` | Helper | `functions-lookup-date.ts:27` | تسطيح مصفوفات متداخلة | `args: unknown[]` | `unknown[]` | لا شيء |
+
 ### 📁 formula/ — Registry with Arabic Aliases (ALGO-012)
 
 | # | المعرف | الاسم | النوع | الملف:سطر | الوصف | المعلمات | المُعاد | التبعيات |
@@ -273,6 +289,23 @@
 | 16/17 | ALGO-010 | `radToDeg()` | Function | `transformer.ts:195` | راديان لدرجات | `rad` | `number` | لا شيء |
 | 17/17 | ALGO-010 | `degToRad()` | Function | `transformer.ts:200` | درجات لراديان | `deg` | `number` | لا شيء |
 
+### 📁 macro/ — نظام الماكرو (ALGO-017)
+
+| # | المعرف | الاسم | النوع | الملف:سطر | الوصف | المعلمات | المُعاد | التبعيات |
+|---|--------|-------|-------|-----------|-------|----------|---------|----------|
+| 1/12 | ALGO-017 | `MacroDomain` | Type | `macro/types.ts:44` | نطاق الماكرو | — | `'writer' | 'calc' | ...` | لا شيء |
+| 2/12 | ALGO-017 | `MacroStep` | Interface | `macro/types.ts:53` | خطوة الماكرو | `commandType, payload, spatialTarget?, timestamp` | `MacroStep` | لا شيء |
+| 3/12 | ALGO-017 | `MacroDefinition` | Interface | `macro/types.ts:60` | تعريف الماكرو | `id, name, domain, steps, parameters?` | `MacroDefinition` | `MacroStep` |
+| 4/12 | ALGO-017 | `isMacroDefinition()` | Function | `macro/types.ts:98` | Type Guard للتعريف | `value: unknown` | `boolean` | لا شيء |
+| 5/12 | ALGO-017 | `isMacroStep()` | Function | `macro/types.ts:113` | Type Guard للخطوة | `value: unknown` | `boolean` | لا شيء |
+| 6/12 | ALGO-017 | `MacroRecorder` | Class | `macro/recorder.ts:37` | مسجل الإجراءات | `options?` | `MacroRecorder` | `MacroDefinition` |
+| 7/12 | ALGO-017 | `MacroRecorder.start()` | Method | `macro/recorder.ts:63` | بدء التسجيل | `name, domain?, description?` | `void` | لا شيء |
+| 8/12 | ALGO-017 | `MacroRecorder.stop()` | Method | `macro/recorder.ts:107` | إيقاف وتصدير | — | `MacroDefinition` | لا شيء |
+| 9/12 | ALGO-017 | `MacroRunner` | Class | `macro/runner.ts:38` | محرك التشغيل | — | `MacroRunner` | لا شيء |
+| 10/12 | ALGO-017 | `MacroRunner.run()` | Method | `macro/runner.ts:57` | تشغيل ماكرو | `macro, dispatcher, options?` | `Promise<MacroExecutionResult>` | `CommandDispatcher` |
+| 11/12 | ALGO-017 | `MacroRegistry` | Class | `macro/registry.ts:28` | سجل الماكرو | — | `MacroRegistry` | `MacroDefinition` |
+| 12/12 | ALGO-017 | `macroRegistry` | Instance | `macro/registry.ts:88` | السجل الافتراضي | — | `MacroRegistry` | لا شيء |
+
 ---
 
 ## 📦 packages/serializers — المحولات
@@ -304,6 +337,47 @@
 | 2/4 | ADAP-002 | `VueAdapter` | Class | `vue-adapter.ts` | محور Vue | `options?` | `EditorAdapter` | `@libretext/core` |
 | 3/4 | ADAP-003 | `WebComponentAdapter` | Class | `web-component-adapter.ts` | محور Web Component | `options?` | `EditorAdapter` | `@libretext/core` |
 | 4/4 | ADAP-004 | `VanillaAdapter` | Class | `vanilla-adapter.ts` | محور Vanilla JS | `options?` | `EditorAdapter` | `@libretext/core` |
+
+---
+
+## 📦 packages/storage — طبقة التخزين
+
+### 📁 src/ — Types & Interfaces (STORE-010)
+
+| # | المعرف | الاسم | النوع | الملف:سطر | الوصف | المعلمات | المُعاد | التبعيات |
+|---|--------|-------|-------|-----------|-------|----------|---------|----------|
+| 1/10 | STORE-010 | `Store` | Interface | `types.ts:136` | الواجهة الموحدة للمخزن | `name, version, get, set, ...` | `Store<T>` | لا شيء |
+| 2/10 | STORE-010 | `AsyncStore` | Interface | `types.ts:156` | واجهة المخزن غير المتزامن | `name, version, get, set, ...` | `AsyncStore<T>` | لا شيء |
+| 3/10 | STORE-010 | `StoreEntry` | Interface | `types.ts:100` | إدخال المخزن مع metadata | `key, data, metadata` | `StoreEntry<T>` | `StoreMetadata` |
+| 4/10 | STORE-010 | `StoreEvent` | Interface | `types.ts:74` | حدث المخزن | `type, key, value?, timestamp` | `StoreEvent<T>` | لا شيء |
+| 5/10 | STORE-010 | `isValidKey()` | Function | `types.ts:180` | التحقق من صحة المفتاح | `key: unknown` | `boolean` | لا شيء |
+| 6/10 | STORE-010 | `validateKey()` | Function | `types.ts:188` | التحقق مع رمي استثناء | `key: unknown` | `void` | لا شيء |
+| 7/10 | STORE-010 | `createStoreEntry()` | Function | `types.ts:195` | إنشاء إدخال مخزن | `key, data, tags?, existingMetadata?` | `StoreEntry<T>` | لا شيء |
+| 8/10 | STORE-010 | `isStoreEntry()` | Function | `types.ts:218` | Type Guard كامل | `value: unknown` | `boolean` | لا شيء |
+| 9/10 | STORE-010 | `deepClone()` | Function | `types.ts:237` | نسخ عميق حسب الاستراتيجية | `value, strategy?` | `T` | لا شيء |
+| 10/10 | STORE-010 | `DEFAULT_STORE_CONFIG` | Constant | `types.ts:120` | الإعدادات الافتراضية | — | `Required<StoreConfig>` | لا شيء |
+
+### 📁 src/ — Storage Utilities (STORE-011)
+
+| # | المعرف | الاسم | النوع | الملف:سطر | الوصف | المعلمات | المُعاد | التبعيات |
+|---|--------|-------|-------|-----------|-------|----------|---------|----------|
+| 1/7 | STORE-011 | `QuotaExceededError` | Class | `storage-utils.ts:30` | خطأ تجاوز الحصة | `message, bytesAttempted?` | `QuotaExceededError` | لا شيء |
+| 2/7 | STORE-011 | `StorageUnavailableError` | Class | `storage-utils.ts:41` | خطأ عدم التوفر | `storageType?` | `StorageUnavailableError` | لا شيء |
+| 3/7 | STORE-011 | `isQuotaExceededError()` | Function | `storage-utils.ts:54` | فحص خطأ الحصة | `err: unknown` | `boolean` | لا شيء |
+| 4/7 | STORE-011 | `isLocalStorageAvailable()` | Function | `storage-utils.ts:69` | فحص توفر localStorage | — | `boolean` | لا شيء |
+| 5/7 | STORE-011 | `safeJsonParse()` | Function | `storage-utils.ts:93` | تحليل JSON آمن | `raw: string | null` | `SafeJsonResult<T>` | لا شيء |
+| 6/7 | STORE-011 | `safeJsonStringify()` | Function | `storage-utils.ts:111` | تحويل JSON آمن مع حماية من الحلقات | `value: unknown` | `string | null` | لا شيء |
+| 7/7 | STORE-011 | `prefixKey()` | Function | `storage-utils.ts:122` | إضافة/إزالة بادئة | `prefix, key` | `string` | لا شيء |
+
+### 📁 src/ — IndexedDB Utilities (STORE-012)
+
+| # | المعرف | الاسم | النوع | الملف:سطر | الوصف | المعلمات | المُعاد | التبعيات |
+|---|--------|-------|-------|-----------|-------|----------|---------|----------|
+| 1/5 | STORE-012 | `IndexedDBError` | Class | `indexeddb-utils.ts:66` | خطأ IndexedDB مخصص | `message, cause?` | `IndexedDBError` | لا شيء |
+| 2/5 | STORE-012 | `isIndexedDBAvailable()` | Function | `indexeddb-utils.ts:79` | فحص توفر IndexedDB | — | `boolean` | لا شيء |
+| 3/5 | STORE-012 | `wrapRequest()` | Function | `indexeddb-utils.ts:91` | تحويل IDBRequest لـ Promise | `request: IDBRequest<T>` | `Promise<T>` | لا شيء |
+| 4/5 | STORE-012 | `openDatabase()` | Function | `indexeddb-utils.ts:111` | فتح قاعدة بيانات | `name, options?` | `Promise<IDBDatabase>` | `isIndexedDBAvailable` |
+| 5/5 | STORE-012 | `deleteDatabase()` | Function | `indexeddb-utils.ts:168` | حذف قاعدة بيانات | `name: string` | `Promise<void>` | `isIndexedDBAvailable` |
 
 ---
 

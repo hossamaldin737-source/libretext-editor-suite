@@ -38,6 +38,16 @@ export * from './formula/functions-arabic';
 export * from './formula/evaluator';
 export * from './formula/cell-utils';
 export * from './formula/registry';
+export {
+  MATCH, INDEX, VLOOKUP, XLOOKUP, IFS, SWITCH,
+  DATE, TODAY, NOW, DATEDIF,
+} from './formula/functions-lookup-date';
+
+// Macro System Exports
+export * from './macro/types';
+export { MacroRecorder } from './macro/recorder';
+export { MacroRunner } from './macro/runner';
+export { MacroRegistry, macroRegistry } from './macro/registry';
 
 // Spatial Translation Exports
 export * from './spatial/types';

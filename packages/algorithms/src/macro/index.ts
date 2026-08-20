@@ -3,9 +3,9 @@
  * 📌 ملخص توجيهي | Guiding Summary
  * ═══════════════════════════════════════════════════════════════════════════
  * 📄 الملف: index.ts
- * 📂 المسار: packages/storage/src/index.ts
- * 🎯 الهدف الرئيسي: تصدير وحدات طبقة التخزين (Barrel Export)
- * 🏷️ المعرف: STORE-005
+ * 📂 المسار: packages/algorithms/src/macro/index.ts
+ * 🎯 الهدف الرئيسي: تصدير وحدة الماكرو والأتمتة (Barrel Export)
+ * 🏷️ المعرف: ALGO-014
  * 📅 تاريخ الإنشاء: 2026-08-19
  * 👤 المالك: Hossam El-Din Abdel-Moaty El-Khouly - All rights reserved
  * ⚖️ الترخيص: MIT License
@@ -13,9 +13,6 @@
  */
 
 export * from './types';
-export * from './storage-utils';
-export * from './indexeddb-utils';
-export * from './memory';
-export * from './localStorage';
-export * from './indexeddb';
-export * from './snapshots';
+export * from './recorder';
+export * from './runner';
+export * from './registry';
