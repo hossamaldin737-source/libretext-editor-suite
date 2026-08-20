@@ -46,6 +46,12 @@ export {
   DATE, TODAY, NOW, DATEDIF,
 } from './formula/functions-lookup-date';
 
+// Matrix & Lambda Functions
+export * from './formula/functions-matrix';
+
+// Markdown Formula Engine
+export * from './formula/markdown-formula';
+
 // Macro System Exports
 export * from './macro/types';
 export { MacroRecorder } from './macro/recorder';

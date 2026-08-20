@@ -15,3 +15,6 @@
 
 export * from './basic';
 export * from './advanced';
+export * from './docx';
+export * from './parsers/frontmatter-parser';
+export * from './parsers/markdown';

@@ -98,3 +98,16 @@ export {generateId, isValidId} from './utils/id';
 export {validateDocument as validateDoc} from './utils/validation';
 export {pipe} from './utils/pipe';
 export {compose} from './utils/compose';
+
+// ─── الأدوات العربية ───
+export * from './utils/arabic-text';
+
+// ─── محلل الصيغ ───
+export * from './utils/formula-parser';
+
+// ─── محلل الماركداون والبيانات الوصفية ───
+export * from './parsers/frontmatter-parser';
+export * from './parsers/markdown';
+
+// ─── مدقق المحتوى ───
+export * from './utils/content-validator';
