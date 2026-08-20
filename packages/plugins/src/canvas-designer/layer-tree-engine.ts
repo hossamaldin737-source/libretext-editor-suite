@@ -82,9 +82,9 @@ export class LayerTreeEngine {
     if (targetIdx < 0 || targetIdx === normalized.length - 1) return normalized;
 
     const swapped = [...normalized];
-    const nextEl = swapped[targetIdx + 1];
-    swapped[targetIdx + 1] = { ...swapped[targetIdx], zIndex: nextEl.zIndex };
-    swapped[targetIdx] = { ...nextEl, zIndex: swapped[targetIdx].zIndex };
+    const nextEl = swapped[targetIdx + 1]!;
+    swapped[targetIdx + 1] = {...swapped[targetIdx]!, zIndex: nextEl.zIndex};
+    swapped[targetIdx] = {...nextEl, zIndex: swapped[targetIdx]!.zIndex};
 
     return this.normalizeZIndices(swapped);
   }
@@ -101,9 +101,9 @@ export class LayerTreeEngine {
     if (targetIdx <= 0) return normalized;
 
     const swapped = [...normalized];
-    const prevEl = swapped[targetIdx - 1];
-    swapped[targetIdx - 1] = { ...swapped[targetIdx], zIndex: prevEl.zIndex };
-    swapped[targetIdx] = { ...prevEl, zIndex: swapped[targetIdx].zIndex };
+    const prevEl = swapped[targetIdx - 1]!;
+    swapped[targetIdx - 1] = {...swapped[targetIdx]!, zIndex: prevEl.zIndex};
+    swapped[targetIdx] = {...prevEl, zIndex: swapped[targetIdx]!.zIndex};
 
     return this.normalizeZIndices(swapped);
   }

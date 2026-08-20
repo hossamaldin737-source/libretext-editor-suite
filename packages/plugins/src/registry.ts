@@ -147,11 +147,11 @@ export class PluginRegistry {
    * @see: FUNCTION_INDEX.md#L125
    */
   public validateSchemaCompatibility(doc: DocNode): boolean {
-    if (!doc || !Array.isArray(doc.children)) {
+    if (!doc || !Array.isArray(doc.content)) {
       return false;
     }
     // التحقق من توافق العقد الأساسية
-    for (const child of doc.children) {
+    for (const child of doc.content) {
       if (!child || typeof child.type !== 'string' || !child.id) {
         return false;
       }

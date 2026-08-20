@@ -84,7 +84,8 @@ export interface PluginResult {
  * سياق الإضافة الموسّع.
  */
 export interface PluginContext {
-  registerCommand(command: {id: string; name: string; handler: () => unknown}): void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  registerCommand(command: {id: string; name: string; handler: (...args: any[]) => any}): void;
   getDocument?(): DocNode;
   setDocument?(doc: DocNode): void;
 }

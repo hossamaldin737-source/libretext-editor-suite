@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { AlignmentEngine, BooleanOperationsEngine } from '../../src/spatial';
+import { AlignmentEngine } from '../../src/spatial/alignment-engine';
+import { BooleanOperationsEngine } from '../../src/spatial/boolean-ops';
 
 describe('AlignmentEngine', () => {
   const items = [
