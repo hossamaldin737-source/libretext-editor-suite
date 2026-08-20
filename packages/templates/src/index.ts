@@ -13,13 +13,13 @@
  */
 
 import { templateRegistry } from './registry';
-import { writerTemplates } from './writer';
+import { getWriterTemplates } from './writer';
 import { calcTemplates } from './calc';
 import { impressTemplates } from './impress';
 import { baseTemplates } from './base';
 
 // تسجيل القوالب الافتراضية
-[...writerTemplates, ...calcTemplates, ...impressTemplates, ...baseTemplates].forEach((t) => {
+[...getWriterTemplates(), ...calcTemplates, ...impressTemplates, ...baseTemplates].forEach((t) => {
   templateRegistry.register(t);
 });
 
