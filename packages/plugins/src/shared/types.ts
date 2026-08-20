@@ -79,3 +79,28 @@ export interface PluginResult {
   /** رسالة خطأ اختيارية */
   error?: string;
 }
+
+/**
+ * سياق الإضافة الموسّع.
+ */
+export interface PluginContext {
+  registerCommand(command: {id: string; name: string; handler: () => unknown}): void;
+  getDocument?(): DocNode;
+  setDocument?(doc: DocNode): void;
+}
+
+/**
+ * واجهة الإضافة الموسّعة (للإضافات المتقدمة).
+ */
+export interface EditorPlugin {
+  readonly id: string;
+  readonly name: string;
+  readonly version: string;
+  readonly description: string;
+  init?(context: PluginContext): void;
+  destroy?(): void;
+  hooks?: {
+    beforeRender?(node: BlockNode): BlockNode;
+    afterRender?(html: string): string;
+  };
+}

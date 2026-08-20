@@ -3,20 +3,15 @@
  * 📌 ملخص توجيهي | Guiding Summary
  * ═══════════════════════════════════════════════════════════════════════════
  * 📄 الملف: index.ts
- * 📂 المسار: packages/plugins/src/index.ts
- * 🎯 الهدف الرئيسي: Barrel Export لحزمة الإضافات.
- * 🏷️ المعرف: PLUG-007
- * 📅 تاريخ الإنشاء: 2026-08-19
+ * 📂 المسار: packages/algorithms/src/search/index.ts
+ * 🎯 الهدف الرئيسي: تصدير محرك وأنواع البحث والاستبدال المتقدم
+ * 📋 المعايير: Barrel Export
+ * 🏷️ المعرف: ALGO-033
+ * 📅 تاريخ الإنشاء: 2026-08-20
  * 👤 المالك: Hossam El-Din Abdel-Moaty El-Khouly - All rights reserved
  * ⚖️ الترخيص: MIT License
- * 📚 المصادر المقتبسة: لا توجد.
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-export * from './shared';
-export * from './mermaid';
-export * from './math';
-export * from './registry';
-export * from './canvas-designer';
-export * from './shared-tools';
-export * from './vector';
+export * from './types';
+export * from './find-replace-engine';

@@ -22,6 +22,10 @@
     "clean": "turbo run clean && rm -rf node_modules",
     "generate:file": "tsx scripts/generate-file.ts",
     "generate:header": "tsx scripts/generate-header.ts",
+    "extract:lines": "tsx scripts/extract-line-numbers.ts",
+    "extract:lines:ast": "tsx scripts/extract-line-numbers-ast.ts",
+    "update:indexes": "tsx scripts/update-indexes.ts",
+    "work:monitor": "tsx scripts/work-monitor.ts",
     "turbo": "turbo"
   },
   "devDependencies": {

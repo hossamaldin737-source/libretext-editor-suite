@@ -35,8 +35,11 @@ export {
   SUBSTITUTE, REPLACE, TEXTJOIN, EXACT, REPT, SEARCH, FIND,
 } from './formula/functions-text';
 export * from './formula/functions-arabic';
+export * from './formula/functions-financial';
 export * from './formula/evaluator';
+export * from './formula/evaluator-types';
 export * from './formula/cell-utils';
+export * from './formula/dependency-graph';
 export * from './formula/registry';
 export {
   MATCH, INDEX, VLOOKUP, XLOOKUP, IFS, SWITCH,
@@ -53,6 +56,14 @@ export { MacroRegistry, macroRegistry } from './macro/registry';
 export * from './spatial/types';
 export * from './spatial/mapper';
 export * from './spatial/transformer';
+export * from './spatial/collision';
+export * from './spatial/vector-path';
+export * from './spatial/bezier-engine';
+export * from './spatial/alignment-engine';
+export * from './spatial/boolean-ops';
+export * from './spatial/connector-routing';
+export * from './spatial/matrix-2d';
+export * from './spatial/smart-guides';
 export {
   type SpatialOpValue,
   type MoveCommand,
@@ -70,3 +81,7 @@ export {
   computeMoveDelta,
   toBoundingBox,
 } from './spatial/commands';
+
+// Search & Replace Exports
+export * from './search/types';
+export * from './search/find-replace-engine';
