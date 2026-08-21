@@ -60,7 +60,7 @@ export function validateDocument(doc: DocNode): ValidationResult {
       message: 'محتوى المستند يجب أن يكون مصفوفة',
       severity: 'error',
     });
-    return {valid: false, errors};
+    return { valid: false, errors };
   }
 
   checkIdDuplicate(doc.id, seenIds, errors);
@@ -69,7 +69,7 @@ export function validateDocument(doc: DocNode): ValidationResult {
     validateBlockNode(block, seenIds, errors, 0);
   }
 
-  return {valid: errors.length === 0, errors};
+  return { valid: errors.length === 0, errors };
 }
 
 function checkIdDuplicate(id: NodeId, seen: Set<string>, errors: ValidationError[]): void {
@@ -206,7 +206,7 @@ function validateBlockNode(
       }
       break;
     default: {
-      const unknownNode = node as {id: NodeId; type: string};
+      const unknownNode = node as { id: NodeId; type: string };
       errors.push({
         nodeId: unknownNode.id,
         message: `نوع غير معروف: ${unknownNode.type}`,

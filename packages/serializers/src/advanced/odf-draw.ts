@@ -178,7 +178,9 @@ export class OdfDrawSerializer {
       case 'text':
         return this.renderDrawTextBox(el, x, y, width, height, nameAttr);
       case 'group': {
-        const childrenXml = (el.children || []).map((c) => this.renderDrawElement(c)).join('\n          ');
+        const childrenXml = (el.children || [])
+          .map((c) => this.renderDrawElement(c))
+          .join('\n          ');
         return `<draw:g ${nameAttr}>\n          ${childrenXml}\n        </draw:g>`;
       }
       default:
@@ -186,7 +188,14 @@ export class OdfDrawSerializer {
     }
   }
 
-  private renderCustomShape(el: SvgElementSpec, x: string, y: string, width: string, height: string, nameAttr: string): string {
+  private renderCustomShape(
+    el: SvgElementSpec,
+    x: string,
+    y: string,
+    width: string,
+    height: string,
+    nameAttr: string,
+  ): string {
     const svgSer = new SvgSerializer();
     const pathData = svgSer.generateShapePath(el);
     return `<draw:custom-shape ${nameAttr} svg:x="${x}" svg:y="${y}" svg:width="${width}" svg:height="${height}">
@@ -194,7 +203,14 @@ export class OdfDrawSerializer {
     </draw:custom-shape>`;
   }
 
-  private renderDrawPath(el: SvgElementSpec, x: string, y: string, width: string, height: string, nameAttr: string): string {
+  private renderDrawPath(
+    el: SvgElementSpec,
+    x: string,
+    y: string,
+    width: string,
+    height: string,
+    nameAttr: string,
+  ): string {
     const pathData = el.pathData || '';
     return `<draw:path ${nameAttr} svg:x="${x}" svg:y="${y}" svg:width="${width}" svg:height="${height}" svg:d="${OdfDrawSerializer.escapeXml(pathData)}" svg:viewBox="0 0 ${el.width ?? 100} ${el.height ?? 60}"/>`;
   }
@@ -204,7 +220,14 @@ export class OdfDrawSerializer {
     return `<draw:connector ${nameAttr} svg:d="${OdfDrawSerializer.escapeXml(pathData)}" draw:type="lines"/>`;
   }
 
-  private renderDrawTextBox(el: SvgElementSpec, x: string, y: string, width: string, height: string, nameAttr: string): string {
+  private renderDrawTextBox(
+    el: SvgElementSpec,
+    x: string,
+    y: string,
+    width: string,
+    height: string,
+    nameAttr: string,
+  ): string {
     const content = OdfDrawSerializer.escapeXml(el.text || '');
     return `<draw:frame ${nameAttr} svg:x="${x}" svg:y="${y}" svg:width="${width}" svg:height="${height}">
       <draw:text-box>

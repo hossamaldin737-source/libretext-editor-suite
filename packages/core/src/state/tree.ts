@@ -28,7 +28,7 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-import type {BlockNode, InlineNode, NodeId} from '../ast/types';
+import type { BlockNode, InlineNode, NodeId } from '../ast/types';
 
 /**
  * إدراج عنصر في مصفوفة نسبة إلى عنصر مرجعي.
@@ -39,7 +39,7 @@ export function insertInArray<T>(
   referenceId: NodeId,
   position: 'before' | 'after',
 ): T[] {
-  const index = arr.findIndex((i) => (i as T & {id?: string}).id === referenceId);
+  const index = arr.findIndex((i) => (i as T & { id?: string }).id === referenceId);
   if (index === -1) return [...arr, item];
   const insertIndex = position === 'before' ? index : index + 1;
   return [...arr.slice(0, insertIndex), item, ...arr.slice(insertIndex)];
@@ -61,13 +61,13 @@ function mapContainers(
       };
     case 'blockquote':
     case 'table-cell':
-      return {...block, content: fn(block.content)};
+      return { ...block, content: fn(block.content) };
     case 'table':
       return {
         ...block,
         rows: block.rows.map((row) => ({
           ...row,
-          cells: row.cells.map((cell) => ({...cell, content: fn(cell.content)})),
+          cells: row.cells.map((cell) => ({ ...cell, content: fn(cell.content) })),
         })),
       };
     case 'list':
@@ -167,7 +167,10 @@ function removeInlineFromNode(inline: InlineNode, targetId: NodeId): InlineNode 
 /**
  * إزالة عقدة مضمنة بالمعرف من كل الكتل (فقرات وعناوين) بشكل تكراري.
  */
-export function removeInlineFromBlocks(blocks: readonly BlockNode[], targetId: NodeId): BlockNode[] {
+export function removeInlineFromBlocks(
+  blocks: readonly BlockNode[],
+  targetId: NodeId,
+): BlockNode[] {
   return blocks.map((block) => {
     if (block.type === 'paragraph' || block.type === 'heading') {
       return {
@@ -197,7 +200,7 @@ export function insertInlineIntoBlock(
         referenceId && position
           ? insertInArray(block.content, inline, referenceId, position)
           : [...block.content, inline];
-      return {...block, content};
+      return { ...block, content };
     }
     return mapContainers(block, (inner) =>
       insertInlineIntoBlock(inner, targetId, inline, referenceId, position),
@@ -214,15 +217,15 @@ export function moveBlockInTree(
   targetId: NodeId,
   referenceId?: NodeId,
   position?: 'before' | 'after',
-): {blocks: BlockNode[]; moved: boolean} {
+): { blocks: BlockNode[]; moved: boolean } {
   const index = blocks.findIndex((block) => block.id === targetId);
   if (index !== -1) {
     const moved = blocks[index]!;
     const without = blocks.filter((_, i) => i !== index);
     if (referenceId && position) {
-      return {blocks: insertInArray(without, moved, referenceId, position), moved: true};
+      return { blocks: insertInArray(without, moved, referenceId, position), moved: true };
     }
-    return {blocks: [...without, moved], moved: true};
+    return { blocks: [...without, moved], moved: true };
   }
 
   let moved = false;
@@ -235,5 +238,5 @@ export function moveBlockInTree(
     return result;
   });
 
-  return {blocks: updated, moved};
+  return { blocks: updated, moved };
 }

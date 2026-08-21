@@ -23,7 +23,7 @@ describe('ALGO-016: Arabic Formula Integration & Full Evaluator', () => {
       A3: 30,
       B1: '   مهندس برمجيات   ',
       B2: 'مُحَمَّدٌ عَلِيّ',
-      B3: 2500.50
+      B3: 2500.5,
     };
     return data[ref] ?? null;
   };

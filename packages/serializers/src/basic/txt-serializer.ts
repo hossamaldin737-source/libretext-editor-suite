@@ -26,7 +26,7 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-import type {BlockNode, DocNode, InlineNode} from '@libretext/core';
+import type { BlockNode, DocNode, InlineNode } from '@libretext/core';
 
 /**
  * محول TXT — يحول AST إلى نص عادي مُنظّم.
@@ -75,20 +75,20 @@ export class TxtSerializer {
   }
 
   private serializeTable(block: {
-    rows: readonly {readonly cells: readonly {readonly content: readonly BlockNode[]}[]}[];
+    rows: readonly { readonly cells: readonly { readonly content: readonly BlockNode[] }[] }[];
   }): string {
     if (block.rows.length === 0) return '';
 
     const rows = block.rows.map((row) =>
-      row.cells.map((cell) => cell.content.map((c) => this.serializeBlock(c)).join(' '))
+      row.cells.map((cell) => cell.content.map((c) => this.serializeBlock(c)).join(' ')),
     );
     const maxWidths = rows[0]!.map((_, colIdx) =>
-      Math.max(...rows.map((row) => (row[colIdx] ?? '').length))
+      Math.max(...rows.map((row) => (row[colIdx] ?? '').length)),
     );
 
     const separator = maxWidths.map((w) => '-'.repeat(w)).join(' | ');
     const formattedRows = rows.map((row) =>
-      row.map((cell, i) => cell.padEnd(maxWidths[i] ?? 0)).join(' | ')
+      row.map((cell, i) => cell.padEnd(maxWidths[i] ?? 0)).join(' | '),
     );
 
     return formattedRows[0] + '\n' + separator + '\n' + formattedRows.slice(1).join('\n');

@@ -13,9 +13,9 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-import {describe, it, expect, beforeEach} from 'vitest';
-import {MathPlugin} from '../src/math/math-plugin';
-import type {CodeBlockNode, InlineNode, NodeId} from '@libretext/core';
+import { describe, it, expect, beforeEach } from 'vitest';
+import { MathPlugin } from '../src/math/math-plugin';
+import type { CodeBlockNode, InlineNode, NodeId } from '@libretext/core';
 
 const plugin = new MathPlugin();
 

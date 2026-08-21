@@ -12,7 +12,7 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-import {describe, it, expect} from 'vitest';
+import { describe, it, expect } from 'vitest';
 import {
   createIdentityMatrix,
   createTranslationMatrix,
@@ -25,7 +25,7 @@ import {
   toCssMatrixString,
 } from '../../src/spatial/matrix-2d';
 
-const pt = (x: number, y: number) => ({type: 'logical' as const, x, y, unit: 'px' as const});
+const pt = (x: number, y: number) => ({ type: 'logical' as const, x, y, unit: 'px' as const });
 
 describe('2D Matrix Engine', () => {
   it('creates identity matrix and preserves points', () => {
@@ -79,7 +79,14 @@ describe('2D Matrix Engine', () => {
   });
 
   it('transforms bounding box with rotation and scaling', () => {
-    const box = {type: 'bounding-box' as const, x: 0, y: 0, width: 100, height: 50, unit: 'px' as const};
+    const box = {
+      type: 'bounding-box' as const,
+      x: 0,
+      y: 0,
+      width: 100,
+      height: 50,
+      unit: 'px' as const,
+    };
     const t = createTranslationMatrix(20, 30);
     const transformedBox = transformBoxWithMatrix(t, box);
 

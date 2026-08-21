@@ -1,27 +1,29 @@
 /**
- * ============================================================
- * 📄 الملف: JOURNAL.md
- * 📂 المسار: JOURNAL.md
- * 🎯 الهدف الرئيسي: يوميات العمل اليومية للمشروع، تسجل
- *    المنجزات والتحديات والملاحظات لكل يوم عمل.
- * 📋 المعايير:
- *    - يجب إضافة يومية جديدة في كل جلسة عمل.
- *    - يجب توثيق جميع المنجزات والتحديات.
- *    - يجب ربط كل إنجاز بالمرحلة (PHASE) والمعرف (ID) المقابل.
- * 🧪 الاختبارات: لا توجد اختبارات (ملف إداري).
- * 🏷️ المعرف: DOC-ADMIN-02
- * 📅 تاريخ الإنشاء: 2026-08-19
- * 👤 المالك: Hossam El-Din Abdel-Moaty El-Khouly - All rights reserved
- * ⚖️ الترخيص: MIT License
- * 📚 المصادر المقتبسة: لا توجد.
- * ============================================================
- */
+
+- ============================================================
+- 📄 الملف: JOURNAL.md
+- 📂 المسار: JOURNAL.md
+- 🎯 الهدف الرئيسي: يوميات العمل اليومية للمشروع، تسجل
+- المنجزات والتحديات والملاحظات لكل يوم عمل.
+- 📋 المعايير:
+- - يجب إضافة يومية جديدة في كل جلسة عمل.
+- - يجب توثيق جميع المنجزات والتحديات.
+- - يجب ربط كل إنجاز بالمرحلة (PHASE) والمعرف (ID) المقابل.
+- 🧪 الاختبارات: لا توجد اختبارات (ملف إداري).
+- 🏷️ المعرف: DOC-ADMIN-02
+- 📅 تاريخ الإنشاء: 2026-08-19
+- 👤 المالك: Hossam El-Din Abdel-Moaty El-Khouly - All rights reserved
+- ⚖️ الترخيص: MIT License
+- 📚 المصادر المقتبسة: لا توجد.
+- ============================================================
+  */
 
 # يوميات مشروع LibreText Editor Suite
 
 ## 2026-08-19
 
 ### المنجزات
+
 - إنشاء الخطة المعمارية النموذجية (Blueprint) النهائية.
 - تعريف جميع المراحل (PHASE-00 إلى PHASE-10).
 - تعريف فهرس المعرفات الكامل (INFRA, CORE, SER, PLUG, ADAP, PLAY, DOC, SEC, TEST).
@@ -43,30 +45,32 @@
 
 **تم إنشاء الملفات التالية:**
 
-| الملف | المعرف | الحالة |
-|-------|--------|--------|
-| `package.json` (جذري) | `INFRA-001` | تم |
-| `tsconfig.base.json` | `INFRA-002` | تم |
-| `tsconfig.json` | `INFRA-002` | تم (يتوسع من base) |
-| `pnpm-workspace.yaml` | `INFRA-006` | تم |
-| `packages/core/package.json` | `INFRA-005` | تم |
-| `packages/core/vite.config.ts` | `INFRA-012` | تم |
-| `scripts/generate-file.ts` | `INFRA-003` | تم |
-| `scripts/generate-header.ts` | `INFRA-004` | تم |
-| `scripts/README.md` | `INFRA-004` | تم |
-| `vitest.config.ts` | `INFRA-002` | تم |
-| `turbo.json` | `INFRA-006` | تم |
-| `eslint.config.js` | `INFRA-002` | تم |
-| `.prettierrc` | `INFRA-002` | تم |
-| `.gitignore` | `INFRA-002` | تم |
+| الملف                          | المعرف      | الحالة             |
+| ------------------------------ | ----------- | ------------------ |
+| `package.json` (جذري)          | `INFRA-001` | تم                 |
+| `tsconfig.base.json`           | `INFRA-002` | تم                 |
+| `tsconfig.json`                | `INFRA-002` | تم (يتوسع من base) |
+| `pnpm-workspace.yaml`          | `INFRA-006` | تم                 |
+| `packages/core/package.json`   | `INFRA-005` | تم                 |
+| `packages/core/vite.config.ts` | `INFRA-012` | تم                 |
+| `scripts/generate-file.ts`     | `INFRA-003` | تم                 |
+| `scripts/generate-header.ts`   | `INFRA-004` | تم                 |
+| `scripts/README.md`            | `INFRA-004` | تم                 |
+| `vitest.config.ts`             | `INFRA-002` | تم                 |
+| `turbo.json`                   | `INFRA-006` | تم                 |
+| `eslint.config.js`             | `INFRA-002` | تم                 |
+| `.prettierrc`                  | `INFRA-002` | تم                 |
+| `.gitignore`                   | `INFRA-002` | تم                 |
 
 **التحقق:**
+
 - ✅ `pnpm install` — تم بنجاح (280 حزمة)
 - ✅ `pnpm typecheck` — TypeScript يعمل بدون أخطاء
 - ✅ `pnpm lint` — ESLint يعمل (تحذيرات console فقط في السكربتات)
 - ✅ `pnpm test` — Vitest يعمل (لا توجد ملفات اختبار بعد — متوقع)
 
 ### قيد العمل
+
 - PHASE-01: النواة Core (AST, State, Operations, Indexer) — مكتمل.
 
 ---
@@ -75,35 +79,39 @@
 
 **تم إنشاء الملفات التالية:**
 
-| الملف | المعرف | الوصف |
-|-------|--------|--------|
-| `packages/core/src/ast/types.ts` | `CORE-001` | تعريفات AST (20+ نوع) |
-| `packages/core/src/ast/schema.ts` | `CORE-002` | مخطط AST مع التحقق |
-| `packages/core/src/ast/builder.ts` | `CORE-003` | بناء الكتل (Builder Pattern) |
-| `packages/core/src/state/editor-state.ts` | `CORE-004` | حالة المحرر (Immutable) |
-| `packages/core/src/state/operations.ts` | `CORE-005` | عمليات التحرير |
-| `packages/core/src/state/history.ts` | `CORE-006` | التراجع والإعادة |
-| `packages/core/src/indexer/indexer.ts` | `CORE-007` | نظام الفهرسة |
-| `packages/core/src/indexer/search.ts` | `CORE-008` | واجهة البحث النصي |
-| `packages/core/src/utils/id.ts` | `CORE-009` | توليد المعرفات |
-| `packages/core/src/utils/validation.ts` | `CORE-010` | التحقق من الصحة |
-| `packages/core/src/index.ts` | `CORE-011` | التصدير العام |
-| `packages/core/tests/ast/types.test.ts` | `TEST-CORE-001` | اختبارات AST (28 اختبار) |
-| `packages/core/tests/state/editor-state.test.ts` | `TEST-CORE-002` | اختبارات الحالة (16 اختبار) |
+| الملف                                            | المعرف          | الوصف                        |
+| ------------------------------------------------ | --------------- | ---------------------------- |
+| `packages/core/src/ast/types.ts`                 | `CORE-001`      | تعريفات AST (20+ نوع)        |
+| `packages/core/src/ast/schema.ts`                | `CORE-002`      | مخطط AST مع التحقق           |
+| `packages/core/src/ast/builder.ts`               | `CORE-003`      | بناء الكتل (Builder Pattern) |
+| `packages/core/src/state/editor-state.ts`        | `CORE-004`      | حالة المحرر (Immutable)      |
+| `packages/core/src/state/operations.ts`          | `CORE-005`      | عمليات التحرير               |
+| `packages/core/src/state/history.ts`             | `CORE-006`      | التراجع والإعادة             |
+| `packages/core/src/indexer/indexer.ts`           | `CORE-007`      | نظام الفهرسة                 |
+| `packages/core/src/indexer/search.ts`            | `CORE-008`      | واجهة البحث النصي            |
+| `packages/core/src/utils/id.ts`                  | `CORE-009`      | توليد المعرفات               |
+| `packages/core/src/utils/validation.ts`          | `CORE-010`      | التحقق من الصحة              |
+| `packages/core/src/index.ts`                     | `CORE-011`      | التصدير العام                |
+| `packages/core/tests/ast/types.test.ts`          | `TEST-CORE-001` | اختبارات AST (28 اختبار)     |
+| `packages/core/tests/state/editor-state.test.ts` | `TEST-CORE-002` | اختبارات الحالة (16 اختبار)  |
 
 **التحقق:**
+
 - ✅ `pnpm typecheck` — TypeScript يعمل بدون أخطاء
 - ✅ `pnpm test` — **44 اختبار ناجح** (28 AST + 16 State)
 
 ### قيد العمل
+
 - PHASE-02: المحولات الأساسية (Markdown, HTML, TXT) — التالي.
 
 ### التحديات
+
 - التأكد من استخدام Vite بدلاً من tsup للتوافق الكامل مع TypeScript.
 - ضرورة توثيق جميع المصادر المفتوحة المقتبسة بدقة.
 - التوفيق بين أنماط webpainter-next ومحرر-html-الذكي-wysiwyg مع مشروع LibreText.
 
 ### ملاحظات
+
 - التركيز على الجودة النموذجية بدلاً من السرعة.
 - كل مرحلة يجب أن تمر بمراجعة قبل الانتقال للمرحلة التالية.
 - سيتم استخدام pnpm + Turborepo + Vite + Vitest كأدوات أساسية.
@@ -115,6 +123,7 @@
 ## 2026-08-19 — إعادة الهيكلة المعمارية
 
 ### المنجزات
+
 - اعتماد المعمارية الجديدة بعد مراجعة شاملة للمشروع.
 - إنشاء ملف RESTRUCTURING_PLAN.md — خطة إعادة الهيكلة الشاملة.
 - تحديث AGENTS.md [DOC-ADMIN-05] — إضافة:
@@ -123,7 +132,7 @@
   - القاعدة 5.3: محرك الترجمة المكانية (Spatial Translation Engine).
   - القاعدة 5.4: النطاقات المكتبية الأربعة (Writer, Calc, Impress, Base).
   - القاعدة 5.5: الذاكرة والقوالب (Storage + Templates).
-  - تحديث فهرس المعرفات: إضافة ALGO-*, STORE-*, TPL-*.
+  - تحديث فهرس المعرفات: إضافة ALGO-_, STORE-_, TPL-*.
   - تحديث الشجرة الهيكلية: 8 حزم بدلاً من 5.
   - تحديث خريطة التكامل: 9 حزم مستهلكة.
   - تحديث المراحل: PHASE-06 إلى PHASE-13.
@@ -138,19 +147,22 @@
 - تحديث vitest.config.ts — إضافة اختبارات新 الحزم.
 
 ### القرارات المعمارية
-| القرار | الاختيار | السبب |
-|--------|---------|-------|
-| طبقة المنطق | Command Pattern + Expression Evaluator | مرونة عالية + قابلية للتوسع |
-| الترجمة المكانية | Adapter → SpatialMapper → Core | فصل التفاصيل التقنية عن النواة |
-| التخزين | In-Memory + localStorage + IndexedDB | ثلاث طبقات: حي/مؤقت/دائم |
-| القوالب | Template Registry متعددة النطاقات | دعم Writer, Calc, Impress, Base |
+
+| القرار           | الاختيار                               | السبب                           |
+| ---------------- | -------------------------------------- | ------------------------------- |
+| طبقة المنطق      | Command Pattern + Expression Evaluator | مرونة عالية + قابلية للتوسع     |
+| الترجمة المكانية | Adapter → SpatialMapper → Core         | فصل التفاصيل التقنية عن النواة  |
+| التخزين          | In-Memory + localStorage + IndexedDB   | ثلاث طبقات: حي/مؤقت/دائم        |
+| القوالب          | Template Registry متعددة النطاقات      | دعم Writer, Calc, Impress, Base |
 
 ### التحديات
+
 - ضرورة تقسيم الكود الموجود الذي يتجاوز 250 سطر (CORE-001 و CORE-004).
 - تحديد دوال المكتبات الخارجية للخوارزميات (أو كتابتها من الصفر).
 - ضمان عدم تداخل ال_hardيات بين الحزم الجديدة.
 
 ### ملاحظات
+
 - الكود المكتوب حالياً (120 اختبار) لا يتأثر بأي تغيير — كل شيء إضافي.
 - الحزم الجديدة تعتمد على @libretext/core فقط (لا دورة).
 
@@ -159,6 +171,7 @@
 ## 2026-08-19 — إنجاز طبقة المنطق والخوارزميات (PHASE-06)
 
 ### المنجزات
+
 - تنفيذ `ALGO-007` (`packages/algorithms/src/spatial/types.ts`) الإصدار v3:
   - دعم الأصفار البادئة في تسميات الخلايا (`A01` تعادل `A1`).
   - دعم الأعمدة متعددة الأحرف (`AA`, `AB`, `XFD`).
@@ -173,6 +186,7 @@
 - **التحقق الشامل:** نجاح جميع الاختبارات الـ 369 في 20 ملف اختبار عبر Vitest.
 
 ### قيد العمل
+
 - تنفيذ `ALGO-009` (`packages/algorithms/src/spatial/commands.ts`) الإصدار v2:
   - مصانع الأوامر المكانية: `createMoveCommand`, `createResizeCommand`, `createSelectCommand`, `createDeleteCommand`, `createCreateCommand`.
   - دوال الحساب والتحويل: `computeMoveDelta` (مع Discriminated Union: `kind: 'logical' | 'grid'`), و `toBoundingBox`.
@@ -182,5 +196,6 @@
 - **التحقق الشامل:** نجاح جميع الاختبارات الـ 395 في 21 ملف اختبار عبر Vitest بنسبة 100%.
 
 ### قيد العمل
+
 - اكتمال PHASE-06 (طبقة المنطق والخوارزميات) بنسبة 100%.
 - المرحلة التالية: PHASE-07 (طبقة التخزين `@libretext/storage`).

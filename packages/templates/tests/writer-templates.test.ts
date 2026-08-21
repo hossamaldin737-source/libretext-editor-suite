@@ -414,7 +414,7 @@ describe('TPL-002: Writer Templates', () => {
       const resume = createResumeTemplate();
       const blocks = resume.content?.content || [];
       const hasMarks = blocks.some((b) =>
-        b.content?.some((inline) => inline.marks && inline.marks.length > 0)
+        b.content?.some((inline) => inline.marks && inline.marks.length > 0),
       );
       expect(hasMarks).toBe(true);
     });

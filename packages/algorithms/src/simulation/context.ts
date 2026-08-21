@@ -23,7 +23,7 @@
  */
 
 export interface SimulationContext {
-  readonly cursorPosition: {readonly x: number; readonly y: number};
+  readonly cursorPosition: { readonly x: number; readonly y: number };
   readonly selectedRange: string;
   readonly activeFormula?: string;
   readonly domain: 'writer' | 'calc' | 'impress' | 'base';
@@ -33,17 +33,13 @@ export function createSimulationContext(
   domain: SimulationContext['domain'] = 'writer',
 ): SimulationContext {
   return {
-    cursorPosition: {x: 0, y: 0},
+    cursorPosition: { x: 0, y: 0 },
     selectedRange: '',
     domain,
   };
 }
 
-export function moveCursor(
-  ctx: SimulationContext,
-  dx: number,
-  dy: number,
-): SimulationContext {
+export function moveCursor(ctx: SimulationContext, dx: number, dy: number): SimulationContext {
   return {
     ...ctx,
     cursorPosition: {
@@ -53,16 +49,10 @@ export function moveCursor(
   };
 }
 
-export function selectRange(
-  ctx: SimulationContext,
-  range: string,
-): SimulationContext {
-  return {...ctx, selectedRange: range};
+export function selectRange(ctx: SimulationContext, range: string): SimulationContext {
+  return { ...ctx, selectedRange: range };
 }
 
-export function setFormula(
-  ctx: SimulationContext,
-  formula: string,
-): SimulationContext {
-  return {...ctx, activeFormula: formula};
+export function setFormula(ctx: SimulationContext, formula: string): SimulationContext {
+  return { ...ctx, activeFormula: formula };
 }

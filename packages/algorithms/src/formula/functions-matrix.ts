@@ -84,7 +84,7 @@ export function valuesEqual(
   a: unknown,
   b: unknown,
   ignoreCase = true,
-  normalizeArabic = true
+  normalizeArabic = true,
 ): boolean {
   if (a === b) return true;
   if (a === null || a === undefined) return b === null || b === undefined || b === '';
@@ -127,7 +127,7 @@ export function vectorsEqual(
   vecA: unknown[],
   vecB: unknown[],
   ignoreCase = true,
-  normalizeArabic = true
+  normalizeArabic = true,
 ): boolean {
   if (vecA.length !== vecB.length) return false;
   for (let i = 0; i < vecA.length; i++) {
@@ -156,7 +156,7 @@ export function A_EQ(
   array1: unknown,
   array2: unknown,
   ignoreCase: unknown = true,
-  normalizeArabic: unknown = true
+  normalizeArabic: unknown = true,
 ): boolean {
   const ignCase = ignoreCase === true || ignoreCase === 'TRUE' || ignoreCase === 1;
   const normAr = normalizeArabic === true || normalizeArabic === 'TRUE' || normalizeArabic === 1;
@@ -184,7 +184,7 @@ export function A_NE(
   array1: unknown,
   array2: unknown,
   ignoreCase: unknown = true,
-  normalizeArabic: unknown = true
+  normalizeArabic: unknown = true,
 ): boolean {
   return !A_EQ(array1, array2, ignoreCase, normalizeArabic);
 }
@@ -223,7 +223,7 @@ export function A_XMATCH_ROWS(
   lookupRow: unknown,
   lookupArray: unknown,
   matchMode: unknown = 0,
-  searchMode: unknown = 1
+  searchMode: unknown = 1,
 ): number {
   const targetMat = to2DArray(lookupRow);
   const targetRow = targetMat.length > 0 ? targetMat[0]! : [];
@@ -251,7 +251,7 @@ export function A_XMATCH_COLS(
   lookupCol: unknown,
   lookupArray: unknown,
   matchMode: unknown = 0,
-  searchMode: unknown = 1
+  searchMode: unknown = 1,
 ): number {
   const matrix = to2DArray(lookupArray);
   const targetMat = to2DArray(lookupCol);
@@ -284,7 +284,7 @@ export function A_XLOOKUP_ROWS(
   returnArray: unknown,
   ifNotFound: unknown = '#N/A',
   matchMode: unknown = 0,
-  searchMode: unknown = 1
+  searchMode: unknown = 1,
 ): unknown {
   try {
     const rowIndex = A_XMATCH_ROWS(lookupRow, lookupArray, matchMode, searchMode);
@@ -309,7 +309,7 @@ export function A_XLOOKUP_COLS(
   returnArray: unknown,
   ifNotFound: unknown = '#N/A',
   matchMode: unknown = 0,
-  searchMode: unknown = 1
+  searchMode: unknown = 1,
 ): unknown {
   try {
     const colIndex = A_XMATCH_COLS(lookupCol, lookupArray, matchMode, searchMode);
@@ -331,7 +331,11 @@ export function A_XLOOKUP_COLS(
 
 // ─── 4. عمليات المجموعات الجبرية: UNION, INTERSECT, DIFF ───
 
-export function A_UNION_CELLS(array1: unknown, array2?: unknown, ignoreEmpty: unknown = true): unknown[] {
+export function A_UNION_CELLS(
+  array1: unknown,
+  array2?: unknown,
+  ignoreEmpty: unknown = true,
+): unknown[] {
   const m1 = to2DArray(array1).flat();
   const m2 = array2 !== undefined ? to2DArray(array2).flat() : [];
   const combined = [...m1, ...m2];
@@ -598,7 +602,11 @@ export function A_DUPLICATED_COLS(array: unknown, keep: unknown = 1): boolean[] 
   return A_DUPLICATED(array, keep, true);
 }
 
-export function A_DUPLICATES(array: unknown, keep: unknown = 1, byCol: unknown = false): unknown[][] {
+export function A_DUPLICATES(
+  array: unknown,
+  keep: unknown = 1,
+  byCol: unknown = false,
+): unknown[][] {
   const isCol = byCol === true || byCol === 'TRUE' || byCol === 1;
   const mask = A_DUPLICATED(array, keep, byCol);
   const matrix = to2DArray(array);
@@ -620,7 +628,9 @@ export function A_MAP_ROWS(array: unknown, fnOrOp: unknown): unknown[] {
     return matrix.map((row) => fnOrOp(row));
   }
   return matrix.map((row) => {
-    const op = String(fnOrOp || 'SUM').toUpperCase().trim();
+    const op = String(fnOrOp || 'SUM')
+      .toUpperCase()
+      .trim();
     const nums = row.map((v) => Number(v)).filter((v) => !isNaN(v));
     return nums.reduce((a, b) => a + b, 0);
   });
@@ -637,12 +647,18 @@ export function A_MAP_COLS(array: unknown, fnOrOp: unknown): unknown[] {
   });
 }
 
-export function A_REDUCE_ROWS(array: unknown, fnOrOp: unknown = 'SUM', initialValue?: unknown): unknown {
+export function A_REDUCE_ROWS(
+  array: unknown,
+  fnOrOp: unknown = 'SUM',
+  initialValue?: unknown,
+): unknown {
   const matrix = to2DArray(array);
   if (typeof fnOrOp === 'function') {
     return matrix.reduce((acc, row) => fnOrOp(acc, row), initialValue);
   }
-  const op = String(fnOrOp || 'SUM').toUpperCase().trim();
+  const op = String(fnOrOp || 'SUM')
+    .toUpperCase()
+    .trim();
   const init = typeof initialValue === 'number' ? initialValue : 0;
   return matrix.reduce((acc: number, row) => {
     const numVals = row.map((v) => Number(v)).filter((v) => !isNaN(v));
@@ -651,12 +667,18 @@ export function A_REDUCE_ROWS(array: unknown, fnOrOp: unknown = 'SUM', initialVa
   }, init);
 }
 
-export function A_REDUCE_COLS(array: unknown, fnOrOp: unknown = 'SUM', initialValue?: unknown): unknown {
+export function A_REDUCE_COLS(
+  array: unknown,
+  fnOrOp: unknown = 'SUM',
+  initialValue?: unknown,
+): unknown {
   const t = transpose2D(to2DArray(array));
   if (typeof fnOrOp === 'function') {
     return t.reduce((acc, col) => fnOrOp(acc, col), initialValue);
   }
-  const op = String(fnOrOp || 'SUM').toUpperCase().trim();
+  const op = String(fnOrOp || 'SUM')
+    .toUpperCase()
+    .trim();
   const init = typeof initialValue === 'number' ? initialValue : 0;
   return t.reduce((acc: number, col) => {
     const numVals = col.map((v) => Number(v)).filter((v) => !isNaN(v));
@@ -683,22 +705,85 @@ export function A_FILTER_COLS(array: unknown, predicate: unknown): unknown[][] {
 
 // ─── 8. التعرف على المستند ودليل الدوال (LIBRETEXT_INFO) ───
 
-const FUNCTION_CATALOG: Record<string, { category: string; description: string; arabicSupport: boolean }> = {
-  SUM: { category: 'Math & Arithmetic', description: 'حساب مجموع الأرقام أو نطاق الخلايا (مجموع)', arabicSupport: true },
-  AVERAGE: { category: 'Math & Statistics', description: 'حساب المتوسط الحسابي للقيم (متوسط)', arabicSupport: true },
-  COUNT: { category: 'Math & Statistics', description: 'حساب عدد الخلايا الرقمية (عدد)', arabicSupport: true },
-  TAFQEET: { category: 'Arabic & Text Processing', description: 'تحويل الأرقام والمبالغ إلى نصوص عربية مقروءة مع العملات (تفقيط)', arabicSupport: true },
-  NORMALIZE_ARABIC: { category: 'Arabic & Text Processing', description: 'توحيد الحروف والهمزات وحذف التشكيل للبحث والمطابقة', arabicSupport: true },
-  STRIP_TASHKEEL: { category: 'Arabic & Text Processing', description: 'حذف علامات التشكيل والتنوين والتطويل (حذف_التشكيل)', arabicSupport: true },
-  'A.EQ': { category: 'Matrix & Set Operations', description: 'مقارنة المصفوفات والقيم مع تطبيع الحروف العربية وتجاهل حالة الأحرف', arabicSupport: true },
-  'A.XMATCH.ROWS': { category: 'Matrix & Set Operations', description: 'البحث عن صف مطابق داخل مصفوفة ثنائية الأبعاد مع التطبيع العربي', arabicSupport: true },
-  'A.UNION.ROWS': { category: 'Matrix & Set Operations', description: 'إجراء عملية اتحاد الصفوف لمصفوفتين وحذف التكرار', arabicSupport: true },
-  'A.INTERSECT.ROWS': { category: 'Matrix & Set Operations', description: 'استخراج الصفوف المشتركة (تقاطع) بين مصفوفتين', arabicSupport: true },
-  'A.DIFF.ROWS': { category: 'Matrix & Set Operations', description: 'استخراج الصفوف الموجودة في الأولى وغير موجودة في الثانية (فرق)', arabicSupport: true },
-  VLOOKUP: { category: 'Lookup & Reference', description: 'البحث العمودي في الجداول واسترجاع القيم المقابلة', arabicSupport: true },
-  XLOOKUP: { category: 'Lookup & Reference', description: 'البحث المتقدم ثنائي الاتجاه مع دعم القيم الافتراضية', arabicSupport: true },
-  INDEX: { category: 'Lookup & Reference', description: 'استرجاع قيمة خلية بناءً على رقم الصف ورقم العمود', arabicSupport: true },
-  MATCH: { category: 'Lookup & Reference', description: 'البحث عن موضع قيمة داخل متجه أو صف', arabicSupport: true },
+const FUNCTION_CATALOG: Record<
+  string,
+  { category: string; description: string; arabicSupport: boolean }
+> = {
+  SUM: {
+    category: 'Math & Arithmetic',
+    description: 'حساب مجموع الأرقام أو نطاق الخلايا (مجموع)',
+    arabicSupport: true,
+  },
+  AVERAGE: {
+    category: 'Math & Statistics',
+    description: 'حساب المتوسط الحسابي للقيم (متوسط)',
+    arabicSupport: true,
+  },
+  COUNT: {
+    category: 'Math & Statistics',
+    description: 'حساب عدد الخلايا الرقمية (عدد)',
+    arabicSupport: true,
+  },
+  TAFQEET: {
+    category: 'Arabic & Text Processing',
+    description: 'تحويل الأرقام والمبالغ إلى نصوص عربية مقروءة مع العملات (تفقيط)',
+    arabicSupport: true,
+  },
+  NORMALIZE_ARABIC: {
+    category: 'Arabic & Text Processing',
+    description: 'توحيد الحروف والهمزات وحذف التشكيل للبحث والمطابقة',
+    arabicSupport: true,
+  },
+  STRIP_TASHKEEL: {
+    category: 'Arabic & Text Processing',
+    description: 'حذف علامات التشكيل والتنوين والتطويل (حذف_التشكيل)',
+    arabicSupport: true,
+  },
+  'A.EQ': {
+    category: 'Matrix & Set Operations',
+    description: 'مقارنة المصفوفات والقيم مع تطبيع الحروف العربية وتجاهل حالة الأحرف',
+    arabicSupport: true,
+  },
+  'A.XMATCH.ROWS': {
+    category: 'Matrix & Set Operations',
+    description: 'البحث عن صف مطابق داخل مصفوفة ثنائية الأبعاد مع التطبيع العربي',
+    arabicSupport: true,
+  },
+  'A.UNION.ROWS': {
+    category: 'Matrix & Set Operations',
+    description: 'إجراء عملية اتحاد الصفوف لمصفوفتين وحذف التكرار',
+    arabicSupport: true,
+  },
+  'A.INTERSECT.ROWS': {
+    category: 'Matrix & Set Operations',
+    description: 'استخراج الصفوف المشتركة (تقاطع) بين مصفوفتين',
+    arabicSupport: true,
+  },
+  'A.DIFF.ROWS': {
+    category: 'Matrix & Set Operations',
+    description: 'استخراج الصفوف الموجودة في الأولى وغير موجودة في الثانية (فرق)',
+    arabicSupport: true,
+  },
+  VLOOKUP: {
+    category: 'Lookup & Reference',
+    description: 'البحث العمودي في الجداول واسترجاع القيم المقابلة',
+    arabicSupport: true,
+  },
+  XLOOKUP: {
+    category: 'Lookup & Reference',
+    description: 'البحث المتقدم ثنائي الاتجاه مع دعم القيم الافتراضية',
+    arabicSupport: true,
+  },
+  INDEX: {
+    category: 'Lookup & Reference',
+    description: 'استرجاع قيمة خلية بناءً على رقم الصف ورقم العمود',
+    arabicSupport: true,
+  },
+  MATCH: {
+    category: 'Lookup & Reference',
+    description: 'البحث عن موضع قيمة داخل متجه أو صف',
+    arabicSupport: true,
+  },
 };
 
 export function LIBRETEXT_INFO(query?: unknown): unknown {
@@ -714,14 +799,24 @@ export function LIBRETEXT_INFO(query?: unknown): unknown {
         'Bilingual Formula Engine (Arabic & English)',
         'Advanced Matrix & Lambda Algebra (A.*)',
         'Arabic Financial Tafqeet & Text Normalization',
-        'Multi-format Serializers (MD, HTML, PDF, LaTeX, TXT)'
-      ]
+        'Multi-format Serializers (MD, HTML, PDF, LaTeX, TXT)',
+      ],
     };
   }
 
   const q = String(query).trim().toUpperCase();
   if (q === 'LIST' || q === 'ALL' || q === 'قائمة') {
-    return Object.keys(FUNCTION_CATALOG).concat(['COUNTIF', 'SUMIF', 'DATE', 'TODAY', 'NOW', 'DATEDIF', 'A.NE', 'A.GT', 'A.UNION.CELLS']);
+    return Object.keys(FUNCTION_CATALOG).concat([
+      'COUNTIF',
+      'SUMIF',
+      'DATE',
+      'TODAY',
+      'NOW',
+      'DATEDIF',
+      'A.NE',
+      'A.GT',
+      'A.UNION.CELLS',
+    ]);
   }
 
   // Alias lookup

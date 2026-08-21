@@ -13,4 +13,4 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-export {VueAdapter, createVueAdapter} from './vue-adapter';
+export { VueAdapter, createVueAdapter } from './vue-adapter';

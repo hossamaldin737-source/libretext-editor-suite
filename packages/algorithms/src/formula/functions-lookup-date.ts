@@ -45,7 +45,11 @@ function toNum(value: unknown): number | null {
 }
 
 /** MATCH: البحث عن موضع القيمة داخل مصفوفة */
-export function MATCH(lookupValue: unknown, lookupArray: unknown[], matchType: unknown = 1): number {
+export function MATCH(
+  lookupValue: unknown,
+  lookupArray: unknown[],
+  matchType: unknown = 1,
+): number {
   if (!Array.isArray(lookupArray) || lookupArray.length === 0) {
     throw new FormulaError('#N/A', 'Lookup array is empty or not an array');
   }
@@ -112,7 +116,7 @@ export function VLOOKUP(
   lookupValue: unknown,
   tableArray: unknown[][],
   colIndex: unknown,
-  rangeLookup: unknown = true
+  rangeLookup: unknown = true,
 ): unknown {
   if (!Array.isArray(tableArray) || tableArray.length === 0) {
     throw new FormulaError('#N/A', 'Table array is empty');
@@ -164,7 +168,7 @@ export function XLOOKUP(
   lookupValue: unknown,
   lookupArray: unknown[],
   returnArray: unknown[],
-  ifNotFound: unknown = '#N/A'
+  ifNotFound: unknown = '#N/A',
 ): unknown {
   if (!Array.isArray(lookupArray) || !Array.isArray(returnArray)) {
     throw new FormulaError('#VALUE!', 'Lookup and return arrays are required');
@@ -193,7 +197,10 @@ export function IFS(...args: unknown[]): unknown {
   }
   for (let i = 0; i < args.length; i += 2) {
     const condition = args[i];
-    const isTrue = condition === true || condition === 'TRUE' || (typeof condition === 'number' && condition !== 0);
+    const isTrue =
+      condition === true ||
+      condition === 'TRUE' ||
+      (typeof condition === 'number' && condition !== 0);
     if (isTrue) {
       return args[i + 1];
     }

@@ -56,9 +56,7 @@ export class MacroRegistry {
   }
 
   getAll(): MacroDefinition[] {
-    return Array.from(this.macros.values()).map((m) =>
-      JSON.parse(JSON.stringify(m))
-    );
+    return Array.from(this.macros.values()).map((m) => JSON.parse(JSON.stringify(m)));
   }
 
   exportJson(): string {

@@ -13,4 +13,4 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-export {MathPlugin} from './math-plugin';
+export { MathPlugin } from './math-plugin';

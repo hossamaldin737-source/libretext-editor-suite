@@ -17,7 +17,7 @@ import {
   createTrackerTemplate,
   createStatisticsTemplate,
   registerCalcTemplates,
-  getCalcTemplates
+  getCalcTemplates,
 } from '../src/calc/calc-templates';
 import { TemplateRegistry, TemplateDomain } from '../src/registry';
 import type { DocNode } from '@libretext/core';

@@ -34,7 +34,7 @@
  */
 
 // ─── المعرف الفريد ───
-export type NodeId = string & {readonly __brand: 'NodeId'};
+export type NodeId = string & { readonly __brand: 'NodeId' };
 
 // ─── الموقع المكاني (لـ Impress) ───
 export interface LogicalPosition {
@@ -45,14 +45,7 @@ export interface LogicalPosition {
 
 // ─── أنواع العناصر المضمنة (Inline Node Types) ───
 export type InlineNodeType =
-  | 'text'
-  | 'bold'
-  | 'italic'
-  | 'underline'
-  | 'strikethrough'
-  | 'code'
-  | 'link'
-  | 'mention';
+  'text' | 'bold' | 'italic' | 'underline' | 'strikethrough' | 'code' | 'link' | 'mention';
 
 // ─── أنواع الكتل (Block Node Types) ───
 export type BlockNodeType =

@@ -4,13 +4,7 @@ import tsparser from '@typescript-eslint/parser';
 
 export default [
   {
-    ignores: [
-      '**/node_modules/**',
-      '**/dist/**',
-      '**/*.js',
-      '**/*.mjs',
-      '**/*.cjs',
-    ],
+    ignores: ['**/node_modules/**', '**/dist/**', '**/*.js', '**/*.mjs', '**/*.cjs'],
   },
   {
     languageOptions: {
@@ -29,7 +23,7 @@ export default [
     },
     rules: {
       ...tseslint.configs.recommended.rules,
-      '@typescript-eslint/no-unused-vars': ['warn', {argsIgnorePattern: '^_'}],
+      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
       '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/no-explicit-any': 'warn',
       'no-console': 'warn',

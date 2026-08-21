@@ -142,7 +142,7 @@ describe('ALGO-002: CommandExecutor', () => {
     const batchResult = executor.undoMany(3, state);
     expect(batchResult.success).toBe(false);
     expect(batchResult.error).toContain('Undo not supported for TextCommand yet');
-    
+
     // Check that history size is 3 (nothing got popped because the first undo failed)
     expect(executor.getHistoryLength()).toBe(3);
 
@@ -151,7 +151,7 @@ describe('ALGO-002: CommandExecutor', () => {
     const executor2 = new CommandExecutor();
     executor2.execute(spatialCmdDelta, mockState);
     expect(executor2.getHistoryLength()).toBe(1);
-    
+
     const undoRes = executor2.undoLast(exec2.state);
     expect(undoRes.success).toBe(true);
     expect(executor2.getHistoryLength()).toBe(0);
@@ -175,14 +175,14 @@ describe('ALGO-002: CommandExecutor', () => {
       targetId: 'node-1',
       payload: { timestamp: Date.now(), x: 0, y: 0 },
     };
-    
+
     // We mocked applyOperation to throw on ERROR_MOCK
     const executor = new CommandExecutor();
     // Temporarily override toOperation to inject an error
     const handler = executor.findHandler(errorCmd);
     vi.spyOn(handler!, 'toOperation').mockReturnValueOnce({
       success: true,
-      value: { type: 'ERROR_MOCK' } as any
+      value: { type: 'ERROR_MOCK' } as any,
     });
 
     const result = executor.execute(errorCmd, mockState);

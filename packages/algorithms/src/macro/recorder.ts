@@ -84,7 +84,11 @@ export class MacroRecorder {
     }
   }
 
-  recordStep(commandType: string, payload: Record<string, unknown>, spatialTarget?: MacroStep['spatialTarget']): boolean {
+  recordStep(
+    commandType: string,
+    payload: Record<string, unknown>,
+    spatialTarget?: MacroStep['spatialTarget'],
+  ): boolean {
     if (this.state !== 'recording') {
       return false;
     }

@@ -168,7 +168,10 @@ export class OdfSerializer {
   /**
    * توليد جدول ODS قياسي لحسابات وبيانات Calc
    */
-  public serializeGridToOds(data: readonly (readonly (string | number)[])[], _options: OdfExportOptions = {}): Uint8Array {
+  public serializeGridToOds(
+    data: readonly (readonly (string | number)[])[],
+    _options: OdfExportOptions = {},
+  ): Uint8Array {
     const writer = new ZipArchiveWriter();
     writer.addFile('mimetype', 'application/vnd.oasis.opendocument.spreadsheet');
 
@@ -277,7 +280,9 @@ export class OdfSerializer {
   }
 
   private serializeTable(block: {
-    readonly rows: readonly { readonly cells: readonly { readonly content: readonly BlockNode[] }[] }[];
+    readonly rows: readonly {
+      readonly cells: readonly { readonly content: readonly BlockNode[] }[];
+    }[];
   }): string {
     if (block.rows.length === 0) return '';
     let tableXml = '<table:table table:name="Table1">';

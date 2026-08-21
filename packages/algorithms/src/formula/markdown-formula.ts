@@ -77,7 +77,7 @@ export interface FormulaReturn {
 
 export interface MarkdownReturn {
   locations: number[]; // [lineNumber, column, length]
-  data: string;        // [value](#formula)
+  data: string; // [value](#formula)
 }
 
 export interface MarkdownFormulaOptions {
@@ -127,7 +127,7 @@ export function FindConsecutiveBlocks(array: number[]): number[][] {
   let consecutiveLines = [array[0]!];
 
   for (let k = 1; k < array.length; k++) {
-    if ((consecutiveLines[consecutiveLines.length - 1]! + 1) === array[k]) {
+    if (consecutiveLines[consecutiveLines.length - 1]! + 1 === array[k]) {
       consecutiveLines.push(array[k]!);
     } else {
       if (consecutiveLines.length >= 2) {
@@ -176,7 +176,7 @@ export function GetTableContent(
   allLines: string[],
   dataLines: number[],
   sheetID: number,
-  includeTableHeaderInCellNumaration: boolean
+  includeTableHeaderInCellNumaration: boolean,
 ): TableContent {
   const table: TableContent = { sheet: 'Sheet' + sheetID, data: [] };
 
@@ -208,7 +208,7 @@ export function GetTableContent(
  */
 export function SplitValidMarkdownTables(
   allLines: string[],
-  includeTableHeaderInCellNumaration: boolean
+  includeTableHeaderInCellNumaration: boolean,
 ): TableContent[] {
   const candidateLines: number[] = [];
   const tablePattern = /^\|(.*)\|$/m;
@@ -229,7 +229,9 @@ export function SplitValidMarkdownTables(
       const separatorLine = allLines[block[1]!];
       // التحقق من وجود نمط الفاصل الماركداوني |---|
       if (separatorLine && /(?:\|.+?[-]+.+?)+\|/.test(separatorLine)) {
-        tables.push(GetTableContent(allLines, block, tables.length + 1, includeTableHeaderInCellNumaration));
+        tables.push(
+          GetTableContent(allLines, block, tables.length + 1, includeTableHeaderInCellNumaration),
+        );
       }
     }
   }
@@ -285,7 +287,7 @@ export function GetFormulaData(table: TableContent, sheetID: number | string): F
 export function MarkdownFormula(
   document: string,
   precisionRounding: number = 4,
-  includeTableHeaderInCellNumaration: boolean = false
+  includeTableHeaderInCellNumaration: boolean = false,
 ): MarkdownReturn[] {
   if (!document) return [];
 
@@ -323,7 +325,7 @@ export function MarkdownFormula(
   }
 
   const evaluator = new FormulaEvaluator({
-    getCellValue: (ref: string) => cellStore.get(ref.toUpperCase())
+    getCellValue: (ref: string) => cellStore.get(ref.toUpperCase()),
   });
 
   // تقييم كافة الصيغ وتوليد مخرجات الماركداون
@@ -372,7 +374,7 @@ export function MarkdownFormula(
  */
 export function ProcessMarkdownFormulas(
   document: string,
-  options: MarkdownFormulaOptions = {}
+  options: MarkdownFormulaOptions = {},
 ): ProcessedMarkdownResult {
   const precision = options.precisionRounding ?? 4;
   const includeHeader = options.includeTableHeaderInCellNumaration ?? false;
@@ -485,7 +487,10 @@ export function searchMarkdownFormulas(document: string, query: string): Formula
     const val = match[1] ?? '';
     const formula = match[2] ?? '';
 
-    if (formula.toUpperCase().includes(normalizedQuery) || val.toUpperCase().includes(normalizedQuery)) {
+    if (
+      formula.toUpperCase().includes(normalizedQuery) ||
+      val.toUpperCase().includes(normalizedQuery)
+    ) {
       results.push({
         sheet: 'Sheet1',
         cellRef: `L${ret.locations[0]}:C${ret.locations[1]}`,
@@ -506,7 +511,7 @@ export function searchMarkdownFormulas(document: string, query: string): Formula
 export function suggestFormulaAtMouse(
   document: string,
   mouseLine: number,
-  mouseCol: number
+  mouseCol: number,
 ): MouseFormulaSuggestion[] {
   const suggestions: MouseFormulaSuggestion[] = [
     {

@@ -22,15 +22,17 @@ export const presentationTemplate: DocumentTemplate = {
   description: 'قالب شرائح عرض تقديمي متسلسلة بتنسيق نظيف وثيم نهاري ناصع',
   doc: builder.doc([
     builder.heading(1, [builder.text('مقدمة في نظام LibreText Editor Suite')]),
-    builder.paragraph([
-      builder.text('الحل المكتبي الشامل والحر لتحرير النصوص، الجداول، والعروض.'),
-    ]),
+    builder.paragraph([builder.text('الحل المكتبي الشامل والحر لتحرير النصوص، الجداول، والعروض.')]),
     builder.horizontalRule(),
     builder.heading(2, [builder.text('الشريحة الثانية: المزايا الأساسية')]),
     builder.bulletList([
-      builder.listItem([builder.paragraph([builder.text('تفاعل حصري بالفأرة والزر الأيمن السريع')])]),
+      builder.listItem([
+        builder.paragraph([builder.text('تفاعل حصري بالفأرة والزر الأيمن السريع')]),
+      ]),
       builder.listItem([builder.paragraph([builder.text('ثيم نهاري فاتح نقي ومريح للعين')])]),
-      builder.listItem([builder.paragraph([builder.text('محولات جاهزة إلى Markdown و HTML و LaTeX و PDF')])]),
+      builder.listItem([
+        builder.paragraph([builder.text('محولات جاهزة إلى Markdown و HTML و LaTeX و PDF')]),
+      ]),
     ]),
   ]),
 };

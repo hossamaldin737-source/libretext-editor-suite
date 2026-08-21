@@ -53,7 +53,7 @@ export type CellsMap = Record<string, CellFormulaInput> | Map<string, CellFormul
 export interface DependencyGraph {
   readonly nodes: Set<string>;
   readonly dependencies: Map<string, Set<string>>; // node -> الخلايا التي تعتمد عليها
-  readonly dependents: Map<string, Set<string>>;   // node -> الخلايا التي تعتمد على هذه الخلية
+  readonly dependents: Map<string, Set<string>>; // node -> الخلايا التي تعتمد على هذه الخلية
 }
 
 /** استخراج مراجع الخلايا من شجرة AST */
@@ -172,7 +172,7 @@ function dfsDetectCycle(
   u: string,
   graph: DependencyGraph,
   color: Map<string, 0 | 1 | 2>,
-  parent: Map<string, string | null>
+  parent: Map<string, string | null>,
 ): string[] | null {
   color.set(u, 1); // Gray: قيد المعالجة
 
@@ -255,10 +255,10 @@ export function topologicalSort(graph: DependencyGraph): string[] {
  */
 export function getRecalculationOrder(
   graph: DependencyGraph,
-  changedCell: string | string[]
+  changedCell: string | string[],
 ): string[] {
   const startNodes = (Array.isArray(changedCell) ? changedCell : [changedCell]).map((c) =>
-    c.toUpperCase()
+    c.toUpperCase(),
   );
 
   // جمع كافة الخلايا المتأثرة باستخدام BFS

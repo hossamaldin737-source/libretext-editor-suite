@@ -28,8 +28,8 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-import type {BlockNode, CodeBlockNode, InlineNode, CodeNode} from '@libretext/core';
-import type {Plugin, PluginResult} from '../shared/types';
+import type { BlockNode, CodeBlockNode, InlineNode, CodeNode } from '@libretext/core';
+import type { Plugin, PluginResult } from '../shared/types';
 
 const MATH_LANGUAGES = ['math', 'latex', 'mathml'] as const;
 type MathType = (typeof MATH_LANGUAGES)[number];
@@ -100,12 +100,12 @@ export class MathPlugin implements Plugin {
    */
   processMath(code: string, type: MathType = 'latex'): PluginResult {
     if (!this.initialized) {
-      return {content: '', success: false, error: 'Plugin not initialized'};
+      return { content: '', success: false, error: 'Plugin not initialized' };
     }
 
     const trimmedCode = code.trim();
     if (!trimmedCode) {
-      return {content: '', success: false, error: 'Empty code'};
+      return { content: '', success: false, error: 'Empty code' };
     }
 
     const validationResult = this.validateMathCode(trimmedCode, type);
@@ -114,7 +114,7 @@ export class MathPlugin implements Plugin {
     }
 
     const html = this.generateHtml(trimmedCode, type);
-    return {content: html, success: true};
+    return { content: html, success: true };
   }
 
   /**
@@ -136,7 +136,7 @@ export class MathPlugin implements Plugin {
       };
     }
 
-    return {content: '', success: true};
+    return { content: '', success: true };
   }
 
   /**

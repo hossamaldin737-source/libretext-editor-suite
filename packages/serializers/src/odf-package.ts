@@ -26,7 +26,7 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-import {ZipArchiveWriter, ZipArchiveReader} from './advanced/zip-engine';
+import { ZipArchiveWriter, ZipArchiveReader } from './advanced/zip-engine';
 
 export interface OfficeSuitePackageData {
   readonly title: string;
@@ -34,10 +34,19 @@ export interface OfficeSuitePackageData {
   readonly calcData: {
     readonly rows: number;
     readonly cols: number;
-    readonly cells: Record<string, {raw: string}>;
+    readonly cells: Record<string, { raw: string }>;
   };
-  readonly impressSlides: readonly {readonly id: string; readonly title: string; readonly content: string}[];
-  readonly drawElements: readonly {readonly id: string; readonly type: string; readonly x: number; readonly y: number}[];
+  readonly impressSlides: readonly {
+    readonly id: string;
+    readonly title: string;
+    readonly content: string;
+  }[];
+  readonly drawElements: readonly {
+    readonly id: string;
+    readonly type: string;
+    readonly x: number;
+    readonly y: number;
+  }[];
   readonly baseRecords: readonly unknown[];
 }
 
@@ -65,7 +74,10 @@ export class OdfPackageEngine {
 </manifest:manifest>`;
     zip.addFile('META-INF/manifest.xml', manifest);
 
-    zip.addFile('writer/content.html', `<!DOCTYPE html><html><head><title>${data.title} - Writer</title></head><body><h1>${data.title}</h1><div>${data.writerContent}</div></body></html>`);
+    zip.addFile(
+      'writer/content.html',
+      `<!DOCTYPE html><html><head><title>${data.title} - Writer</title></head><body><h1>${data.title}</h1><div>${data.writerContent}</div></body></html>`,
+    );
     zip.addFile('calc/data.json', JSON.stringify(data.calcData, null, 2));
     zip.addFile('impress/slides.json', JSON.stringify(data.impressSlides, null, 2));
     zip.addFile('draw/elements.json', JSON.stringify(data.drawElements, null, 2));
@@ -77,30 +89,37 @@ export class OdfPackageEngine {
   static importUnifiedOdfPackage(buffer: Uint8Array): OfficeSuitePackageData {
     const reader = new ZipArchiveReader(buffer);
     const files = reader.extractFiles();
-    const fileMap = new Map(files.map(f => [f.name, f]));
+    const fileMap = new Map(files.map((f) => [f.name, f]));
 
     const writerFile = fileMap.get('writer/content.html');
     const writerContent = writerFile ? writerFile.text() : '';
 
     const calcFile = fileMap.get('calc/data.json');
     const calcData = calcFile
-      ? parseJsonSafe(calcFile.text(), {rows: 10, cols: 8, cells: {}})
-      : {rows: 10, cols: 8, cells: {}};
+      ? parseJsonSafe(calcFile.text(), { rows: 10, cols: 8, cells: {} })
+      : { rows: 10, cols: 8, cells: {} };
 
     const impressFile = fileMap.get('impress/slides.json');
     const impressSlides = impressFile
-      ? parseJsonSafe<readonly {readonly id: string; readonly title: string; readonly content: string}[]>(impressFile.text(), [])
+      ? parseJsonSafe<
+          readonly { readonly id: string; readonly title: string; readonly content: string }[]
+        >(impressFile.text(), [])
       : [];
 
     const drawFile = fileMap.get('draw/elements.json');
     const drawElements = drawFile
-      ? parseJsonSafe<readonly {readonly id: string; readonly type: string; readonly x: number; readonly y: number}[]>(drawFile.text(), [])
+      ? parseJsonSafe<
+          readonly {
+            readonly id: string;
+            readonly type: string;
+            readonly x: number;
+            readonly y: number;
+          }[]
+        >(drawFile.text(), [])
       : [];
 
     const baseFile = fileMap.get('base/records.json');
-    const baseRecords = baseFile
-      ? parseJsonSafe<readonly unknown[]>(baseFile.text(), [])
-      : [];
+    const baseRecords = baseFile ? parseJsonSafe<readonly unknown[]>(baseFile.text(), []) : [];
 
     return {
       title: 'imported-document',

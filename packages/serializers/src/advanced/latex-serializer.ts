@@ -27,14 +27,14 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-import type {BlockNode, DocNode, InlineNode} from '@libretext/core';
+import type { BlockNode, DocNode, InlineNode } from '@libretext/core';
 
 const LATEX_ESCAPE_MAP: Record<string, string> = {
   '#': '\\#',
-  '$': '\\$',
+  $: '\\$',
   '%': '\\%',
   '&': '\\&',
-  '_': '\\_',
+  _: '\\_',
   '{': '\\{',
   '}': '\\}',
   '~': '\\textasciitilde{}',
@@ -120,7 +120,7 @@ export class LatexSerializer {
   }
 
   private serializeTable(block: {
-    rows: readonly {readonly cells: readonly {readonly content: readonly BlockNode[]}[]}[];
+    rows: readonly { readonly cells: readonly { readonly content: readonly BlockNode[] }[] }[];
   }): string {
     if (block.rows.length === 0) return '';
 

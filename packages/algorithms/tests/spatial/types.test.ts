@@ -19,7 +19,7 @@ import {
   isGridCoordinate,
   gridToLabel,
   labelToGrid,
-  isValidCellLabel
+  isValidCellLabel,
 } from '../../src/spatial/types';
 
 describe('ALGO-007: Spatial Types', () => {

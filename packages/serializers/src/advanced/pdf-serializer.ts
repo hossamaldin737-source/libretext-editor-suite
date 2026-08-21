@@ -27,7 +27,7 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-import type {BlockNode, DocNode, InlineNode} from '@libretext/core';
+import type { BlockNode, DocNode, InlineNode } from '@libretext/core';
 
 /**
  * محول PDF — يحول AST إلى PDF.
@@ -50,7 +50,9 @@ export class PdfSerializer {
     lines.push('%PDF-1.4');
     lines.push('1 0 obj<</Type/Catalog/Pages 2 0 R>>endobj');
     lines.push('2 0 obj<</Type/Pages/Kids[3 0 R]/Count 1>>endobj');
-    lines.push('3 0 obj<</Type/Page/MediaBox[0 0 595 842]/Parent 2 0 R/Contents 4 0 R/Resources<</Font<</F1 5 0 R>>>>>>endobj');
+    lines.push(
+      '3 0 obj<</Type/Page/MediaBox[0 0 595 842]/Parent 2 0 R/Contents 4 0 R/Resources<</Font<</F1 5 0 R>>>>>>endobj',
+    );
     lines.push('4 0 obj<</Length 0>>stream');
     lines.push('endstream');
     lines.push('endobj');
@@ -100,20 +102,19 @@ export class PdfSerializer {
   }
 
   private serializeTable(block: {
-    rows: readonly {readonly cells: readonly {readonly content: readonly BlockNode[]}[]}[];
+    rows: readonly { readonly cells: readonly { readonly content: readonly BlockNode[] }[] }[];
   }): string {
     if (block.rows.length === 0) return '';
 
     const rows = block.rows.map((row) =>
-      row.cells.map((cell) => cell.content.map((c) => this.serializeBlock(c)).join(' '))
+      row.cells.map((cell) => cell.content.map((c) => this.serializeBlock(c)).join(' ')),
     );
-    const maxWidths = rows[0]?.map((_, colIdx) =>
-      Math.max(...rows.map((row) => (row[colIdx] ?? '').length))
-    ) ?? [];
+    const maxWidths =
+      rows[0]?.map((_, colIdx) => Math.max(...rows.map((row) => (row[colIdx] ?? '').length))) ?? [];
 
     const separator = maxWidths.map((w) => '-'.repeat(w)).join(' | ');
     const formattedRows = rows.map((row) =>
-      row.map((cell, i) => cell.padEnd(maxWidths[i] ?? 0)).join(' | ')
+      row.map((cell, i) => cell.padEnd(maxWidths[i] ?? 0)).join(' | '),
     );
 
     return formattedRows[0] + '\n' + separator + '\n' + formattedRows.slice(1).join('\n');

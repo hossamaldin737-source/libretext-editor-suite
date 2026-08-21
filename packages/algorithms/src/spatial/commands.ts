@@ -48,7 +48,7 @@ import {
   type SpatialCoordinate,
   type BoundingBox,
   isLogicalCoordinate,
-  isGridCoordinate
+  isGridCoordinate,
 } from './types';
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -60,10 +60,10 @@ export const SpatialOp = {
   RESIZE: 'spatial_resize',
   SELECT: 'spatial_select',
   DELETE: 'spatial_delete',
-  CREATE: 'spatial_create'
+  CREATE: 'spatial_create',
 } as const;
 
-export type SpatialOpValue = typeof SpatialOp[keyof typeof SpatialOp];
+export type SpatialOpValue = (typeof SpatialOp)[keyof typeof SpatialOp];
 
 export interface MoveCommand {
   readonly op: typeof SpatialOp.MOVE;
@@ -98,16 +98,13 @@ export interface CreateCommand {
 }
 
 export type SpatialCommand =
-  | MoveCommand | ResizeCommand | SelectCommand | DeleteCommand | CreateCommand;
+  MoveCommand | ResizeCommand | SelectCommand | DeleteCommand | CreateCommand;
 
 // ─────────────────────────────────────────────────────────────────────────────
 // دوال التحقق المشتركة (Shared Validators)
 // ─────────────────────────────────────────────────────────────────────────────
 
-function validatePositiveDimensions(
-  width: number | undefined,
-  height: number | undefined
-): void {
+function validatePositiveDimensions(width: number | undefined, height: number | undefined): void {
   if (width !== undefined && width <= 0) {
     throw new Error(`Width must be positive, got: ${width}`);
   }
@@ -120,19 +117,12 @@ function validatePositiveDimensions(
  * التحقق من تطابق نوع الإحداثيات والوحدة (للـ Logical)
  * @throws Error إذا اختلف النوع (logical vs grid) أو الوحدة (cm vs px)
  */
-function validateCoordinateTypesMatch(
-  a: SpatialCoordinate,
-  b: SpatialCoordinate
-): void {
+function validateCoordinateTypesMatch(a: SpatialCoordinate, b: SpatialCoordinate): void {
   if (a.type !== b.type) {
-    throw new Error(
-      `Coordinate types must match: got "${a.type}" and "${b.type}"`
-    );
+    throw new Error(`Coordinate types must match: got "${a.type}" and "${b.type}"`);
   }
   if (a.type === 'logical' && b.type === 'logical' && a.unit !== b.unit) {
-    throw new Error(
-      `Logical coordinate units must match: got "${a.unit}" and "${b.unit}"`
-    );
+    throw new Error(`Logical coordinate units must match: got "${a.unit}" and "${b.unit}"`);
   }
 }
 
@@ -143,7 +133,7 @@ function validateCoordinateTypesMatch(
 export function createMoveCommand(
   targetId: string,
   from: SpatialCoordinate,
-  to: SpatialCoordinate
+  to: SpatialCoordinate,
 ): MoveCommand {
   validateCoordinateTypesMatch(from, to);
   return { op: SpatialOp.MOVE, targetId, from, to };
@@ -153,7 +143,7 @@ export function createResizeCommand(
   targetId: string,
   position: SpatialCoordinate,
   width: number,
-  height: number
+  height: number,
 ): ResizeCommand {
   validatePositiveDimensions(width, height);
   return { op: SpatialOp.RESIZE, targetId, position, size: { width, height } };
@@ -161,7 +151,7 @@ export function createResizeCommand(
 
 export function createSelectCommand(
   targetIds: readonly string[],
-  addToSelection: boolean = false
+  addToSelection: boolean = false,
 ): SelectCommand {
   if (targetIds.length === 0) {
     throw new Error('Selection cannot be empty');
@@ -183,15 +173,13 @@ export function createCreateCommand(
   position: SpatialCoordinate,
   content: unknown,
   width?: number,
-  height?: number
+  height?: number,
 ): CreateCommand {
   if (content === null || content === undefined) {
     throw new Error('Content cannot be null or undefined');
   }
   validatePositiveDimensions(width, height);
-  const size = width !== undefined && height !== undefined
-    ? { width, height }
-    : undefined;
+  const size = width !== undefined && height !== undefined ? { width, height } : undefined;
   return { op: SpatialOp.CREATE, position, size, content };
 }
 
@@ -204,20 +192,17 @@ export type MoveDelta =
   | { readonly kind: 'logical'; readonly dx: number; readonly dy: number }
   | { readonly kind: 'grid'; readonly dRow: number; readonly dCol: number };
 
-export function computeMoveDelta(
-  from: SpatialCoordinate,
-  to: SpatialCoordinate
-): MoveDelta {
+export function computeMoveDelta(from: SpatialCoordinate, to: SpatialCoordinate): MoveDelta {
   validateCoordinateTypesMatch(from, to);
-  
+
   if (isLogicalCoordinate(from) && isLogicalCoordinate(to)) {
     return { kind: 'logical', dx: to.x - from.x, dy: to.y - from.y };
   }
-  
+
   if (isGridCoordinate(from) && isGridCoordinate(to)) {
     return { kind: 'grid', dRow: to.row - from.row, dCol: to.col - from.col };
   }
-  
+
   throw new Error('Unreachable: coordinate types validated');
 }
 
@@ -237,6 +222,6 @@ export function toBoundingBox(cmd: ResizeCommand): BoundingBox {
     y: cmd.position.y,
     width: cmd.size.width,
     height: cmd.size.height,
-    unit: cmd.position.unit
+    unit: cmd.position.unit,
   };
 }

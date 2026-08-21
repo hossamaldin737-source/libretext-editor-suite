@@ -113,10 +113,16 @@ export class TextRun {
     const rPr: string[] = [];
     if (this.bold) rPr.push('<w:b/>');
     if (this.italics) rPr.push('<w:i/>');
-    if (this.font) rPr.push(`<w:rFonts w:ascii="${escapeXml(this.font)}" w:hAnsi="${escapeXml(this.font)}" w:cs="${escapeXml(this.font)}"/>`);
+    if (this.font)
+      rPr.push(
+        `<w:rFonts w:ascii="${escapeXml(this.font)}" w:hAnsi="${escapeXml(this.font)}" w:cs="${escapeXml(this.font)}"/>`,
+      );
     if (this.size) rPr.push(`<w:sz w:val="${this.size * 2}"/>`);
     if (this.color) rPr.push(`<w:color w:val="${this.color.replace('#', '')}"/>`);
-    if (this.shading?.fill) rPr.push(`<w:shd w:val="clear" w:color="auto" w:fill="${this.shading.fill.replace('#', '')}"/>`);
+    if (this.shading?.fill)
+      rPr.push(
+        `<w:shd w:val="clear" w:color="auto" w:fill="${this.shading.fill.replace('#', '')}"/>`,
+      );
     if (this.style) rPr.push(`<w:rStyle w:val="${escapeXml(this.style)}"/>`);
 
     const props = rPr.length > 0 ? `<w:rPr>${rPr.join('')}</w:rPr>` : '';
@@ -176,7 +182,8 @@ export class Paragraph {
     if (typeof options === 'string') {
       this.children = [new TextRun(options)];
     } else {
-      this.children = options.children || (options.text !== undefined ? [new TextRun(options.text)] : []);
+      this.children =
+        options.children || (options.text !== undefined ? [new TextRun(options.text)] : []);
       this.heading = options.heading;
       this.style = options.style;
       this.spacing = options.spacing;
@@ -207,11 +214,15 @@ export class Paragraph {
       pPr.push(`<w:numPr><w:ilvl w:val="${this.bullet.level}"/><w:numId w:val="2"/></w:numPr>`);
     }
     if (this.shading?.fill) {
-      pPr.push(`<w:shd w:val="clear" w:color="auto" w:fill="${this.shading.fill.replace('#', '')}"/>`);
+      pPr.push(
+        `<w:shd w:val="clear" w:color="auto" w:fill="${this.shading.fill.replace('#', '')}"/>`,
+      );
     }
     if (this.border?.bottom) {
       const b = this.border.bottom;
-      pPr.push(`<w:pBdr><w:bottom w:val="${b.style || 'single'}" w:sz="${b.size || 6}" w:space="${b.space || 1}" w:color="${b.color || 'auto'}"/></w:pBdr>`);
+      pPr.push(
+        `<w:pBdr><w:bottom w:val="${b.style || 'single'}" w:sz="${b.size || 6}" w:space="${b.space || 1}" w:color="${b.color || 'auto'}"/></w:pBdr>`,
+      );
     }
 
     const pPrXml = pPr.length > 0 ? `<w:pPr>${pPr.join('')}</w:pPr>` : '';
@@ -237,7 +248,9 @@ export class TableCell {
   toXml(): string {
     const tcPr: string[] = [];
     if (this.shading?.fill) {
-      tcPr.push(`<w:shd w:val="clear" w:color="auto" w:fill="${this.shading.fill.replace('#', '')}"/>`);
+      tcPr.push(
+        `<w:shd w:val="clear" w:color="auto" w:fill="${this.shading.fill.replace('#', '')}"/>`,
+      );
     }
     const tcPrXml = tcPr.length > 0 ? `<w:tcPr>${tcPr.join('')}</w:tcPr>` : '';
     const bodyXml = this.children.map((c) => c.toXml()).join('');
@@ -370,7 +383,7 @@ export class Packer {
   <Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/>
   <Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/>
   <Override PartName="/docProps/core.xml" ContentType="application/vnd.openxmlformats-package.core-properties+xml"/>
-</Types>`
+</Types>`,
     );
 
     // 2. _rels/.rels
@@ -380,7 +393,7 @@ export class Packer {
 <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
   <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/>
   <Relationship Id="rId2" Type="http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties" Target="docProps/core.xml"/>
-</Relationships>`
+</Relationships>`,
     );
 
     // 3. docProps/core.xml
@@ -393,7 +406,7 @@ export class Packer {
   <dc:title>${title}</dc:title>
   <dc:creator>${creator}</dc:creator>
   <dcterms:created xsi:type="dcterms:W3CDTF" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">${new Date().toISOString()}</dcterms:created>
-</cp:coreProperties>`
+</cp:coreProperties>`,
     );
 
     // 4. word/styles.xml
@@ -412,7 +425,7 @@ export class Packer {
   <w:style w:type="paragraph" w:styleId="Heading1"><w:name w:val="heading 1"/><w:rPr><w:b/><w:sz w:val="36"/></w:rPr></w:style>
   <w:style w:type="paragraph" w:styleId="Heading2"><w:name w:val="heading 2"/><w:rPr><w:b/><w:sz w:val="28"/></w:rPr></w:style>
   <w:style w:type="paragraph" w:styleId="Heading3"><w:name w:val="heading 3"/><w:rPr><w:b/><w:sz w:val="24"/></w:rPr></w:style>
-</w:styles>`
+</w:styles>`,
     );
 
     // 5. word/_rels/document.xml.rels
@@ -421,7 +434,7 @@ export class Packer {
       `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
   <Relationship Id="rIdStyles" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>
-</Relationships>`
+</Relationships>`,
     );
 
     // 6. word/document.xml

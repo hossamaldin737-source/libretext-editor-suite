@@ -65,10 +65,10 @@ import type { DocNode } from '@libretext/core';
 export const StoreEventType = {
   SAVE: 'save',
   DELETE: 'delete',
-  CLEAR: 'clear'
+  CLEAR: 'clear',
 } as const;
 
-export type StoreEventTypeValue = typeof StoreEventType[keyof typeof StoreEventType];
+export type StoreEventTypeValue = (typeof StoreEventType)[keyof typeof StoreEventType];
 
 /** حدث المخزن */
 export interface StoreEvent<T = unknown> {
@@ -122,7 +122,7 @@ export const DEFAULT_STORE_CONFIG: Required<StoreConfig> = {
   version: 1,
   maxEntries: 10000,
   enableEvents: true,
-  cloneStrategy: 'structuredClone'
+  cloneStrategy: 'structuredClone',
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -196,7 +196,7 @@ export function createStoreEntry<T>(
   key: string,
   data: T,
   tags?: readonly string[],
-  existingMetadata?: StoreMetadata
+  existingMetadata?: StoreMetadata,
 ): StoreEntry<T> {
   const now = Date.now();
   return {
@@ -206,8 +206,8 @@ export function createStoreEntry<T>(
       createdAt: existingMetadata?.createdAt ?? now,
       updatedAt: now,
       version: (existingMetadata?.version ?? 0) + 1,
-      tags
-    }
+      tags,
+    },
   };
 }
 
@@ -236,7 +236,7 @@ export function isStoreEntry(value: unknown): value is StoreEntry<unknown> {
 /** نسخ قيمة عميقة حسب الاستراتيجية المختارة */
 export function deepClone<T>(
   value: T,
-  strategy: 'structuredClone' | 'json' | 'none' = 'structuredClone'
+  strategy: 'structuredClone' | 'json' | 'none' = 'structuredClone',
 ): T {
   if (strategy === 'none') return value;
   if (strategy === 'json') return JSON.parse(JSON.stringify(value));

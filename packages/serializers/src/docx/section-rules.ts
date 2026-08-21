@@ -27,7 +27,7 @@ import type { DocumentMetadata } from '../parsers/frontmatter-parser';
 export function shouldCreateSectionBreak(
   index: number,
   content: ContentBlock[],
-  _metadata: DocumentMetadata | null
+  _metadata: DocumentMetadata | null,
 ): boolean {
   if (index < 0 || index >= content.length) return false;
 

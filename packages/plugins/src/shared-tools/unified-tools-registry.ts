@@ -246,7 +246,7 @@ export class UnifiedToolsRegistry {
    */
   static getToolsForDomain(domain: DomainType): readonly UnifiedToolDefinition[] {
     return UNIFIED_TOOLS.filter(
-      (tool) => tool.supportedDomains.includes(domain) || tool.supportedDomains.includes('all')
+      (tool) => tool.supportedDomains.includes(domain) || tool.supportedDomains.includes('all'),
     );
   }
 

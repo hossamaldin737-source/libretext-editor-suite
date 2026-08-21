@@ -1,22 +1,23 @@
 /**
- * ============================================================
- * 📄 الملف: CHANGELOG.md
- * 📂 المسار: CHANGELOG.md
- * 🎯 الهدف الرئيسي: سجل التغييرات الرسمي للمشروع، يتبع
- *    معايير Keep a Changelog وإصدار Semantic Versioning.
- * 📋 المعايير:
- *    - يجب توثيق كل تغيير جوهري في الإصدارات.
- *    - يجب استخدام تنسيق [Added], [Changed], [Deprecated],
- *      [Removed], [Fixed], [Security].
- *    - يجب ربط كل تغيير بتعريف (PHASE/ID).
- * 🧪 الاختبارات: لا توجد اختبارات (ملف إداري).
- * 🏷️ المعرف: DOC-ADMIN-04
- * 📅 تاريخ الإنشاء: 2026-08-19
- * 👤 المالك: Hossam El-Din Abdel-Moaty El-Khouly - All rights reserved
- * ⚖️ الترخيص: MIT License
- * 📚 المصادر المقتبسة: لا توجد.
- * ============================================================
- */
+
+- ============================================================
+- 📄 الملف: CHANGELOG.md
+- 📂 المسار: CHANGELOG.md
+- 🎯 الهدف الرئيسي: سجل التغييرات الرسمي للمشروع، يتبع
+- معايير Keep a Changelog وإصدار Semantic Versioning.
+- 📋 المعايير:
+- - يجب توثيق كل تغيير جوهري في الإصدارات.
+- - يجب استخدام تنسيق [Added], [Changed], [Deprecated],
+-      [Removed], [Fixed], [Security].
+- - يجب ربط كل تغيير بتعريف (PHASE/ID).
+- 🧪 الاختبارات: لا توجد اختبارات (ملف إداري).
+- 🏷️ المعرف: DOC-ADMIN-04
+- 📅 تاريخ الإنشاء: 2026-08-19
+- 👤 المالك: Hossam El-Din Abdel-Moaty El-Khouly - All rights reserved
+- ⚖️ الترخيص: MIT License
+- 📚 المصادر المقتبسة: لا توجد.
+- ============================================================
+  */
 
 # سجل التغييرات - LibreText Editor Suite
 
@@ -28,6 +29,7 @@
 ## [لم يُصدر بعد]
 
 ### Added (تمت الإضافة)
+
 - إنشاء الخطة المعمارية النهائية (Blueprint).
 - تعريف فهرس المعرفات الكامل (INFRA, CORE, SER, PLUG, ADAP, PLAY, DOC, SEC, TEST).
 - تحديد هيكل المشروع النهائي.
@@ -39,6 +41,7 @@
 - إضافة القواعد الصارمة: الثيم الفاتح النقي، التفاعل بالماوس، السبورة البيضاء.
 
 ### Fifth Backup Integration — تكامل النسخة الاحتياطية الخامسة (2026-08-21)
+
 - ✅ `packages/core/src/utils/arabic-text.ts` — أدوات النص العربي (RTL, Numerals, Diacritics) [UTIL-AR-001]
 - ✅ `packages/core/src/utils/formula-parser.ts` — محلل صيغ Excel ثنائية اللغة [UTIL-FORM-001]
 - ✅ `packages/core/src/utils/content-validator.ts` — validators لكل نوع ContentBlock [CORE-013]
@@ -53,6 +56,7 @@
 - ✅ 856 اختبار ناجح — لا تراجعات
 
 ### PHASE-00 — بيئة التطوير (2026-08-19)
+
 - ✅ إنشاء `package.json` الجذري مع جميع السكربتات.
 - ✅ إنشاء `tsconfig.base.json` + `tsconfig.json` مع TypeScript صارم.
 - ✅ إنشاء `pnpm-workspace.yaml` لإدارة Monorepo.
@@ -65,7 +69,23 @@
 - ✅ إنشاء `eslint.config.js` + `.prettierrc`.
 - ✅ تثبيت جميع الاعتماديات بنجاح.
 
+### Algorithms Studio Integration — تكامل مكتبة الخوارزميات (2026-08-21)
+
+- ✅ `packages/algorithms/src/graph/dependency.ts` — كشف التبعيات الدائرية + الفرز الجغرافي [ALGO-020]
+- ✅ `packages/algorithms/src/graph/routing.ts` — توجيه محاذاةOrthogonal + A* [ALGO-021]
+- ✅ `packages/algorithms/src/graph/routing-types.ts` — أنواع التوجيه [ALGO-022]
+- ✅ `packages/algorithms/src/graph/orthogonal-router.ts` — مُوجّه متقدم مع مسارات ملساء [ALGO-023]
+- ✅ `packages/algorithms/src/tree/llrb.ts` — شجرة LLRB (Left-Leaning Red-Black) [ALGO-024]
+- ✅ `packages/algorithms/src/structure/disjoint-set.ts` — مجموعة منفصلة Union-Find [ALGO-025]
+- ✅ `packages/algorithms/src/sort/mergesort.ts` — خوارزمية الدمج with Arabic collation [ALGO-026]
+- ✅ `packages/algorithms/src/lookup/hlookup.ts` — بحث أفقي HLOOKUP [ALGO-027]
+- ✅ `packages/algorithms/src/formula/arabic-aliases.ts` — أسماء دوال عربية [ALGO-028]
+- ✅ `packages/algorithms/src/streets/similarity.ts` — بحث أسماء شوارع [ALGO-029]
+- ✅ `packages/algorithms/src/types.ts` — أنواع مشتركة (Point2D, AABB) [ALGO-030]
+- ✅ تحديث Barrel Export + 0 type errors + 856 tests pass
+
 ### PHASE-01 — النواة Core (2026-08-19)
+
 - ✅ `packages/core/src/ast/types.ts` — تعريفات AST (20+ نوع).
 - ✅ `packages/core/src/ast/schema.ts` — مخطط AST مع التحقق.
 - ✅ `packages/core/src/ast/builder.ts` — بناء الكتل (Builder Pattern).

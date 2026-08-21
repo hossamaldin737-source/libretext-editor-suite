@@ -44,8 +44,7 @@ export const ARABIC_RANGES = {
 } as const;
 
 /** التشكيل العربي (Diacritics) */
-export const ARABIC_DIACRITICS =
-  /[\u064B-\u065F\u0670\u0640]/g;
+export const ARABIC_DIACRITICS = /[\u064B-\u065F\u0670\u0640]/g;
 
 /** الأرقام */
 export const NUMERALS = {
@@ -55,9 +54,12 @@ export const NUMERALS = {
 
 /** خريطة الحروف المتشابهة للتوحيد */
 export const NORMALIZATION_MAP: Record<string, string> = {
-  'أ': 'ا', 'إ': 'ا', 'آ': 'ا', 'ٱ': 'ا',
-  'ى': 'ي',
-  'ة': 'ه',
+  أ: 'ا',
+  إ: 'ا',
+  آ: 'ا',
+  ٱ: 'ا',
+  ى: 'ي',
+  ة: 'ه',
 } as const;
 
 export type TextDirection = 'rtl' | 'ltr' | 'auto';
@@ -71,20 +73,22 @@ export function isArabicChar(char: string): boolean {
   if (!char || char.length === 0) return false;
   const code = char.charCodeAt(0);
   return (
-    (code >= 0x0600 && code <= 0x06FF) ||
-    (code >= 0x0750 && code <= 0x077F) ||
-    (code >= 0x08A0 && code <= 0x08FF) ||
-    (code >= 0xFB50 && code <= 0xFDFF) ||
-    (code >= 0xFE70 && code <= 0xFEFF)
+    (code >= 0x0600 && code <= 0x06ff) ||
+    (code >= 0x0750 && code <= 0x077f) ||
+    (code >= 0x08a0 && code <= 0x08ff) ||
+    (code >= 0xfb50 && code <= 0xfdff) ||
+    (code >= 0xfe70 && code <= 0xfeff)
   );
 }
 
 /** فحص إذا كان النص يحتوي على حروف عربية */
 export function containsArabic(text: string): boolean {
   if (!text) return false;
-  return ARABIC_RANGES.BASIC.test(text) ||
+  return (
+    ARABIC_RANGES.BASIC.test(text) ||
     ARABIC_RANGES.EXTENDED.test(text) ||
-    ARABIC_RANGES.SUPPLEMENT.test(text);
+    ARABIC_RANGES.SUPPLEMENT.test(text)
+  );
 }
 
 /**
@@ -187,10 +191,7 @@ export function normalizeNumerals(text: string): string {
 // ─────────────────────────────────────────────────────────────────────────────
 
 /** تغليف النص بـ HTML span مع dir attribute مناسب */
-export function wrapWithDir(
-  text: string,
-  direction?: TextDirection
-): string {
+export function wrapWithDir(text: string, direction?: TextDirection): string {
   if (!text) return '';
   const dir = direction ?? detectDirection(text);
   if (dir === 'auto') return text;
@@ -216,10 +217,7 @@ export function arabicEquals(a: string, b: string): boolean {
 }
 
 /** بحث في نص عربي مع تجاهل التشكيل */
-export function arabicIncludes(
-  text: string,
-  query: string
-): boolean {
+export function arabicIncludes(text: string, query: string): boolean {
   return normalizeArabic(text).includes(normalizeArabic(query));
 }
 

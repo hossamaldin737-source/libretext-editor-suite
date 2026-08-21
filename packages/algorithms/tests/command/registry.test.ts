@@ -1,31 +1,31 @@
 /**
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 📌 ملخص توجيهي | Guiding Summary
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 📄 الملف: registry.test.ts
-  * 📂 المسار: packages/algorithms/tests/command/registry.test.ts
-  * 🎯 الهدف الرئيسي: اختبار سجل الأوامر (التسجيل، الفحص، التوجيه)
-  * 📋 المعايير: تغطية >= 95%، اختبار جميع الحالات والحالات الحدّية
-  * 🧪 الاختبارات: هذا الملف هو ملف الاختبار
-  * 🏷️ المعرف: TEST-ALGO-003
-  * 📅 تاريخ الإنشاء: 2026-08-19
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 🧠 الطريقة المبتكرة | Innovative Pattern:
-  *    Registry Behavior Verification + Edge Case Coverage
-  * ═══════════════════════════════════════════════════════════════════════════
-  * ⚠️ نقاط الخطر الإلزامية | Mandatory Gotchas:
-  *    1. التأكد من رفض التسجيل المكرر
-  *    2. التأكد من رمي خطأ عند توجيه أمر بلا معالج
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 🩹 البرمجة الدفاعية | Defensive Coding:
-  *    - اختبار المدخلات غير الصالحة
-  *    - التحقق من الرسائل المرمية
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 👤 المالك: Hossam El-Din Abdel-Moaty El-Khouly - All rights reserved
-  * ⚖️ الترخيص: MIT License
-  * 📚 المصادر المقتبسة: Vitest (MIT)
-  * ═══════════════════════════════════════════════════════════════════════════
-  */
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 📌 ملخص توجيهي | Guiding Summary
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 📄 الملف: registry.test.ts
+ * 📂 المسار: packages/algorithms/tests/command/registry.test.ts
+ * 🎯 الهدف الرئيسي: اختبار سجل الأوامر (التسجيل، الفحص، التوجيه)
+ * 📋 المعايير: تغطية >= 95%، اختبار جميع الحالات والحالات الحدّية
+ * 🧪 الاختبارات: هذا الملف هو ملف الاختبار
+ * 🏷️ المعرف: TEST-ALGO-003
+ * 📅 تاريخ الإنشاء: 2026-08-19
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 🧠 الطريقة المبتكرة | Innovative Pattern:
+ *    Registry Behavior Verification + Edge Case Coverage
+ * ═══════════════════════════════════════════════════════════════════════════
+ * ⚠️ نقاط الخطر الإلزامية | Mandatory Gotchas:
+ *    1. التأكد من رفض التسجيل المكرر
+ *    2. التأكد من رمي خطأ عند توجيه أمر بلا معالج
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 🩹 البرمجة الدفاعية | Defensive Coding:
+ *    - اختبار المدخلات غير الصالحة
+ *    - التحقق من الرسائل المرمية
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 👤 المالك: Hossam El-Din Abdel-Moaty El-Khouly - All rights reserved
+ * ⚖️ الترخيص: MIT License
+ * 📚 المصادر المقتبسة: Vitest (MIT)
+ * ═══════════════════════════════════════════════════════════════════════════
+ */
 
 import { describe, it, expect, beforeEach } from 'vitest';
 import {
@@ -35,7 +35,7 @@ import {
   unregisterCommand,
   dispatchCommand,
   getDefaultRegistry,
-  StateCommandHandler
+  StateCommandHandler,
 } from '../../src/command/registry';
 import { CommandType, SpatialCommand } from '../../src/command/types';
 import type { EditorState } from '@libretext/core';
@@ -47,13 +47,14 @@ describe('ALGO-003: CommandRegistry', () => {
   const spatialCmd: SpatialCommand = {
     type: CommandType.SPATIAL,
     targetId: 'node-1',
-    payload: { timestamp: Date.now(), x: 5, y: 10 }
+    payload: { timestamp: Date.now(), x: 5, y: 10 },
   };
 
-  const mockHandler: StateCommandHandler = (cmd, state) => ({
-    ...state,
-    handled: cmd.type
-  } as unknown as EditorState);
+  const mockHandler: StateCommandHandler = (cmd, state) =>
+    ({
+      ...state,
+      handled: cmd.type,
+    }) as unknown as EditorState;
 
   beforeEach(() => {
     registry = createCommandRegistry();
@@ -76,21 +77,19 @@ describe('ALGO-003: CommandRegistry', () => {
 
   it('should throw when registering an empty type', () => {
     expect(() => registry.register('', mockHandler)).toThrow(
-      'Command type must be a non-empty string'
+      'Command type must be a non-empty string',
     );
   });
 
   it('should throw when registering a non-function handler', () => {
     expect(() =>
-      registry.register(CommandType.SPATIAL, null as unknown as StateCommandHandler)
+      registry.register(CommandType.SPATIAL, null as unknown as StateCommandHandler),
     ).toThrow('Command handler must be a function');
   });
 
   it('should throw when registering a duplicate type', () => {
     registry.register(CommandType.SPATIAL, mockHandler);
-    expect(() =>
-      registry.register(CommandType.SPATIAL, mockHandler)
-    ).toThrow('already registered');
+    expect(() => registry.register(CommandType.SPATIAL, mockHandler)).toThrow('already registered');
   });
 
   it('should unregister a handler', () => {
@@ -111,7 +110,7 @@ describe('ALGO-003: CommandRegistry', () => {
 
   it('should throw when dispatching without a registered handler', () => {
     expect(() => registry.dispatch(spatialCmd, mockState)).toThrow(
-      'No handler registered for command type'
+      'No handler registered for command type',
     );
   });
 
@@ -129,13 +128,14 @@ describe('ALGO-003: Default Registry API', () => {
   const spatialCmd: SpatialCommand = {
     type: CommandType.SPATIAL,
     targetId: 'node-1',
-    payload: { timestamp: Date.now(), x: 1, y: 2 }
+    payload: { timestamp: Date.now(), x: 1, y: 2 },
   };
 
-  const handler: StateCommandHandler = (cmd, state) => ({
-    ...state,
-    viaDefault: true
-  } as unknown as EditorState);
+  const handler: StateCommandHandler = (cmd, state) =>
+    ({
+      ...state,
+      viaDefault: true,
+    }) as unknown as EditorState;
 
   beforeEach(() => {
     // تنظيف السجل الافتراضي بين الاختبارات

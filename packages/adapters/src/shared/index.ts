@@ -13,7 +13,7 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-export type {AdapterOptions, Selection, EditorAdapter, AdapterFactory} from './types';
+export type { AdapterOptions, Selection, EditorAdapter, AdapterFactory } from './types';
 export {
   toLogical,
   toGrid,

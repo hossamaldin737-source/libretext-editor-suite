@@ -29,12 +29,7 @@ export interface AlignableItem {
 }
 
 export type AlignmentType =
-  | 'align-left'
-  | 'align-center-x'
-  | 'align-right'
-  | 'align-top'
-  | 'align-center-y'
-  | 'align-bottom';
+  'align-left' | 'align-center-x' | 'align-right' | 'align-top' | 'align-center-y' | 'align-bottom';
 
 export type DistributionType = 'distribute-horizontal' | 'distribute-vertical';
 
@@ -133,10 +128,25 @@ export class AlignmentEngine {
   static getAnchorPoints(item: AlignableItem): AnchorPoint[] {
     return [
       { id: `${item.id}-top`, x: item.x + item.width / 2, y: item.y, position: 'top' },
-      { id: `${item.id}-right`, x: item.x + item.width, y: item.y + item.height / 2, position: 'right' },
-      { id: `${item.id}-bottom`, x: item.x + item.width / 2, y: item.y + item.height, position: 'bottom' },
+      {
+        id: `${item.id}-right`,
+        x: item.x + item.width,
+        y: item.y + item.height / 2,
+        position: 'right',
+      },
+      {
+        id: `${item.id}-bottom`,
+        x: item.x + item.width / 2,
+        y: item.y + item.height,
+        position: 'bottom',
+      },
       { id: `${item.id}-left`, x: item.x, y: item.y + item.height / 2, position: 'left' },
-      { id: `${item.id}-center`, x: item.x + item.width / 2, y: item.y + item.height / 2, position: 'center' },
+      {
+        id: `${item.id}-center`,
+        x: item.x + item.width / 2,
+        y: item.y + item.height / 2,
+        position: 'center',
+      },
     ];
   }
 
@@ -146,7 +156,7 @@ export class AlignmentEngine {
   static findNearestAnchor(
     point: { x: number; y: number },
     items: readonly AlignableItem[],
-    threshold: number = 15
+    threshold: number = 15,
   ): AnchorPoint | null {
     let nearest: AnchorPoint | null = null;
     let minDistance = threshold;

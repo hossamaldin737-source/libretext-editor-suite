@@ -79,7 +79,11 @@ export class ZipArchiveWriter {
   private entries: ZipEntry[] = [];
   private encoder = new TextEncoder();
 
-  public addFile(name: string, data: Uint8Array | string, options: { lastModified?: Date; comment?: string } = {}): void {
+  public addFile(
+    name: string,
+    data: Uint8Array | string,
+    options: { lastModified?: Date; comment?: string } = {},
+  ): void {
     this.entries.push({
       name,
       data,
@@ -95,11 +99,14 @@ export class ZipArchiveWriter {
 
     for (const entry of this.entries) {
       const nameBytes = this.encoder.encode(entry.name);
-      const dataBytes = typeof entry.data === 'string' ? this.encoder.encode(entry.data) : entry.data;
+      const dataBytes =
+        typeof entry.data === 'string' ? this.encoder.encode(entry.data) : entry.data;
       const crc = crc32(dataBytes);
       const now = entry.lastModified || new Date();
-      const time = ((now.getHours() << 11) | (now.getMinutes() << 5) | (now.getSeconds() >> 1)) & 0xffff;
-      const date = (((now.getFullYear() - 1980) << 9) | ((now.getMonth() + 1) << 5) | now.getDate()) & 0xffff;
+      const time =
+        ((now.getHours() << 11) | (now.getMinutes() << 5) | (now.getSeconds() >> 1)) & 0xffff;
+      const date =
+        (((now.getFullYear() - 1980) << 9) | ((now.getMonth() + 1) << 5) | now.getDate()) & 0xffff;
 
       processed.push({
         nameBytes,
@@ -217,7 +224,10 @@ export class ZipArchiveReader {
       const commentLength = this.view.getUint16(currentCDOffset + 32, true);
       const localHeaderOffset = this.view.getUint32(currentCDOffset + 42, true);
 
-      const nameBytes = this.buffer.subarray(currentCDOffset + 46, currentCDOffset + 46 + nameLength);
+      const nameBytes = this.buffer.subarray(
+        currentCDOffset + 46,
+        currentCDOffset + 46 + nameLength,
+      );
       const filename = this.decoder.decode(nameBytes);
 
       if (!filename.endsWith('/')) {

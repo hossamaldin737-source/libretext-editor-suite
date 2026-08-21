@@ -31,8 +31,8 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-import type {NodeId, SearchResult} from '../ast/types';
-import type {Indexer} from './indexer';
+import type { NodeId, SearchResult } from '../ast/types';
+import type { Indexer } from './indexer';
 
 export interface SearchOptions {
   readonly caseSensitive?: boolean;
@@ -50,7 +50,7 @@ export function search(
   query: string,
   options: SearchOptions = {},
 ): readonly SearchResult[] {
-  const {caseSensitive = false, useRegex = false, maxResults = DEFAULT_MAX_RESULTS} = options;
+  const { caseSensitive = false, useRegex = false, maxResults = DEFAULT_MAX_RESULTS } = options;
 
   if (!query || query.length === 0) return [];
 
@@ -102,5 +102,5 @@ export function simpleSearch(
   query: string,
   caseSensitive: boolean = false,
 ): readonly SearchResult[] {
-  return search(indexer, query, {caseSensitive, useRegex: false});
+  return search(indexer, query, { caseSensitive, useRegex: false });
 }

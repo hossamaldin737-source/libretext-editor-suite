@@ -1,18 +1,18 @@
 /**
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 📌 ملخص توجيهي | Guiding Summary
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 📄 الملف: registry-features.test.ts
-  * 📂 المسار: packages/algorithms/tests/command/registry-features.test.ts
-  * 🎯 الهدف الرئيسي: اختبار canExecute + isEnabled + on() في CommandRegistry
-  * 📋 المعايير: تغطية 100% لجميع الفروع الحدية
-  * 🏷️ المعرف: TEST-ALGO-003-FEAT
-  * 📅 تاريخ الإنشاء: 2026-08-19
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 👤 المالك: Hossam El-Din Abdel-Moaty El-Khouly - All rights reserved
-  * ⚖️ الترخيص: MIT License
-  * ═══════════════════════════════════════════════════════════════════════════
-  */
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 📌 ملخص توجيهي | Guiding Summary
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 📄 الملف: registry-features.test.ts
+ * 📂 المسار: packages/algorithms/tests/command/registry-features.test.ts
+ * 🎯 الهدف الرئيسي: اختبار canExecute + isEnabled + on() في CommandRegistry
+ * 📋 المعايير: تغطية 100% لجميع الفروع الحدية
+ * 🏷️ المعرف: TEST-ALGO-003-FEAT
+ * 📅 تاريخ الإنشاء: 2026-08-19
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 👤 المالك: Hossam El-Din Abdel-Moaty El-Khouly - All rights reserved
+ * ⚖️ الترخيص: MIT License
+ * ═══════════════════════════════════════════════════════════════════════════
+ */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import {
@@ -31,13 +31,14 @@ describe('ALGO-003: CommandRegistry Features', () => {
   const spatialCmd: SpatialCommand = {
     type: CommandType.SPATIAL,
     targetId: 'node-1',
-    payload: { timestamp: Date.now(), x: 5, y: 10 }
+    payload: { timestamp: Date.now(), x: 5, y: 10 },
   };
 
-  const handler: StateCommandHandler = (_cmd, state) => ({
-    ...state,
-    handled: true
-  } as unknown as EditorState);
+  const handler: StateCommandHandler = (_cmd, state) =>
+    ({
+      ...state,
+      handled: true,
+    }) as unknown as EditorState;
 
   beforeEach(() => {
     registry = createCommandRegistry();
@@ -55,28 +56,30 @@ describe('ALGO-003: CommandRegistry Features', () => {
 
     it('returns true when canExecute returns true', () => {
       registry.register(CommandType.SPATIAL, handler, {
-        canExecute: () => true
+        canExecute: () => true,
       });
       expect(registry.canExecute(spatialCmd, mockState)).toBe(true);
     });
 
     it('returns false when canExecute returns false', () => {
       registry.register(CommandType.SPATIAL, handler, {
-        canExecute: () => false
+        canExecute: () => false,
       });
       expect(registry.canExecute(spatialCmd, mockState)).toBe(false);
     });
 
     it('returns false when isEnabled returns false', () => {
       registry.register(CommandType.SPATIAL, handler, {
-        isEnabled: () => false
+        isEnabled: () => false,
       });
       expect(registry.canExecute(spatialCmd, mockState)).toBe(false);
     });
 
     it('returns false when canExecute throws', () => {
       registry.register(CommandType.SPATIAL, handler, {
-        canExecute: () => { throw new Error('boom'); }
+        canExecute: () => {
+          throw new Error('boom');
+        },
       });
       expect(registry.canExecute(spatialCmd, mockState)).toBe(false);
     });
@@ -94,21 +97,23 @@ describe('ALGO-003: CommandRegistry Features', () => {
 
     it('returns true when isEnabled returns true', () => {
       registry.register(CommandType.SPATIAL, handler, {
-        isEnabled: () => true
+        isEnabled: () => true,
       });
       expect(registry.isEnabled(spatialCmd, mockState)).toBe(true);
     });
 
     it('returns false when isEnabled returns false', () => {
       registry.register(CommandType.SPATIAL, handler, {
-        isEnabled: () => false
+        isEnabled: () => false,
       });
       expect(registry.isEnabled(spatialCmd, mockState)).toBe(false);
     });
 
     it('returns false when isEnabled throws', () => {
       registry.register(CommandType.SPATIAL, handler, {
-        isEnabled: () => { throw new Error('crash'); }
+        isEnabled: () => {
+          throw new Error('crash');
+        },
       });
       expect(registry.isEnabled(spatialCmd, mockState)).toBe(false);
     });
@@ -117,7 +122,7 @@ describe('ALGO-003: CommandRegistry Features', () => {
   describe('dispatch with isEnabled guard', () => {
     it('dispatches when isEnabled returns true', () => {
       registry.register(CommandType.SPATIAL, handler, {
-        isEnabled: () => true
+        isEnabled: () => true,
       });
       const result = registry.dispatch(spatialCmd, mockState);
       expect((result as any).handled).toBe(true);
@@ -125,11 +130,9 @@ describe('ALGO-003: CommandRegistry Features', () => {
 
     it('throws when isEnabled returns false', () => {
       registry.register(CommandType.SPATIAL, handler, {
-        isEnabled: () => false
+        isEnabled: () => false,
       });
-      expect(() => registry.dispatch(spatialCmd, mockState)).toThrow(
-        'is disabled'
-      );
+      expect(() => registry.dispatch(spatialCmd, mockState)).toThrow('is disabled');
     });
   });
 
@@ -157,7 +160,7 @@ describe('ALGO-003: CommandRegistry Features', () => {
 
     it('does not call listener when isEnabled blocks dispatch', () => {
       registry.register(CommandType.SPATIAL, handler, {
-        isEnabled: () => false
+        isEnabled: () => false,
       });
       const events: CommandEvent[] = [];
       registry.on((e) => events.push(e));
@@ -181,7 +184,9 @@ describe('ALGO-003: CommandRegistry Features', () => {
 
     it('swallows listener errors without crashing', () => {
       registry.register(CommandType.SPATIAL, handler);
-      const badListener = () => { throw new Error('listener crash'); };
+      const badListener = () => {
+        throw new Error('listener crash');
+      };
       const goodEvents: CommandEvent[] = [];
 
       registry.on(badListener);

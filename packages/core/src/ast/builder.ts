@@ -56,11 +56,14 @@ import type {
   TextNode,
   UnderlineNode,
 } from './types';
-import {generateId} from '../utils/id';
+import { generateId } from '../utils/id';
 
 // ─── بناء العناصر المضمنة ───
 
-export function text(content: string, marks?: readonly {type: string; attrs?: Record<string, string>}[]): TextNode {
+export function text(
+  content: string,
+  marks?: readonly { type: string; attrs?: Record<string, string> }[],
+): TextNode {
   return {
     type: 'text',
     id: generateId('txt'),
@@ -70,93 +73,93 @@ export function text(content: string, marks?: readonly {type: string; attrs?: Re
 }
 
 export function bold(content: InlineNode[]): BoldNode {
-  return {type: 'bold', id: generateId('bld'), content};
+  return { type: 'bold', id: generateId('bld'), content };
 }
 
 export function italic(content: InlineNode[]): ItalicNode {
-  return {type: 'italic', id: generateId('itl'), content};
+  return { type: 'italic', id: generateId('itl'), content };
 }
 
 export function underline(content: InlineNode[]): UnderlineNode {
-  return {type: 'underline', id: generateId('und'), content};
+  return { type: 'underline', id: generateId('und'), content };
 }
 
 export function strikethrough(content: InlineNode[]): StrikethroughNode {
-  return {type: 'strikethrough', id: generateId('str'), content};
+  return { type: 'strikethrough', id: generateId('str'), content };
 }
 
 export function codeInline(code: string): CodeNode {
-  return {type: 'code', id: generateId('cin'), code};
+  return { type: 'code', id: generateId('cin'), code };
 }
 
 export function link(href: string, content: InlineNode[]): LinkNode {
-  return {type: 'link', id: generateId('lnk'), href, content};
+  return { type: 'link', id: generateId('lnk'), href, content };
 }
 
 export function mention(userId: string, label: string): MentionNode {
-  return {type: 'mention', id: generateId('men'), userId, label};
+  return { type: 'mention', id: generateId('men'), userId, label };
 }
 
 // ─── بناء الكتل ───
 
 export function paragraph(content: InlineNode[]): ParagraphNode {
-  return {type: 'paragraph', id: generateId('para'), content};
+  return { type: 'paragraph', id: generateId('para'), content };
 }
 
 export function heading(level: 1 | 2 | 3 | 4 | 5 | 6, content: InlineNode[]): HeadingNode {
-  return {type: 'heading', id: generateId('head'), level, content};
+  return { type: 'heading', id: generateId('head'), level, content };
 }
 
 export function codeBlock(language: string, code: string): CodeBlockNode {
-  return {type: 'code-block', id: generateId('cblk'), language, code};
+  return { type: 'code-block', id: generateId('cblk'), language, code };
 }
 
 export function blockquote(content: BlockNode[]): BlockquoteNode {
-  return {type: 'blockquote', id: generateId('blq'), content};
+  return { type: 'blockquote', id: generateId('blq'), content };
 }
 
 export function horizontalRule(): HorizontalRuleNode {
-  return {type: 'horizontal-rule', id: generateId('hr')};
+  return { type: 'horizontal-rule', id: generateId('hr') };
 }
 
 export function image(src: string, alt: string, width?: number, height?: number): ImageNode {
-  return {type: 'image', id: generateId('img'), src, alt, width, height};
+  return { type: 'image', id: generateId('img'), src, alt, width, height };
 }
 
 export function embed(embedType: string, url: string): EmbedNode {
-  return {type: 'embed', id: generateId('emb'), embedType, url};
+  return { type: 'embed', id: generateId('emb'), embedType, url };
 }
 
 // ─── بناء القوائم ───
 
 export function listItem(content: BlockNode[], nested?: BlockNode[]): ListItemNode {
-  return {type: 'list-item', id: generateId('li'), content, nested};
+  return { type: 'list-item', id: generateId('li'), content, nested };
 }
 
 export function bulletList(items: ListItemNode[]): ListNode {
-  return {type: 'list', id: generateId('ul'), ordered: false, items};
+  return { type: 'list', id: generateId('ul'), ordered: false, items };
 }
 
 export function orderedList(items: ListItemNode[]): ListNode {
-  return {type: 'list', id: generateId('ol'), ordered: true, items};
+  return { type: 'list', id: generateId('ol'), ordered: true, items };
 }
 
 // ─── بناء الجداول ───
 
 export function tableCell(content: BlockNode[], colspan?: number, rowspan?: number): TableCellNode {
-  return {type: 'table-cell', id: generateId('tc'), content, colspan, rowspan};
+  return { type: 'table-cell', id: generateId('tc'), content, colspan, rowspan };
 }
 
 export function tableRow(cells: TableCellNode[]): TableRowNode {
-  return {type: 'table-row', id: generateId('tr'), cells};
+  return { type: 'table-row', id: generateId('tr'), cells };
 }
 
 export function table(rows: TableRowNode[]): TableNode {
-  return {type: 'table', id: generateId('tbl'), rows};
+  return { type: 'table', id: generateId('tbl'), rows };
 }
 
 // ─── بناء المستند ───
 
 export function doc(content: BlockNode[]): DocNode {
-  return {type: 'doc', id: generateId('doc'), content};
+  return { type: 'doc', id: generateId('doc'), content };
 }

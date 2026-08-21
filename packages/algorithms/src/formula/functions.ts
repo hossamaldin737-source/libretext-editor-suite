@@ -1,52 +1,54 @@
 /**
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 📌 ملخص توجيهي | Guiding Summary
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 📄 الملف: functions.ts
-  * 📂 المسار: packages/algorithms/src/formula/functions.ts
-  * 🎯 الهدف الرئيسي: 24+ دالة مدمجة مع معالجة آمنة + FormulaError بأكواد Excel
-  * 📋 المعايير: صفر اعتماديات، ROUND آمن، Infinity handling، أكواد خطأ Excel
-  * 🧪 الاختبارات: packages/algorithms/tests/formula/functions.test.ts
-  * 🏷️ المعرف: ALGO-006
-  * 📅 تاريخ الإنشاء: 2026-08-19
-  * 🔄 آخر تحديث: 2026-08-19 (v3: 24+ functions + FormulaError Excel codes)
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 🧠 الطريقة المبتكرة | Innovative Pattern:
-  *    Strategy Pattern + Safe Floating-Point Arithmetic + Excel Error Codes
-  * ═══════════════════════════════════════════════════════════════════════════
-  * ⚠️ نقاط الخطر الإلزامية | Mandatory Gotchas:
-  *    1. أخطاء الفاصلة العائمة في ROUND
-  *    2. Infinity في الحسابات التجميعية
-  *    3. المصفوفات المتداخلة من Ranges
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 🩹 البرمجة الدفاعية | Defensive Coding:
-  *    - استخدام toFixed لتجنب floating-point errors
-  *    - فحص Infinity قبل العمليات
-  *    - تسطيح المصفوفات تلقائياً
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 🔗 الملفات المرتبطة | Linked Files:
-  *    - 📇 الفهرس: FUNCTION_INDEX.md
-  *    - 📦 التبعيات: ./evaluator-types.ts (EvaluationError)
-  *    - 📄 مرتبط: ./evaluator.ts, ./registry.ts
-  *    - 🧪 اختبارات: tests/formula/functions.test.ts
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 📖 برامج مرجعية | Reference:
-  *    - Excel Function Reference (SUM, AVERAGE, COUNT, etc.)
-  *    - webpainter-next formula-evaluator.ts (inspiration)
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 👤 المالك: Hossam El-Din Abdel-Moaty El-Khouly - All rights reserved
-  * ⚖️ الترخيص: MIT License
-  * ═══════════════════════════════════════════════════════════════════════════
-  */
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 📌 ملخص توجيهي | Guiding Summary
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 📄 الملف: functions.ts
+ * 📂 المسار: packages/algorithms/src/formula/functions.ts
+ * 🎯 الهدف الرئيسي: 24+ دالة مدمجة مع معالجة آمنة + FormulaError بأكواد Excel
+ * 📋 المعايير: صفر اعتماديات، ROUND آمن، Infinity handling، أكواد خطأ Excel
+ * 🧪 الاختبارات: packages/algorithms/tests/formula/functions.test.ts
+ * 🏷️ المعرف: ALGO-006
+ * 📅 تاريخ الإنشاء: 2026-08-19
+ * 🔄 آخر تحديث: 2026-08-19 (v3: 24+ functions + FormulaError Excel codes)
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 🧠 الطريقة المبتكرة | Innovative Pattern:
+ *    Strategy Pattern + Safe Floating-Point Arithmetic + Excel Error Codes
+ * ═══════════════════════════════════════════════════════════════════════════
+ * ⚠️ نقاط الخطر الإلزامية | Mandatory Gotchas:
+ *    1. أخطاء الفاصلة العائمة في ROUND
+ *    2. Infinity في الحسابات التجميعية
+ *    3. المصفوفات المتداخلة من Ranges
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 🩹 البرمجة الدفاعية | Defensive Coding:
+ *    - استخدام toFixed لتجنب floating-point errors
+ *    - فحص Infinity قبل العمليات
+ *    - تسطيح المصفوفات تلقائياً
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 🔗 الملفات المرتبطة | Linked Files:
+ *    - 📇 الفهرس: FUNCTION_INDEX.md
+ *    - 📦 التبعيات: ./evaluator-types.ts (EvaluationError)
+ *    - 📄 مرتبط: ./evaluator.ts, ./registry.ts
+ *    - 🧪 اختبارات: tests/formula/functions.test.ts
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 📖 برامج مرجعية | Reference:
+ *    - Excel Function Reference (SUM, AVERAGE, COUNT, etc.)
+ *    - webpainter-next formula-evaluator.ts (inspiration)
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 👤 المالك: Hossam El-Din Abdel-Moaty El-Khouly - All rights reserved
+ * ⚖️ الترخيص: MIT License
+ * ═══════════════════════════════════════════════════════════════════════════
+ */
 
 // ─── FormulaError بأكواد Excel ───
 
 export class FormulaError {
   constructor(
     public readonly code: string,
-    public readonly message: string = ''
+    public readonly message: string = '',
   ) {}
-  toString(): string { return this.code; }
+  toString(): string {
+    return this.code;
+  }
 }
 
 /** فحص ما إذا كانت القيمة خطأ صيغة */
@@ -104,7 +106,7 @@ function safeRound(num: number, decimals: number): number {
 
 /** التحقق من وجود Infinity في القيم */
 function hasInfinity(args: unknown[]): boolean {
-  return args.some(v => {
+  return args.some((v) => {
     if (typeof v === 'number' && !isFinite(v)) return true;
     if (typeof v === 'string' && v.toLowerCase() === 'infinity') return true;
     return false;
@@ -115,13 +117,17 @@ function hasInfinity(args: unknown[]): boolean {
 
 export function SUM(...args: unknown[]): number {
   if (hasInfinity(args)) throw new Error('Infinity detected');
-  const values = flattenArgs(args).map(toNumberOrNull).filter((v): v is number => v !== null);
+  const values = flattenArgs(args)
+    .map(toNumberOrNull)
+    .filter((v): v is number => v !== null);
   return values.reduce((sum, val) => sum + val, 0);
 }
 
 export function AVERAGE(...args: unknown[]): number {
   if (hasInfinity(args)) throw new Error('Infinity detected');
-  const values = flattenArgs(args).map(toNumberOrNull).filter((v): v is number => v !== null);
+  const values = flattenArgs(args)
+    .map(toNumberOrNull)
+    .filter((v): v is number => v !== null);
   if (values.length === 0) throw new Error('AVERAGE requires at least one numeric value');
   return values.reduce((sum, val) => sum + val, 0) / values.length;
 }
@@ -135,13 +141,17 @@ export function COUNTA(...args: unknown[]): number {
 }
 
 export function MIN(...args: unknown[]): number {
-  const values = flattenArgs(args).map(toNumberOrNull).filter((v): v is number => v !== null);
+  const values = flattenArgs(args)
+    .map(toNumberOrNull)
+    .filter((v): v is number => v !== null);
   if (values.length === 0) throw new Error('MIN requires at least one numeric value');
   return Math.min(...values);
 }
 
 export function MAX(...args: unknown[]): number {
-  const values = flattenArgs(args).map(toNumberOrNull).filter((v): v is number => v !== null);
+  const values = flattenArgs(args)
+    .map(toNumberOrNull)
+    .filter((v): v is number => v !== null);
   if (values.length === 0) throw new Error('MAX requires at least one numeric value');
   return Math.max(...values);
 }
@@ -251,9 +261,30 @@ export function TODAY(): string {
 // ─── تسجيل جميع الدوال ───
 
 export const BUILTIN_FUNCTIONS: Record<string, (...args: unknown[]) => unknown> = {
-  SUM, AVERAGE, COUNT, COUNTA, MIN, MAX, PRODUCT,
-  ABS, ROUND, FLOOR, CEIL, SQRT, POWER, MOD,
-  IF, AND, OR, NOT,
-  CONCAT, CONCATENATE, LEN, UPPER, LOWER, TRIM,
-  NOW, TODAY,
+  SUM,
+  AVERAGE,
+  COUNT,
+  COUNTA,
+  MIN,
+  MAX,
+  PRODUCT,
+  ABS,
+  ROUND,
+  FLOOR,
+  CEIL,
+  SQRT,
+  POWER,
+  MOD,
+  IF,
+  AND,
+  OR,
+  NOT,
+  CONCAT,
+  CONCATENATE,
+  LEN,
+  UPPER,
+  LOWER,
+  TRIM,
+  NOW,
+  TODAY,
 };

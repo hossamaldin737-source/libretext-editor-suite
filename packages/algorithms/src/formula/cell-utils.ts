@@ -1,31 +1,31 @@
 /**
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 📌 ملخص توجيهي | Guiding Summary
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 📄 الملف: cell-utils.ts
-  * 📂 المسار: packages/algorithms/src/formula/cell-utils.ts
-  * 🎯 الهدف الرئيسي: دوال مساعدة لمعالجة مراجع الخلايا والمقارنات
-  * 📋 المعايير: صفر اعتماديات، دعم Excel-style comparisons
-  * 🧪 الاختبارات: packages/algorithms/tests/formula/cell-utils.test.ts
-  * 🏷️ المعرف: ALGO-011
-  * 📅 تاريخ الإنشاء: 2026-08-19
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 🧠 الطريقة المبتكرة | Innovative Pattern:
-  *    Excel-Compatible Comparison + Cell Reference Conversion
-  * ═══════════════════════════════════════════════════════════════════════════
-  * ⚠️ نقاط الخطر الإلزامية | Mandatory Gotchas:
-  *    1. Column conversion (A=1, Z=26, AA=27)
-  *    2. Excel-style equality (5 = "5" → true)
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 🩹 البرمجة الدفاعية | Defensive Coding:
-  *    - Input validation for cell references
-  *    - Type-safe comparison functions
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 👤 المالك: Hossam El-Din Abdel-Moaty El-Khouly - All rights reserved
-  * ⚖️ الترخيص: MIT License
-  * 📚 المصادر المقتبسة: Excel Reference System
-  * ═══════════════════════════════════════════════════════════════════════════
-  */
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 📌 ملخص توجيهي | Guiding Summary
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 📄 الملف: cell-utils.ts
+ * 📂 المسار: packages/algorithms/src/formula/cell-utils.ts
+ * 🎯 الهدف الرئيسي: دوال مساعدة لمعالجة مراجع الخلايا والمقارنات
+ * 📋 المعايير: صفر اعتماديات، دعم Excel-style comparisons
+ * 🧪 الاختبارات: packages/algorithms/tests/formula/cell-utils.test.ts
+ * 🏷️ المعرف: ALGO-011
+ * 📅 تاريخ الإنشاء: 2026-08-19
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 🧠 الطريقة المبتكرة | Innovative Pattern:
+ *    Excel-Compatible Comparison + Cell Reference Conversion
+ * ═══════════════════════════════════════════════════════════════════════════
+ * ⚠️ نقاط الخطر الإلزامية | Mandatory Gotchas:
+ *    1. Column conversion (A=1, Z=26, AA=27)
+ *    2. Excel-style equality (5 = "5" → true)
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 🩹 البرمجة الدفاعية | Defensive Coding:
+ *    - Input validation for cell references
+ *    - Type-safe comparison functions
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 👤 المالك: Hossam El-Din Abdel-Moaty El-Khouly - All rights reserved
+ * ⚖️ الترخيص: MIT License
+ * 📚 المصادر المقتبسة: Excel Reference System
+ * ═══════════════════════════════════════════════════════════════════════════
+ */
 
 /** تحويل اسم العمود إلى فهرس رقمي (A=0, B=1, ..., Z=25, AA=26) */
 export function columnToIndex(col: string): number {

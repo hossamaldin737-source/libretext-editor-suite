@@ -33,9 +33,9 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-import type {DocNode} from '../ast/types';
-import {generateId} from '../utils/id';
-import {type Operation, applyOperation} from './operations';
+import type { DocNode } from '../ast/types';
+import { generateId } from '../utils/id';
+import { type Operation, applyOperation } from './operations';
 
 // ─── حالة المحرر ───
 export interface EditorState {
@@ -94,7 +94,7 @@ export function createEditorState(doc?: DocNode): FullEditorState {
       canRedo: false,
     },
     _history: {
-      past: [{document, selection: null}],
+      past: [{ document, selection: null }],
       future: [],
     },
   };

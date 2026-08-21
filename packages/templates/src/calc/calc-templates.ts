@@ -72,7 +72,7 @@ function createMetadata(tags: readonly string[]) {
     tags,
     author: 'LibreText Team',
     license: 'MIT',
-    language: 'ar'
+    language: 'ar',
   };
 }
 
@@ -95,7 +95,7 @@ function cell(id: string, content: string, bold = false) {
   return {
     type: 'table-cell' as const,
     id: id as NodeId,
-    content: [para(`${id}-p`, content, bold)]
+    content: [para(`${id}-p`, content, bold)],
   };
 }
 
@@ -134,8 +134,8 @@ export function createBudgetTemplate(): Template<DocNode> {
         row('exp-r5', [cell('exp-c9', 'الفواتير'), cell('exp-c10', '____')]),
         row('exp-r6', [cell('exp-c11', 'الإجمالي', true), cell('exp-c12', '____', true)]),
       ]),
-      para('budget-summary', 'الفرق بين الدخل والمصروفات: ____')
-    ]
+      para('budget-summary', 'الفرق بين الدخل والمصروفات: ____'),
+    ],
   };
 
   return {
@@ -146,7 +146,7 @@ export function createBudgetTemplate(): Template<DocNode> {
     category: 'مالية',
     style: 'professional',
     content,
-    metadata: createMetadata(['budget', 'monthly', 'finance'])
+    metadata: createMetadata(['budget', 'monthly', 'finance']),
   };
 }
 
@@ -167,26 +167,26 @@ export function createTrackerTemplate(): Template<DocNode> {
           cell('tr-c2', 'البند', true),
           cell('tr-c3', 'الفئة', true),
           cell('tr-c4', 'المبلغ', true),
-          cell('tr-c5', 'الحالة', true)
+          cell('tr-c5', 'الحالة', true),
         ]),
         row('tr-r2', [
           cell('tr-c6', '____'),
           cell('tr-c7', '____'),
           cell('tr-c8', '____'),
           cell('tr-c9', '____'),
-          cell('tr-c10', '____')
+          cell('tr-c10', '____'),
         ]),
         row('tr-r3', [
           cell('tr-c11', '____'),
           cell('tr-c12', '____'),
           cell('tr-c13', '____'),
           cell('tr-c14', '____'),
-          cell('tr-c15', '____')
+          cell('tr-c15', '____'),
         ]),
       ]),
       para('tracker-total', 'الإجمالي: ____', true),
-      para('tracker-note', 'الفئات: طعام، مواصلات، ترفيه، فواتير، أخرى')
-    ]
+      para('tracker-note', 'الفئات: طعام، مواصلات، ترفيه، فواتير، أخرى'),
+    ],
   };
 
   return {
@@ -197,7 +197,7 @@ export function createTrackerTemplate(): Template<DocNode> {
     category: 'تتبع',
     style: 'minimal',
     content,
-    metadata: createMetadata(['tracker', 'expense', 'daily'])
+    metadata: createMetadata(['tracker', 'expense', 'daily']),
   };
 }
 
@@ -217,7 +217,7 @@ export function createStatisticsTemplate(): Template<DocNode> {
         row('st-r1', [
           cell('st-c1', 'العنصر', true),
           cell('st-c2', 'القيمة', true),
-          cell('st-c3', 'النسبة %', true)
+          cell('st-c3', 'النسبة %', true),
         ]),
         row('st-r2', [cell('st-c4', '____'), cell('st-c5', '____'), cell('st-c6', '____')]),
         row('st-r3', [cell('st-c7', '____'), cell('st-c8', '____'), cell('st-c9', '____')]),
@@ -231,8 +231,8 @@ export function createStatisticsTemplate(): Template<DocNode> {
         row('ss-r4', [cell('ss-c7', 'الانحراف المعياري'), cell('ss-c8', '____')]),
         row('ss-r5', [cell('ss-c9', 'المجموع'), cell('ss-c10', '____')]),
       ]),
-      para('stats-note', 'ملاحظة: يتم حساب الإحصاءات تلقائياً عند إدخال البيانات')
-    ]
+      para('stats-note', 'ملاحظة: يتم حساب الإحصاءات تلقائياً عند إدخال البيانات'),
+    ],
   };
 
   return {
@@ -243,7 +243,7 @@ export function createStatisticsTemplate(): Template<DocNode> {
     category: 'إحصاء',
     style: 'professional',
     content,
-    metadata: createMetadata(['statistics', 'report', 'analysis'])
+    metadata: createMetadata(['statistics', 'report', 'analysis']),
   };
 }
 
@@ -255,14 +255,8 @@ export function createStatisticsTemplate(): Template<DocNode> {
  * تسجيل جميع قوالب Calc في السجل
  * @returns عدد القوالب المسجلة بنجاح
  */
-export function registerCalcTemplates(
-  registry: TemplateRegistry<DocNode>
-): number {
-  const templates = [
-    createBudgetTemplate(),
-    createTrackerTemplate(),
-    createStatisticsTemplate()
-  ];
+export function registerCalcTemplates(registry: TemplateRegistry<DocNode>): number {
+  const templates = [createBudgetTemplate(), createTrackerTemplate(), createStatisticsTemplate()];
 
   let registered = 0;
   for (const template of templates) {
@@ -278,9 +272,5 @@ export function registerCalcTemplates(
 
 /** قائمة بجميع قوالب Calc المتاحة */
 export function getCalcTemplates(): readonly Template<DocNode>[] {
-  return [
-    createBudgetTemplate(),
-    createTrackerTemplate(),
-    createStatisticsTemplate()
-  ];
+  return [createBudgetTemplate(), createTrackerTemplate(), createStatisticsTemplate()];
 }

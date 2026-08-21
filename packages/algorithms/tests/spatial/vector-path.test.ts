@@ -28,7 +28,10 @@ import {
 
 describe('VectorPath Engine', () => {
   it('ينشئ مساراً فيكتورياً جديداً مع الرؤوس المحددة', () => {
-    const path = createVectorPath('path-1', [{ x: 10, y: 10 }, { x: 50, y: 50 }]);
+    const path = createVectorPath('path-1', [
+      { x: 10, y: 10 },
+      { x: 50, y: 50 },
+    ]);
     expect(path.id).toBe('path-1');
     expect(path.vertices).toHaveLength(2);
     expect(path.closed).toBe(false);
@@ -77,11 +80,15 @@ describe('VectorPath Engine', () => {
   });
 
   it('ينعم المسار بحساب مقابض بيزييه التلقائية', () => {
-    const rawPath = createVectorPath('path-5', [
-      { x: 0, y: 0 },
-      { x: 50, y: 100 },
-      { x: 100, y: 0 },
-    ], true);
+    const rawPath = createVectorPath(
+      'path-5',
+      [
+        { x: 0, y: 0 },
+        { x: 50, y: 100 },
+        { x: 100, y: 0 },
+      ],
+      true,
+    );
 
     const smoothed = smoothPath(rawPath);
     expect(smoothed.vertices[1].inHandle).toBeDefined();
@@ -104,7 +111,14 @@ describe('VectorPath Engine', () => {
   });
 
   it('يحول المسار الفيكتوري إلى SVG Path d string وبالعكس', () => {
-    const path = createVectorPath('path-7', [{ x: 10, y: 20 }, { x: 30, y: 40 }], true);
+    const path = createVectorPath(
+      'path-7',
+      [
+        { x: 10, y: 20 },
+        { x: 30, y: 40 },
+      ],
+      true,
+    );
     const d = vectorPathToSvgD(path);
     expect(d).toContain('M 10 20');
     expect(d).toContain('L 30 40');

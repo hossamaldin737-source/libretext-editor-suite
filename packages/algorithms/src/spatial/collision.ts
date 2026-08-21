@@ -86,9 +86,9 @@
 
 /** مستطيل متراصف مع المحاور (AABB) */
 export interface Rect {
-  readonly x: number;      // الزاوية العلوية اليسرى
-  readonly y: number;      // نظام إحداثيات: Y يتجه لأسفل
-  readonly width: number;  // > 0 إلزامي
+  readonly x: number; // الزاوية العلوية اليسرى
+  readonly y: number; // نظام إحداثيات: Y يتجه لأسفل
+  readonly width: number; // > 0 إلزامي
   readonly height: number; // > 0 إلزامي
 }
 
@@ -107,7 +107,7 @@ export interface SnappableElement {
 /** نتيجة عملية الجذب المغناطيسي */
 export interface SnapResult {
   readonly element: SnappableElement | null;
-  readonly point: Point;      // النقطة بعد الجذب (= الأصلية إن لم يوجد جذب)
+  readonly point: Point; // النقطة بعد الجذب (= الأصلية إن لم يوجد جذب)
   readonly snapped: boolean;
 }
 
@@ -184,12 +184,7 @@ export function checkCollision(a: Rect, b: Rect): boolean {
   validateRect(a, 'rect A');
   validateRect(b, 'rect B');
 
-  return (
-    a.x < b.x + b.width &&
-    a.x + a.width > b.x &&
-    a.y < b.y + b.height &&
-    a.y + a.height > b.y
-  );
+  return a.x < b.x + b.width && a.x + a.width > b.x && a.y < b.y + b.height && a.y + a.height > b.y;
 }
 
 /**
@@ -261,8 +256,11 @@ function findNearestPointOnRect(point: Point, rect: Rect): { nearest: Point; dis
   const clampedX = clamp(point.x, rect.x, rect.x + rect.width);
   const clampedY = clamp(point.y, rect.y, rect.y + rect.height);
 
-  const isInside = point.x >= rect.x && point.x <= rect.x + rect.width &&
-                   point.y >= rect.y && point.y <= rect.y + rect.height;
+  const isInside =
+    point.x >= rect.x &&
+    point.x <= rect.x + rect.width &&
+    point.y >= rect.y &&
+    point.y <= rect.y + rect.height;
 
   if (!isInside) {
     const dx = point.x - clampedX;
@@ -275,9 +273,9 @@ function findNearestPointOnRect(point: Point, rect: Rect): { nearest: Point; dis
 
   // داخل المستطيل: أقرب حافة من الحواف الأربعة
   const distToLeft = point.x - rect.x;
-  const distToRight = (rect.x + rect.width) - point.x;
+  const distToRight = rect.x + rect.width - point.x;
   const distToTop = point.y - rect.y;
-  const distToBottom = (rect.y + rect.height) - point.y;
+  const distToBottom = rect.y + rect.height - point.y;
 
   const minDist = Math.min(distToLeft, distToRight, distToTop, distToBottom);
 
@@ -303,7 +301,7 @@ function findNearestPointOnRect(point: Point, rect: Rect): { nearest: Point; dis
 export function snapToNearestElement(
   point: Point,
   elements: readonly SnappableElement[],
-  threshold: number
+  threshold: number,
 ): SnapResult {
   validatePoint(point);
 

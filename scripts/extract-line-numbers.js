@@ -53,9 +53,11 @@ export function extractSymbols(filePath) {
   const classDeclRe = /^\s*export\s+(?:default\s+)?(?:abstract\s+)?class\s+(\w+)/;
   const funcDeclRe = /^\s*export\s+(?:default\s+)?(?:async\s+)?function\s*\*?\s+(\w+)\s*\(/;
   const privateFuncDeclRe = /^\s*(?:async\s+)?function\s*\*?\s+(\w+)\s*\(/;
-  const arrowConstRe = /^\s*export\s+(?:default\s+)?const\s+(\w+)\s*(?::\s*[^=]+)?=\s*(?:async\s*)?\(?[^=]*\)?\s*=>/;
+  const arrowConstRe =
+    /^\s*export\s+(?:default\s+)?const\s+(\w+)\s*(?::\s*[^=]+)?=\s*(?:async\s*)?\(?[^=]*\)?\s*=>/;
   const privateArrowConstRe = /^\s*const\s+(\w+)\s*(?::\s*[^=]+)?=\s*(?:async\s*)?\(?[^=]*\)?\s*=>/;
-  const methodRe = /^\s*(?:private\s+|public\s+|protected\s+|static\s+|readonly\s+|async\s+|get\s+|set\s+)*(\w+)\s*(?:<[^>]*>)?\s*\(([^)]*)\)\s*(?::\s*[^{]+)?\s*\{/;
+  const methodRe =
+    /^\s*(?:private\s+|public\s+|protected\s+|static\s+|readonly\s+|async\s+|get\s+|set\s+)*(\w+)\s*(?:<[^>]*>)?\s*\(([^)]*)\)\s*(?::\s*[^{]+)?\s*\{/;
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
@@ -72,7 +74,7 @@ export function extractSymbols(filePath) {
         type: 'class',
         line: lineNo,
         exported: true,
-        scope: 'top-level'
+        scope: 'top-level',
       });
       currentClass = m[1];
       classBraceDepth = braceDepth;
@@ -82,15 +84,19 @@ export function extractSymbols(filePath) {
         type: 'function',
         line: lineNo,
         exported: true,
-        scope: 'top-level'
+        scope: 'top-level',
       });
-    } else if (!currentClass && !line.trim().startsWith('export') && (m = privateFuncDeclRe.exec(line))) {
+    } else if (
+      !currentClass &&
+      !line.trim().startsWith('export') &&
+      (m = privateFuncDeclRe.exec(line))
+    ) {
       symbols.push({
         name: m[1],
         type: 'function',
         line: lineNo,
         exported: false,
-        scope: 'top-level'
+        scope: 'top-level',
       });
     } else if (!currentClass && (m = arrowConstRe.exec(line))) {
       symbols.push({
@@ -98,15 +104,19 @@ export function extractSymbols(filePath) {
         type: 'arrow-function',
         line: lineNo,
         exported: true,
-        scope: 'top-level'
+        scope: 'top-level',
       });
-    } else if (!currentClass && !line.trim().startsWith('export') && (m = privateArrowConstRe.exec(line))) {
+    } else if (
+      !currentClass &&
+      !line.trim().startsWith('export') &&
+      (m = privateArrowConstRe.exec(line))
+    ) {
       symbols.push({
         name: m[1],
         type: 'arrow-function',
         line: lineNo,
         exported: false,
-        scope: 'top-level'
+        scope: 'top-level',
       });
     } else if (currentClass && braceDepth === classBraceDepth + 1) {
       if ((m = methodRe.exec(line))) {
@@ -119,7 +129,7 @@ export function extractSymbols(filePath) {
             type: isStatic ? 'static-method' : 'method',
             line: lineNo,
             exported: !isPrivate,
-            scope: currentClass
+            scope: currentClass,
           });
         } else if (m[1] === 'constructor') {
           symbols.push({
@@ -127,7 +137,7 @@ export function extractSymbols(filePath) {
             type: 'constructor',
             line: lineNo,
             exported: true,
-            scope: currentClass
+            scope: currentClass,
           });
         }
       }
@@ -146,9 +156,7 @@ export function extractSymbols(filePath) {
 }
 
 export function formatAsHeader(symbols) {
-  const lines = [
-    ' * 📊 الدوال والخوارزميات | Functions & Algorithms:',
-  ];
+  const lines = [' * 📊 الدوال والخوارزميات | Functions & Algorithms:'];
   for (const s of symbols) {
     const visibility = s.exported ? '' : ' — private';
     lines.push(` *    - ${s.name}()${visibility} (#L${s.line})`);
@@ -159,19 +167,25 @@ export function formatAsHeader(symbols) {
 export function formatAsTable(symbols) {
   const header = '| الاسم | النوع | السطر | مُصدَّرة؟ |\n|---|---|---|---|';
   const rows = symbols.map(
-    s => `| ${s.name}() | ${s.type} | L${s.line} | ${s.exported ? 'نعم' : 'لا'} |`
+    (s) => `| ${s.name}() | ${s.type} | L${s.line} | ${s.exported ? 'نعم' : 'لا'} |`,
   );
   return [header, ...rows].join('\n');
 }
 
 const args = process.argv.slice(2);
-const filePath = args.find(a => !a.startsWith('--'));
-const formatArg = args.find(a => a.startsWith('--format='));
+const filePath = args.find((a) => !a.startsWith('--'));
+const formatArg = args.find((a) => a.startsWith('--format='));
 const format = formatArg ? formatArg.split('=')[1] : 'header';
 
-if (process.argv[1] && (process.argv[1].endsWith('extract-line-numbers.js') || process.argv[1].endsWith('extract-line-numbers.ts'))) {
+if (
+  process.argv[1] &&
+  (process.argv[1].endsWith('extract-line-numbers.js') ||
+    process.argv[1].endsWith('extract-line-numbers.ts'))
+) {
   if (!filePath) {
-    console.error('الاستخدام: node scripts/extract-line-numbers.js <path-to-file.ts> [--format=header|json|table]');
+    console.error(
+      'الاستخدام: node scripts/extract-line-numbers.js <path-to-file.ts> [--format=header|json|table]',
+    );
     process.exit(1);
   }
 

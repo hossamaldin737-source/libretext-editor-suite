@@ -13,9 +13,9 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-import {describe, it, expect, beforeEach} from 'vitest';
-import {MermaidPlugin} from '../src/mermaid/mermaid-plugin';
-import type {CodeBlockNode, NodeId} from '@libretext/core';
+import { describe, it, expect, beforeEach } from 'vitest';
+import { MermaidPlugin } from '../src/mermaid/mermaid-plugin';
+import type { CodeBlockNode, NodeId } from '@libretext/core';
 
 const plugin = new MermaidPlugin();
 

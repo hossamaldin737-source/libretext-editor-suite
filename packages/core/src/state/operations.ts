@@ -32,7 +32,7 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-import type {BlockNode, DocNode, InlineNode, NodeId, LogicalPosition} from '../ast/types';
+import type { BlockNode, DocNode, InlineNode, NodeId, LogicalPosition } from '../ast/types';
 import {
   findAndUpdateBlock,
   findAndUpdateInline,
@@ -110,13 +110,13 @@ export interface SpatialMoveOperation {
 export interface TextUpdateOperation {
   readonly type: 'text-update';
   readonly targetId: NodeId;
-  readonly payload: {readonly content: string};
+  readonly payload: { readonly content: string };
 }
 
 export interface FormulaUpdateOperation {
   readonly type: 'formula-update';
   readonly targetId: NodeId;
-  readonly payload: {readonly expression: string};
+  readonly payload: { readonly expression: string };
 }
 
 export type Operation =
@@ -143,14 +143,19 @@ export function applyOperation(doc: DocNode, operation: Operation): DocNode {
       if (operation.referenceId && operation.position) {
         return {
           ...doc,
-          content: insertInArray(doc.content, operation.payload, operation.referenceId, operation.position),
+          content: insertInArray(
+            doc.content,
+            operation.payload,
+            operation.referenceId,
+            operation.position,
+          ),
         };
       }
-      return {...doc, content: [...doc.content, operation.payload]};
+      return { ...doc, content: [...doc.content, operation.payload] };
     }
 
     case 'delete-block':
-      return {...doc, content: removeBlocks(doc.content, operation.targetId)};
+      return { ...doc, content: removeBlocks(doc.content, operation.targetId) };
 
     case 'update-block':
       return {
@@ -159,13 +164,13 @@ export function applyOperation(doc: DocNode, operation: Operation): DocNode {
       };
 
     case 'move-block': {
-      const {blocks} = moveBlockInTree(
+      const { blocks } = moveBlockInTree(
         doc.content,
         operation.targetId,
         operation.referenceId,
         operation.position,
       );
-      return {...doc, content: blocks};
+      return { ...doc, content: blocks };
     }
 
     case 'insert-inline':
@@ -181,7 +186,7 @@ export function applyOperation(doc: DocNode, operation: Operation): DocNode {
       };
 
     case 'delete-inline':
-      return {...doc, content: removeInlineFromBlocks(doc.content, operation.targetId)};
+      return { ...doc, content: removeInlineFromBlocks(doc.content, operation.targetId) };
 
     case 'update-inline':
       return {
@@ -192,17 +197,22 @@ export function applyOperation(doc: DocNode, operation: Operation): DocNode {
     case 'spatial-move':
       return {
         ...doc,
-        content: findAndUpdateBlock(doc.content, operation.targetId, (node) => ({
-          ...node,
-          position: operation.payload,
-        }) as unknown as BlockNode),
+        content: findAndUpdateBlock(
+          doc.content,
+          operation.targetId,
+          (node) =>
+            ({
+              ...node,
+              position: operation.payload,
+            }) as unknown as BlockNode,
+        ),
       };
 
     case 'text-update':
       return {
         ...doc,
         content: findAndUpdateInline(doc.content, operation.targetId, (node) =>
-          node.type === 'text' ? {...node, text: operation.payload.content} : node,
+          node.type === 'text' ? { ...node, text: operation.payload.content } : node,
         ),
       };
 
@@ -210,7 +220,7 @@ export function applyOperation(doc: DocNode, operation: Operation): DocNode {
       return {
         ...doc,
         content: findAndUpdateInline(doc.content, operation.targetId, (node) =>
-          node.type === 'text' ? {...node, formula: operation.payload.expression} : node,
+          node.type === 'text' ? { ...node, formula: operation.payload.expression } : node,
         ),
       };
 

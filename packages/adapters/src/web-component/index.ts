@@ -13,4 +13,4 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-export {WebComponentAdapter, createWebComponentAdapter} from './web-component-adapter';
+export { WebComponentAdapter, createWebComponentAdapter } from './web-component-adapter';

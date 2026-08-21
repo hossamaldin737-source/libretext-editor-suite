@@ -38,51 +38,149 @@ import { arabicToWesternNumerals } from './arabic-text';
 /** خريطة الدوال العربية إلى الإنجليزية */
 export const ARABIC_TO_ENGLISH_FUNCTIONS: Record<string, string> = {
   // دوال رياضية
-  'مجموع': 'SUM', 'جمع': 'SUM', 'المجموع': 'SUM',
-  'متوسط': 'AVERAGE', 'المتوسط': 'AVERAGE',
-  'عدد': 'COUNT', 'العدد': 'COUNT',
-  'عدد_ا': 'COUNTA', 'عدد_شرطي': 'COUNTIF',
-  'اقل': 'MIN', 'ادنى': 'MIN',
-  'اعلى': 'MAX', 'اقصى': 'MAX',
-  'تقريب': 'ROUND', 'جذر': 'SQRT', 'جذر_تربيعي': 'SQRT',
-  'اس': 'POWER', 'باقي': 'MOD', 'حاصل_ضرب': 'PRODUCT',
-  'مطلق': 'ABS', 'قيمة_مطلقة': 'ABS',
-  'وسيط': 'MEDIAN', 'منوال': 'MODE',
+  مجموع: 'SUM',
+  جمع: 'SUM',
+  المجموع: 'SUM',
+  متوسط: 'AVERAGE',
+  المتوسط: 'AVERAGE',
+  عدد: 'COUNT',
+  العدد: 'COUNT',
+  عدد_ا: 'COUNTA',
+  عدد_شرطي: 'COUNTIF',
+  اقل: 'MIN',
+  ادنى: 'MIN',
+  اعلى: 'MAX',
+  اقصى: 'MAX',
+  تقريب: 'ROUND',
+  جذر: 'SQRT',
+  جذر_تربيعي: 'SQRT',
+  اس: 'POWER',
+  باقي: 'MOD',
+  حاصل_ضرب: 'PRODUCT',
+  مطلق: 'ABS',
+  قيمة_مطلقة: 'ABS',
+  وسيط: 'MEDIAN',
+  منوال: 'MODE',
   // دوال منطقية
-  'اذا': 'IF', 'إذا': 'IF', 'و': 'AND', 'او': 'OR', 'أو': 'OR',
-  'ليس': 'NOT', 'خطا': 'FALSE', 'صحيح': 'TRUE',
+  اذا: 'IF',
+  إذا: 'IF',
+  و: 'AND',
+  او: 'OR',
+  أو: 'OR',
+  ليس: 'NOT',
+  خطا: 'FALSE',
+  صحيح: 'TRUE',
   // دوال نصية
-  'دمج': 'CONCAT', 'اطول': 'LEN', 'طول': 'LEN',
-  'يسار': 'LEFT', 'يمين': 'RIGHT', 'وسط': 'MID',
-  'تشذيب': 'TRIM', 'احذف_المسافات': 'TRIM',
-  'كبير': 'UPPER', 'صغير': 'LOWER',
-  'استبدال': 'SUBSTITUTE', 'نص': 'TEXT',
+  دمج: 'CONCAT',
+  اطول: 'LEN',
+  طول: 'LEN',
+  يسار: 'LEFT',
+  يمين: 'RIGHT',
+  وسط: 'MID',
+  تشذيب: 'TRIM',
+  احذف_المسافات: 'TRIM',
+  كبير: 'UPPER',
+  صغير: 'LOWER',
+  استبدال: 'SUBSTITUTE',
+  نص: 'TEXT',
   // دوال التاريخ
-  'اليوم': 'TODAY', 'الان': 'NOW', 'الآن': 'NOW',
-  'تاريخ': 'DATE', 'سنة': 'YEAR', 'شهر': 'MONTH', 'يوم': 'DAY',
+  اليوم: 'TODAY',
+  الان: 'NOW',
+  الآن: 'NOW',
+  تاريخ: 'DATE',
+  سنة: 'YEAR',
+  شهر: 'MONTH',
+  يوم: 'DAY',
   // دوال البحث
-  'بحث_عمودي': 'VLOOKUP', 'بحث_افقي': 'HLOOKUP',
-  'فهرس': 'INDEX', 'مطابقة': 'MATCH', 'اختيار': 'CHOOSE',
+  بحث_عمودي: 'VLOOKUP',
+  بحث_افقي: 'HLOOKUP',
+  فهرس: 'INDEX',
+  مطابقة: 'MATCH',
+  اختيار: 'CHOOSE',
   // دوال إحصائية
-  'انحراف_معيار': 'STDEV', 'تباين': 'VAR',
-  'رتبة': 'RANK', 'مئوية': 'PERCENTILE',
+  انحراف_معيار: 'STDEV',
+  تباين: 'VAR',
+  رتبة: 'RANK',
+  مئوية: 'PERCENTILE',
   // دوال مالية
-  'دفعة': 'PMT', 'قيمة_مستقبلية': 'FV', 'قيمة_حالية': 'PV',
+  دفعة: 'PMT',
+  قيمة_مستقبلية: 'FV',
+  قيمة_حالية: 'PV',
 };
 
 /** قائمة الدوال الإنجليزية المدعومة */
 export const ENGLISH_FUNCTIONS: readonly string[] = [
-  'SUM', 'AVERAGE', 'COUNT', 'COUNTA', 'COUNTIF', 'COUNTIFS',
-  'MIN', 'MAX', 'ROUND', 'ROUNDUP', 'ROUNDDOWN', 'INT', 'ABS',
-  'SQRT', 'POWER', 'MOD', 'PRODUCT', 'SUMIF', 'SUMIFS',
-  'AVERAGEIF', 'AVERAGEIFS', 'MEDIAN', 'MODE',
-  'IF', 'AND', 'OR', 'NOT', 'XOR', 'TRUE', 'FALSE', 'IFERROR', 'IFNA',
-  'CONCATENATE', 'CONCAT', 'LEFT', 'RIGHT', 'MID', 'LEN', 'TRIM',
-  'UPPER', 'LOWER', 'PROPER', 'SUBSTITUTE', 'REPLACE', 'TEXT',
-  'TODAY', 'NOW', 'DATE', 'YEAR', 'MONTH', 'DAY', 'HOUR', 'MINUTE',
-  'VLOOKUP', 'HLOOKUP', 'XLOOKUP', 'INDEX', 'MATCH', 'CHOOSE',
-  'STDEV', 'STDEVP', 'VAR', 'VARP', 'RANK', 'PERCENTILE',
-  'PMT', 'FV', 'PV', 'RATE', 'NPV', 'IRR',
+  'SUM',
+  'AVERAGE',
+  'COUNT',
+  'COUNTA',
+  'COUNTIF',
+  'COUNTIFS',
+  'MIN',
+  'MAX',
+  'ROUND',
+  'ROUNDUP',
+  'ROUNDDOWN',
+  'INT',
+  'ABS',
+  'SQRT',
+  'POWER',
+  'MOD',
+  'PRODUCT',
+  'SUMIF',
+  'SUMIFS',
+  'AVERAGEIF',
+  'AVERAGEIFS',
+  'MEDIAN',
+  'MODE',
+  'IF',
+  'AND',
+  'OR',
+  'NOT',
+  'XOR',
+  'TRUE',
+  'FALSE',
+  'IFERROR',
+  'IFNA',
+  'CONCATENATE',
+  'CONCAT',
+  'LEFT',
+  'RIGHT',
+  'MID',
+  'LEN',
+  'TRIM',
+  'UPPER',
+  'LOWER',
+  'PROPER',
+  'SUBSTITUTE',
+  'REPLACE',
+  'TEXT',
+  'TODAY',
+  'NOW',
+  'DATE',
+  'YEAR',
+  'MONTH',
+  'DAY',
+  'HOUR',
+  'MINUTE',
+  'VLOOKUP',
+  'HLOOKUP',
+  'XLOOKUP',
+  'INDEX',
+  'MATCH',
+  'CHOOSE',
+  'STDEV',
+  'STDEVP',
+  'VAR',
+  'VARP',
+  'RANK',
+  'PERCENTILE',
+  'PMT',
+  'FV',
+  'PV',
+  'RATE',
+  'NPV',
+  'IRR',
 ] as const;
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -128,9 +226,7 @@ export function translateFormula(formula: string): string {
   let translated = arabicToWesternNumerals(formula);
 
   // استبدال الدوال العربية بالإنجليزية
-  for (const [arabic, english] of Object.entries(
-    ARABIC_TO_ENGLISH_FUNCTIONS
-  )) {
+  for (const [arabic, english] of Object.entries(ARABIC_TO_ENGLISH_FUNCTIONS)) {
     const pattern = new RegExp(`\\b${escapeRegex(arabic)}\\b`, 'g');
     translated = translated.replace(pattern, english);
   }
@@ -157,9 +253,7 @@ export function parseFormula(rawFormula: string): FormulaValidation {
   const functions: string[] = [];
 
   // إزالة '=' من البداية
-  const cleanFormula = rawFormula.startsWith('=')
-    ? rawFormula.substring(1)
-    : rawFormula;
+  const cleanFormula = rawFormula.startsWith('=') ? rawFormula.substring(1) : rawFormula;
 
   // ترجمة الدوال العربية وتوحيد الأرقام
   const translated = translateFormula(cleanFormula);
@@ -257,7 +351,7 @@ export function formatCellReference(
   column: string,
   row: number,
   absoluteColumn = false,
-  absoluteRow = false
+  absoluteRow = false,
 ): string {
   const colPrefix = absoluteColumn ? '$' : '';
   const rowPrefix = absoluteRow ? '$' : '';
@@ -265,20 +359,13 @@ export function formatCellReference(
 }
 
 /** فحص المراجع الدائرية */
-export function hasCircularReference(
-  formula: string,
-  currentCell: string
-): boolean {
+export function hasCircularReference(formula: string, currentCell: string): boolean {
   const validation = parseFormula(formula);
   return validation.cellReferences.includes(currentCell);
 }
 
 /** تعديل المراجع النسبية عند النسخ */
-export function adjustReferences(
-  formula: string,
-  rowOffset: number,
-  colOffset: number
-): string {
+export function adjustReferences(formula: string, rowOffset: number, colOffset: number): string {
   const translated = translateFormula(formula);
   const references = translated.match(CELL_REFERENCE_PATTERN);
   if (!references) return translated;
@@ -288,18 +375,14 @@ export function adjustReferences(
     const parsed = parseCellReference(ref);
     if (!parsed) continue;
 
-    const newCol = !parsed.absoluteColumn && colOffset !== 0
-      ? indexToColumn(columnToIndex(parsed.column) + colOffset)
-      : parsed.column;
+    const newCol =
+      !parsed.absoluteColumn && colOffset !== 0
+        ? indexToColumn(columnToIndex(parsed.column) + colOffset)
+        : parsed.column;
 
-    const newRow = !parsed.absoluteRow && rowOffset !== 0
-      ? parsed.row + rowOffset
-      : parsed.row;
+    const newRow = !parsed.absoluteRow && rowOffset !== 0 ? parsed.row + rowOffset : parsed.row;
 
-    const newRef = formatCellReference(
-      newCol, newRow,
-      parsed.absoluteColumn, parsed.absoluteRow
-    );
+    const newRef = formatCellReference(newCol, newRow, parsed.absoluteColumn, parsed.absoluteRow);
     modified = modified.replace(ref, newRef);
   }
   return modified;

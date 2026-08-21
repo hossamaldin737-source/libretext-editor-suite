@@ -13,12 +13,12 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-import {describe, it, expect, beforeEach, afterEach} from 'vitest';
-import {ReactAdapter} from '../src/react/react-adapter';
-import {VueAdapter} from '../src/vue/vue-adapter';
-import {WebComponentAdapter} from '../src/web-component/web-component-adapter';
-import {VanillaAdapter} from '../src/vanilla/vanilla-adapter';
-import type {DocNode, NodeId} from '@libretext/core';
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { ReactAdapter } from '../src/react/react-adapter';
+import { VueAdapter } from '../src/vue/vue-adapter';
+import { WebComponentAdapter } from '../src/web-component/web-component-adapter';
+import { VanillaAdapter } from '../src/vanilla/vanilla-adapter';
+import type { DocNode, NodeId } from '@libretext/core';
 
 const createDoc = (content: DocNode['content']): DocNode => ({
   type: 'doc',
@@ -58,7 +58,11 @@ describe('ReactAdapter', () => {
   it('يقوم بتعيين المستند', () => {
     adapter.initialize(container);
     const doc = createDoc([
-      {type: 'paragraph', id: 'p1' as NodeId, content: [{type: 'text', id: 't1' as NodeId, text: 'Hello'}]},
+      {
+        type: 'paragraph',
+        id: 'p1' as NodeId,
+        content: [{ type: 'text', id: 't1' as NodeId, text: 'Hello' }],
+      },
     ]);
     adapter.setDocument(doc);
     expect(adapter.getDocument().content).toHaveLength(1);
@@ -67,7 +71,11 @@ describe('ReactAdapter', () => {
   it('يقوم بعرض المحتوى', () => {
     adapter.initialize(container);
     const doc = createDoc([
-      {type: 'paragraph', id: 'p1' as NodeId, content: [{type: 'text', id: 't1' as NodeId, text: 'Hello'}]},
+      {
+        type: 'paragraph',
+        id: 'p1' as NodeId,
+        content: [{ type: 'text', id: 't1' as NodeId, text: 'Hello' }],
+      },
     ]);
     adapter.setDocument(doc);
     expect(container.innerHTML).toContain('Hello');
@@ -75,12 +83,12 @@ describe('ReactAdapter', () => {
 
   it('يقوم بتعيين التحديد', () => {
     adapter.initialize(container);
-    adapter.setSelection({nodeId: 'p1', startOffset: 0, endOffset: 5});
-    expect(adapter.getSelection()).toEqual({nodeId: 'p1', startOffset: 0, endOffset: 5});
+    adapter.setSelection({ nodeId: 'p1', startOffset: 0, endOffset: 5 });
+    expect(adapter.getSelection()).toEqual({ nodeId: 'p1', startOffset: 0, endOffset: 5 });
   });
 
   it('يدعم القراءة فقط', () => {
-    const adapter = new ReactAdapter({readOnly: true});
+    const adapter = new ReactAdapter({ readOnly: true });
     adapter.initialize(container);
     expect(adapter.isReadOnly()).toBe(true);
   });
@@ -112,7 +120,11 @@ describe('VueAdapter', () => {
   it('يقوم بتعيين المستند', () => {
     adapter.initialize(container);
     const doc = createDoc([
-      {type: 'paragraph', id: 'p1' as NodeId, content: [{type: 'text', id: 't1' as NodeId, text: 'Hello'}]},
+      {
+        type: 'paragraph',
+        id: 'p1' as NodeId,
+        content: [{ type: 'text', id: 't1' as NodeId, text: 'Hello' }],
+      },
     ]);
     adapter.setDocument(doc);
     expect(adapter.getDocument().content).toHaveLength(1);
@@ -121,7 +133,11 @@ describe('VueAdapter', () => {
   it('يقوم بعرض المحتوى', () => {
     adapter.initialize(container);
     const doc = createDoc([
-      {type: 'paragraph', id: 'p1' as NodeId, content: [{type: 'text', id: 't1' as NodeId, text: 'Hello'}]},
+      {
+        type: 'paragraph',
+        id: 'p1' as NodeId,
+        content: [{ type: 'text', id: 't1' as NodeId, text: 'Hello' }],
+      },
     ]);
     adapter.setDocument(doc);
     expect(container.innerHTML).toContain('Hello');
@@ -154,7 +170,11 @@ describe('WebComponentAdapter', () => {
   it('يقوم بتعيين المستند', () => {
     adapter.initialize(container);
     const doc = createDoc([
-      {type: 'paragraph', id: 'p1' as NodeId, content: [{type: 'text', id: 't1' as NodeId, text: 'Hello'}]},
+      {
+        type: 'paragraph',
+        id: 'p1' as NodeId,
+        content: [{ type: 'text', id: 't1' as NodeId, text: 'Hello' }],
+      },
     ]);
     adapter.setDocument(doc);
     expect(adapter.getDocument().content).toHaveLength(1);
@@ -163,7 +183,11 @@ describe('WebComponentAdapter', () => {
   it('يقوم بعرض المحتوى', () => {
     adapter.initialize(container);
     const doc = createDoc([
-      {type: 'paragraph', id: 'p1' as NodeId, content: [{type: 'text', id: 't1' as NodeId, text: 'Hello'}]},
+      {
+        type: 'paragraph',
+        id: 'p1' as NodeId,
+        content: [{ type: 'text', id: 't1' as NodeId, text: 'Hello' }],
+      },
     ]);
     adapter.setDocument(doc);
     expect(container.innerHTML).toContain('Hello');
@@ -196,7 +220,11 @@ describe('VanillaAdapter', () => {
   it('يقوم بتعيين المستند', () => {
     adapter.initialize(container);
     const doc = createDoc([
-      {type: 'paragraph', id: 'p1' as NodeId, content: [{type: 'text', id: 't1' as NodeId, text: 'Hello'}]},
+      {
+        type: 'paragraph',
+        id: 'p1' as NodeId,
+        content: [{ type: 'text', id: 't1' as NodeId, text: 'Hello' }],
+      },
     ]);
     adapter.setDocument(doc);
     expect(adapter.getDocument().content).toHaveLength(1);
@@ -205,7 +233,11 @@ describe('VanillaAdapter', () => {
   it('يقوم بعرض المحتوى', () => {
     adapter.initialize(container);
     const doc = createDoc([
-      {type: 'paragraph', id: 'p1' as NodeId, content: [{type: 'text', id: 't1' as NodeId, text: 'Hello'}]},
+      {
+        type: 'paragraph',
+        id: 'p1' as NodeId,
+        content: [{ type: 'text', id: 't1' as NodeId, text: 'Hello' }],
+      },
     ]);
     adapter.setDocument(doc);
     expect(container.innerHTML).toContain('Hello');

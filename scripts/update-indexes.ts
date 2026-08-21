@@ -80,22 +80,22 @@ function extractSymbolsFromFile(filePath: string): CodeSymbol[] {
     const trimmed = lines[i]!;
     const fnMatch = trimmed.match(/^export\s+(?:async\s+)?function\s+([a-zA-Z0-9_$]+)/);
     if (fnMatch) {
-      symbols.push({name: fnMatch[1]!, type: 'function', file: filePath, line: i + 1});
+      symbols.push({ name: fnMatch[1]!, type: 'function', file: filePath, line: i + 1 });
       continue;
     }
     const classMatch = trimmed.match(/^export\s+class\s+([a-zA-Z0-9_$]+)/);
     if (classMatch) {
-      symbols.push({name: classMatch[1]!, type: 'class', file: filePath, line: i + 1});
+      symbols.push({ name: classMatch[1]!, type: 'class', file: filePath, line: i + 1 });
       continue;
     }
     const intMatch = trimmed.match(/^export\s+interface\s+([a-zA-Z0-9_$]+)/);
     if (intMatch) {
-      symbols.push({name: intMatch[1]!, type: 'interface', file: filePath, line: i + 1});
+      symbols.push({ name: intMatch[1]!, type: 'interface', file: filePath, line: i + 1 });
       continue;
     }
     const typeMatch = trimmed.match(/^export\s+type\s+([a-zA-Z0-9_$]+)/);
     if (typeMatch) {
-      symbols.push({name: typeMatch[1]!, type: 'type', file: filePath, line: i + 1});
+      symbols.push({ name: typeMatch[1]!, type: 'type', file: filePath, line: i + 1 });
     }
   }
   return symbols;
@@ -152,10 +152,10 @@ function runIndexUpdater() {
   console.log('✨ [IndexUpdater] All indexes synchronized successfully.');
 }
 
-import {fileURLToPath} from 'url';
+import { fileURLToPath } from 'url';
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   runIndexUpdater();
 }
 
-export {runIndexUpdater, scanDirectory, extractSymbolsFromFile};
+export { runIndexUpdater, scanDirectory, extractSymbolsFromFile };

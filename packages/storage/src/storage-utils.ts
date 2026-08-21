@@ -83,9 +83,7 @@ export function isLocalStorageAvailable(): boolean {
 /**
  * نتيجة تحليل JSON الآمن
  */
-export type SafeJsonResult<T> =
-  | { success: true; value: T }
-  | { success: false; error: Error };
+export type SafeJsonResult<T> = { success: true; value: T } | { success: false; error: Error };
 
 /**
  * تحليل آمن للنص كـ JSON دون رمي استثناءات
@@ -100,7 +98,7 @@ export function safeJsonParse<T>(raw: string | null): SafeJsonResult<T> {
   } catch (err) {
     return {
       success: false,
-      error: err instanceof Error ? err : new Error(String(err))
+      error: err instanceof Error ? err : new Error(String(err)),
     };
   }
 }

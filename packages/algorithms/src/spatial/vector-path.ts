@@ -105,7 +105,7 @@ function clonePath(path: VectorPathData): VectorPathData {
 export function createVectorPath(
   id: string,
   points: Point[] = [],
-  closed: boolean = false
+  closed: boolean = false,
 ): VectorPathData {
   return {
     id,
@@ -121,11 +121,7 @@ export function createVectorPath(
 /**
  * إضافة نقطة جديدة إلى المسار
  */
-export function addVertex(
-  path: VectorPathData,
-  point: Point,
-  index?: number
-): VectorPathData {
+export function addVertex(path: VectorPathData, point: Point, index?: number): VectorPathData {
   const result = clonePath(path);
   const newVtx: PathVertex = {
     id: generateVertexId(),
@@ -156,7 +152,7 @@ export function removeVertex(path: VectorPathData, vertexId: string): VectorPath
 export function updateVertex(
   path: VectorPathData,
   vertexId: string,
-  updates: Partial<PathVertex>
+  updates: Partial<PathVertex>,
 ): VectorPathData {
   const result = clonePath(path);
   const vtx = result.vertices.find((v) => v.id === vertexId);
@@ -345,7 +341,7 @@ export function svgDToVectorPath(id: string, d: string): VectorPathData {
   let currentY = 0;
   const vertices: PathVertex[] = [];
 
-  for (let i = 0; i < commands.length; ) {
+  for (let i = 0; i < commands.length;) {
     const cmd = commands[i++]!;
     if (/^[mlcz]$/i.test(cmd)) {
       if (cmd === 'M' || cmd === 'm') {

@@ -80,7 +80,7 @@ export function PMT(
   nperVal: unknown,
   pvVal: unknown,
   fvVal: unknown = 0,
-  typeVal: unknown = 0
+  typeVal: unknown = 0,
 ): number {
   const rate = requireNumber(rateVal, 'rate');
   const nper = requireNumber(nperVal, 'nper');
@@ -150,10 +150,14 @@ export function IRR(valuesArg: unknown, guessVal: unknown = 0.1): number {
     if (v < 0) hasNegative = true;
   }
   if (!hasPositive || !hasNegative) {
-    throw new FormulaError('#NUM!', 'IRR requires at least one positive and one negative cash flow');
+    throw new FormulaError(
+      '#NUM!',
+      'IRR requires at least one positive and one negative cash flow',
+    );
   }
 
-  const guess = guessVal !== undefined && guessVal !== null ? requireNumber(guessVal, 'guess') : 0.1;
+  const guess =
+    guessVal !== undefined && guessVal !== null ? requireNumber(guessVal, 'guess') : 0.1;
   let rate = guess;
   const maxIterations = 100;
   const tolerance = 1e-7;

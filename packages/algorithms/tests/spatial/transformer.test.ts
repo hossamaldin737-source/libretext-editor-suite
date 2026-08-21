@@ -1,21 +1,21 @@
 /**
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 📌 ملخص توجيهي | Guiding Summary
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 📄 الملف: transformer.test.ts
-  * 📂 المسار: packages/algorithms/tests/spatial/transformer.test.ts
-  * 🎯 الهدف الرئيسي: اختبارات شاملة لمحول الإحداثيات (Screen↔Document + Rotation)
-  * 📋 المعايير: تغطية 100% لجميع الدوال العامة
-  * 🏷️ المعرف: TEST-ALGO-010
-  * 📅 تاريخ الإنشاء: 2026-08-19
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 🧠 الطريقة المبتكرة | Innovative Pattern:
-  *    Coordinate Transform Testing + Edge Case Coverage
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 👤 المالك: Hossam El-Din Abdel-Moaty El-Khouly - All rights reserved
-  * ⚖️ الترخيص: MIT License
-  * ═══════════════════════════════════════════════════════════════════════════
-  */
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 📌 ملخص توجيهي | Guiding Summary
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 📄 الملف: transformer.test.ts
+ * 📂 المسار: packages/algorithms/tests/spatial/transformer.test.ts
+ * 🎯 الهدف الرئيسي: اختبارات شاملة لمحول الإحداثيات (Screen↔Document + Rotation)
+ * 📋 المعايير: تغطية 100% لجميع الدوال العامة
+ * 🏷️ المعرف: TEST-ALGO-010
+ * 📅 تاريخ الإنشاء: 2026-08-19
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 🧠 الطريقة المبتكرة | Innovative Pattern:
+ *    Coordinate Transform Testing + Edge Case Coverage
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 👤 المالك: Hossam El-Din Abdel-Moaty El-Khouly - All rights reserved
+ * ⚖️ الترخيص: MIT License
+ * ═══════════════════════════════════════════════════════════════════════════
+ */
 
 import { describe, it, expect } from 'vitest';
 import {
@@ -44,7 +44,6 @@ import {
 import { LengthUnit } from '../../src/spatial/types';
 
 describe('ALGO-010: CoordinateTransformer', () => {
-
   describe('screenToDocument', () => {
     it('converts screen to document with zero offset', () => {
       const result = screenToDocument(100, 200, { x: 0, y: 0 }, 1);
@@ -291,7 +290,7 @@ describe('ALGO-010: CoordinateTransformer', () => {
     it('positions handles correctly', () => {
       const bbox = createBBox(0, 0, 100, 60);
       const handles = getResizeHandles(bbox);
-      const map = Object.fromEntries(handles.map(h => [h.position, h.point]));
+      const map = Object.fromEntries(handles.map((h) => [h.position, h.point]));
       expect(map['top-left']).toEqual({ x: 0, y: 0 });
       expect(map['bottom-right']).toEqual({ x: 100, y: 60 });
       expect(map['top-center']).toEqual({ x: 50, y: 0 });
@@ -301,7 +300,7 @@ describe('ALGO-010: CoordinateTransformer', () => {
     it('positions handles for offset bbox', () => {
       const bbox = createBBox(20, 30, 80, 40);
       const handles = getResizeHandles(bbox);
-      const map = Object.fromEntries(handles.map(h => [h.position, h.point]));
+      const map = Object.fromEntries(handles.map((h) => [h.position, h.point]));
       expect(map['top-left']).toEqual({ x: 20, y: 30 });
       expect(map['bottom-right']).toEqual({ x: 100, y: 70 });
       expect(map['middle-left']).toEqual({ x: 20, y: 50 });

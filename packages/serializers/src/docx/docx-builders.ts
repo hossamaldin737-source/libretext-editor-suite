@@ -41,10 +41,7 @@ import {
   type DocxConversionOptions,
 } from './docx-types';
 
-export function buildHeading(
-  block: ContentBlock,
-  options: DocxConversionOptions
-): Paragraph {
+export function buildHeading(block: ContentBlock, options: DocxConversionOptions): Paragraph {
   const level = clampHeadingLevel(block.level || 1);
   const text = typeof block.content === 'string' ? block.content : '';
 
@@ -58,10 +55,7 @@ export function buildHeading(
   });
 }
 
-export function buildParagraph(
-  block: ContentBlock,
-  options: DocxConversionOptions
-): Paragraph {
+export function buildParagraph(block: ContentBlock, options: DocxConversionOptions): Paragraph {
   const text = typeof block.content === 'string' ? block.content : '';
   const runs = parseInlineFormatting(text, options.fontFamily);
 
@@ -73,10 +67,7 @@ export function buildParagraph(
   });
 }
 
-export function buildList(
-  block: ContentBlock,
-  options: DocxConversionOptions
-): Paragraph[] {
+export function buildList(block: ContentBlock, options: DocxConversionOptions): Paragraph[] {
   const items = Array.isArray(block.content) ? block.content : [];
 
   return items.map((item) => {
@@ -87,19 +78,14 @@ export function buildList(
       children: runs,
       style: 'ListParagraph',
       bullet: block.ordered ? undefined : { level: 0 },
-      numbering: block.ordered
-        ? { reference: 'default-numbering', level: 0 }
-        : undefined,
+      numbering: block.ordered ? { reference: 'default-numbering', level: 0 } : undefined,
       spacing: { after: 60 },
       bidirectional: options.rtl,
     });
   });
 }
 
-export function buildTable(
-  tableData: TableData,
-  options: DocxConversionOptions
-): Table {
+export function buildTable(tableData: TableData, options: DocxConversionOptions): Table {
   const rows: TableRow[] = [];
 
   if (tableData.headers.length > 0) {
@@ -125,10 +111,7 @@ export function buildTable(
   });
 }
 
-function buildTableHeaderRow(
-  headers: string[],
-  options: DocxConversionOptions
-): TableRow {
+function buildTableHeaderRow(headers: string[], options: DocxConversionOptions): TableRow {
   const headerCells = headers.map(
     (header) =>
       new TableCell({
@@ -145,15 +128,12 @@ function buildTableHeaderRow(
           }),
         ],
         shading: { fill: DEFAULTS.TABLE_HEADER_BG },
-      })
+      }),
   );
   return new TableRow({ children: headerCells });
 }
 
-function buildTableDataRow(
-  row: string[],
-  options: DocxConversionOptions
-): TableRow {
+function buildTableDataRow(row: string[], options: DocxConversionOptions): TableRow {
   const cells = row.map(
     (cellValue) =>
       new TableCell({
@@ -162,15 +142,12 @@ function buildTableDataRow(
             children: parseInlineFormatting(cellValue, options.fontFamily),
           }),
         ],
-      })
+      }),
   );
   return new TableRow({ children: cells });
 }
 
-export function buildCodeBlock(
-  block: ContentBlock,
-  options: DocxConversionOptions
-): Paragraph[] {
+export function buildCodeBlock(block: ContentBlock, options: DocxConversionOptions): Paragraph[] {
   const code = typeof block.content === 'string' ? block.content : '';
   const lines = code.split('\n');
 
@@ -190,7 +167,7 @@ export function buildCodeBlock(
           line: 276,
         },
         bidirectional: options.rtl,
-      })
+      }),
   );
 }
 
@@ -210,10 +187,7 @@ export function buildHorizontalRule(): Paragraph {
 
 export type DocxElement = Paragraph | Table;
 
-export function buildElement(
-  block: ContentBlock,
-  options: DocxConversionOptions
-): DocxElement[] {
+export function buildElement(block: ContentBlock, options: DocxConversionOptions): DocxElement[] {
   switch (block.type) {
     case 'heading':
       return [buildHeading(block, options)];
@@ -241,7 +215,7 @@ export function buildElement(
 
 export function buildElements(
   blocks: ContentBlock[],
-  options: DocxConversionOptions
+  options: DocxConversionOptions,
 ): DocxElement[] {
   return blocks.flatMap((block) => buildElement(block, options));
 }

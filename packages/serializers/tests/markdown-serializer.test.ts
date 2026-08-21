@@ -16,9 +16,9 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-import {describe, it, expect} from 'vitest';
-import {MarkdownSerializer} from '../src/basic/markdown-serializer';
-import type {DocNode, NodeId} from '@libretext/core';
+import { describe, it, expect } from 'vitest';
+import { MarkdownSerializer } from '../src/basic/markdown-serializer';
+import type { DocNode, NodeId } from '@libretext/core';
 
 const serializer = new MarkdownSerializer();
 
@@ -31,7 +31,11 @@ const createDoc = (content: DocNode['content']): DocNode => ({
 describe('MarkdownSerializer', () => {
   it('يقوم بتحويل الفقرات', () => {
     const doc = createDoc([
-      {type: 'paragraph', id: 'p1' as NodeId, content: [{type: 'text', id: 't1' as NodeId, text: 'Hello World'}]},
+      {
+        type: 'paragraph',
+        id: 'p1' as NodeId,
+        content: [{ type: 'text', id: 't1' as NodeId, text: 'Hello World' }],
+      },
     ]);
     const result = serializer.serialize(doc);
     expect(result).toBe('Hello World');
@@ -43,7 +47,7 @@ describe('MarkdownSerializer', () => {
         type: 'heading',
         id: 'h1' as NodeId,
         level: 2,
-        content: [{type: 'text', id: 't1' as NodeId, text: 'عنوان'}],
+        content: [{ type: 'text', id: 't1' as NodeId, text: 'عنوان' }],
       },
     ]);
     const result = serializer.serialize(doc);
@@ -57,8 +61,28 @@ describe('MarkdownSerializer', () => {
         id: 'l1' as NodeId,
         ordered: false,
         items: [
-          {id: 'li1' as NodeId, type: 'list-item', content: [{type: 'paragraph', id: 'p1' as NodeId, content: [{type: 'text', id: 't1' as NodeId, text: 'Item 1'}]}]},
-          {id: 'li2' as NodeId, type: 'list-item', content: [{type: 'paragraph', id: 'p2' as NodeId, content: [{type: 'text', id: 't2' as NodeId, text: 'Item 2'}]}]},
+          {
+            id: 'li1' as NodeId,
+            type: 'list-item',
+            content: [
+              {
+                type: 'paragraph',
+                id: 'p1' as NodeId,
+                content: [{ type: 'text', id: 't1' as NodeId, text: 'Item 1' }],
+              },
+            ],
+          },
+          {
+            id: 'li2' as NodeId,
+            type: 'list-item',
+            content: [
+              {
+                type: 'paragraph',
+                id: 'p2' as NodeId,
+                content: [{ type: 'text', id: 't2' as NodeId, text: 'Item 2' }],
+              },
+            ],
+          },
         ],
       },
     ]);
@@ -84,7 +108,13 @@ describe('MarkdownSerializer', () => {
       {
         type: 'blockquote',
         id: 'bq1' as NodeId,
-        content: [{type: 'paragraph', id: 'p1' as NodeId, content: [{type: 'text', id: 't1' as NodeId, text: 'Quote'}]}],
+        content: [
+          {
+            type: 'paragraph',
+            id: 'p1' as NodeId,
+            content: [{ type: 'text', id: 't1' as NodeId, text: 'Quote' }],
+          },
+        ],
       },
     ]);
     const result = serializer.serialize(doc);
@@ -92,14 +122,14 @@ describe('MarkdownSerializer', () => {
   });
 
   it('يقوم بتحويل الخط الفاصل', () => {
-    const doc = createDoc([{type: 'horizontal-rule', id: 'hr1' as NodeId}]);
+    const doc = createDoc([{ type: 'horizontal-rule', id: 'hr1' as NodeId }]);
     const result = serializer.serialize(doc);
     expect(result).toBe('---');
   });
 
   it('يقوم بتحويل الصور', () => {
     const doc = createDoc([
-      {type: 'image', id: 'img1' as NodeId, src: '/test.png', alt: 'Test Image'},
+      { type: 'image', id: 'img1' as NodeId, src: '/test.png', alt: 'Test Image' },
     ]);
     const result = serializer.serialize(doc);
     expect(result).toBe('![Test Image](/test.png)');
@@ -111,8 +141,12 @@ describe('MarkdownSerializer', () => {
         type: 'paragraph',
         id: 'p1' as NodeId,
         content: [
-          {type: 'text', id: 't1' as NodeId, text: 'Hello '},
-          {type: 'bold', id: 'b1' as NodeId, content: [{type: 'text', id: 't2' as NodeId, text: 'World'}]},
+          { type: 'text', id: 't1' as NodeId, text: 'Hello ' },
+          {
+            type: 'bold',
+            id: 'b1' as NodeId,
+            content: [{ type: 'text', id: 't2' as NodeId, text: 'World' }],
+          },
         ],
       },
     ]);
@@ -126,8 +160,8 @@ describe('MarkdownSerializer', () => {
         type: 'paragraph',
         id: 'p1' as NodeId,
         content: [
-          {type: 'text', id: 't1' as NodeId, text: 'Use '},
-          {type: 'code', id: 'c1' as NodeId, code: 'npm install'},
+          { type: 'text', id: 't1' as NodeId, text: 'Use ' },
+          { type: 'code', id: 'c1' as NodeId, code: 'npm install' },
         ],
       },
     ]);

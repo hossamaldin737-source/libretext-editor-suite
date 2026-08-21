@@ -69,8 +69,7 @@ export const TemplateEventType = {
   DOMAIN_REGISTERED: 'domain_registered',
 } as const;
 
-export type TemplateEventTypeValue =
-  (typeof TemplateEventType)[keyof typeof TemplateEventType];
+export type TemplateEventTypeValue = (typeof TemplateEventType)[keyof typeof TemplateEventType];
 
 // ─────────────────────────────────────────────────────────────────────────────
 // أنماط القوالب (Template Styles)
@@ -85,8 +84,7 @@ export const TemplateStyle = {
   CUSTOM: 'custom',
 } as const;
 
-export type TemplateStyleValue =
-  (typeof TemplateStyle)[keyof typeof TemplateStyle];
+export type TemplateStyleValue = (typeof TemplateStyle)[keyof typeof TemplateStyle];
 
 // ─────────────────────────────────────────────────────────────────────────────
 // أنواع البيانات العامة (Generic Data Types)
@@ -125,9 +123,7 @@ export interface TemplateEvent<TContent = DocNode> {
   readonly timestamp: number;
 }
 
-export type TemplateEventListener<TContent = DocNode> = (
-  event: TemplateEvent<TContent>
-) => void;
+export type TemplateEventListener<TContent = DocNode> = (event: TemplateEvent<TContent>) => void;
 
 export type TemplateUnsubscribeFn = () => void;
 
@@ -146,29 +142,21 @@ export interface TemplateQuery<TContent = DocNode> {
 // التحقق القابل للتوصيل (Pluggable Validation)
 // ─────────────────────────────────────────────────────────────────────────────
 
-export type ContentGuard<TContent = DocNode> = (
-  content: unknown
-) => content is TContent;
+export type ContentGuard<TContent = DocNode> = (content: unknown) => content is TContent;
 
-export const defaultContentGuard: ContentGuard<DocNode> = (
-  content
-): content is DocNode => {
+export const defaultContentGuard: ContentGuard<DocNode> = (content): content is DocNode => {
   if (content === null || typeof content !== 'object') return false;
   const node = content as Record<string, unknown>;
   return typeof node.type === 'string' && node.type.trim().length > 0;
 };
 
-export type DomainValidator<TContent = DocNode> = (
-  template: Template<TContent>
-) => void;
+export type DomainValidator<TContent = DocNode> = (template: Template<TContent>) => void;
 
 // ─────────────────────────────────────────────────────────────────────────────
 // استراتيجية الاستنساخ القابلة للتوصيل (Pluggable Clone Strategy)
 // ─────────────────────────────────────────────────────────────────────────────
 
-export type CloneContentFn<TContent = DocNode> = (
-  content: TContent
-) => TContent;
+export type CloneContentFn<TContent = DocNode> = (content: TContent) => TContent;
 
 export function defaultCloneContent<TContent>(content: TContent): TContent {
   if (typeof structuredClone === 'function') {
@@ -216,7 +204,7 @@ export interface ResolvedConfig<TContent> {
 }
 
 export function resolveConfig<TContent>(
-  config: TemplateRegistryConfig<TContent>
+  config: TemplateRegistryConfig<TContent>,
 ): ResolvedConfig<TContent> {
   return {
     enableEvents: config.enableEvents ?? true,

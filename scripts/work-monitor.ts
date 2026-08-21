@@ -44,7 +44,7 @@
 
 import fs from 'fs';
 import path from 'path';
-import {scanDirectory} from './update-indexes';
+import { scanDirectory } from './update-indexes';
 
 interface Violation {
   file: string;
@@ -92,8 +92,8 @@ function runWorkMonitor() {
   console.log(`   - Checked Files: ${checkedFilesCount}`);
   console.log(`   - Total Issues Found: ${violations.length}`);
 
-  const errors = violations.filter(v => v.severity === 'error');
-  const warnings = violations.filter(v => v.severity === 'warning');
+  const errors = violations.filter((v) => v.severity === 'error');
+  const warnings = violations.filter((v) => v.severity === 'warning');
 
   if (errors.length > 0) {
     console.warn('\n❌ [WorkMonitor] Errors:');
@@ -116,10 +116,10 @@ function runWorkMonitor() {
   return violations;
 }
 
-import {fileURLToPath} from 'url';
+import { fileURLToPath } from 'url';
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   runWorkMonitor();
 }
 
-export {runWorkMonitor};
+export { runWorkMonitor };

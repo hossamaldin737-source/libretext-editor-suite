@@ -89,9 +89,7 @@ function isAsync(node) {
 
 /** تنسيق قائمة المعاملات كنص مختصر (لعرض التوقيع دون الجسم الكامل) */
 function formatParams(params, sourceFile) {
-  return params
-    .map((p) => p.getText(sourceFile).replace(/\s+/g, ' ').trim())
-    .join(', ');
+  return params.map((p) => p.getText(sourceFile).replace(/\s+/g, ' ').trim()).join(', ');
 }
 
 /** رقم السطر (1-indexed) لبداية العقدة */
@@ -111,16 +109,14 @@ export function extractSymbolsAST(filePath) {
     content,
     ts.ScriptTarget.Latest,
     /* setParentNodes */ true,
-    ts.ScriptKind.TS
+    ts.ScriptKind.TS,
   );
 
   const symbols = [];
   const currentClassStack = [];
 
   function currentClassName() {
-    return currentClassStack.length
-      ? currentClassStack[currentClassStack.length - 1]
-      : null;
+    return currentClassStack.length ? currentClassStack[currentClassStack.length - 1] : null;
   }
 
   function visit(node) {
@@ -134,7 +130,7 @@ export function extractSymbolsAST(filePath) {
         exported: isExported(node),
         scope: 'top-level',
         signature: `class ${node.name.text}`,
-        isOverloadSignature: false
+        isOverloadSignature: false,
       });
       currentClassStack.push(node.name.text);
       ts.forEachChild(node, visit);
@@ -152,7 +148,7 @@ export function extractSymbolsAST(filePath) {
         exported: isExported(node),
         scope: 'top-level',
         signature: `interface ${node.name.text}`,
-        isOverloadSignature: false
+        isOverloadSignature: false,
       });
     }
 
@@ -168,7 +164,7 @@ export function extractSymbolsAST(filePath) {
         scope: currentClassName() || 'top-level',
         async: isAsync(node),
         signature: `${isAsync(node) ? 'async ' : ''}function ${node.name.text}(${formatParams(node.parameters, sourceFile)})`,
-        isOverloadSignature: !hasBody
+        isOverloadSignature: !hasBody,
       });
     }
 
@@ -185,7 +181,7 @@ export function extractSymbolsAST(filePath) {
         scope: cls || 'unknown',
         async: isAsync(node),
         signature: `${isStatic(node) ? 'static ' : ''}${isAsync(node) ? 'async ' : ''}${node.name.text}(${formatParams(node.parameters, sourceFile)})`,
-        isOverloadSignature: !hasBody
+        isOverloadSignature: !hasBody,
       });
     }
 
@@ -200,7 +196,7 @@ export function extractSymbolsAST(filePath) {
         exported: true,
         scope: cls || 'unknown',
         signature: `constructor(${formatParams(node.parameters, sourceFile)})`,
-        isOverloadSignature: !node.body
+        isOverloadSignature: !node.body,
       });
     }
 
@@ -215,7 +211,8 @@ export function extractSymbolsAST(filePath) {
         ) {
           const fn = decl.initializer;
           const isFnAsync =
-            ts.canHaveModifiers(fn) && ts.getModifiers(fn)?.some((m) => m.kind === ts.SyntaxKind.AsyncKeyword);
+            ts.canHaveModifiers(fn) &&
+            ts.getModifiers(fn)?.some((m) => m.kind === ts.SyntaxKind.AsyncKeyword);
           const typeParams = fn.typeParameters
             ? `<${fn.typeParameters.map((tp) => tp.getText(sourceFile)).join(', ')}>`
             : '';
@@ -228,7 +225,7 @@ export function extractSymbolsAST(filePath) {
             scope: currentClassName() || 'top-level',
             async: !!isFnAsync,
             signature: `const ${decl.name.text} = ${isFnAsync ? 'async ' : ''}${typeParams}(${formatParams(fn.parameters, sourceFile)}) =>`,
-            isOverloadSignature: false
+            isOverloadSignature: false,
           });
         }
       }
@@ -264,7 +261,7 @@ export function consolidateOverloads(symbols) {
       result.push({
         ...impl,
         overloadCount: overloads.length,
-        overloadLines: overloads.map((o) => o.line)
+        overloadLines: overloads.map((o) => o.line),
       });
     }
   }
@@ -284,7 +281,7 @@ export function formatAsHeaderAST(symbols) {
     const asyncNote = s.async ? ' async' : '';
     const multiLineNote = s.endLine > s.line ? ` (توقيع يمتد حتى L${s.endLine})` : '';
     lines.push(
-      ` *    - ${s.name}()${asyncNote}${visibility} (#L${s.line})${overloadNote}${multiLineNote}`
+      ` *    - ${s.name}()${asyncNote}${visibility} (#L${s.line})${overloadNote}${multiLineNote}`,
     );
   }
   return lines.join('\n');
@@ -295,7 +292,8 @@ export function formatAsTableAST(symbols) {
   const header =
     '| الاسم | النوع | السطر | نهاية التوقيع | Async | مُصدَّرة؟ | Overloads |\n|---|---|---|---|---|---|---|';
   const rows = consolidated.map((s) => {
-    const overloadInfo = s.overloadCount > 0 ? `${s.overloadCount} (L${s.overloadLines.join(',')})` : '—';
+    const overloadInfo =
+      s.overloadCount > 0 ? `${s.overloadCount} (L${s.overloadLines.join(',')})` : '—';
     return `| ${s.name}() | ${s.type} | L${s.line} | L${s.endLine} | ${s.async ? 'نعم' : 'لا'} | ${s.exported ? 'نعم' : 'لا'} | ${overloadInfo} |`;
   });
   return [header, ...rows].join('\n');
@@ -304,14 +302,20 @@ export function formatAsTableAST(symbols) {
 // ─────────────────────────────────────────────────────────────────────────
 // نقطة الدخول
 // ─────────────────────────────────────────────────────────────────────────
-if (process.argv[1] && (process.argv[1].endsWith('extract-line-numbers-ast.js') || process.argv[1].endsWith('extract-line-numbers-ast.ts'))) {
+if (
+  process.argv[1] &&
+  (process.argv[1].endsWith('extract-line-numbers-ast.js') ||
+    process.argv[1].endsWith('extract-line-numbers-ast.ts'))
+) {
   const args = process.argv.slice(2);
   const filePath = args.find((a) => !a.startsWith('--'));
   const formatArg = args.find((a) => a.startsWith('--format='));
   const format = formatArg ? formatArg.split('=')[1] : 'header';
 
   if (!filePath) {
-    console.error('الاستخدام: node extract-line-numbers-ast.js <path-to-file.ts> [--format=header|json|table]');
+    console.error(
+      'الاستخدام: node extract-line-numbers-ast.js <path-to-file.ts> [--format=header|json|table]',
+    );
     process.exit(1);
   }
 
@@ -343,4 +347,3 @@ if (process.argv[1] && (process.argv[1].endsWith('extract-line-numbers-ast.js') 
   console.log('   يتعامل بشكل صحيح مع: توقيعات متعددة الأسطر، function overloads،');
   console.log('   وarrow functions ذات generics معقدة/متداخلة.');
 }
-

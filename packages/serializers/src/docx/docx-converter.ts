@@ -22,7 +22,14 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-import { Document, Packer, LevelFormat, AlignmentType, Paragraph, type ISectionOptions } from './docx-model';
+import {
+  Document,
+  Packer,
+  LevelFormat,
+  AlignmentType,
+  Paragraph,
+  type ISectionOptions,
+} from './docx-model';
 import { parseMarkdown, type ContentBlock } from '../parsers/markdown';
 import { parseFrontMatter, type DocumentMetadata } from '../parsers/frontmatter-parser';
 import { shouldCreateSectionBreak } from './section-rules';
@@ -38,7 +45,7 @@ import {
 export function splitIntoSections(
   content: ContentBlock[],
   options: DocxConversionOptions,
-  metadata: DocumentMetadata | null
+  metadata: DocumentMetadata | null,
 ): ISectionOptions[] {
   const sections: ISectionOptions[] = [];
   let currentBlocks: ContentBlock[] = [];
@@ -61,9 +68,10 @@ export function splitIntoSections(
     }
   }
 
-  const children = currentBlocks.length > 0
-    ? buildElements(currentBlocks, options)
-    : [new Paragraph({ text: '' })];
+  const children =
+    currentBlocks.length > 0
+      ? buildElements(currentBlocks, options)
+      : [new Paragraph({ text: '' })];
 
   sections.push({ properties: pageProps, children });
   return sections;
@@ -72,7 +80,7 @@ export function splitIntoSections(
 export function buildDocument(
   sections: ISectionOptions[],
   metadata: DocumentMetadata | null,
-  inputTitle: string
+  inputTitle: string,
 ): Document {
   return new Document({
     creator: metadata?.author ?? 'LibreText Markdown Converter',
@@ -108,7 +116,7 @@ export function buildDocument(
 export async function convertMarkdownToDocxBuffer(
   markdown: string,
   options: DocxConversionOptions = {},
-  defaultTitle: string = 'Untitled Document'
+  defaultTitle: string = 'Untitled Document',
 ): Promise<{ buffer: Uint8Array; warnings: string[] }> {
   const warnings: string[] = [];
   const maxSize = options.maxFileSize ?? DEFAULTS.MAX_FILE_SIZE;
@@ -117,7 +125,11 @@ export async function convertMarkdownToDocxBuffer(
     warnings.push(`Input size (${markdown.length} bytes) exceeds recommended limit`);
   }
 
-  const { metadata, content: markdownContent, warnings: parseWarnings } = parseFrontMatter(markdown);
+  const {
+    metadata,
+    content: markdownContent,
+    warnings: parseWarnings,
+  } = parseFrontMatter(markdown);
   warnings.push(...parseWarnings);
 
   const parsed = parseMarkdown(markdownContent);
@@ -133,7 +145,7 @@ export async function convertMarkdownToDocx(
   markdown: string,
   outputPath: string,
   options: DocxConversionOptions = {},
-  defaultTitle: string = 'Untitled Document'
+  defaultTitle: string = 'Untitled Document',
 ): Promise<DocxConversionResult> {
   try {
     const { buffer, warnings } = await convertMarkdownToDocxBuffer(markdown, options, defaultTitle);
@@ -159,7 +171,7 @@ export async function convertMarkdownToDocx(
 export async function convertToDocx(
   inputPath: string,
   outputPath?: string,
-  options: DocxConversionOptions = {}
+  options: DocxConversionOptions = {},
 ): Promise<DocxConversionResult> {
   validateInputPath(inputPath);
 

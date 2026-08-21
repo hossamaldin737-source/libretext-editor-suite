@@ -43,14 +43,11 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-import type {DocumentMetadata} from '../parsers/frontmatter-parser';
-import type {ContentBlock} from '../parsers/markdown';
-import {parseFrontMatter} from '../parsers/frontmatter-parser';
-import {parseMarkdown} from '../parsers/markdown';
-import {
-  validateBlock,
-  type HeadingHierarchyState,
-} from './content-validator';
+import type { DocumentMetadata } from '../parsers/frontmatter-parser';
+import type { ContentBlock } from '../parsers/markdown';
+import { parseFrontMatter } from '../parsers/frontmatter-parser';
+import { parseMarkdown } from '../parsers/markdown';
+import { validateBlock, type HeadingHierarchyState } from './content-validator';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Types
@@ -93,7 +90,7 @@ function parseFrontMatterStep(markdown: string): PipelineContext {
     markdown,
     metadata: result.metadata,
     content: parsed?.content ?? [],
-     errors: [] as string[],
+    errors: [] as string[],
     warnings: [...result.warnings],
     direction: 'auto',
     arabicRatio: 0,
@@ -164,9 +161,10 @@ export function validateDocument(markdown: string): ValidationResult {
 // ─────────────────────────────────────────────────────────────────────────────
 
 /** التحقق من التسلسل الهرمي للعناوين فقط */
-export function validateHeadingHierarchy(
-  content: readonly ContentBlock[],
-): {valid: boolean; errors: readonly string[]} {
+export function validateHeadingHierarchy(content: readonly ContentBlock[]): {
+  valid: boolean;
+  errors: readonly string[];
+} {
   const errors: string[] = [];
   let lastLevel = 0;
 
@@ -174,24 +172,20 @@ export function validateHeadingHierarchy(
     if (block.type === 'heading') {
       const level = block.level ?? 1;
       if (lastLevel > 0 && level > lastLevel + 1) {
-        const text =
-          typeof block.content === 'string' ? block.content : '';
+        const text = typeof block.content === 'string' ? block.content : '';
         errors.push(
-          `H${lastLevel} → H${level}: "${text.slice(0, 50)}" ` +
-            `(skipped H${lastLevel + 1})`,
+          `H${lastLevel} → H${level}: "${text.slice(0, 50)}" ` + `(skipped H${lastLevel + 1})`,
         );
       }
       lastLevel = level;
     }
   }
 
-  return {valid: errors.length === 0, errors};
+  return { valid: errors.length === 0, errors };
 }
 
 /** التحقق من جميع الجداول فقط */
-export function validateTables(
-  content: readonly ContentBlock[],
-): ContentValidationResult {
+export function validateTables(content: readonly ContentBlock[]): ContentValidationResult {
   const errors: string[] = [];
   const warnings: string[] = [];
   let tableCount = 0;
@@ -229,7 +223,7 @@ export function validateTables(
     }
   }
 
-  return {valid: errors.length === 0, errors, warnings};
+  return { valid: errors.length === 0, errors, warnings };
 }
 
 interface TableDataLike {
@@ -247,9 +241,7 @@ export function hasFrontMatter(markdown: string): boolean {
 }
 
 /** استخراج البيانات الوصفية فقط دون تحليل كامل */
-export function extractMetadata(
-  markdown: string,
-): DocumentMetadata | null {
+export function extractMetadata(markdown: string): DocumentMetadata | null {
   const result = parseFrontMatter(markdown);
   return result.metadata;
 }
@@ -258,5 +250,5 @@ export function extractMetadata(
 export function hasValidFrontMatter(markdown: string): boolean {
   if (!hasFrontMatter(markdown)) return false;
   const result = parseFrontMatter(markdown);
-   return result.metadata !== null && result.warnings.length === 0;
+  return result.metadata !== null && result.warnings.length === 0;
 }

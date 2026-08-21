@@ -19,11 +19,15 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-import type { CanvasElementType, ElementSchemaDefinition, CanvasElementInstance } from './schema-types';
+import type {
+  CanvasElementType,
+  ElementSchemaDefinition,
+  CanvasElementInstance,
+} from './schema-types';
 
 export const CANVAS_ELEMENT_SCHEMAS: Record<CanvasElementType, ElementSchemaDefinition> = {
   // 1. Basic Shapes
-  'rect': {
+  rect: {
     type: 'rect',
     category: 'basic',
     nameAr: 'مستطيل',
@@ -55,7 +59,7 @@ export const CANVAS_ELEMENT_SCHEMAS: Record<CanvasElementType, ElementSchemaDefi
     resizable: true,
     rotatable: true,
   },
-  'circle': {
+  circle: {
     type: 'circle',
     category: 'basic',
     nameAr: 'دائرة',
@@ -71,7 +75,7 @@ export const CANVAS_ELEMENT_SCHEMAS: Record<CanvasElementType, ElementSchemaDefi
     resizable: true,
     rotatable: false,
   },
-  'ellipse': {
+  ellipse: {
     type: 'ellipse',
     category: 'basic',
     nameAr: 'شكل بيضاوي',
@@ -87,7 +91,7 @@ export const CANVAS_ELEMENT_SCHEMAS: Record<CanvasElementType, ElementSchemaDefi
     resizable: true,
     rotatable: true,
   },
-  'triangle': {
+  triangle: {
     type: 'triangle',
     category: 'basic',
     nameAr: 'مثلث',
@@ -103,7 +107,7 @@ export const CANVAS_ELEMENT_SCHEMAS: Record<CanvasElementType, ElementSchemaDefi
     resizable: true,
     rotatable: true,
   },
-  'diamond': {
+  diamond: {
     type: 'diamond',
     category: 'basic',
     nameAr: 'معين / قرار',
@@ -121,7 +125,7 @@ export const CANVAS_ELEMENT_SCHEMAS: Record<CanvasElementType, ElementSchemaDefi
   },
 
   // 2. Advanced Polygons & Stars
-  'parallelogram': {
+  parallelogram: {
     type: 'parallelogram',
     category: 'polygon',
     nameAr: 'متوازي أضلاع',
@@ -137,7 +141,7 @@ export const CANVAS_ELEMENT_SCHEMAS: Record<CanvasElementType, ElementSchemaDefi
     resizable: true,
     rotatable: true,
   },
-  'trapezoid': {
+  trapezoid: {
     type: 'trapezoid',
     category: 'polygon',
     nameAr: 'شبه منحرف',
@@ -153,7 +157,7 @@ export const CANVAS_ELEMENT_SCHEMAS: Record<CanvasElementType, ElementSchemaDefi
     resizable: true,
     rotatable: true,
   },
-  'cylinder': {
+  cylinder: {
     type: 'cylinder',
     category: 'polygon',
     nameAr: 'أسطوانة قاعدة بيانات',
@@ -169,7 +173,7 @@ export const CANVAS_ELEMENT_SCHEMAS: Record<CanvasElementType, ElementSchemaDefi
     resizable: true,
     rotatable: true,
   },
-  'star': {
+  star: {
     type: 'star',
     category: 'polygon',
     nameAr: 'نجمة خماسية',
@@ -235,7 +239,7 @@ export const CANVAS_ELEMENT_SCHEMAS: Record<CanvasElementType, ElementSchemaDefi
     resizable: true,
     rotatable: true,
   },
-  'cloud': {
+  cloud: {
     type: 'cloud',
     category: 'flowchart',
     nameAr: 'سحابة وخدمات خارجية',
@@ -251,7 +255,7 @@ export const CANVAS_ELEMENT_SCHEMAS: Record<CanvasElementType, ElementSchemaDefi
     resizable: true,
     rotatable: true,
   },
-  'actor': {
+  actor: {
     type: 'actor',
     category: 'flowchart',
     nameAr: 'مستخدم / ممثل النظام (Actor)',
@@ -269,7 +273,7 @@ export const CANVAS_ELEMENT_SCHEMAS: Record<CanvasElementType, ElementSchemaDefi
   },
 
   // 4. Text, Media & Sticky
-  'text': {
+  text: {
     type: 'text',
     category: 'text-media',
     nameAr: 'كتلة نصية',
@@ -301,7 +305,7 @@ export const CANVAS_ELEMENT_SCHEMAS: Record<CanvasElementType, ElementSchemaDefi
     resizable: true,
     rotatable: true,
   },
-  'callout': {
+  callout: {
     type: 'callout',
     category: 'text-media',
     nameAr: 'فقاعة حوارية (Callout)',
@@ -415,7 +419,7 @@ export function createDefaultElement(
   type: CanvasElementType,
   x: number,
   y: number,
-  zIndex: number = 0
+  zIndex: number = 0,
 ): CanvasElementInstance {
   const schema = getSchemaForType(type);
   return {

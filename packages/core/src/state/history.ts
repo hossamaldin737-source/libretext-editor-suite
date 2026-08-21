@@ -31,7 +31,7 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-import type {DocNode} from '../ast/types';
+import type { DocNode } from '../ast/types';
 
 export interface HistorySnapshot {
   readonly document: DocNode;
@@ -78,7 +78,7 @@ export function popUndo(state: HistoryState): {
   newState: HistoryState;
 } {
   if (state.past.length === 0) {
-    return {snapshot: null, newState: state};
+    return { snapshot: null, newState: state };
   }
 
   const newPast = [...state.past];
@@ -102,7 +102,7 @@ export function popRedo(state: HistoryState): {
   newState: HistoryState;
 } {
   if (state.future.length === 0) {
-    return {snapshot: null, newState: state};
+    return { snapshot: null, newState: state };
   }
 
   const newFuture = [...state.future];

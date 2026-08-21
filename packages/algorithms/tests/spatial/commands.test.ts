@@ -21,13 +21,9 @@ import {
   createDeleteCommand,
   createCreateCommand,
   computeMoveDelta,
-  toBoundingBox
+  toBoundingBox,
 } from '../../src/spatial/commands';
-import {
-  createLogicalCoordinate,
-  createGridCoordinate,
-  LengthUnit
-} from '../../src/spatial/types';
+import { createLogicalCoordinate, createGridCoordinate, LengthUnit } from '../../src/spatial/types';
 
 describe('ALGO-009: Spatial Commands', () => {
   describe('createMoveCommand', () => {
@@ -54,15 +50,15 @@ describe('ALGO-009: Spatial Commands', () => {
     it('throws when from and to have different types', () => {
       const from = createLogicalCoordinate(10, 20);
       const to = createGridCoordinate(1, 2);
-      expect(() => createMoveCommand('item-1', from, to))
-        .toThrow('Coordinate types must match');
+      expect(() => createMoveCommand('item-1', from, to)).toThrow('Coordinate types must match');
     });
 
     it('throws when from and to have different units', () => {
       const from = createLogicalCoordinate(10, 20, LengthUnit.CENTIMETER);
       const to = createLogicalCoordinate(30, 40, LengthUnit.PIXEL);
-      expect(() => createMoveCommand('item-1', from, to))
-        .toThrow('Logical coordinate units must match');
+      expect(() => createMoveCommand('item-1', from, to)).toThrow(
+        'Logical coordinate units must match',
+      );
     });
   });
 
@@ -78,18 +74,14 @@ describe('ALGO-009: Spatial Commands', () => {
 
     it('throws on non-positive width', () => {
       const pos = createLogicalCoordinate(10, 20);
-      expect(() => createResizeCommand('item-1', pos, 0, 100))
-        .toThrow('Width must be positive');
-      expect(() => createResizeCommand('item-1', pos, -10, 100))
-        .toThrow('Width must be positive');
+      expect(() => createResizeCommand('item-1', pos, 0, 100)).toThrow('Width must be positive');
+      expect(() => createResizeCommand('item-1', pos, -10, 100)).toThrow('Width must be positive');
     });
 
     it('throws on non-positive height', () => {
       const pos = createLogicalCoordinate(10, 20);
-      expect(() => createResizeCommand('item-1', pos, 100, 0))
-        .toThrow('Height must be positive');
-      expect(() => createResizeCommand('item-1', pos, 100, -5))
-        .toThrow('Height must be positive');
+      expect(() => createResizeCommand('item-1', pos, 100, 0)).toThrow('Height must be positive');
+      expect(() => createResizeCommand('item-1', pos, 100, -5)).toThrow('Height must be positive');
     });
   });
 
@@ -107,13 +99,13 @@ describe('ALGO-009: Spatial Commands', () => {
     });
 
     it('throws on empty targetIds', () => {
-      expect(() => createSelectCommand([]))
-        .toThrow('Selection cannot be empty');
+      expect(() => createSelectCommand([])).toThrow('Selection cannot be empty');
     });
 
     it('throws on duplicate IDs', () => {
-      expect(() => createSelectCommand(['id-1', 'id-1']))
-        .toThrow('Selection contains duplicate IDs');
+      expect(() => createSelectCommand(['id-1', 'id-1'])).toThrow(
+        'Selection contains duplicate IDs',
+      );
     });
   });
 
@@ -125,8 +117,7 @@ describe('ALGO-009: Spatial Commands', () => {
     });
 
     it('throws on empty targetIds', () => {
-      expect(() => createDeleteCommand([]))
-        .toThrow('Delete requires at least one target ID');
+      expect(() => createDeleteCommand([])).toThrow('Delete requires at least one target ID');
     });
   });
 
@@ -149,18 +140,16 @@ describe('ALGO-009: Spatial Commands', () => {
 
     it('throws on null or undefined content', () => {
       const pos = createLogicalCoordinate(10, 20);
-      expect(() => createCreateCommand(pos, null))
-        .toThrow('Content cannot be null or undefined');
-      expect(() => createCreateCommand(pos, undefined))
-        .toThrow('Content cannot be null or undefined');
+      expect(() => createCreateCommand(pos, null)).toThrow('Content cannot be null or undefined');
+      expect(() => createCreateCommand(pos, undefined)).toThrow(
+        'Content cannot be null or undefined',
+      );
     });
 
     it('throws on non-positive width or height', () => {
       const pos = createLogicalCoordinate(10, 20);
-      expect(() => createCreateCommand(pos, 'data', -10, 50))
-        .toThrow('Width must be positive');
-      expect(() => createCreateCommand(pos, 'data', 10, 0))
-        .toThrow('Height must be positive');
+      expect(() => createCreateCommand(pos, 'data', -10, 50)).toThrow('Width must be positive');
+      expect(() => createCreateCommand(pos, 'data', 10, 0)).toThrow('Height must be positive');
     });
   });
 
@@ -190,15 +179,13 @@ describe('ALGO-009: Spatial Commands', () => {
     it('throws on unit mismatch', () => {
       const from = createLogicalCoordinate(10, 20, LengthUnit.CENTIMETER);
       const to = createLogicalCoordinate(30, 40, LengthUnit.PIXEL);
-      expect(() => computeMoveDelta(from, to))
-        .toThrow('Logical coordinate units must match');
+      expect(() => computeMoveDelta(from, to)).toThrow('Logical coordinate units must match');
     });
 
     it('throws on coordinate type mismatch', () => {
       const from = createLogicalCoordinate(10, 20);
       const to = createGridCoordinate(1, 2);
-      expect(() => computeMoveDelta(from, to))
-        .toThrow('Coordinate types must match');
+      expect(() => computeMoveDelta(from, to)).toThrow('Coordinate types must match');
     });
   });
 
@@ -213,15 +200,14 @@ describe('ALGO-009: Spatial Commands', () => {
         y: 25,
         width: 120,
         height: 80,
-        unit: LengthUnit.CENTIMETER
+        unit: LengthUnit.CENTIMETER,
       });
     });
 
     it('throws when command position is GridCoordinate', () => {
       const pos = createGridCoordinate(1, 2);
       const cmd = createResizeCommand('cell-1', pos, 100, 50);
-      expect(() => toBoundingBox(cmd))
-        .toThrow('BoundingBox requires LogicalCoordinate');
+      expect(() => toBoundingBox(cmd)).toThrow('BoundingBox requires LogicalCoordinate');
     });
   });
 });

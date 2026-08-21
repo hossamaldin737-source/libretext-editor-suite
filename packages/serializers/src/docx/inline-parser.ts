@@ -130,7 +130,7 @@ function buildTokensFromMatches(text: string, matches: RawMatch[]): InlineToken[
  */
 export function parseInlineFormatting(
   text: string,
-  fontFamily: string = DEFAULTS.FONT_FAMILY
+  fontFamily: string = DEFAULTS.FONT_FAMILY,
 ): Array<TextRun | ExternalHyperlink> {
   if (!text) return [new TextRun({ text: '', font: fontFamily })];
 
@@ -142,10 +142,7 @@ export function parseInlineFormatting(
   return tokens.map((token) => mapTokenToDocxRun(token, fontFamily));
 }
 
-function mapTokenToDocxRun(
-  token: InlineToken,
-  fontFamily: string
-): TextRun | ExternalHyperlink {
+function mapTokenToDocxRun(token: InlineToken, fontFamily: string): TextRun | ExternalHyperlink {
   switch (token.type) {
     case 'text':
       return new TextRun({ text: token.value, font: fontFamily });

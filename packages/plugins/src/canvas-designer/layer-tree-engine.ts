@@ -51,7 +51,7 @@ export class LayerTreeEngine {
    */
   static bringToFront(
     elements: readonly CanvasElementInstance[],
-    elementId: string
+    elementId: string,
   ): CanvasElementInstance[] {
     const maxZ = elements.reduce((max, el) => Math.max(max, el.zIndex), 0);
     const updated = elements.map((el) => (el.id === elementId ? { ...el, zIndex: maxZ + 1 } : el));
@@ -63,7 +63,7 @@ export class LayerTreeEngine {
    */
   static sendToBack(
     elements: readonly CanvasElementInstance[],
-    elementId: string
+    elementId: string,
   ): CanvasElementInstance[] {
     const minZ = elements.reduce((min, el) => Math.min(min, el.zIndex), 0);
     const updated = elements.map((el) => (el.id === elementId ? { ...el, zIndex: minZ - 1 } : el));
@@ -75,7 +75,7 @@ export class LayerTreeEngine {
    */
   static bringForward(
     elements: readonly CanvasElementInstance[],
-    elementId: string
+    elementId: string,
   ): CanvasElementInstance[] {
     const normalized = this.normalizeZIndices(elements);
     const targetIdx = normalized.findIndex((el) => el.id === elementId);
@@ -83,8 +83,8 @@ export class LayerTreeEngine {
 
     const swapped = [...normalized];
     const nextEl = swapped[targetIdx + 1]!;
-    swapped[targetIdx + 1] = {...swapped[targetIdx]!, zIndex: nextEl.zIndex};
-    swapped[targetIdx] = {...nextEl, zIndex: swapped[targetIdx]!.zIndex};
+    swapped[targetIdx + 1] = { ...swapped[targetIdx]!, zIndex: nextEl.zIndex };
+    swapped[targetIdx] = { ...nextEl, zIndex: swapped[targetIdx]!.zIndex };
 
     return this.normalizeZIndices(swapped);
   }
@@ -94,7 +94,7 @@ export class LayerTreeEngine {
    */
   static sendBackward(
     elements: readonly CanvasElementInstance[],
-    elementId: string
+    elementId: string,
   ): CanvasElementInstance[] {
     const normalized = this.normalizeZIndices(elements);
     const targetIdx = normalized.findIndex((el) => el.id === elementId);
@@ -102,8 +102,8 @@ export class LayerTreeEngine {
 
     const swapped = [...normalized];
     const prevEl = swapped[targetIdx - 1]!;
-    swapped[targetIdx - 1] = {...swapped[targetIdx]!, zIndex: prevEl.zIndex};
-    swapped[targetIdx] = {...prevEl, zIndex: swapped[targetIdx]!.zIndex};
+    swapped[targetIdx - 1] = { ...swapped[targetIdx]!, zIndex: prevEl.zIndex };
+    swapped[targetIdx] = { ...prevEl, zIndex: swapped[targetIdx]!.zIndex };
 
     return this.normalizeZIndices(swapped);
   }
@@ -114,7 +114,7 @@ export class LayerTreeEngine {
   static groupElements(
     elements: readonly CanvasElementInstance[],
     selectedIds: readonly string[],
-    newGroupId: string
+    newGroupId: string,
   ): CanvasElementInstance[] {
     if (selectedIds.length < 2) return [...elements];
 
@@ -134,7 +134,7 @@ export class LayerTreeEngine {
    */
   static ungroupElements(
     elements: readonly CanvasElementInstance[],
-    groupId: string
+    groupId: string,
   ): CanvasElementInstance[] {
     return elements.map((el) => {
       if (el.groupId === groupId) {
@@ -150,7 +150,7 @@ export class LayerTreeEngine {
    */
   static toggleLock(
     elements: readonly CanvasElementInstance[],
-    elementId: string
+    elementId: string,
   ): CanvasElementInstance[] {
     return elements.map((el) => (el.id === elementId ? { ...el, locked: !el.locked } : el));
   }
@@ -160,9 +160,11 @@ export class LayerTreeEngine {
    */
   static toggleVisibility(
     elements: readonly CanvasElementInstance[],
-    elementId: string
+    elementId: string,
   ): CanvasElementInstance[] {
-    return elements.map((el) => (el.id === elementId ? { ...el, visible: el.visible === false } : el));
+    return elements.map((el) =>
+      el.id === elementId ? { ...el, visible: el.visible === false } : el,
+    );
   }
 
   /**

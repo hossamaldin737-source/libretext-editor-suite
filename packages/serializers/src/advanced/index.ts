@@ -13,9 +13,9 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-export {PdfSerializer} from './pdf-serializer';
-export {LatexSerializer} from './latex-serializer';
-export {OdfSerializer} from './odf-serializer';
-export {OdfDrawSerializer} from './odf-draw';
-export {SvgSerializer} from './svg-serializer';
-export {ZipArchiveWriter, ZipArchiveReader} from './zip-engine';
+export { PdfSerializer } from './pdf-serializer';
+export { LatexSerializer } from './latex-serializer';
+export { OdfSerializer } from './odf-serializer';
+export { OdfDrawSerializer } from './odf-draw';
+export { SvgSerializer } from './svg-serializer';
+export { ZipArchiveWriter, ZipArchiveReader } from './zip-engine';

@@ -17,7 +17,7 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-import type {DocNode, BlockNode, InlineNode} from '@libretext/core';
+import type { DocNode, BlockNode, InlineNode } from '@libretext/core';
 
 /**
  * خيارات المحور.

@@ -187,7 +187,6 @@ export class FunctionRegistry {
     this.registerOrReplace('مجموع_بشرط', mathFuncs.SUMIF);
     this.registerOrReplace('جمع_بشرط', mathFuncs.SUMIF);
 
-
     return this;
   }
 }

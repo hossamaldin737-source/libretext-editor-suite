@@ -60,7 +60,15 @@ import ts from 'typescript';
 
 export interface ASTSymbol {
   name: string;
-  type: 'class' | 'function' | 'arrow-function' | 'method' | 'static-method' | 'constructor' | 'getter' | 'setter';
+  type:
+    | 'class'
+    | 'function'
+    | 'arrow-function'
+    | 'method'
+    | 'static-method'
+    | 'constructor'
+    | 'getter'
+    | 'setter';
   startLine: number;
   endLine: number;
   sigEndLine?: number;
@@ -76,31 +84,26 @@ export interface ASTSymbol {
 function isNodeExported(node: ts.Node): boolean {
   const modifiers = ts.canHaveModifiers(node) ? ts.getModifiers(node) : undefined;
   if (!modifiers) return false;
-  return modifiers.some(m => m.kind === ts.SyntaxKind.ExportKeyword);
+  return modifiers.some((m) => m.kind === ts.SyntaxKind.ExportKeyword);
 }
 
 function getVisibility(node: ts.Node): 'public' | 'private' | 'protected' {
   const modifiers = ts.canHaveModifiers(node) ? ts.getModifiers(node) : undefined;
   if (!modifiers) return 'public';
-  if (modifiers.some(m => m.kind === ts.SyntaxKind.PrivateKeyword)) return 'private';
-  if (modifiers.some(m => m.kind === ts.SyntaxKind.ProtectedKeyword)) return 'protected';
+  if (modifiers.some((m) => m.kind === ts.SyntaxKind.PrivateKeyword)) return 'private';
+  if (modifiers.some((m) => m.kind === ts.SyntaxKind.ProtectedKeyword)) return 'protected';
   return 'public';
 }
 
 function hasModifier(node: ts.Node, kind: ts.SyntaxKind): boolean {
   const modifiers = ts.canHaveModifiers(node) ? ts.getModifiers(node) : undefined;
   if (!modifiers) return false;
-  return modifiers.some(m => m.kind === kind);
+  return modifiers.some((m) => m.kind === kind);
 }
 
 export function extractSymbolsAST(filePath: string): ASTSymbol[] {
   const content = fs.readFileSync(filePath, 'utf-8');
-  const sourceFile = ts.createSourceFile(
-    filePath,
-    content,
-    ts.ScriptTarget.Latest,
-    true
-  );
+  const sourceFile = ts.createSourceFile(filePath, content, ts.ScriptTarget.Latest, true);
 
   const rawSymbols: ASTSymbol[] = [];
 
@@ -122,7 +125,7 @@ export function extractSymbolsAST(filePath: string): ASTSymbol[] {
         isAsync: false,
         isStatic: false,
         visibility: 'public',
-        scope: 'top-level'
+        scope: 'top-level',
       });
 
       // فحص أعضاء الكلاس
@@ -144,12 +147,16 @@ export function extractSymbolsAST(filePath: string): ASTSymbol[] {
           isAsync: false,
           isStatic: false,
           visibility: getVisibility(node),
-          scope: parentClass
+          scope: parentClass,
         });
         return;
       }
 
-      if (ts.isMethodDeclaration(node) || ts.isGetAccessorDeclaration(node) || ts.isSetAccessorDeclaration(node)) {
+      if (
+        ts.isMethodDeclaration(node) ||
+        ts.isGetAccessorDeclaration(node) ||
+        ts.isSetAccessorDeclaration(node)
+      ) {
         const methodName = node.name ? node.name.getText(sourceFile) : 'anonymousMethod';
         const isStatic = hasModifier(node, ts.SyntaxKind.StaticKeyword);
         const isAsync = hasModifier(node, ts.SyntaxKind.AsyncKeyword);
@@ -162,7 +169,9 @@ export function extractSymbolsAST(filePath: string): ASTSymbol[] {
         // كشف نهاية التوقيع إن وجد body
         let sigEndLine: number | undefined;
         if ('body' in node && node.body) {
-          const bodyStart = sourceFile.getLineAndCharacterOfPosition(node.body.getStart(sourceFile));
+          const bodyStart = sourceFile.getLineAndCharacterOfPosition(
+            node.body.getStart(sourceFile),
+          );
           sigEndLine = bodyStart.line + 1;
         }
 
@@ -171,12 +180,12 @@ export function extractSymbolsAST(filePath: string): ASTSymbol[] {
           type,
           startLine,
           endLine,
-          sigEndLine: (sigEndLine && sigEndLine > startLine) ? sigEndLine : undefined,
+          sigEndLine: sigEndLine && sigEndLine > startLine ? sigEndLine : undefined,
           exported: visibility === 'public',
           isAsync,
           isStatic,
           visibility,
-          scope: parentClass
+          scope: parentClass,
         });
         return;
       }
@@ -199,12 +208,12 @@ export function extractSymbolsAST(filePath: string): ASTSymbol[] {
         type: 'function',
         startLine,
         endLine,
-        sigEndLine: (sigEndLine && sigEndLine > startLine) ? sigEndLine : undefined,
+        sigEndLine: sigEndLine && sigEndLine > startLine ? sigEndLine : undefined,
         exported,
         isAsync,
         isStatic: false,
         visibility: exported ? 'public' : 'private',
-        scope: 'top-level'
+        scope: 'top-level',
       });
       return;
     }
@@ -213,14 +222,19 @@ export function extractSymbolsAST(filePath: string): ASTSymbol[] {
     if (ts.isVariableStatement(node)) {
       const exported = isNodeExported(node);
       for (const decl of node.declarationList.declarations) {
-        if (decl.initializer && (ts.isArrowFunction(decl.initializer) || ts.isFunctionExpression(decl.initializer))) {
+        if (
+          decl.initializer &&
+          (ts.isArrowFunction(decl.initializer) || ts.isFunctionExpression(decl.initializer))
+        ) {
           const varName = decl.name.getText(sourceFile);
           const fnInit = decl.initializer;
           const isAsync = hasModifier(fnInit, ts.SyntaxKind.AsyncKeyword);
 
           let sigEndLine: number | undefined;
           if (fnInit.body) {
-            const bodyStart = sourceFile.getLineAndCharacterOfPosition(fnInit.body.getStart(sourceFile));
+            const bodyStart = sourceFile.getLineAndCharacterOfPosition(
+              fnInit.body.getStart(sourceFile),
+            );
             sigEndLine = bodyStart.line + 1;
           }
 
@@ -229,19 +243,19 @@ export function extractSymbolsAST(filePath: string): ASTSymbol[] {
             type: 'arrow-function',
             startLine,
             endLine,
-            sigEndLine: (sigEndLine && sigEndLine > startLine) ? sigEndLine : undefined,
+            sigEndLine: sigEndLine && sigEndLine > startLine ? sigEndLine : undefined,
             exported,
             isAsync,
             isStatic: false,
             visibility: exported ? 'public' : 'private',
-            scope: 'top-level'
+            scope: 'top-level',
           });
         }
       }
       return;
     }
 
-    ts.forEachChild(node, child => visit(child, parentClass));
+    ts.forEachChild(node, (child) => visit(child, parentClass));
   }
 
   visit(sourceFile);
@@ -266,11 +280,11 @@ export function extractSymbolsAST(filePath: string): ASTSymbol[] {
       // نختار التنفيذ الفعلي (الذي له أطول مسافة أسطر أو آخر تعريف يحتوي جسم)
       const implementation = group[group.length - 1];
       if (implementation) {
-        const overloadLines = group.slice(0, -1).map(g => g.startLine);
+        const overloadLines = group.slice(0, -1).map((g) => g.startLine);
         aggregated.push({
           ...implementation,
           overloadCount: overloadLines.length,
-          overloadLines
+          overloadLines,
         });
       }
     }
@@ -281,25 +295,27 @@ export function extractSymbolsAST(filePath: string): ASTSymbol[] {
 }
 
 export function formatAsHeaderAST(symbols: ASTSymbol[]): string {
-  const lines = [
-    ' * 📊 الدوال والخوارزميات | Functions & Algorithms:',
-  ];
+  const lines = [' * 📊 الدوال والخوارزميات | Functions & Algorithms:'];
   for (const s of symbols) {
     const visibilityNote = s.exported ? '' : ' — private';
     const asyncNote = s.isAsync ? ' (async)' : '';
     const spanNote = s.sigEndLine ? ` (توقيع يمتد حتى L${s.sigEndLine})` : '';
-    const overloadNote = (s.overloadCount && s.overloadCount > 0)
-      ? ` [+${s.overloadCount} overload(s) at L${s.overloadLines?.join(', L')}]`
-      : '';
+    const overloadNote =
+      s.overloadCount && s.overloadCount > 0
+        ? ` [+${s.overloadCount} overload(s) at L${s.overloadLines?.join(', L')}]`
+        : '';
 
-    lines.push(` *    - ${s.name}()${visibilityNote}${asyncNote}${spanNote}${overloadNote} (#L${s.startLine})`);
+    lines.push(
+      ` *    - ${s.name}()${visibilityNote}${asyncNote}${spanNote}${overloadNote} (#L${s.startLine})`,
+    );
   }
   return lines.join('\n');
 }
 
 export function formatAsTableAST(symbols: ASTSymbol[]): string {
-  const header = '| الاسم | النوع | السطر | النطاق | مُصدَّرة؟ | ملاحظات |\n|---|---|---|---|---|---|';
-  const rows = symbols.map(s => {
+  const header =
+    '| الاسم | النوع | السطر | النطاق | مُصدَّرة؟ | ملاحظات |\n|---|---|---|---|---|---|';
+  const rows = symbols.map((s) => {
     const notes: string[] = [];
     if (s.isAsync) notes.push('async');
     if (s.sigEndLine) notes.push(`توقيع حتى L${s.sigEndLine}`);
@@ -313,14 +329,20 @@ export function formatAsTableAST(symbols: ASTSymbol[]): string {
 // ─────────────────────────────────────────────────────────────────────────
 // نقطة الدخول عند التشغيل المباشر
 // ─────────────────────────────────────────────────────────────────────────
-if (process.argv[1] && (process.argv[1].endsWith('extract-line-numbers-ast.ts') || process.argv[1].endsWith('extract-line-numbers-ast.js'))) {
+if (
+  process.argv[1] &&
+  (process.argv[1].endsWith('extract-line-numbers-ast.ts') ||
+    process.argv[1].endsWith('extract-line-numbers-ast.js'))
+) {
   const args = process.argv.slice(2);
-  const filePath = args.find(a => !a.startsWith('--'));
-  const formatArg = args.find(a => a.startsWith('--format='));
+  const filePath = args.find((a) => !a.startsWith('--'));
+  const formatArg = args.find((a) => a.startsWith('--format='));
   const format = formatArg ? formatArg.split('=')[1] : 'header';
 
   if (!filePath) {
-    console.error('الاستخدام: node scripts/extract-line-numbers-ast.js <path-to-file.ts> [--format=header|json|table]');
+    console.error(
+      'الاستخدام: node scripts/extract-line-numbers-ast.js <path-to-file.ts> [--format=header|json|table]',
+    );
     process.exit(1);
   }
 

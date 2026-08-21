@@ -202,7 +202,7 @@ export function validateBlockNode(node: BlockNode): ValidationResult {
       message: `نوع غير معروف: ${node.type}`,
       severity: 'error',
     });
-    return {valid: false, errors};
+    return { valid: false, errors };
   }
 
   for (const field of schema.requiredFields) {
@@ -215,7 +215,7 @@ export function validateBlockNode(node: BlockNode): ValidationResult {
     }
   }
 
-  return {valid: errors.length === 0, errors};
+  return { valid: errors.length === 0, errors };
 }
 
 /**
@@ -238,7 +238,7 @@ export function validateDocument(doc: DocNode): ValidationResult {
       message: 'محتوى المستند يجب أن يكون مصفوفة',
       severity: 'error',
     });
-    return {valid: false, errors};
+    return { valid: false, errors };
   }
 
   for (const block of doc.content) {
@@ -246,5 +246,5 @@ export function validateDocument(doc: DocNode): ValidationResult {
     errors.push(...result.errors);
   }
 
-  return {valid: errors.length === 0, errors};
+  return { valid: errors.length === 0, errors };
 }

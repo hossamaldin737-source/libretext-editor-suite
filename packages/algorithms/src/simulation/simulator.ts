@@ -22,17 +22,12 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-import {
-  type SimulationContext,
-  moveCursor,
-  selectRange,
-  setFormula,
-} from './context';
+import { type SimulationContext, moveCursor, selectRange, setFormula } from './context';
 
 export type SimulationAction =
-  | {readonly type: 'MOVE'; readonly dx: number; readonly dy: number}
-  | {readonly type: 'SELECT'; readonly range: string}
-  | {readonly type: 'EVALUATE'; readonly formula: string};
+  | { readonly type: 'MOVE'; readonly dx: number; readonly dy: number }
+  | { readonly type: 'SELECT'; readonly range: string }
+  | { readonly type: 'EVALUATE'; readonly formula: string };
 
 function applyAction(ctx: SimulationContext, action: SimulationAction): SimulationContext {
   switch (action.type) {

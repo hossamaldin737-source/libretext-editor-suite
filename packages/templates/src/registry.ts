@@ -88,14 +88,8 @@ export class TemplateRegistry<TContent = import('@libretext/core').DocNode> {
 
   private readonly config: ResolvedConfig<TContent>;
   private readonly templates: Map<string, Template<TContent>>;
-  private readonly listeners: Map<
-    TemplateEventTypeValue,
-    Set<TemplateEventListener<TContent>>
-  >;
-  private readonly domainValidators: Map<
-    TemplateDomainValue,
-    DomainValidator<TContent>[]
-  >;
+  private readonly listeners: Map<TemplateEventTypeValue, Set<TemplateEventListener<TContent>>>;
+  private readonly domainValidators: Map<TemplateDomainValue, DomainValidator<TContent>[]>;
   private closed: boolean;
 
   constructor(config: TemplateRegistryConfig<TContent> = {}) {
@@ -112,7 +106,7 @@ export class TemplateRegistry<TContent = import('@libretext/core').DocNode> {
   }
 
   static create<T = import('@libretext/core').DocNode>(
-    config: TemplateRegistryConfig<T> = {}
+    config: TemplateRegistryConfig<T> = {},
   ): TemplateRegistry<T> {
     return new TemplateRegistry<T>(config);
   }
@@ -123,7 +117,7 @@ export class TemplateRegistry<TContent = import('@libretext/core').DocNode> {
 
   registerDomain(
     domain: TemplateDomainValue,
-    validators: readonly DomainValidator<TContent>[] = []
+    validators: readonly DomainValidator<TContent>[] = [],
   ): void {
     this.ensureOpen();
     if (!domain || domain.trim().length === 0) {
@@ -169,7 +163,7 @@ export class TemplateRegistry<TContent = import('@libretext/core').DocNode> {
    */
   update(
     id: string,
-    patch: Partial<Pick<Template<TContent>, 'name' | 'description' | 'content' | 'doc'>>
+    patch: Partial<Pick<Template<TContent>, 'name' | 'description' | 'content' | 'doc'>>,
   ): Template<TContent> {
     this.ensureOpen();
 
@@ -302,7 +296,7 @@ export class TemplateRegistry<TContent = import('@libretext/core').DocNode> {
 
   on(
     eventType: TemplateEventTypeValue,
-    listener: TemplateEventListener<TContent>
+    listener: TemplateEventListener<TContent>,
   ): TemplateUnsubscribeFn {
     this.ensureOpen();
     if (!this.listeners.has(eventType)) {
@@ -318,7 +312,7 @@ export class TemplateRegistry<TContent = import('@libretext/core').DocNode> {
   private emitEvent(
     type: TemplateEventTypeValue,
     template?: Template<TContent>,
-    domain?: TemplateDomainValue
+    domain?: TemplateDomainValue,
   ): void {
     if (!this.config.enableEvents) return;
     const set = this.listeners.get(type);
@@ -402,12 +396,9 @@ export class TemplateRegistry<TContent = import('@libretext/core').DocNode> {
     if (!template.domain || template.domain.trim().length === 0) {
       throw new Error('Template domain cannot be empty');
     }
-    if (
-      this.config.strictDomains &&
-      !this.domainValidators.has(template.domain)
-    ) {
+    if (this.config.strictDomains && !this.domainValidators.has(template.domain)) {
       throw new Error(
-        `Unknown domain "${template.domain}". Register it first via registerDomain().`
+        `Unknown domain "${template.domain}". Register it first via registerDomain().`,
       );
     }
     const content = template.content ?? template.doc;
@@ -427,17 +418,12 @@ export class TemplateRegistry<TContent = import('@libretext/core').DocNode> {
     }
   }
 
-  private runStorageHook(
-    operation: string,
-    fn: () => Promise<void> | void | undefined
-  ): void {
+  private runStorageHook(operation: string, fn: () => Promise<void> | void | undefined): void {
     if (!this.config.storage) return;
     try {
       const result = fn();
       if (result && typeof (result as Promise<void>).catch === 'function') {
-        (result as Promise<void>).catch((err) =>
-          this.config.onStorageError(err, operation)
-        );
+        (result as Promise<void>).catch((err) => this.config.onStorageError(err, operation));
       }
     } catch (err) {
       this.config.onStorageError(err, operation);
@@ -446,9 +432,9 @@ export class TemplateRegistry<TContent = import('@libretext/core').DocNode> {
 }
 
 /** دالة مساعدة لإنشاء TemplateRegistry */
-export function createTemplateRegistry<
-  TContent = import('@libretext/core').DocNode
->(config: TemplateRegistryConfig<TContent> = {}): TemplateRegistry<TContent> {
+export function createTemplateRegistry<TContent = import('@libretext/core').DocNode>(
+  config: TemplateRegistryConfig<TContent> = {},
+): TemplateRegistry<TContent> {
   return TemplateRegistry.create<TContent>(config);
 }
 

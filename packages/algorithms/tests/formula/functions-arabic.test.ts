@@ -19,7 +19,7 @@ import {
   TO_ARABIC_NUMERALS,
   TO_WESTERN_NUMERALS,
   ARABIC_LEN,
-  ARABIC_MATCH
+  ARABIC_MATCH,
 } from '../../src/formula/functions-arabic';
 
 describe('ALGO-013: Arabic Functions & Tafqeet', () => {
@@ -57,13 +57,15 @@ describe('ALGO-013: Arabic Functions & Tafqeet', () => {
       expect(TAFQEET(1500, 'SAR', 'فقط', 'لا غير')).toBe('فقط ألف وخمسمائة ريال سعودي لا غير');
       expect(TAFQEET(2, 'SAR', 'فقط', 'لا غير')).toBe('فقط ريالان سعوديان لا غير');
       expect(TAFQEET(5, 'SAR', 'فقط', 'لا غير')).toBe('فقط خمسة ريالات سعودية لا غير');
-      expect(TAFQEET(100.50, 'SAR', 'فقط', 'لا غير')).toBe('فقط مائة ريال سعودي وخمسون هللة لا غير');
+      expect(TAFQEET(100.5, 'SAR', 'فقط', 'لا غير')).toBe('فقط مائة ريال سعودي وخمسون هللة لا غير');
 
       // EGP
-      expect(TAFQEET(250.75, 'EGP', 'المبلغ:', 'فقط')).toBe('المبلغ: مائتان وخمسون جنيه مصري وخمسة وسبعون قرش فقط');
+      expect(TAFQEET(250.75, 'EGP', 'المبلغ:', 'فقط')).toBe(
+        'المبلغ: مائتان وخمسون جنيه مصري وخمسة وسبعون قرش فقط',
+      );
 
       // KWD (3 decimals)
-      expect(TAFQEET(120.250, 'KWD', '', '')).toBe('مائة وعشرون دينار كويتي ومائتان وخمسون فلس');
+      expect(TAFQEET(120.25, 'KWD', '', '')).toBe('مائة وعشرون دينار كويتي ومائتان وخمسون فلس');
     });
 
     it('handles negative numbers', () => {
@@ -141,4 +143,3 @@ describe('ALGO-013: Arabic Functions & Tafqeet', () => {
     });
   });
 });
-

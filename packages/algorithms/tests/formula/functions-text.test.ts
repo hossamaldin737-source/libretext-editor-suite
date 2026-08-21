@@ -26,7 +26,7 @@ import {
   REPLACE,
   TEXTJOIN,
   EXACT,
-  REPT
+  REPT,
 } from '../../src/formula/functions-text';
 
 describe('ALGO-014: Standard Text Functions', () => {
@@ -78,7 +78,9 @@ describe('ALGO-014: Standard Text Functions', () => {
   describe('SUBSTITUTE & REPLACE', () => {
     it('substitutes all occurrences by default', () => {
       expect(SUBSTITUTE('2025/01/01', '/', '-')).toBe('2025-01-01');
-      expect(SUBSTITUTE('مرحبا بكم، أهلاً بكم', 'بكم', 'بالجميع')).toBe('مرحبا بالجميع، أهلاً بالجميع');
+      expect(SUBSTITUTE('مرحبا بكم، أهلاً بكم', 'بكم', 'بالجميع')).toBe(
+        'مرحبا بالجميع، أهلاً بالجميع',
+      );
     });
 
     it('substitutes specific instance when provided', () => {

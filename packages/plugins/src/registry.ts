@@ -86,7 +86,9 @@ export class PluginRegistry {
    */
   public register(plugin: Plugin, domain: OfficeDomain = 'universal'): void {
     if (this.plugins.has(plugin.id)) {
-      console.warn(`[PluginRegistry] Plugin with ID "${plugin.id}" is already registered. Overwriting.`);
+      console.warn(
+        `[PluginRegistry] Plugin with ID "${plugin.id}" is already registered. Overwriting.`,
+      );
     }
 
     const registered: RegisteredPlugin = {
@@ -139,7 +141,7 @@ export class PluginRegistry {
    * استرجاع الإضافات الخاصة بنطاق معين
    */
   public getByDomain(domain: OfficeDomain): RegisteredPlugin[] {
-    return this.getAll().filter(p => p.domain === domain || p.domain === 'universal');
+    return this.getAll().filter((p) => p.domain === domain || p.domain === 'universal');
   }
 
   /**

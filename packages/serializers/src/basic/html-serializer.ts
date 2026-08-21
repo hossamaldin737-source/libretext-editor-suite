@@ -28,7 +28,7 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-import type {BlockNode, DocNode, InlineNode} from '@libretext/core';
+import type { BlockNode, DocNode, InlineNode } from '@libretext/core';
 
 const ESCAPE_MAP: Record<string, string> = {
   '&': '&amp;',
@@ -65,9 +65,7 @@ export class HtmlSerializer {
         const items = block.items
           .map((item) => {
             const content = item.content.map((c) => this.serializeBlock(c)).join('');
-            const nested = item.nested && item.nested[0]
-              ? this.serializeBlock(item.nested[0])
-              : '';
+            const nested = item.nested && item.nested[0] ? this.serializeBlock(item.nested[0]) : '';
             return `<li>${content}${nested}</li>`;
           })
           .join('\n');
@@ -91,7 +89,7 @@ export class HtmlSerializer {
   }
 
   private serializeTable(block: {
-    rows: readonly {readonly cells: readonly {readonly content: readonly BlockNode[]}[]}[];
+    rows: readonly { readonly cells: readonly { readonly content: readonly BlockNode[] }[] }[];
   }): string {
     if (block.rows.length === 0) return '';
 

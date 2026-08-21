@@ -13,4 +13,4 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-export {VanillaAdapter, createVanillaAdapter} from './vanilla-adapter';
+export { VanillaAdapter, createVanillaAdapter } from './vanilla-adapter';

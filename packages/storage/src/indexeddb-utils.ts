@@ -65,10 +65,7 @@ export interface IDBOpenOptions {
 /** خطأ IndexedDB مخصص */
 export class IndexedDBError extends Error {
   override readonly cause?: unknown;
-  constructor(
-    message: string,
-    cause?: unknown
-  ) {
+  constructor(message: string, cause?: unknown) {
     super(message);
     this.name = 'IndexedDBError';
     this.cause = cause;
@@ -93,10 +90,10 @@ export function isIndexedDBAvailable(): boolean {
 export function wrapRequest<T>(request: IDBRequest<T>): Promise<T> {
   return new Promise((resolve, reject) => {
     request.onsuccess = () => resolve(request.result);
-    request.onerror = () => reject(new IndexedDBError(
-      `IndexedDB request failed: ${request.error?.message}`,
-      request.error
-    ));
+    request.onerror = () =>
+      reject(
+        new IndexedDBError(`IndexedDB request failed: ${request.error?.message}`, request.error),
+      );
   });
 }
 
@@ -105,10 +102,7 @@ export function wrapRequest<T>(request: IDBRequest<T>): Promise<T> {
  * @param name اسم قاعدة البيانات
  * @param options إعدادات الفتح (version, onUpgrade)
  */
-export function openDatabase(
-  name: string,
-  options: IDBOpenOptions = {}
-): Promise<IDBDatabase> {
+export function openDatabase(name: string, options: IDBOpenOptions = {}): Promise<IDBDatabase> {
   if (!isIndexedDBAvailable()) {
     return Promise.reject(new IndexedDBError('IndexedDB not available'));
   }
@@ -118,10 +112,12 @@ export function openDatabase(
     let upgradeFailed = false;
 
     request.onerror = () => {
-      reject(new IndexedDBError(
-        `Failed to open database "${name}": ${request.error?.message}`,
-        request.error
-      ));
+      reject(
+        new IndexedDBError(
+          `Failed to open database "${name}": ${request.error?.message}`,
+          request.error,
+        ),
+      );
     };
 
     request.onsuccess = () => {
@@ -134,7 +130,7 @@ export function openDatabase(
       const db = request.result;
       const oldVersion = event.oldVersion;
       const newVersion = event.newVersion ?? options.version ?? 1;
-      
+
       if (options.onUpgrade) {
         try {
           options.onUpgrade(db, oldVersion, newVersion);
@@ -142,18 +138,13 @@ export function openDatabase(
           // ✅ إغلاق DB عند فشل الـ upgrade
           upgradeFailed = true;
           db.close();
-          reject(new IndexedDBError(
-            `Upgrade callback failed: ${(err as Error).message}`,
-            err
-          ));
+          reject(new IndexedDBError(`Upgrade callback failed: ${(err as Error).message}`, err));
         }
       }
     };
 
     request.onblocked = () => {
-      reject(new IndexedDBError(
-        `Database "${name}" is blocked by another connection`
-      ));
+      reject(new IndexedDBError(`Database "${name}" is blocked by another connection`));
     };
   });
 }
@@ -171,13 +162,14 @@ export function deleteDatabase(name: string): Promise<void> {
     const request = indexedDB.deleteDatabase(name);
 
     request.onsuccess = () => resolve();
-    request.onerror = () => reject(new IndexedDBError(
-      `Failed to delete database "${name}": ${request.error?.message}`,
-      request.error
-    ));
-    request.onblocked = () => reject(new IndexedDBError(
-      `Database "${name}" deletion blocked`
-    ));
+    request.onerror = () =>
+      reject(
+        new IndexedDBError(
+          `Failed to delete database "${name}": ${request.error?.message}`,
+          request.error,
+        ),
+      );
+    request.onblocked = () => reject(new IndexedDBError(`Database "${name}" deletion blocked`));
   });
 }
 
@@ -187,19 +179,19 @@ export function deleteDatabase(name: string): Promise<void> {
  */
 export async function databaseExists(name: string): Promise<boolean> {
   if (!isIndexedDBAvailable()) return false;
-  
+
   const idb = indexedDB as IDBFactory & {
     databases?: () => Promise<Array<{ name: string }>>;
   };
-  
+
   if (!idb.databases) {
     // المتصفح لا يدعم databases() — نفترض الوجود
     return true;
   }
-  
+
   try {
     const databases = await idb.databases();
-    return databases.some(db => db.name === name);
+    return databases.some((db) => db.name === name);
   } catch {
     return false;
   }

@@ -28,8 +28,8 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-import type {BlockNode, CodeBlockNode} from '@libretext/core';
-import type {Plugin, PluginResult} from '../shared/types';
+import type { BlockNode, CodeBlockNode } from '@libretext/core';
+import type { Plugin, PluginResult } from '../shared/types';
 
 const SUPPORTED_LANGUAGES = [
   'mermaid',
@@ -92,12 +92,12 @@ export class MermaidPlugin implements Plugin {
    */
   processMermaid(code: string, type: MermaidDiagramType = 'mermaid'): PluginResult {
     if (!this.initialized) {
-      return {content: '', success: false, error: 'Plugin not initialized'};
+      return { content: '', success: false, error: 'Plugin not initialized' };
     }
 
     const trimmedCode = code.trim();
     if (!trimmedCode) {
-      return {content: '', success: false, error: 'Empty code'};
+      return { content: '', success: false, error: 'Empty code' };
     }
 
     const validationResult = this.validateMermaidCode(trimmedCode, type);
@@ -106,7 +106,7 @@ export class MermaidPlugin implements Plugin {
     }
 
     const html = this.generateHtml(trimmedCode, type);
-    return {content: html, success: true};
+    return { content: html, success: true };
   }
 
   /**
@@ -133,7 +133,7 @@ export class MermaidPlugin implements Plugin {
       };
     }
 
-    return {content: '', success: true};
+    return { content: '', success: true };
   }
 
   /**

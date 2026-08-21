@@ -1,36 +1,36 @@
 /**
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 📌 ملخص توجيهي | Guiding Summary
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 📄 الملف: types.ts
-  * 📂 المسار: packages/algorithms/src/spatial/types.ts
-  * 🎯 الهدف الرئيسي: تعريف أنواع الإحداثيات المكانية (LogicalCoordinate و GridCoordinate)
-  * 📋 المعايير: صفر اعتماديات، أنواع نقية، دعم الوحدات المتعددة
-  * 🧪 الاختبارات: packages/algorithms/tests/spatial/types.test.ts
-  * 🏷️ المعرف: ALGO-007
-  * 📅 تاريخ الإنشاء: 2026-08-19
-  * 🔄 آخر تحديث: 2026-08-19 (v3: Leading Zeros + Multi-Letter Columns)
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 🧠 الطريقة المبتكرة | Innovative Pattern:
-  *    Discriminated Unions + Unit System + Immutable Coordinates
-  * ═══════════════════════════════════════════════════════════════════════════
-  * ⚠️ نقاط الخطر الإلزامية | Mandatory Gotchas:
-  *    1. الخلط بين الإحداثيات الديكارتية والشبكية
-  *    2. الإحداثيات السالبة (خارج حدود الصفحة) - مسموحة لـ Logical فقط
-  *    3. GridCoordinate تستخدم فهرسة صفرية (0-indexed): row=0, col=0
-  *    4. التحويل إلى Label يضيف +1 للصف فقط: row=0 → "A1"
-  *    5. الأصفار البادئة مسموحة: "A01" تعادل "A1"
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 🩹 البرمجة الدفاعية | Defensive Coding:
-  *    - استخدام readonly لجميع الخصائص
-  *    - Type Guards للتحقق من نوع الإحداثيات
-  *    - Validation للإحداثيات الشبكية (رفض القيم السالبة)
-  *    - Validation لتسميات الخلايا
-  * ═══════════════════════════════════════════════════════════════════════════
-  * ⚖️ الترخيص: MIT License
-  * 📚 المصادر المقتبسة: لا توجد
-  * ═══════════════════════════════════════════════════════════════════════════
-  */
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 📌 ملخص توجيهي | Guiding Summary
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 📄 الملف: types.ts
+ * 📂 المسار: packages/algorithms/src/spatial/types.ts
+ * 🎯 الهدف الرئيسي: تعريف أنواع الإحداثيات المكانية (LogicalCoordinate و GridCoordinate)
+ * 📋 المعايير: صفر اعتماديات، أنواع نقية، دعم الوحدات المتعددة
+ * 🧪 الاختبارات: packages/algorithms/tests/spatial/types.test.ts
+ * 🏷️ المعرف: ALGO-007
+ * 📅 تاريخ الإنشاء: 2026-08-19
+ * 🔄 آخر تحديث: 2026-08-19 (v3: Leading Zeros + Multi-Letter Columns)
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 🧠 الطريقة المبتكرة | Innovative Pattern:
+ *    Discriminated Unions + Unit System + Immutable Coordinates
+ * ═══════════════════════════════════════════════════════════════════════════
+ * ⚠️ نقاط الخطر الإلزامية | Mandatory Gotchas:
+ *    1. الخلط بين الإحداثيات الديكارتية والشبكية
+ *    2. الإحداثيات السالبة (خارج حدود الصفحة) - مسموحة لـ Logical فقط
+ *    3. GridCoordinate تستخدم فهرسة صفرية (0-indexed): row=0, col=0
+ *    4. التحويل إلى Label يضيف +1 للصف فقط: row=0 → "A1"
+ *    5. الأصفار البادئة مسموحة: "A01" تعادل "A1"
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 🩹 البرمجة الدفاعية | Defensive Coding:
+ *    - استخدام readonly لجميع الخصائص
+ *    - Type Guards للتحقق من نوع الإحداثيات
+ *    - Validation للإحداثيات الشبكية (رفض القيم السالبة)
+ *    - Validation لتسميات الخلايا
+ * ═══════════════════════════════════════════════════════════════════════════
+ * ⚖️ الترخيص: MIT License
+ * 📚 المصادر المقتبسة: لا توجد
+ * ═══════════════════════════════════════════════════════════════════════════
+ */
 
 /** وحدات الطول المدعومة */
 export const LengthUnit = {
@@ -38,10 +38,10 @@ export const LengthUnit = {
   CENTIMETER: 'cm',
   INCH: 'in',
   POINT: 'pt',
-  MILLIMETER: 'mm'
+  MILLIMETER: 'mm',
 } as const;
 
-export type LengthUnitValue = typeof LengthUnit[keyof typeof LengthUnit];
+export type LengthUnitValue = (typeof LengthUnit)[keyof typeof LengthUnit];
 
 /** إحداثيات ديكارتية (لـ Impress والعروض التقديمية) */
 export interface LogicalCoordinate {
@@ -102,7 +102,7 @@ export function isGridCoordinate(coord: SpatialCoordinate): coord is GridCoordin
 export function createLogicalCoordinate(
   x: number,
   y: number,
-  unit: LengthUnitValue = LengthUnit.PIXEL
+  unit: LengthUnitValue = LengthUnit.PIXEL,
 ): LogicalCoordinate {
   return { type: 'logical', x, y, unit };
 }
@@ -144,17 +144,17 @@ export function labelToGrid(label: string): GridCoordinate {
   if (!match) {
     throw new Error(`Invalid cell label format: ${label}`);
   }
-  
+
   const colLabel = match[1]!.toUpperCase();
   const rowStr = match[2]!;
   const row = parseInt(rowStr, 10);
-  
+
   // التحويل من 1-indexed إلى 0-indexed
   const zeroBasedRow = row - 1;
   if (zeroBasedRow < 0) {
     throw new Error(`Row number must be at least 1, got: ${row}`);
   }
-  
+
   const col = columnLabelToIndex(colLabel);
   return { type: 'grid', row: zeroBasedRow, col };
 }

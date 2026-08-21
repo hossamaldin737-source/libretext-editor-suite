@@ -15,6 +15,6 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-export {MarkdownSerializer} from './markdown-serializer';
-export {HtmlSerializer} from './html-serializer';
-export {TxtSerializer} from './txt-serializer';
+export { MarkdownSerializer } from './markdown-serializer';
+export { HtmlSerializer } from './html-serializer';
+export { TxtSerializer } from './txt-serializer';

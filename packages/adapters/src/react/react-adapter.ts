@@ -16,8 +16,8 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-import type {DocNode, BlockNode, InlineNode} from '@libretext/core';
-import type {AdapterOptions, EditorAdapter, Selection} from '../shared/types';
+import type { DocNode, BlockNode, InlineNode } from '@libretext/core';
+import type { AdapterOptions, EditorAdapter, Selection } from '../shared/types';
 
 /**
  * محور React — لتحرير المستندات في تطبيقات React.
@@ -138,7 +138,10 @@ export class ReactAdapter implements EditorAdapter {
 }
 
 function escapeHtml(text: string): string {
-  return text.replace(/[&<>"']/g, (c) => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c] ?? c));
+  return text.replace(
+    /[&<>"']/g,
+    (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c] ?? c,
+  );
 }
 
 export function createReactAdapter(options?: AdapterOptions): ReactAdapter {

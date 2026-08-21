@@ -22,9 +22,7 @@ export const budgetTemplate: DocumentTemplate = {
   description: 'قالب حسابات مالية تفاعلي مع دعم الصيغ الحسابية (SUM, AVERAGE)',
   doc: builder.doc([
     builder.heading(1, [builder.text('تقرير الميزانية والمصروفات الشهري')]),
-    builder.paragraph([
-      builder.text('جدول ديناميكي يعتمد على محرك تقييم التعابير الرياضية.'),
-    ]),
+    builder.paragraph([builder.text('جدول ديناميكي يعتمد على محرك تقييم التعابير الرياضية.')]),
     builder.table([
       builder.tableRow([
         builder.tableCell([builder.paragraph([builder.text('البند / Item')])]),
@@ -115,7 +113,9 @@ export const incidentCensusTemplate: DocumentTemplate = {
         builder.tableCell([builder.paragraph([builder.text('القيمة المحسوبة / Formula Value')])]),
       ]),
       builder.tableRow([
-        builder.tableCell([builder.paragraph([builder.text('إجمالي الحالات المسجلة (Total Cases)')])]),
+        builder.tableCell([
+          builder.paragraph([builder.text('إجمالي الحالات المسجلة (Total Cases)')]),
+        ]),
         builder.tableCell([builder.paragraph([builder.text('5')])]),
       ]),
       builder.tableRow([
@@ -142,7 +142,9 @@ export const inventoryAuditTemplate: DocumentTemplate = {
   doc: builder.doc([
     builder.heading(1, [builder.text('تقرير الجرد الفعلي للمخزون والتقييم المالي')]),
     builder.paragraph([
-      builder.text('حصر كميات المخزون وتحديد حالة إعادة الطلب تلقائياً مع حساب إجمالي القيمة بالريال السعودي.'),
+      builder.text(
+        'حصر كميات المخزون وتحديد حالة إعادة الطلب تلقائياً مع حساب إجمالي القيمة بالريال السعودي.',
+      ),
     ]),
     builder.table([
       builder.tableRow([
@@ -260,4 +262,3 @@ export const calcTemplates: DocumentTemplate[] = [
   inventoryAuditTemplate,
   comparativeStatisticsTemplate,
 ];
-

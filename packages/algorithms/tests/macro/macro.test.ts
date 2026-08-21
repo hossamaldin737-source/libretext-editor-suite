@@ -38,15 +38,27 @@ describe('Type Guards', () => {
     });
 
     it('returns false for missing id', () => {
-      expect(isMacroDefinition({ name: 'test', domain: 'universal', steps: [], createdAt: 1 })).toBe(false);
+      expect(
+        isMacroDefinition({ name: 'test', domain: 'universal', steps: [], createdAt: 1 }),
+      ).toBe(false);
     });
 
     it('returns false for missing name', () => {
-      expect(isMacroDefinition({ id: '1', domain: 'universal', steps: [], createdAt: 1 })).toBe(false);
+      expect(isMacroDefinition({ id: '1', domain: 'universal', steps: [], createdAt: 1 })).toBe(
+        false,
+      );
     });
 
     it('returns false for non-array steps', () => {
-      expect(isMacroDefinition({ id: '1', name: 'test', domain: 'universal', steps: 'not-array', createdAt: 1 })).toBe(false);
+      expect(
+        isMacroDefinition({
+          id: '1',
+          name: 'test',
+          domain: 'universal',
+          steps: 'not-array',
+          createdAt: 1,
+        }),
+      ).toBe(false);
     });
   });
 
@@ -193,9 +205,7 @@ describe('MacroRunner', () => {
       { commandType: 'move', payload: {}, timestamp: 0 },
       { commandType: 'fail', payload: {}, timestamp: 10 },
     ]);
-    const dispatcher = vi.fn()
-      .mockResolvedValueOnce(true)
-      .mockResolvedValueOnce(false);
+    const dispatcher = vi.fn().mockResolvedValueOnce(true).mockResolvedValueOnce(false);
     const runner = new MacroRunner();
     const result = await runner.run(macro, dispatcher, { stopOnError: true });
     expect(result.success).toBe(false);
@@ -207,7 +217,11 @@ describe('MacroRunner', () => {
       { commandType: 'slow', payload: {}, timestamp: 0 },
       { commandType: 'slow2', payload: {}, timestamp: 1 },
     ]);
-    const dispatcher = vi.fn().mockImplementation(() => new Promise<boolean>(resolve => setTimeout(() => resolve(true), 50)));
+    const dispatcher = vi
+      .fn()
+      .mockImplementation(
+        () => new Promise<boolean>((resolve) => setTimeout(() => resolve(true), 50)),
+      );
     const runner = new MacroRunner();
     const result = await runner.run(macro, dispatcher, { timeoutMs: 10 });
     expect(result.success).toBe(false);
@@ -238,9 +252,7 @@ describe('MacroRunner', () => {
   });
 
   it('handles dispatcher exceptions', async () => {
-    const macro = createMacro([
-      { commandType: 'crash', payload: {}, timestamp: 0 },
-    ]);
+    const macro = createMacro([{ commandType: 'crash', payload: {}, timestamp: 0 }]);
     const dispatcher = vi.fn().mockRejectedValue(new Error('boom'));
     const runner = new MacroRunner();
     const result = await runner.run(macro, dispatcher, { stopOnError: true });

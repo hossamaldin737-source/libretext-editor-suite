@@ -28,7 +28,7 @@ import {
   type RawMouseCoords,
   type ViewportConfig,
   type GridMapperConfig,
-  type MapperConfig
+  type MapperConfig,
 } from '../../src/spatial/mapper';
 import { LengthUnit } from '../../src/spatial/types';
 
@@ -39,14 +39,14 @@ import { LengthUnit } from '../../src/spatial/types';
 const DEFAULT_VIEWPORT: ViewportConfig = {
   offsetX: 0,
   offsetY: 0,
-  zoom: 1
+  zoom: 1,
 };
 
 const DEFAULT_GRID: GridMapperConfig = {
   cellWidth: 100,
   cellHeight: 30,
   headerWidth: 50,
-  headerHeight: 25
+  headerHeight: 25,
 };
 
 describe('ALGO-008 v2: SpatialMapper', () => {
@@ -67,22 +67,17 @@ describe('ALGO-008 v2: SpatialMapper', () => {
     });
 
     it('converts mm to inches correctly', () => {
-      expect(convertLength(25.4, LengthUnit.MILLIMETER, LengthUnit.INCH))
-        .toBeCloseTo(1);
+      expect(convertLength(25.4, LengthUnit.MILLIMETER, LengthUnit.INCH)).toBeCloseTo(1);
     });
 
     it('converts inches to mm correctly', () => {
-      expect(convertLength(1, LengthUnit.INCH, LengthUnit.MILLIMETER))
-        .toBeCloseTo(25.4);
+      expect(convertLength(1, LengthUnit.INCH, LengthUnit.MILLIMETER)).toBeCloseTo(25.4);
     });
 
     it('converts between all unit pairs correctly', () => {
-      expect(convertLength(1, LengthUnit.INCH, LengthUnit.CENTIMETER))
-        .toBeCloseTo(2.54);
-      expect(convertLength(72, LengthUnit.POINT, LengthUnit.INCH))
-        .toBeCloseTo(1);
-      expect(convertLength(1, LengthUnit.CENTIMETER, LengthUnit.MILLIMETER))
-        .toBeCloseTo(10);
+      expect(convertLength(1, LengthUnit.INCH, LengthUnit.CENTIMETER)).toBeCloseTo(2.54);
+      expect(convertLength(72, LengthUnit.POINT, LengthUnit.INCH)).toBeCloseTo(1);
+      expect(convertLength(1, LengthUnit.CENTIMETER, LengthUnit.MILLIMETER)).toBeCloseTo(10);
     });
   });
 
@@ -113,8 +108,9 @@ describe('ALGO-008 v2: SpatialMapper', () => {
     it('throws on non-positive zoom', () => {
       const raw: RawMouseCoords = { clientX: 100, clientY: 100 };
       const viewport: ViewportConfig = { offsetX: 0, offsetY: 0, zoom: 0 };
-      expect(() => translateToLogical(raw, viewport, LengthUnit.PIXEL))
-        .toThrow('zoom must be positive');
+      expect(() => translateToLogical(raw, viewport, LengthUnit.PIXEL)).toThrow(
+        'zoom must be positive',
+      );
     });
   });
 
@@ -125,26 +121,24 @@ describe('ALGO-008 v2: SpatialMapper', () => {
     it('throws on negative zoom', () => {
       const raw: RawMouseCoords = { clientX: 100, clientY: 100 };
       const viewport: ViewportConfig = { offsetX: 0, offsetY: 0, zoom: -1 };
-      expect(() => translateToGrid(raw, viewport, DEFAULT_GRID))
-        .toThrow('zoom must be positive');
+      expect(() => translateToGrid(raw, viewport, DEFAULT_GRID)).toThrow('zoom must be positive');
     });
 
     it('throws on zero zoom', () => {
       const raw: RawMouseCoords = { clientX: 100, clientY: 100 };
       const viewport: ViewportConfig = { offsetX: 0, offsetY: 0, zoom: 0 };
-      expect(() => translateToGrid(raw, viewport, DEFAULT_GRID))
-        .toThrow('zoom must be positive');
+      expect(() => translateToGrid(raw, viewport, DEFAULT_GRID)).toThrow('zoom must be positive');
     });
 
     it('clamps to maxRow when exceeding grid bounds', () => {
       const gridWithBounds: GridMapperConfig = {
         ...DEFAULT_GRID,
         maxRow: 5,
-        maxCol: 10
+        maxCol: 10,
       };
       const raw: RawMouseCoords = {
         clientX: DEFAULT_GRID.headerWidth + DEFAULT_GRID.cellWidth * 100,
-        clientY: DEFAULT_GRID.headerHeight + DEFAULT_GRID.cellHeight * 100
+        clientY: DEFAULT_GRID.headerHeight + DEFAULT_GRID.cellHeight * 100,
       };
       const result = translateToGrid(raw, DEFAULT_VIEWPORT, gridWithBounds);
       expect(result.row).toBe(5);
@@ -154,7 +148,7 @@ describe('ALGO-008 v2: SpatialMapper', () => {
     it('does not clamp when no maxRow/maxCol specified', () => {
       const raw: RawMouseCoords = {
         clientX: DEFAULT_GRID.headerWidth + DEFAULT_GRID.cellWidth * 1000,
-        clientY: DEFAULT_GRID.headerHeight + DEFAULT_GRID.cellHeight * 500
+        clientY: DEFAULT_GRID.headerHeight + DEFAULT_GRID.cellHeight * 500,
       };
       const result = translateToGrid(raw, DEFAULT_VIEWPORT, DEFAULT_GRID);
       expect(result.col).toBe(1000);
@@ -164,11 +158,11 @@ describe('ALGO-008 v2: SpatialMapper', () => {
     it('respects maxRow only when maxCol is undefined', () => {
       const gridWithRowBound: GridMapperConfig = {
         ...DEFAULT_GRID,
-        maxRow: 3
+        maxRow: 3,
       };
       const raw: RawMouseCoords = {
         clientX: DEFAULT_GRID.headerWidth + DEFAULT_GRID.cellWidth * 100,
-        clientY: DEFAULT_GRID.headerHeight + DEFAULT_GRID.cellHeight * 100
+        clientY: DEFAULT_GRID.headerHeight + DEFAULT_GRID.cellHeight * 100,
       };
       const result = translateToGrid(raw, DEFAULT_VIEWPORT, gridWithRowBound);
       expect(result.row).toBe(3);
@@ -203,7 +197,7 @@ describe('ALGO-008 v2: SpatialMapper', () => {
     it('uses px as default unit for Calc domain (when grid present)', () => {
       const config: MapperConfig = {
         viewport: DEFAULT_VIEWPORT,
-        grid: DEFAULT_GRID
+        grid: DEFAULT_GRID,
       };
       const result = translateCoords(raw, OfficeDomain.CALC, config);
       expect(result.type).toBe('grid');
@@ -212,7 +206,7 @@ describe('ALGO-008 v2: SpatialMapper', () => {
     it('uses px as default unit for Base domain (when grid present)', () => {
       const config: MapperConfig = {
         viewport: DEFAULT_VIEWPORT,
-        grid: DEFAULT_GRID
+        grid: DEFAULT_GRID,
       };
       const result = translateCoords(raw, OfficeDomain.BASE, config);
       expect(result.type).toBe('grid');
@@ -220,9 +214,9 @@ describe('ALGO-008 v2: SpatialMapper', () => {
 
     it('throws on unknown office domain (exhaustive check)', () => {
       const config: MapperConfig = { viewport: DEFAULT_VIEWPORT };
-      const unknownDomain = 'unknown_domain' as unknown as typeof OfficeDomain[keyof typeof OfficeDomain];
-      expect(() => translateCoords(raw, unknownDomain, config))
-        .toThrow('Unknown office domain');
+      const unknownDomain =
+        'unknown_domain' as unknown as (typeof OfficeDomain)[keyof typeof OfficeDomain];
+      expect(() => translateCoords(raw, unknownDomain, config)).toThrow('Unknown office domain');
     });
   });
 

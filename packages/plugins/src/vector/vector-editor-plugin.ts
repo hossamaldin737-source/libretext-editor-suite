@@ -81,7 +81,7 @@ export function renderVectorPathHtml(
   width: number = 300,
   height: number = 200,
   stroke: string = '#0284c7',
-  fill: string = 'none'
+  fill: string = 'none',
 ): string {
   return `<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
   <path d="${d}" fill="${fill}" stroke="${stroke}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />

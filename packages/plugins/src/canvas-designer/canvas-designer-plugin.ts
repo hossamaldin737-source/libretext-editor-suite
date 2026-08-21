@@ -29,7 +29,9 @@ export interface CanvasDesignerPluginOptions {
   defaultGridSize?: number;
 }
 
-export function createCanvasDesignerPlugin(options: CanvasDesignerPluginOptions = {}): EditorPlugin {
+export function createCanvasDesignerPlugin(
+  options: CanvasDesignerPluginOptions = {},
+): EditorPlugin {
   return {
     id: 'plugin-canvas-designer',
     name: 'مصمم الكانفا والرسوم المتجهة والمخططات الشامل',
@@ -74,9 +76,17 @@ export function createCanvasDesignerPlugin(options: CanvasDesignerPluginOptions 
       context.registerCommand({
         id: 'canvas:layer-group',
         name: 'تجميع العناصر',
-        handler: (params: { elements: CanvasElementInstance[]; selectedIds: string[]; groupId: string }) => ({
+        handler: (params: {
+          elements: CanvasElementInstance[];
+          selectedIds: string[];
+          groupId: string;
+        }) => ({
           success: true,
-          elements: LayerTreeEngine.groupElements(params.elements, params.selectedIds, params.groupId),
+          elements: LayerTreeEngine.groupElements(
+            params.elements,
+            params.selectedIds,
+            params.groupId,
+          ),
         }),
       });
 

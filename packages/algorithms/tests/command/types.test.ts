@@ -1,31 +1,31 @@
 /**
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 📌 ملخص توجيهي | Guiding Summary
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 📄 الملف: types.test.ts
-  * 📂 المسار: packages/algorithms/tests/command/types.test.ts
-  * 🎯 الهدف الرئيسي: اختبار أنواع الأوامر و Type Guards
-  * 📋 المعايير: تغطية >= 95%، اختبار جميع الحالات الممكنة
-  * 🧪 الاختبارات: هذا الملف هو ملف الاختبار
-  * 🏷️ المعرف: TEST-ALGO-001
-  * 📅 تاريخ الإنشاء: 2026-08-19
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 🧠 الطريقة المبتكرة | Innovative Pattern:
-  *    Type Guard Verification + Immutable Object Testing
-  * ═══════════════════════════════════════════════════════════════════════════
-  * ⚠️ نقاط الخطر الإلزامية | Mandatory Gotchas:
-  *    1. التأكد من أن Type Guards ترفض الأنواع الخاطئة
-  *    2. التحقق من ثبات الخصائص (readonly) في وقت الترجمة
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 🩹 البرمجة الدفاعية | Defensive Coding:
-  *    - استخدام as const في بيانات الاختبار
-  *    - فحص دقيق للأنواع باستخدام expectTypeOf (إن توفر) أو الفحص المنطقي
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 👤 المالك: Hossam El-Din Abdel-Moaty El-Khouly - All rights reserved
-  * ⚖️ الترخيص: MIT License
-  * 📚 المصادر المقتبسة: Vitest (MIT)
-  * ═══════════════════════════════════════════════════════════════════════════
-  */
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 📌 ملخص توجيهي | Guiding Summary
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 📄 الملف: types.test.ts
+ * 📂 المسار: packages/algorithms/tests/command/types.test.ts
+ * 🎯 الهدف الرئيسي: اختبار أنواع الأوامر و Type Guards
+ * 📋 المعايير: تغطية >= 95%، اختبار جميع الحالات الممكنة
+ * 🧪 الاختبارات: هذا الملف هو ملف الاختبار
+ * 🏷️ المعرف: TEST-ALGO-001
+ * 📅 تاريخ الإنشاء: 2026-08-19
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 🧠 الطريقة المبتكرة | Innovative Pattern:
+ *    Type Guard Verification + Immutable Object Testing
+ * ═══════════════════════════════════════════════════════════════════════════
+ * ⚠️ نقاط الخطر الإلزامية | Mandatory Gotchas:
+ *    1. التأكد من أن Type Guards ترفض الأنواع الخاطئة
+ *    2. التحقق من ثبات الخصائص (readonly) في وقت الترجمة
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 🩹 البرمجة الدفاعية | Defensive Coding:
+ *    - استخدام as const في بيانات الاختبار
+ *    - فحص دقيق للأنواع باستخدام expectTypeOf (إن توفر) أو الفحص المنطقي
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 👤 المالك: Hossam El-Din Abdel-Moaty El-Khouly - All rights reserved
+ * ⚖️ الترخيص: MIT License
+ * 📚 المصادر المقتبسة: Vitest (MIT)
+ * ═══════════════════════════════════════════════════════════════════════════
+ */
 
 import { describe, it, expect } from 'vitest';
 import {
@@ -35,7 +35,7 @@ import {
   isFormulaCommand,
   SpatialCommand,
   TextCommand,
-  FormulaCommand
+  FormulaCommand,
 } from '../../src/command/types';
 
 describe('ALGO-001: Command Types & Type Guards', () => {
@@ -46,8 +46,8 @@ describe('ALGO-001: Command Types & Type Guards', () => {
       timestamp: Date.now(),
       x: 10,
       y: 20,
-      grid: { row: 1, col: 2 }
-    }
+      grid: { row: 1, col: 2 },
+    },
   };
 
   const textCmd: TextCommand = {
@@ -56,8 +56,8 @@ describe('ALGO-001: Command Types & Type Guards', () => {
     payload: {
       timestamp: Date.now(),
       content: 'Hello',
-      position: 0
-    }
+      position: 0,
+    },
   };
 
   const formulaCmd: FormulaCommand = {
@@ -65,8 +65,8 @@ describe('ALGO-001: Command Types & Type Guards', () => {
     targetId: 'node-3',
     payload: {
       timestamp: Date.now(),
-      expression: 'SUM(A1:A2)'
-    }
+      expression: 'SUM(A1:A2)',
+    },
   };
 
   it('should identify SpatialCommand correctly', () => {

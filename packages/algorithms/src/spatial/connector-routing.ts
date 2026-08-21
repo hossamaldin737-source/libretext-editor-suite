@@ -61,21 +61,36 @@ export function getPortPosition(box: BoundingBox, side: PortSide): ConnectorPort
     case 'top':
       return { point: { x: box.x + box.width / 2, y: box.y }, side, normal: { x: 0, y: -1 } };
     case 'right':
-      return { point: { x: box.x + box.width, y: box.y + box.height / 2 }, side, normal: { x: 1, y: 0 } };
+      return {
+        point: { x: box.x + box.width, y: box.y + box.height / 2 },
+        side,
+        normal: { x: 1, y: 0 },
+      };
     case 'bottom':
-      return { point: { x: box.x + box.width / 2, y: box.y + box.height }, side, normal: { x: 0, y: 1 } };
+      return {
+        point: { x: box.x + box.width / 2, y: box.y + box.height },
+        side,
+        normal: { x: 0, y: 1 },
+      };
     case 'left':
       return { point: { x: box.x, y: box.y + box.height / 2 }, side, normal: { x: -1, y: 0 } };
     case 'center':
     default:
-      return { point: { x: box.x + box.width / 2, y: box.y + box.height / 2 }, side: 'center', normal: { x: 0, y: 0 } };
+      return {
+        point: { x: box.x + box.width / 2, y: box.y + box.height / 2 },
+        side: 'center',
+        normal: { x: 0, y: 0 },
+      };
   }
 }
 
 /**
  * تحديد أفضل منفذي توصيل بين صندوقين بناءً على المواقع النسبية
  */
-export function getOptimalPorts(fromBox: BoundingBox, toBox: BoundingBox): readonly [ConnectorPort, ConnectorPort] {
+export function getOptimalPorts(
+  fromBox: BoundingBox,
+  toBox: BoundingBox,
+): readonly [ConnectorPort, ConnectorPort] {
   const fromCenter = { x: fromBox.x + fromBox.width / 2, y: fromBox.y + fromBox.height / 2 };
   const toCenter = { x: toBox.x + toBox.width / 2, y: toBox.y + toBox.height / 2 };
 

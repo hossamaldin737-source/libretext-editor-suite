@@ -91,7 +91,7 @@ async function main() {
 
   const dir = path.dirname(fullPath);
   if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, {recursive: true});
+    fs.mkdirSync(dir, { recursive: true });
     console.log(`📁 تم إنشاء المجلد: ${dir}`);
   }
 

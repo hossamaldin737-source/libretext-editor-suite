@@ -102,8 +102,14 @@ export function cubicTangent(curve: CubicBezierCurve, tRaw: number): BezierPoint
   const t = clamp01(tRaw);
   const u = 1 - t;
 
-  const dx = 3 * u * u * (curve.p1.x - curve.p0.x) + 6 * u * t * (curve.p2.x - curve.p1.x) + 3 * t * t * (curve.p3.x - curve.p2.x);
-  const dy = 3 * u * u * (curve.p1.y - curve.p0.y) + 6 * u * t * (curve.p2.y - curve.p1.y) + 3 * t * t * (curve.p3.y - curve.p2.y);
+  const dx =
+    3 * u * u * (curve.p1.x - curve.p0.x) +
+    6 * u * t * (curve.p2.x - curve.p1.x) +
+    3 * t * t * (curve.p3.x - curve.p2.x);
+  const dy =
+    3 * u * u * (curve.p1.y - curve.p0.y) +
+    6 * u * t * (curve.p2.y - curve.p1.y) +
+    3 * t * t * (curve.p3.y - curve.p2.y);
 
   const len = Math.hypot(dx, dy);
   if (len === 0) return { x: 1, y: 0 };

@@ -74,7 +74,19 @@
       "nameEn": "Core",
       "status": "not_started",
       "priority": "high",
-      "files": ["CORE-001", "CORE-002", "CORE-003", "CORE-004", "CORE-005", "CORE-006", "CORE-007", "CORE-008", "CORE-009", "CORE-010", "CORE-011"]
+      "files": [
+        "CORE-001",
+        "CORE-002",
+        "CORE-003",
+        "CORE-004",
+        "CORE-005",
+        "CORE-006",
+        "CORE-007",
+        "CORE-008",
+        "CORE-009",
+        "CORE-010",
+        "CORE-011"
+      ]
     },
     {
       "id": "PHASE-02",

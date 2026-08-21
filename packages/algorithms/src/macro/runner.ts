@@ -32,13 +32,13 @@ import type {
 export type CommandDispatcher = (
   commandType: string,
   payload: Record<string, unknown>,
-  spatialTarget?: MacroStep['spatialTarget']
+  spatialTarget?: MacroStep['spatialTarget'],
 ) => boolean | Promise<boolean>;
 
 export class MacroRunner {
   private interpolatePayload(
     payload: Record<string, unknown>,
-    params: Record<string, unknown>
+    params: Record<string, unknown>,
   ): Record<string, unknown> {
     const raw = JSON.stringify(payload);
     const replaced = raw.replace(/\{\{([a-zA-Z0-9_-]+)\}\}/g, (_, key) => {
@@ -57,7 +57,7 @@ export class MacroRunner {
   async run(
     macro: MacroDefinition,
     dispatcher: CommandDispatcher,
-    options: MacroExecutionOptions = {}
+    options: MacroExecutionOptions = {},
   ): Promise<MacroExecutionResult> {
     const startTime = Date.now();
     const maxSteps = options.maxSteps ?? 1000;

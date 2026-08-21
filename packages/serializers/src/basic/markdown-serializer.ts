@@ -27,7 +27,7 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-import type {BlockNode, DocNode, InlineNode} from '@libretext/core';
+import type { BlockNode, DocNode, InlineNode } from '@libretext/core';
 
 /**
  * محول Markdown — يحول AST إلى Markdown.
@@ -80,19 +80,21 @@ export class MarkdownSerializer {
   }
 
   private serializeTable(block: {
-    rows: readonly {readonly cells: readonly {readonly content: readonly BlockNode[]}[]}[];
+    rows: readonly { readonly cells: readonly { readonly content: readonly BlockNode[] }[] }[];
   }): string {
     if (block.rows.length === 0) return '';
 
     const headerRow = block.rows[0];
     if (!headerRow) return '';
     const headers = headerRow.cells.map((cell) =>
-      cell.content.map((c) => this.serializeBlock(c)).join(' ')
+      cell.content.map((c) => this.serializeBlock(c)).join(' '),
     );
     const separator = headers.map(() => '---');
-    const bodyRows = block.rows.slice(1).map((row) =>
-      row.cells.map((cell) => cell.content.map((c) => this.serializeBlock(c)).join(' '))
-    );
+    const bodyRows = block.rows
+      .slice(1)
+      .map((row) =>
+        row.cells.map((cell) => cell.content.map((c) => this.serializeBlock(c)).join(' ')),
+      );
 
     const lines = [
       `| ${headers.join(' | ')} |`,

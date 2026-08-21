@@ -13,4 +13,4 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-export {MermaidPlugin} from './mermaid-plugin';
+export { MermaidPlugin } from './mermaid-plugin';

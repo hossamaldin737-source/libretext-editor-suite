@@ -30,14 +30,14 @@ describe('ALGO-005: FormulaEvaluator', () => {
       if (name === 'SUM') {
         return (...args: unknown[]) => {
           const values = args.flat() as number[];
-          return values.reduce((sum, val) => sum + (val as number || 0), 0);
+          return values.reduce((sum, val) => sum + ((val as number) || 0), 0);
         };
       }
       if (name === 'AVERAGE') {
         return (...args: unknown[]) => {
           const values = args.flat() as number[];
           if (values.length === 0) return 0;
-          return values.reduce((sum, val) => sum + (val as number || 0), 0) / values.length;
+          return values.reduce((sum, val) => sum + ((val as number) || 0), 0) / values.length;
         };
       }
       if (name === 'IF') {
@@ -55,7 +55,7 @@ describe('ALGO-005: FormulaEvaluator', () => {
         return (...args: unknown[]) => Math.max(...(args as number[]));
       }
       return undefined;
-    }
+    },
   };
 
   const evalStr = (expr: string, context = ctx) => evaluateFormula(parseFormula(expr), context);
@@ -211,7 +211,7 @@ describe('ALGO-005: FormulaEvaluator', () => {
             if (ref === 'A3') return 30;
             return null;
           },
-          getFunction: ctx.getFunction
+          getFunction: ctx.getFunction,
         };
         expect(evalStr('SUM(A1:A3)', localCtx)).toBe(40);
       });
@@ -220,14 +220,14 @@ describe('ALGO-005: FormulaEvaluator', () => {
     describe('Null Handling (Fixed)', () => {
       it('treats null as 0 in arithmetic', () => {
         const localCtx = {
-          getCellValue: () => null
+          getCellValue: () => null,
         };
         expect(evalStr('A1+5', localCtx)).toBe(5);
       });
 
       it('treats null as empty string in concatenation', () => {
         const localCtx = {
-          getCellValue: () => null
+          getCellValue: () => null,
         };
         expect(evalStr('A1&"test"', localCtx)).toBe('test');
       });
@@ -262,7 +262,7 @@ describe('ALGO-005: FormulaEvaluator', () => {
             }
             return null;
           },
-          maxDepth: 5
+          maxDepth: 5,
         };
         expect(() => evalStr('A1', localCtx)).toThrow();
       });
@@ -297,7 +297,7 @@ describe('ALGO-005: FormulaEvaluator', () => {
             };
           }
           return undefined;
-        }
+        },
       };
 
       const ast = parseFormula('IF(A1>5, 100, DIVIDE(10, B1))');
@@ -306,7 +306,7 @@ describe('ALGO-005: FormulaEvaluator', () => {
 
     it('IF evaluates true branch when condition is true', () => {
       const context = {
-        getCellValue: () => 1
+        getCellValue: () => 1,
       };
       const ast = parseFormula('IF(TRUE, 42, 0)');
       expect(evaluateFormula(ast, context)).toBe(42);
@@ -314,7 +314,7 @@ describe('ALGO-005: FormulaEvaluator', () => {
 
     it('IF evaluates false branch when condition is false', () => {
       const context = {
-        getCellValue: () => 1
+        getCellValue: () => 1,
       };
       const ast = parseFormula('IF(FALSE, 0, 99)');
       expect(evaluateFormula(ast, context)).toBe(99);
@@ -326,7 +326,7 @@ describe('ALGO-005: FormulaEvaluator', () => {
           if (ref === 'A1') return 100;
           if (ref === 'B1') return 0;
           return null;
-        }
+        },
       };
 
       const ast = parseFormula('IF(B1<>0, A1/B1, 0)');
@@ -335,11 +335,10 @@ describe('ALGO-005: FormulaEvaluator', () => {
 
     it('merged context uses default registry when getFunction not provided', () => {
       const context = {
-        getCellValue: () => 5
+        getCellValue: () => 5,
       };
       const ast = parseFormula('SUM(A1, 10)');
       expect(evaluateFormula(ast, context)).toBe(15);
     });
   });
 });
-

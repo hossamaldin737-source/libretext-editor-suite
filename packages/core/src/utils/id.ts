@@ -28,7 +28,7 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-import type {NodeId} from '../ast/types';
+import type { NodeId } from '../ast/types';
 
 const ALPHABET = 'abcdefghijklmnopqrstuvwxyz0123456789';
 

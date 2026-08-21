@@ -27,8 +27,8 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-import {applyOperation} from '@libretext/core';
-import type {FullEditorState, NodeId, Operation} from '@libretext/core';
+import { applyOperation } from '@libretext/core';
+import type { FullEditorState, NodeId, Operation } from '@libretext/core';
 import {
   type Command,
   type SpatialCommand,
@@ -42,7 +42,7 @@ import {
 /**
  * نتيجة تحويل أمر إلى عملية نواة.
  */
-export type CommandOpResult<T> = {success: true; value: T} | {success: false; error: string};
+export type CommandOpResult<T> = { success: true; value: T } | { success: false; error: string };
 
 /**
  * نتيجة تنفيذ أمر على الحالة.
@@ -66,7 +66,7 @@ function spatialOperation(targetId: string, x: number, y: number): Operation {
   return {
     type: 'spatial-move',
     targetId: targetId as NodeId,
-    payload: {x, y},
+    payload: { x, y },
   };
 }
 
@@ -97,10 +97,10 @@ export const TextCommandHandler: ExtensibleCommandHandler<TextCommand> = {
     value: {
       type: 'text-update',
       targetId: cmd.targetId as NodeId,
-      payload: {content: cmd.payload.content},
+      payload: { content: cmd.payload.content },
     },
   }),
-  toInverseOperation: () => ({success: false, error: 'Undo not supported for TextCommand yet'}),
+  toInverseOperation: () => ({ success: false, error: 'Undo not supported for TextCommand yet' }),
 };
 
 export const FormulaCommandHandler: ExtensibleCommandHandler<FormulaCommand> = {
@@ -110,10 +110,13 @@ export const FormulaCommandHandler: ExtensibleCommandHandler<FormulaCommand> = {
     value: {
       type: 'formula-update',
       targetId: cmd.targetId as NodeId,
-      payload: {expression: cmd.payload.expression},
+      payload: { expression: cmd.payload.expression },
     },
   }),
-  toInverseOperation: () => ({success: false, error: 'Undo not supported for FormulaCommand yet'}),
+  toInverseOperation: () => ({
+    success: false,
+    error: 'Undo not supported for FormulaCommand yet',
+  }),
 };
 
 export class CommandExecutor {
@@ -142,58 +145,58 @@ export class CommandExecutor {
   execute(cmd: Command, state: FullEditorState): CommandResult {
     const handler = this.findHandler(cmd);
     if (!handler) {
-      return {success: false, state, error: `No handler found for command type: ${cmd.type}`};
+      return { success: false, state, error: `No handler found for command type: ${cmd.type}` };
     }
 
     const opResult = handler.toOperation(cmd);
     if (!opResult.success) {
-      return {success: false, state, error: opResult.error};
+      return { success: false, state, error: opResult.error };
     }
 
     try {
       const newDoc = applyOperation(state.editor.document, opResult.value);
-      const newState = {...state, editor: {...state.editor, document: newDoc}};
+      const newState = { ...state, editor: { ...state.editor, document: newDoc } };
 
       if (this.canUndo(cmd)) {
         this.history.push(cmd);
       }
 
-      return {success: true, state: newState};
+      return { success: true, state: newState };
     } catch (e) {
       const errorMsg = e instanceof Error ? e.message : String(e);
-      return {success: false, state, error: errorMsg};
+      return { success: false, state, error: errorMsg };
     }
   }
 
   undo(cmd: Command, state: FullEditorState): CommandResult {
     const handler = this.findHandler(cmd);
     if (!handler) {
-      return {success: false, state, error: `No handler found for command type: ${cmd.type}`};
+      return { success: false, state, error: `No handler found for command type: ${cmd.type}` };
     }
 
     const opResult = handler.toInverseOperation(cmd);
     if (!opResult.success) {
-      return {success: false, state, error: opResult.error};
+      return { success: false, state, error: opResult.error };
     }
 
     try {
       const newDoc = applyOperation(state.editor.document, opResult.value);
-      const newState = {...state, editor: {...state.editor, document: newDoc}};
-      return {success: true, state: newState};
+      const newState = { ...state, editor: { ...state.editor, document: newDoc } };
+      return { success: true, state: newState };
     } catch (e) {
       const errorMsg = e instanceof Error ? e.message : String(e);
-      return {success: false, state, error: errorMsg};
+      return { success: false, state, error: errorMsg };
     }
   }
 
   undoLast(state: FullEditorState): CommandResult {
     if (this.history.length === 0) {
-      return {success: false, state, error: 'History is empty'};
+      return { success: false, state, error: 'History is empty' };
     }
 
     const lastCmd = this.history[this.history.length - 1];
     if (!lastCmd) {
-      return {success: false, state, error: 'History is empty'};
+      return { success: false, state, error: 'History is empty' };
     }
     const result = this.undo(lastCmd, state);
 
@@ -211,7 +214,7 @@ export class CommandExecutor {
     for (let i = 0; i < count && this.history.length > 0; i++) {
       const lastCmd = this.history[this.history.length - 1];
       if (!lastCmd) {
-        return {success: false, state: currentState, error: 'History is empty'};
+        return { success: false, state: currentState, error: 'History is empty' };
       }
       const result = this.undo(lastCmd, currentState);
 
@@ -220,15 +223,19 @@ export class CommandExecutor {
         currentState = result.state;
         successCount++;
       } else {
-        return {success: false, state: currentState, error: `Batch undo aborted: ${result.error}`};
+        return {
+          success: false,
+          state: currentState,
+          error: `Batch undo aborted: ${result.error}`,
+        };
       }
     }
 
     if (successCount === 0 && count > 0) {
-      return {success: false, state: currentState, error: 'No commands could be undone'};
+      return { success: false, state: currentState, error: 'No commands could be undone' };
     }
 
-    return {success: true, state: currentState};
+    return { success: true, state: currentState };
   }
 
   getHistoryLength(): number {

@@ -22,8 +22,6 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-export function compose<T>(
-  ...fns: ReadonlyArray<(v: T) => T>
-): (v: T) => T {
+export function compose<T>(...fns: ReadonlyArray<(v: T) => T>): (v: T) => T {
   return (value: T) => fns.reduceRight((acc, fn) => fn(acc), value);
 }

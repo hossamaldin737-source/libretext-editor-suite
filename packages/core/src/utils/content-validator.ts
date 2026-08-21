@@ -44,8 +44,8 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-import type {ContentBlock, TableData} from '../parsers/markdown';
-import {detectDirection} from './arabic-text';
+import type { ContentBlock, TableData } from '../parsers/markdown';
+import { detectDirection } from './arabic-text';
 
 export interface BlockValidation {
   readonly valid: boolean;
@@ -74,8 +74,8 @@ export function isTableContent(content: unknown): content is TableData {
 export function validateHeadingBlock(
   block: ContentBlock,
   position: number,
-  previousState: HeadingHierarchyState
-): {validation: BlockValidation; newState: HeadingHierarchyState} {
+  previousState: HeadingHierarchyState,
+): { validation: BlockValidation; newState: HeadingHierarchyState } {
   const errors: string[] = [];
   const warnings: string[] = [];
   const level = block.level ?? 1;
@@ -90,7 +90,7 @@ export function validateHeadingBlock(
   if (previousLevel > 0 && level > previousLevel + 1) {
     errors.push(
       `Heading hierarchy error at position ${position}: ` +
-        `H${previousLevel} → H${level} (skipped H${previousLevel + 1})`
+        `H${previousLevel} → H${level} (skipped H${previousLevel + 1})`,
     );
   }
 
@@ -104,13 +104,10 @@ export function validateHeadingBlock(
     headingCount: previousState.headingCount + 1,
   };
 
-  return {validation: {valid: errors.length === 0, errors, warnings, direction}, newState};
+  return { validation: { valid: errors.length === 0, errors, warnings, direction }, newState };
 }
 
-export function validateListBlock(
-  block: ContentBlock,
-  position: number
-): BlockValidation {
+export function validateListBlock(block: ContentBlock, position: number): BlockValidation {
   const errors: string[] = [];
   const warnings: string[] = [];
   const items = Array.isArray(block.content) ? block.content : [];
@@ -130,19 +127,16 @@ export function validateListBlock(
     warnings.push(`${emptyItems.length} empty item(s) in ${listType} list at position ${position}`);
   }
 
-  return {valid: errors.length === 0, errors, warnings, direction};
+  return { valid: errors.length === 0, errors, warnings, direction };
 }
 
-export function validateTableBlock(
-  block: ContentBlock,
-  position: number
-): BlockValidation {
+export function validateTableBlock(block: ContentBlock, position: number): BlockValidation {
   const errors: string[] = [];
   const warnings: string[] = [];
 
   if (!isTableContent(block.content)) {
     errors.push(`Invalid table content at position ${position}`);
-    return {valid: false, errors, warnings};
+    return { valid: false, errors, warnings };
   }
 
   const table = block.content;
@@ -159,7 +153,7 @@ export function validateTableBlock(
     if (row && row.length !== table.headers.length) {
       errors.push(
         `Table at position ${position}, row ${rowIdx + 1}: ` +
-          `Expected ${table.headers.length} columns, found ${row.length}`
+          `Expected ${table.headers.length} columns, found ${row.length}`,
       );
     }
   }
@@ -167,13 +161,10 @@ export function validateTableBlock(
   const allCells = [...table.headers, ...table.rows.flat()].join(' ');
   const direction = detectDirection(allCells);
 
-  return {valid: errors.length === 0, errors, warnings, direction};
+  return { valid: errors.length === 0, errors, warnings, direction };
 }
 
-export function validateCodeBlock(
-  block: ContentBlock,
-  position: number
-): BlockValidation {
+export function validateCodeBlock(block: ContentBlock, position: number): BlockValidation {
   const warnings: string[] = [];
 
   if (block.language === undefined || block.language === '') {
@@ -185,31 +176,31 @@ export function validateCodeBlock(
     warnings.push(`Empty code block at position ${position}`);
   }
 
-  return {valid: true, errors: [], warnings, direction: 'ltr'};
+  return { valid: true, errors: [], warnings, direction: 'ltr' };
 }
 
 export function validateBlock(
   block: ContentBlock,
   position: number,
-  headingState: HeadingHierarchyState
-): {validation: BlockValidation; newState: HeadingHierarchyState} {
+  headingState: HeadingHierarchyState,
+): { validation: BlockValidation; newState: HeadingHierarchyState } {
   switch (block.type) {
     case 'heading':
       return validateHeadingBlock(block, position, headingState);
     case 'list':
-      return {validation: validateListBlock(block, position), newState: headingState};
+      return { validation: validateListBlock(block, position), newState: headingState };
     case 'table':
-      return {validation: validateTableBlock(block, position), newState: headingState};
+      return { validation: validateTableBlock(block, position), newState: headingState };
     case 'code':
-      return {validation: validateCodeBlock(block, position), newState: headingState};
+      return { validation: validateCodeBlock(block, position), newState: headingState };
     case 'paragraph': {
       const text = typeof block.content === 'string' ? block.content : '';
       return {
-        validation: {valid: true, errors: [], warnings: [], direction: detectDirection(text)},
+        validation: { valid: true, errors: [], warnings: [], direction: detectDirection(text) },
         newState: headingState,
       };
     }
     default:
-      return {validation: {valid: true, errors: [], warnings: []}, newState: headingState};
+      return { validation: { valid: true, errors: [], warnings: [] }, newState: headingState };
   }
 }

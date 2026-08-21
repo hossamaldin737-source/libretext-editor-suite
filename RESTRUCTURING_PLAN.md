@@ -9,13 +9,13 @@
 
 ## 🎯 المشاكل المُكتشفة
 
-| # | المشكلة | الحالة الحالية | المطلوب |
-|---|---------|---------------|---------|
-| 1 | **لا توجد طبقة منطق** | لا خوارزميات، لا صيغ، لا ماكرو | Command Pattern + Expression Evaluator |
-| 2 | **لا توجد ذاكرة** | لا In-Memory، لا Persistence | EditorState حي + LocalStorage + IndexedDB |
-| 3 | **لا توجد قوالب** | لا Template System | Template Registry متعددة الصيغ |
-| 4 | **نطاقات مفقودة** | لا Office، لا DB | Writer, Calc, Impress, Base |
-| 5 | **لا يوجد محرك مكاني** | لا Spatial Translation | Adapter → SpatialMapper → Core |
+| #   | المشكلة                | الحالة الحالية                 | المطلوب                                   |
+| --- | ---------------------- | ------------------------------ | ----------------------------------------- |
+| 1   | **لا توجد طبقة منطق**  | لا خوارزميات، لا صيغ، لا ماكرو | Command Pattern + Expression Evaluator    |
+| 2   | **لا توجد ذاكرة**      | لا In-Memory، لا Persistence   | EditorState حي + LocalStorage + IndexedDB |
+| 3   | **لا توجد قوالب**      | لا Template System             | Template Registry متعددة الصيغ            |
+| 4   | **نطاقات مفقودة**      | لا Office، لا DB               | Writer, Calc, Impress, Base               |
+| 5   | **لا يوجد محرك مكاني** | لا Spatial Translation         | Adapter → SpatialMapper → Core            |
 
 ---
 
@@ -45,12 +45,12 @@ Adapter (mouse coords) → SpatialMapper (logical coords) → Core (pure command
 
 ### 3. النطاقات المكتبية الأربعة (Full Office Suite)
 
-| النطاق | الوصف | الإحداثيات |
-|--------|-------|-----------|
-| **Writer** | نصوص ومستندات | Character/Paragraph Position |
-| **Calc** | جداول وحسابات | GridCoordinate (A1, B2) |
-| **Impress** | شائح وعروض | LogicalCoordinate (cm, inch) |
-| **Base** | سجلات وقواعد بيانات | GridCoordinate + Record ID |
+| النطاق      | الوصف               | الإحداثيات                   |
+| ----------- | ------------------- | ---------------------------- |
+| **Writer**  | نصوص ومستندات       | Character/Paragraph Position |
+| **Calc**    | جداول وحسابات       | GridCoordinate (A1, B2)      |
+| **Impress** | شائح وعروض          | LogicalCoordinate (cm, inch) |
+| **Base**    | سجلات وقواعد بيانات | GridCoordinate + Record ID   |
 
 ### 4. الذاكرة والقوالب (Storage & Templates)
 
@@ -67,12 +67,12 @@ Template Registry (قوالب جاهزة)
 
 ### 5. قواعد الصيانة الصارمة
 
-| القاعدة | الحد |
-|---------|------|
-| حد أقصى سطر/ملف | **250 سطر** |
-| حد أقصى سطر/دالة | **50 سطر** |
-| الثيم | **الفاتح النقي حصراً** |
-| التفاعل | **الماوس فقط + قوائم سياقية** |
+| القاعدة          | الحد                          |
+| ---------------- | ----------------------------- |
+| حد أقصى سطر/ملف  | **250 سطر**                   |
+| حد أقصى سطر/دالة | **50 سطر**                    |
+| الثيم            | **الفاتح النقي حصراً**        |
+| التفاعل          | **الماوس فقط + قوائم سياقية** |
 
 ---
 
@@ -143,58 +143,58 @@ packages/
 
 ### المرحلة A: طبقة المنطق والدوال (ALGO) — الأولوية القصوى
 
-| المعرف | المكون | الوصف | سطر/ملف |
-|--------|--------|-------|---------|
-| ALGO-001 | `command/types.ts` | أنواع الأوامر (SpatialCommand, TextCommand) | ≤ 250 |
-| ALGO-002 | `command/executor.ts` | منفذ الأوامر (Command Executor) | ≤ 250 |
-| ALGO-003 | `command/registry.ts` | سجل الأوامر (Command Registry) | ≤ 250 |
-| ALGO-004 | `formula/parser.ts` | محلل تنازلي للصيغ (PEMDAS) | ≤ 250 |
-| ALGO-005 | `formula/evaluator.ts` | مُقيّم التعابير الحسابية | ≤ 250 |
-| ALGO-006 | `formula/functions.ts` | دوال مدمجة (SUM, AVG, IF) | ≤ 250 |
-| ALGO-007 | `spatial/types.ts` | أنواع الإحداثيات المكانية | ≤ 250 |
-| ALGO-008 | `spatial/mapper.ts` | المترجم المكاني (SpatialMapper) | ≤ 250 |
-| ALGO-009 | `spatial/commands.ts` | أوامر مكانية (SpatialCommand) | ≤ 250 |
+| المعرف   | المكون                 | الوصف                                       | سطر/ملف |
+| -------- | ---------------------- | ------------------------------------------- | ------- |
+| ALGO-001 | `command/types.ts`     | أنواع الأوامر (SpatialCommand, TextCommand) | ≤ 250   |
+| ALGO-002 | `command/executor.ts`  | منفذ الأوامر (Command Executor)             | ≤ 250   |
+| ALGO-003 | `command/registry.ts`  | سجل الأوامر (Command Registry)              | ≤ 250   |
+| ALGO-004 | `formula/parser.ts`    | محلل تنازلي للصيغ (PEMDAS)                  | ≤ 250   |
+| ALGO-005 | `formula/evaluator.ts` | مُقيّم التعابير الحسابية                    | ≤ 250   |
+| ALGO-006 | `formula/functions.ts` | دوال مدمجة (SUM, AVG, IF)                   | ≤ 250   |
+| ALGO-007 | `spatial/types.ts`     | أنواع الإحداثيات المكانية                   | ≤ 250   |
+| ALGO-008 | `spatial/mapper.ts`    | المترجم المكاني (SpatialMapper)             | ≤ 250   |
+| ALGO-009 | `spatial/commands.ts`  | أوامر مكانية (SpatialCommand)               | ≤ 250   |
 
 ### المرحلة B: طبقة التخزين (STORE)
 
-| المعرف | المكون | الوصف | سطر/ملف |
-|--------|--------|-------|---------|
-| STORE-001 | `memory.ts` | In-Memory Store مع CRUD | ≤ 250 |
-| STORE-002 | `localStorage.ts` | localStorage Adapter | ≤ 250 |
-| STORE-003 | `indexeddb.ts` | IndexedDB Adapter | ≤ 250 |
-| STORE-004 | `snapshots.ts` | Undo/Redo Snapshots | ≤ 250 |
+| المعرف    | المكون            | الوصف                   | سطر/ملف |
+| --------- | ----------------- | ----------------------- | ------- |
+| STORE-001 | `memory.ts`       | In-Memory Store مع CRUD | ≤ 250   |
+| STORE-002 | `localStorage.ts` | localStorage Adapter    | ≤ 250   |
+| STORE-003 | `indexeddb.ts`    | IndexedDB Adapter       | ≤ 250   |
+| STORE-004 | `snapshots.ts`    | Undo/Redo Snapshots     | ≤ 250   |
 
 ### المرحلة C: نظام القوالب (TPL)
 
-| المعرف | المكون | الوصف | سطر/ملف |
-|--------|--------|-------|---------|
-| TPL-001 | `registry.ts` | Template Registry | ≤ 250 |
-| TPL-002 | `writer/` | قوالب Writer (خطاب، تقرير، مقال) | ≤ 250 |
-| TPL-003 | `calc/` | قوالب Calc (ميزانية، تتبع، إحصاء) | ≤ 250 |
-| TPL-004 | `impress/` | قوالب Impress (عرض تقديمي، سلايد) | ≤ 250 |
-| TPL-005 | `base/` | قوالب Base (سجل، فهرس، استعلام) | ≤ 250 |
+| المعرف  | المكون        | الوصف                             | سطر/ملف |
+| ------- | ------------- | --------------------------------- | ------- |
+| TPL-001 | `registry.ts` | Template Registry                 | ≤ 250   |
+| TPL-002 | `writer/`     | قوالب Writer (خطاب، تقرير، مقال)  | ≤ 250   |
+| TPL-003 | `calc/`       | قوالب Calc (ميزانية، تتبع، إحصاء) | ≤ 250   |
+| TPL-004 | `impress/`    | قوالب Impress (عرض تقديمي، سلايد) | ≤ 250   |
+| TPL-005 | `base/`       | قوالب Base (سجل، فهرس، استعلام)   | ≤ 250   |
 
 ### المرحلة D: نطاقات مكتبية (OFFICE)
 
-| النطاق | الوصف |
-|--------|-------|
-| Writer | معالج كلمات كامل (Format, Style, Table, Image) |
-| Calc | جداول حسابية (Formula, Chart, Pivot) |
-| Impress | عروض تقديمية (Slide, Theme, Animation) |
-| Base | قواعد بيانات (Table, Query, Form, Report) |
+| النطاق  | الوصف                                          |
+| ------- | ---------------------------------------------- |
+| Writer  | معالج كلمات كامل (Format, Style, Table, Image) |
+| Calc    | جداول حسابية (Formula, Chart, Pivot)           |
+| Impress | عروض تقديمية (Slide, Theme, Animation)         |
+| Base    | قواعد بيانات (Table, Query, Form, Report)      |
 
 ---
 
 ## 📊 الإحصائيات المتوقعة
 
-| البند | الحالي | بعد إعادة الهيكلة |
-|-------|--------|-------------------|
-| عدد الحزم | 5 | 8 |
-| عدد الملفات | 36 | ~55 |
-| إجمالي الأسطر | 3,903 | ~7,500 |
-| حد أقصى سطر/ملف | 271 | ≤ 250 |
-| حد أقصى سطر/دالة | غير محدد | ≤ 50 |
-| عدد الاختبارات | 120 | ~200+ |
+| البند            | الحالي   | بعد إعادة الهيكلة |
+| ---------------- | -------- | ----------------- |
+| عدد الحزم        | 5        | 8                 |
+| عدد الملفات      | 36       | ~55               |
+| إجمالي الأسطر    | 3,903    | ~7,500            |
+| حد أقصى سطر/ملف  | 271      | ≤ 250             |
+| حد أقصى سطر/دالة | غير محدد | ≤ 50              |
+| عدد الاختبارات   | 120      | ~200+             |
 
 ---
 

@@ -50,7 +50,7 @@ export class BooleanOperationsEngine {
   static execute(
     shapeA: GeometricShapeBounds,
     shapeB: GeometricShapeBounds,
-    op: BooleanOpType
+    op: BooleanOpType,
   ): BooleanResult {
     const minX = Math.min(shapeA.x, shapeB.x);
     const minY = Math.min(shapeA.y, shapeB.y);
@@ -84,7 +84,10 @@ export class BooleanOperationsEngine {
         const intX = Math.max(shapeA.x, shapeB.x);
         const intY = Math.max(shapeA.y, shapeB.y);
         const intW = Math.max(0, Math.min(shapeA.x + shapeA.width, shapeB.x + shapeB.width) - intX);
-        const intH = Math.max(0, Math.min(shapeA.y + shapeA.height, shapeB.y + shapeB.height) - intY);
+        const intH = Math.max(
+          0,
+          Math.min(shapeA.y + shapeA.height, shapeB.y + shapeB.height) - intY,
+        );
         return {
           bounds: { x: intX, y: intY, width: intW, height: intH },
           compoundPath: `M ${intX} ${intY} H ${intX + intW} V ${intY + intH} H ${intX} Z`,

@@ -24,7 +24,7 @@ import {
   COUNTA,
   COUNTBLANK,
   COUNTIF,
-  SUMIF
+  SUMIF,
 } from '../../src/formula/functions-math';
 
 describe('ALGO-015: Extended Math & Statistics Functions', () => {
@@ -95,4 +95,3 @@ describe('ALGO-015: Extended Math & Statistics Functions', () => {
     });
   });
 });
-

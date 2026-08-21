@@ -66,7 +66,7 @@ import {
   type LengthUnitValue,
   LengthUnit,
   createLogicalCoordinate,
-  createGridCoordinate
+  createGridCoordinate,
 } from './types';
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -126,17 +126,17 @@ export const OfficeDomain = {
   WRITER: 'writer',
   CALC: 'calc',
   IMPRESS: 'impress',
-  BASE: 'base'
+  BASE: 'base',
 } as const;
 
-export type OfficeDomainValue = typeof OfficeDomain[keyof typeof OfficeDomain];
+export type OfficeDomainValue = (typeof OfficeDomain)[keyof typeof OfficeDomain];
 
 /** خريطة الوحدات الافتراضية لكل نطاق */
 const DOMAIN_DEFAULT_UNIT: Record<OfficeDomainValue, LengthUnitValue> = {
   [OfficeDomain.WRITER]: LengthUnit.POINT,
   [OfficeDomain.CALC]: LengthUnit.PIXEL,
   [OfficeDomain.IMPRESS]: LengthUnit.CENTIMETER,
-  [OfficeDomain.BASE]: LengthUnit.PIXEL
+  [OfficeDomain.BASE]: LengthUnit.PIXEL,
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -149,7 +149,7 @@ const UNIT_TO_PX: Record<LengthUnitValue, number> = {
   [LengthUnit.CENTIMETER]: PIXELS_PER_CM,
   [LengthUnit.INCH]: PIXELS_PER_INCH,
   [LengthUnit.POINT]: PIXELS_PER_PT,
-  [LengthUnit.MILLIMETER]: PIXELS_PER_MM
+  [LengthUnit.MILLIMETER]: PIXELS_PER_MM,
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -167,11 +167,7 @@ export function pxToUnit(px: number, unit: LengthUnitValue): number {
 }
 
 /** تحويل قيمة بين وحدتين مختلفتين */
-export function convertLength(
-  value: number,
-  from: LengthUnitValue,
-  to: LengthUnitValue
-): number {
+export function convertLength(value: number, from: LengthUnitValue, to: LengthUnitValue): number {
   if (from === to) {
     return value;
   }
@@ -199,7 +195,7 @@ function validateViewport(viewport: ViewportConfig): void {
 export function translateToLogical(
   raw: RawMouseCoords,
   viewport: ViewportConfig,
-  unit: LengthUnitValue = LengthUnit.PIXEL
+  unit: LengthUnitValue = LengthUnit.PIXEL,
 ): LogicalCoordinate {
   validateViewport(viewport);
 
@@ -225,7 +221,7 @@ export function translateToLogical(
 export function translateToGrid(
   raw: RawMouseCoords,
   viewport: ViewportConfig,
-  grid: GridMapperConfig
+  grid: GridMapperConfig,
 ): GridCoordinate {
   validateViewport(viewport);
 
@@ -258,7 +254,7 @@ export function translateToGrid(
 export function translateCoords(
   raw: RawMouseCoords,
   domain: OfficeDomainValue,
-  config: MapperConfig
+  config: MapperConfig,
 ): SpatialCoordinate {
   switch (domain) {
     case OfficeDomain.CALC:

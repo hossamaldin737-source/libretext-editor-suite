@@ -74,7 +74,7 @@ export const DEFAULTS = {
   FONT_SIZE: 11,
   PAGE_SIZE: 'A4' as const,
   MARGINS: {
-    top: TWIPS_PER_INCH,    // 1 inch
+    top: TWIPS_PER_INCH, // 1 inch
     right: TWIPS_PER_INCH,
     bottom: TWIPS_PER_INCH,
     left: TWIPS_PER_INCH,
@@ -99,9 +99,7 @@ export const HEADING_LEVELS: Record<number, HL> = {
 // Validation Helpers
 // ─────────────────────────────────────────────────────────────────────────────
 
-export function resolveMargins(
-  partial?: Partial<PageMargins>
-): Required<PageMargins> {
+export function resolveMargins(partial?: Partial<PageMargins>): Required<PageMargins> {
   return {
     top: partial?.top ?? DEFAULTS.MARGINS.top,
     right: partial?.right ?? DEFAULTS.MARGINS.right,

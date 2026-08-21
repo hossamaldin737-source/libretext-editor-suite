@@ -26,8 +26,16 @@ import {
 
 describe('Universal Find & Replace Engine', () => {
   const sampleItems: SearchTargetItem[] = [
-    { id: 'block-1', type: 'writer-block', text: 'LibreText is a modular TypeScript editor suite.' },
-    { id: 'block-2', type: 'writer-block', text: 'The core provides zero-dependency state management.' },
+    {
+      id: 'block-1',
+      type: 'writer-block',
+      text: 'LibreText is a modular TypeScript editor suite.',
+    },
+    {
+      id: 'block-2',
+      type: 'writer-block',
+      text: 'The core provides zero-dependency state management.',
+    },
     { id: 'cell-A1', type: 'calc-cell', text: 'LibreText Calc' },
     { id: 'slide-1', type: 'impress-element', text: 'Introduction to LibreText Suite' },
   ];

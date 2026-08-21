@@ -16,9 +16,9 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-import {describe, it, expect} from 'vitest';
-import {TxtSerializer} from '../src/basic/txt-serializer';
-import type {DocNode, NodeId} from '@libretext/core';
+import { describe, it, expect } from 'vitest';
+import { TxtSerializer } from '../src/basic/txt-serializer';
+import type { DocNode, NodeId } from '@libretext/core';
 
 const serializer = new TxtSerializer();
 
@@ -31,7 +31,11 @@ const createDoc = (content: DocNode['content']): DocNode => ({
 describe('TxtSerializer', () => {
   it('يقوم بتحويل الفقرات', () => {
     const doc = createDoc([
-      {type: 'paragraph', id: 'p1' as NodeId, content: [{type: 'text', id: 't1' as NodeId, text: 'Hello World'}]},
+      {
+        type: 'paragraph',
+        id: 'p1' as NodeId,
+        content: [{ type: 'text', id: 't1' as NodeId, text: 'Hello World' }],
+      },
     ]);
     const result = serializer.serialize(doc);
     expect(result).toBe('Hello World');
@@ -43,7 +47,7 @@ describe('TxtSerializer', () => {
         type: 'heading',
         id: 'h1' as NodeId,
         level: 1,
-        content: [{type: 'text', id: 't1' as NodeId, text: 'Title'}],
+        content: [{ type: 'text', id: 't1' as NodeId, text: 'Title' }],
       },
     ]);
     const result = serializer.serialize(doc);
@@ -57,8 +61,28 @@ describe('TxtSerializer', () => {
         id: 'l1' as NodeId,
         ordered: false,
         items: [
-          {id: 'li1' as NodeId, type: 'list-item', content: [{type: 'paragraph', id: 'p1' as NodeId, content: [{type: 'text', id: 't1' as NodeId, text: 'Item 1'}]}]},
-          {id: 'li2' as NodeId, type: 'list-item', content: [{type: 'paragraph', id: 'p2' as NodeId, content: [{type: 'text', id: 't2' as NodeId, text: 'Item 2'}]}]},
+          {
+            id: 'li1' as NodeId,
+            type: 'list-item',
+            content: [
+              {
+                type: 'paragraph',
+                id: 'p1' as NodeId,
+                content: [{ type: 'text', id: 't1' as NodeId, text: 'Item 1' }],
+              },
+            ],
+          },
+          {
+            id: 'li2' as NodeId,
+            type: 'list-item',
+            content: [
+              {
+                type: 'paragraph',
+                id: 'p2' as NodeId,
+                content: [{ type: 'text', id: 't2' as NodeId, text: 'Item 2' }],
+              },
+            ],
+          },
         ],
       },
     ]);
@@ -80,14 +104,14 @@ describe('TxtSerializer', () => {
   });
 
   it('يقوم بتحويل الخط الفاصل', () => {
-    const doc = createDoc([{type: 'horizontal-rule', id: 'hr1' as NodeId}]);
+    const doc = createDoc([{ type: 'horizontal-rule', id: 'hr1' as NodeId }]);
     const result = serializer.serialize(doc);
     expect(result).toBe('- - - - - -');
   });
 
   it('يقوم بتحويل الصور كنص', () => {
     const doc = createDoc([
-      {type: 'image', id: 'img1' as NodeId, src: '/test.png', alt: 'Test Image'},
+      { type: 'image', id: 'img1' as NodeId, src: '/test.png', alt: 'Test Image' },
     ]);
     const result = serializer.serialize(doc);
     expect(result).toBe('[Image: Test Image]');
@@ -99,8 +123,12 @@ describe('TxtSerializer', () => {
         type: 'paragraph',
         id: 'p1' as NodeId,
         content: [
-          {type: 'text', id: 't1' as NodeId, text: 'Hello '},
-          {type: 'bold', id: 'b1' as NodeId, content: [{type: 'text', id: 't2' as NodeId, text: 'World'}]},
+          { type: 'text', id: 't1' as NodeId, text: 'Hello ' },
+          {
+            type: 'bold',
+            id: 'b1' as NodeId,
+            content: [{ type: 'text', id: 't2' as NodeId, text: 'World' }],
+          },
         ],
       },
     ]);

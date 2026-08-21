@@ -31,12 +31,12 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-import type {BlockNode, DocNode, InlineNode, NodeId, NodeInfo} from '../ast/types';
+import type { BlockNode, DocNode, InlineNode, NodeId, NodeInfo } from '../ast/types';
 
 export interface Indexer {
   readonly nodeMap: Map<NodeId, NodeInfo>;
   readonly nodesByType: Map<string, readonly NodeInfo[]>;
-  readonly textNodes: readonly {id: NodeId; text: string; path: readonly NodeId[]}[];
+  readonly textNodes: readonly { id: NodeId; text: string; path: readonly NodeId[] }[];
 }
 
 /**
@@ -45,7 +45,7 @@ export interface Indexer {
 export function buildIndexer(doc: DocNode): Indexer {
   const nodeMap = new Map<NodeId, NodeInfo>();
   const nodesByType = new Map<string, NodeInfo[]>();
-  const textNodes: {id: NodeId; text: string; path: readonly NodeId[]}[] = [];
+  const textNodes: { id: NodeId; text: string; path: readonly NodeId[] }[] = [];
 
   function addNode(
     node: BlockNode | InlineNode,
@@ -53,7 +53,7 @@ export function buildIndexer(doc: DocNode): Indexer {
     depth: number,
     parent: BlockNode | DocNode | null,
   ): void {
-    const info: NodeInfo = {node, path, depth, parent};
+    const info: NodeInfo = { node, path, depth, parent };
     nodeMap.set(node.id, info);
 
     const typeList = nodesByType.get(node.type) ?? [];
@@ -63,7 +63,7 @@ export function buildIndexer(doc: DocNode): Indexer {
     if (node.type === 'text' && 'text' in node) {
       textNodes.push({
         id: node.id,
-        text: (node as {text: string}).text,
+        text: (node as { text: string }).text,
         path: [...path, node.id],
       });
     }

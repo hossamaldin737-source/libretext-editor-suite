@@ -16,9 +16,9 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-import {describe, it, expect} from 'vitest';
-import {HtmlSerializer} from '../src/basic/html-serializer';
-import type {DocNode, NodeId} from '@libretext/core';
+import { describe, it, expect } from 'vitest';
+import { HtmlSerializer } from '../src/basic/html-serializer';
+import type { DocNode, NodeId } from '@libretext/core';
 
 const serializer = new HtmlSerializer();
 
@@ -31,7 +31,11 @@ const createDoc = (content: DocNode['content']): DocNode => ({
 describe('HtmlSerializer', () => {
   it('يقوم بتحويل المستند الكامل مع DOCTYPE', () => {
     const doc = createDoc([
-      {type: 'paragraph', id: 'p1' as NodeId, content: [{type: 'text', id: 't1' as NodeId, text: 'Hello'}]},
+      {
+        type: 'paragraph',
+        id: 'p1' as NodeId,
+        content: [{ type: 'text', id: 't1' as NodeId, text: 'Hello' }],
+      },
     ]);
     const result = serializer.serialize(doc);
     expect(result).toContain('<!DOCTYPE html>');
@@ -41,7 +45,11 @@ describe('HtmlSerializer', () => {
 
   it('يقوم بتحويل الفقرات', () => {
     const doc = createDoc([
-      {type: 'paragraph', id: 'p1' as NodeId, content: [{type: 'text', id: 't1' as NodeId, text: 'Hello World'}]},
+      {
+        type: 'paragraph',
+        id: 'p1' as NodeId,
+        content: [{ type: 'text', id: 't1' as NodeId, text: 'Hello World' }],
+      },
     ]);
     const result = serializer.serialize(doc);
     expect(result).toContain('<p>Hello World</p>');
@@ -53,7 +61,7 @@ describe('HtmlSerializer', () => {
         type: 'heading',
         id: 'h1' as NodeId,
         level: 1,
-        content: [{type: 'text', id: 't1' as NodeId, text: 'Title'}],
+        content: [{ type: 'text', id: 't1' as NodeId, text: 'Title' }],
       },
     ]);
     const result = serializer.serialize(doc);
@@ -67,7 +75,17 @@ describe('HtmlSerializer', () => {
         id: 'l1' as NodeId,
         ordered: false,
         items: [
-          {id: 'li1' as NodeId, type: 'list-item', content: [{type: 'paragraph', id: 'p1' as NodeId, content: [{type: 'text', id: 't1' as NodeId, text: 'Item'}]}]},
+          {
+            id: 'li1' as NodeId,
+            type: 'list-item',
+            content: [
+              {
+                type: 'paragraph',
+                id: 'p1' as NodeId,
+                content: [{ type: 'text', id: 't1' as NodeId, text: 'Item' }],
+              },
+            ],
+          },
         ],
       },
     ]);
@@ -91,7 +109,7 @@ describe('HtmlSerializer', () => {
   });
 
   it('يقوم بتحويل الخط الفاصل', () => {
-    const doc = createDoc([{type: 'horizontal-rule', id: 'hr1' as NodeId}]);
+    const doc = createDoc([{ type: 'horizontal-rule', id: 'hr1' as NodeId }]);
     const result = serializer.serialize(doc);
     expect(result).toContain('<hr>');
   });
@@ -102,8 +120,12 @@ describe('HtmlSerializer', () => {
         type: 'paragraph',
         id: 'p1' as NodeId,
         content: [
-          {type: 'text', id: 't1' as NodeId, text: 'Hello '},
-          {type: 'bold', id: 'b1' as NodeId, content: [{type: 'text', id: 't2' as NodeId, text: 'World'}]},
+          { type: 'text', id: 't1' as NodeId, text: 'Hello ' },
+          {
+            type: 'bold',
+            id: 'b1' as NodeId,
+            content: [{ type: 'text', id: 't2' as NodeId, text: 'World' }],
+          },
         ],
       },
     ]);
@@ -117,12 +139,12 @@ describe('HtmlSerializer', () => {
         type: 'paragraph',
         id: 'p1' as NodeId,
         content: [
-          {type: 'text', id: 't1' as NodeId, text: 'Visit '},
+          { type: 'text', id: 't1' as NodeId, text: 'Visit ' },
           {
             type: 'link',
             id: 'l1' as NodeId,
             href: 'https://example.com',
-            content: [{type: 'text', id: 't2' as NodeId, text: 'Example'}],
+            content: [{ type: 'text', id: 't2' as NodeId, text: 'Example' }],
           },
         ],
       },
@@ -136,7 +158,7 @@ describe('HtmlSerializer', () => {
       {
         type: 'paragraph',
         id: 'p1' as NodeId,
-        content: [{type: 'text', id: 't1' as NodeId, text: '<script>alert("xss")</script>'}],
+        content: [{ type: 'text', id: 't1' as NodeId, text: '<script>alert("xss")</script>' }],
       },
     ]);
     const result = serializer.serialize(doc);

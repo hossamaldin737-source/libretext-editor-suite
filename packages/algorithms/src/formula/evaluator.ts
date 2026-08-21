@@ -1,47 +1,34 @@
 /**
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 📌 ملخص توجيهي | Guiding Summary
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 📄 الملف: evaluator.ts
-  * 📂 المسار: packages/algorithms/src/formula/evaluator.ts
-  * 🎯 الهدف الرئيسي: تقييم شجرة AST للصيغ مع دعم Lazy Evaluation لـ IF
-  * 📋 المعايير: صفر اعتماديات، Lazy IF، merged context، برمجة دفاعية (<250 سطر)
-  * 🧪 الاختبارات: packages/algorithms/tests/formula/evaluator.test.ts
-  * 🏷️ المعرف: ALGO-005
-  * 📅 تاريخ الإنشاء: 2026-08-19
-  * 🔄 آخر تحديث: 2026-08-19 (v3: Lazy IF + Merged Context)
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 🧠 الطريقة المبتكرة | Innovative Pattern:
-  *    Visitor Pattern + Lazy Evaluation + Context Merging
-  * ═══════════════════════════════════════════════════════════════════════════
-  * ⚠️ نقاط الخطر الإلزامية | Mandatory Gotchas:
-  *    1. IF() يجب أن تكون Lazy لتجنب تقييم الفروع غير المطلوبة
-  *    2. القسمة على صفر
-  *    3. المراجع الدائرية للخلايا (Circular References)
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 👤 المالك: Hossam El-Din Abdel-Moaty El-Khouly - All rights reserved
-  * ⚖️ الترخيص: MIT License
-  * ═══════════════════════════════════════════════════════════════════════════
-  */
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 📌 ملخص توجيهي | Guiding Summary
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 📄 الملف: evaluator.ts
+ * 📂 المسار: packages/algorithms/src/formula/evaluator.ts
+ * 🎯 الهدف الرئيسي: تقييم شجرة AST للصيغ مع دعم Lazy Evaluation لـ IF
+ * 📋 المعايير: صفر اعتماديات، Lazy IF، merged context، برمجة دفاعية (<250 سطر)
+ * 🧪 الاختبارات: packages/algorithms/tests/formula/evaluator.test.ts
+ * 🏷️ المعرف: ALGO-005
+ * 📅 تاريخ الإنشاء: 2026-08-19
+ * 🔄 آخر تحديث: 2026-08-19 (v3: Lazy IF + Merged Context)
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 🧠 الطريقة المبتكرة | Innovative Pattern:
+ *    Visitor Pattern + Lazy Evaluation + Context Merging
+ * ═══════════════════════════════════════════════════════════════════════════
+ * ⚠️ نقاط الخطر الإلزامية | Mandatory Gotchas:
+ *    1. IF() يجب أن تكون Lazy لتجنب تقييم الفروع غير المطلوبة
+ *    2. القسمة على صفر
+ *    3. المراجع الدائرية للخلايا (Circular References)
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 👤 المالك: Hossam El-Din Abdel-Moaty El-Khouly - All rights reserved
+ * ⚖️ الترخيص: MIT License
+ * ═══════════════════════════════════════════════════════════════════════════
+ */
 
-import type {
-  FormulaAST,
-  BinaryOperator,
-  UnaryOperator,
-  ConstantName
-} from './ast';
+import type { FormulaAST, BinaryOperator, UnaryOperator, ConstantName } from './ast';
 import { MATH_CONSTANTS } from './ast';
-import {
-  excelEquals,
-  compare,
-  expandCellRange
-} from './cell-utils';
+import { excelEquals, compare, expandCellRange } from './cell-utils';
 import { getDefaultFunctionRegistry } from './registry';
-import {
-  EvaluationContext,
-  EvaluationResult,
-  EvaluationError
-} from './evaluator-types';
+import { EvaluationContext, EvaluationResult, EvaluationError } from './evaluator-types';
 
 export * from './evaluator-types';
 
@@ -64,7 +51,7 @@ export class FormulaEvaluator {
   evaluate(ast: FormulaAST): EvaluationResult {
     if (this.depth >= this.maxDepth) {
       throw new EvaluationError(
-        `Maximum evaluation depth (${this.maxDepth}) exceeded. Possible circular reference.`
+        `Maximum evaluation depth (${this.maxDepth}) exceeded. Possible circular reference.`,
       );
     }
     this.depth++;
@@ -111,7 +98,7 @@ export class FormulaEvaluator {
   private visitCell(ref: string): EvaluationResult {
     if (!this.context.getCellValue) {
       throw new EvaluationError(
-        `Cell reference "${ref}" used but no getCellValue function provided`
+        `Cell reference "${ref}" used but no getCellValue function provided`,
       );
     }
     const value = this.context.getCellValue(ref);
@@ -139,32 +126,40 @@ export class FormulaEvaluator {
     return op === '-' ? -num : num;
   }
 
-  private visitBinary(
-    op: BinaryOperator,
-    left: FormulaAST,
-    right: FormulaAST
-  ): EvaluationResult {
+  private visitBinary(op: BinaryOperator, left: FormulaAST, right: FormulaAST): EvaluationResult {
     const l = this.evaluate(left);
     const r = this.evaluate(right);
 
     switch (op) {
-      case '+': return this.coerceToNumber(l) + this.coerceToNumber(r);
-      case '-': return this.coerceToNumber(l) - this.coerceToNumber(r);
-      case '*': return this.coerceToNumber(l) * this.coerceToNumber(r);
+      case '+':
+        return this.coerceToNumber(l) + this.coerceToNumber(r);
+      case '-':
+        return this.coerceToNumber(l) - this.coerceToNumber(r);
+      case '*':
+        return this.coerceToNumber(l) * this.coerceToNumber(r);
       case '/': {
         const d = this.coerceToNumber(r);
         if (d === 0) throw new EvaluationError('Division by zero');
         return this.coerceToNumber(l) / d;
       }
-      case '^': return Math.pow(this.coerceToNumber(l), this.coerceToNumber(r));
-      case '&': return this.coerceToString(l) + this.coerceToString(r);
-      case '=': return excelEquals(l, r);
-      case '<>': return !excelEquals(l, r);
-      case '<': return compare(l, r) < 0;
-      case '>': return compare(l, r) > 0;
-      case '<=': return compare(l, r) <= 0;
-      case '>=': return compare(l, r) >= 0;
-      default: throw new EvaluationError(`Unknown binary operator: ${op}`);
+      case '^':
+        return Math.pow(this.coerceToNumber(l), this.coerceToNumber(r));
+      case '&':
+        return this.coerceToString(l) + this.coerceToString(r);
+      case '=':
+        return excelEquals(l, r);
+      case '<>':
+        return !excelEquals(l, r);
+      case '<':
+        return compare(l, r) < 0;
+      case '>':
+        return compare(l, r) > 0;
+      case '<=':
+        return compare(l, r) <= 0;
+      case '>=':
+        return compare(l, r) >= 0;
+      default:
+        throw new EvaluationError(`Unknown binary operator: ${op}`);
     }
   }
 
@@ -175,7 +170,8 @@ export class FormulaEvaluator {
       return this.visitLazyIF(args);
     }
 
-    const getFn = this.context.getFunction ?? ((fnName: string) => getDefaultFunctionRegistry().get(fnName));
+    const getFn =
+      this.context.getFunction ?? ((fnName: string) => getDefaultFunctionRegistry().get(fnName));
     const fn = getFn(name);
     if (!fn) {
       throw new EvaluationError(`Unknown function: ${name}`);
@@ -229,7 +225,7 @@ export class FormulaEvaluator {
 /** تقييم صيغة مع سياق + دمج السجل الافتراضي (ALGO-FRM-002) */
 export function evaluateFormula(
   ast: FormulaAST,
-  context: EvaluationContext = {}
+  context: EvaluationContext = {},
 ): EvaluationResult {
   const defaultRegistry = getDefaultFunctionRegistry();
   const mergedContext: EvaluationContext = {
@@ -238,7 +234,7 @@ export function evaluateFormula(
       const customFn = context.getFunction?.(name);
       if (customFn !== undefined) return customFn;
       return defaultRegistry.get(name);
-    }
+    },
   };
   return new FormulaEvaluator(mergedContext).evaluate(ast);
 }

@@ -82,17 +82,28 @@ export function createLetterTemplate(): Template<DocNode> {
       {
         type: 'paragraph',
         id: 'letter-date' as NodeId,
-        content: [{ type: 'text', id: 'letter-date-t' as NodeId, text: 'التاريخ: ____/____/________' }],
+        content: [
+          { type: 'text', id: 'letter-date-t' as NodeId, text: 'التاريخ: ____/____/________' },
+        ],
       },
       {
         type: 'paragraph',
         id: 'letter-to' as NodeId,
-        content: [{ type: 'text', id: 'letter-to-t' as NodeId, text: 'إلى السيد/السيدة: ________________' }],
+        content: [
+          { type: 'text', id: 'letter-to-t' as NodeId, text: 'إلى السيد/السيدة: ________________' },
+        ],
       },
       {
         type: 'paragraph',
         id: 'letter-subject' as NodeId,
-        content: [{ type: 'text', id: 'letter-subject-t' as NodeId, text: 'الموضوع: ________________', marks: [{ type: 'bold' }] }],
+        content: [
+          {
+            type: 'text',
+            id: 'letter-subject-t' as NodeId,
+            text: 'الموضوع: ________________',
+            marks: [{ type: 'bold' }],
+          },
+        ],
       },
       {
         type: 'paragraph',
@@ -102,22 +113,46 @@ export function createLetterTemplate(): Template<DocNode> {
       {
         type: 'paragraph',
         id: 'letter-body-1' as NodeId,
-        content: [{ type: 'text', id: 'letter-body-1-t' as NodeId, text: 'أتقدم إليكم بهذا الخطاب بشأن...' }],
+        content: [
+          {
+            type: 'text',
+            id: 'letter-body-1-t' as NodeId,
+            text: 'أتقدم إليكم بهذا الخطاب بشأن...',
+          },
+        ],
       },
       {
         type: 'paragraph',
         id: 'letter-body-2' as NodeId,
-        content: [{ type: 'text', id: 'letter-body-2-t' as NodeId, text: 'أرجو التكرم بالاطلاع واتخاذ اللازم...' }],
+        content: [
+          {
+            type: 'text',
+            id: 'letter-body-2-t' as NodeId,
+            text: 'أرجو التكرم بالاطلاع واتخاذ اللازم...',
+          },
+        ],
       },
       {
         type: 'paragraph',
         id: 'letter-closing' as NodeId,
-        content: [{ type: 'text', id: 'letter-closing-t' as NodeId, text: 'وتفضلوا بقبول فائق الاحترام والتقدير،' }],
+        content: [
+          {
+            type: 'text',
+            id: 'letter-closing-t' as NodeId,
+            text: 'وتفضلوا بقبول فائق الاحترام والتقدير،',
+          },
+        ],
       },
       {
         type: 'paragraph',
         id: 'letter-signature' as NodeId,
-        content: [{ type: 'text', id: 'letter-signature-t' as NodeId, text: 'مقدمه لسيادتكم: ________________' }],
+        content: [
+          {
+            type: 'text',
+            id: 'letter-signature-t' as NodeId,
+            text: 'مقدمه لسيادتكم: ________________',
+          },
+        ],
       },
     ],
   };
@@ -155,20 +190,38 @@ export function createReportTemplate(): Template<DocNode> {
         type: 'paragraph',
         id: 'report-meta' as NodeId,
         content: [
-          { type: 'text', id: 'report-meta-t1' as NodeId, text: 'إعداد: ________________', marks: [{ type: 'italic' }] },
-          { type: 'text', id: 'report-meta-t2' as NodeId, text: ' | التاريخ: ____/____/________', marks: [{ type: 'italic' }] },
+          {
+            type: 'text',
+            id: 'report-meta-t1' as NodeId,
+            text: 'إعداد: ________________',
+            marks: [{ type: 'italic' }],
+          },
+          {
+            type: 'text',
+            id: 'report-meta-t2' as NodeId,
+            text: ' | التاريخ: ____/____/________',
+            marks: [{ type: 'italic' }],
+          },
         ],
       },
       {
         type: 'heading',
         id: 'report-summary-heading' as NodeId,
         level: 2,
-        content: [{ type: 'text', id: 'report-summary-heading-t' as NodeId, text: 'الملخص التنفيذي' }],
+        content: [
+          { type: 'text', id: 'report-summary-heading-t' as NodeId, text: 'الملخص التنفيذي' },
+        ],
       },
       {
         type: 'paragraph',
         id: 'report-summary' as NodeId,
-        content: [{ type: 'text', id: 'report-summary-t' as NodeId, text: 'يقدم هذا التقرير نظرة شاملة على...' }],
+        content: [
+          {
+            type: 'text',
+            id: 'report-summary-t' as NodeId,
+            text: 'يقدم هذا التقرير نظرة شاملة على...',
+          },
+        ],
       },
       {
         type: 'heading',
@@ -179,13 +232,17 @@ export function createReportTemplate(): Template<DocNode> {
       {
         type: 'paragraph',
         id: 'report-intro' as NodeId,
-        content: [{ type: 'text', id: 'report-intro-t' as NodeId, text: 'يهدف هذا التقرير إلى...' }],
+        content: [
+          { type: 'text', id: 'report-intro-t' as NodeId, text: 'يهدف هذا التقرير إلى...' },
+        ],
       },
       {
         type: 'heading',
         id: 'report-findings-heading' as NodeId,
         level: 2,
-        content: [{ type: 'text', id: 'report-findings-heading-t' as NodeId, text: 'النتائج الرئيسية' }],
+        content: [
+          { type: 'text', id: 'report-findings-heading-t' as NodeId, text: 'النتائج الرئيسية' },
+        ],
       },
       {
         type: 'paragraph',
@@ -201,7 +258,13 @@ export function createReportTemplate(): Template<DocNode> {
       {
         type: 'paragraph',
         id: 'report-conclusion' as NodeId,
-        content: [{ type: 'text', id: 'report-conclusion-t' as NodeId, text: 'بناءً على ما تقدم، نوصي بـ...' }],
+        content: [
+          {
+            type: 'text',
+            id: 'report-conclusion-t' as NodeId,
+            text: 'بناءً على ما تقدم، نوصي بـ...',
+          },
+        ],
       },
     ],
   };
@@ -239,7 +302,12 @@ export function createEssayTemplate(): Template<DocNode> {
         type: 'paragraph',
         id: 'essay-author' as NodeId,
         content: [
-          { type: 'text', id: 'essay-author-t' as NodeId, text: 'بقلم: ________________', marks: [{ type: 'italic' }] },
+          {
+            type: 'text',
+            id: 'essay-author-t' as NodeId,
+            text: 'بقلم: ________________',
+            marks: [{ type: 'italic' }],
+          },
         ],
       },
       {
@@ -252,7 +320,11 @@ export function createEssayTemplate(): Template<DocNode> {
         type: 'paragraph',
         id: 'essay-intro' as NodeId,
         content: [
-          { type: 'text', id: 'essay-intro-t' as NodeId, text: 'تعتبر هذه القضية من أهم القضايا المعاصرة...' },
+          {
+            type: 'text',
+            id: 'essay-intro-t' as NodeId,
+            text: 'تعتبر هذه القضية من أهم القضايا المعاصرة...',
+          },
         ],
       },
       {
@@ -264,7 +336,13 @@ export function createEssayTemplate(): Template<DocNode> {
       {
         type: 'paragraph',
         id: 'essay-body1' as NodeId,
-        content: [{ type: 'text', id: 'essay-body1-t' as NodeId, text: 'من أهم الجوانب التي يجب مناقشتها...' }],
+        content: [
+          {
+            type: 'text',
+            id: 'essay-body1-t' as NodeId,
+            text: 'من أهم الجوانب التي يجب مناقشتها...',
+          },
+        ],
       },
       {
         type: 'heading',
@@ -275,7 +353,9 @@ export function createEssayTemplate(): Template<DocNode> {
       {
         type: 'paragraph',
         id: 'essay-body2' as NodeId,
-        content: [{ type: 'text', id: 'essay-body2-t' as NodeId, text: 'علاوة على ذلك، نجد أن...' }],
+        content: [
+          { type: 'text', id: 'essay-body2-t' as NodeId, text: 'علاوة على ذلك، نجد أن...' },
+        ],
       },
       {
         type: 'heading',
@@ -287,7 +367,11 @@ export function createEssayTemplate(): Template<DocNode> {
         type: 'paragraph',
         id: 'essay-conclusion' as NodeId,
         content: [
-          { type: 'text', id: 'essay-conclusion-t' as NodeId, text: 'خلاصة القول، يتضح من خلال ما تقدم أن...' },
+          {
+            type: 'text',
+            id: 'essay-conclusion-t' as NodeId,
+            text: 'خلاصة القول، يتضح من خلال ما تقدم أن...',
+          },
         ],
       },
     ],
@@ -338,45 +422,71 @@ export function createResumeTemplate(): Template<DocNode> {
         type: 'heading',
         id: 'resume-summary-heading' as NodeId,
         level: 2,
-        content: [{ type: 'text', id: 'resume-summary-heading-t' as NodeId, text: 'الملخص المهني' }],
+        content: [
+          { type: 'text', id: 'resume-summary-heading-t' as NodeId, text: 'الملخص المهني' },
+        ],
       },
       {
         type: 'paragraph',
         id: 'resume-summary' as NodeId,
         content: [
-          { type: 'text', id: 'resume-summary-t' as NodeId, text: 'محترف ذو خبرة في... مع مهارات قوية في...' },
+          {
+            type: 'text',
+            id: 'resume-summary-t' as NodeId,
+            text: 'محترف ذو خبرة في... مع مهارات قوية في...',
+          },
         ],
       },
       {
         type: 'heading',
         id: 'resume-experience-heading' as NodeId,
         level: 2,
-        content: [{ type: 'text', id: 'resume-experience-heading-t' as NodeId, text: 'الخبرات المهنية' }],
+        content: [
+          { type: 'text', id: 'resume-experience-heading-t' as NodeId, text: 'الخبرات المهنية' },
+        ],
       },
       {
         type: 'paragraph',
         id: 'resume-job1' as NodeId,
         content: [
-          { type: 'text', id: 'resume-job1-t1' as NodeId, text: 'المسمى الوظيفي', marks: [{ type: 'bold' }] },
+          {
+            type: 'text',
+            id: 'resume-job1-t1' as NodeId,
+            text: 'المسمى الوظيفي',
+            marks: [{ type: 'bold' }],
+          },
           { type: 'text', id: 'resume-job1-t2' as NodeId, text: ' | اسم الشركة | التاريخ' },
         ],
       },
       {
         type: 'paragraph',
         id: 'resume-job1-desc' as NodeId,
-        content: [{ type: 'text', id: 'resume-job1-desc-t' as NodeId, text: '• إنجاز رئيسي 1\n• إنجاز رئيسي 2' }],
+        content: [
+          {
+            type: 'text',
+            id: 'resume-job1-desc-t' as NodeId,
+            text: '• إنجاز رئيسي 1\n• إنجاز رئيسي 2',
+          },
+        ],
       },
       {
         type: 'heading',
         id: 'resume-education-heading' as NodeId,
         level: 2,
-        content: [{ type: 'text', id: 'resume-education-heading-t' as NodeId, text: 'المؤهلات العلمية' }],
+        content: [
+          { type: 'text', id: 'resume-education-heading-t' as NodeId, text: 'المؤهلات العلمية' },
+        ],
       },
       {
         type: 'paragraph',
         id: 'resume-degree' as NodeId,
         content: [
-          { type: 'text', id: 'resume-degree-t1' as NodeId, text: 'الدرجة العلمية', marks: [{ type: 'bold' }] },
+          {
+            type: 'text',
+            id: 'resume-degree-t1' as NodeId,
+            text: 'الدرجة العلمية',
+            marks: [{ type: 'bold' }],
+          },
           { type: 'text', id: 'resume-degree-t2' as NodeId, text: ' | اسم الجامعة | سنة التخرج' },
         ],
       },
@@ -389,7 +499,9 @@ export function createResumeTemplate(): Template<DocNode> {
       {
         type: 'paragraph',
         id: 'resume-skills' as NodeId,
-        content: [{ type: 'text', id: 'resume-skills-t' as NodeId, text: '• مهارة 1 • مهارة 2 • مهارة 3' }],
+        content: [
+          { type: 'text', id: 'resume-skills-t' as NodeId, text: '• مهارة 1 • مهارة 2 • مهارة 3' },
+        ],
       },
     ],
   };
@@ -415,9 +527,7 @@ export function createResumeTemplate(): Template<DocNode> {
  * تسجيل جميع قوالب Writer في السجل
  * @returns عدد القوالب المسجلة بنجاح
  */
-export function registerWriterTemplates(
-  registry: TemplateRegistry<DocNode>
-): number {
+export function registerWriterTemplates(registry: TemplateRegistry<DocNode>): number {
   const templates = getWriterTemplates();
 
   let registered = 0;

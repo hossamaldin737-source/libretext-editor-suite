@@ -14,8 +14,16 @@
 
 import { describe, it, expect } from 'vitest';
 import {
-  MATCH, INDEX, VLOOKUP, XLOOKUP, IFS, SWITCH,
-  DATE, TODAY, NOW, DATEDIF,
+  MATCH,
+  INDEX,
+  VLOOKUP,
+  XLOOKUP,
+  IFS,
+  SWITCH,
+  DATE,
+  TODAY,
+  NOW,
+  DATEDIF,
 } from '../../src/formula/functions-lookup-date';
 import { FormulaError } from '../../src/formula/functions';
 
@@ -45,7 +53,10 @@ describe('MATCH', () => {
 // ─── INDEX ──────────────────────────────────────────────────────────────────
 describe('INDEX', () => {
   it('returns value from 2D array', () => {
-    const arr = [['a', 'b'], ['c', 'd']];
+    const arr = [
+      ['a', 'b'],
+      ['c', 'd'],
+    ];
     expect(INDEX(arr, 2, 2)).toBe('d');
   });
 
@@ -75,7 +86,11 @@ describe('VLOOKUP', () => {
   });
 
   it('finds approximate match', () => {
-    const nums = [[10, 'a'], [20, 'b'], [30, 'c']];
+    const nums = [
+      [10, 'a'],
+      [20, 'b'],
+      [30, 'c'],
+    ];
     expect(VLOOKUP(25, nums, 2, true)).toBe('b');
   });
 

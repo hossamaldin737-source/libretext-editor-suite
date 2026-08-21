@@ -100,10 +100,10 @@ export function MID(text: unknown, startNum: unknown, numChars: unknown): string
   const str = toText(text);
   const start = typeof startNum === 'number' ? startNum : parseInt(toText(startNum), 10);
   const count = typeof numChars === 'number' ? numChars : parseInt(toText(numChars), 10);
-  
+
   if (isNaN(start) || start < 1) throw new Error('MID start position must be >= 1');
   const n = isNaN(count) || count < 0 ? 0 : count;
-  
+
   const chars = Array.from(str);
   return chars.slice(start - 1, start - 1 + n).join('');
 }
@@ -133,7 +133,7 @@ export function SUBSTITUTE(
   text: unknown,
   oldText: unknown,
   newText: unknown,
-  instanceNum?: unknown
+  instanceNum?: unknown,
 ): string {
   const str = toText(text);
   const search = toText(oldText);
@@ -144,7 +144,8 @@ export function SUBSTITUTE(
     return str.split(search).join(replacement);
   }
 
-  const instance = typeof instanceNum === 'number' ? instanceNum : parseInt(toText(instanceNum), 10);
+  const instance =
+    typeof instanceNum === 'number' ? instanceNum : parseInt(toText(instanceNum), 10);
   if (isNaN(instance) || instance < 1) throw new Error('SUBSTITUTE instance number must be >= 1');
 
   let count = 0;
@@ -159,7 +160,7 @@ export function REPLACE(
   oldText: unknown,
   startNum: unknown,
   numChars: unknown,
-  newText: unknown
+  newText: unknown,
 ): string {
   const str = toText(oldText);
   const start = typeof startNum === 'number' ? startNum : parseInt(toText(startNum), 10);
@@ -216,4 +217,3 @@ export function FIND(findText: unknown, withinText: unknown, startNum: unknown =
   const idx = within.indexOf(find, startIdx);
   return idx === -1 ? 0 : idx + 1;
 }
-

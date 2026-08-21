@@ -1,42 +1,42 @@
 /**
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 📌 ملخص توجيهي | Guiding Summary
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 📄 الملف: parser.ts
-  * 📂 المسار: packages/algorithms/src/formula/parser.ts
-  * 🎯 الهدف الرئيسي: محلل تنازلي (Recursive Descent) يحوّل الصيغة إلى شجرة AST
-  * 📋 المعايير: صفر اعتماديات، أسبقية PEMDAS، دعم الدوال والخلايا والثوابت
-  * 🧪 الاختبارات: packages/algorithms/tests/formula/parser.test.ts
-  * 🏷️ المعرف: ALGO-004
-  * 📅 تاريخ الإنشاء: 2026-08-19
-  * 🔄 الإصدار: v2.1.0
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 🧠 الطريقة المبتكرة | Innovative Pattern:
-  *    Recursive Descent + Precedence Climbing + Smart Error Hints
-  * ═══════════════════════════════════════════════════════════════════════════
-  * ⚠️ نقاط الخطر الإلزامية | Mandatory Gotchas:
-  *    1. أسبقية العمليات والاقتران اليمين للأس (^)
-  *    2. التمييز بين مرجع الخلية واستدعاء الدالة والثابت
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 🩹 البرمجة الدفاعية | Defensive Coding:
-  *    - ParseError class مع hints ذكية
-  *    - فحوصات نوع الرمز قبل كل خطوة
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 👤 المالك: Hossam El-Din Abdel-Moaty El-Khouly - All rights reserved
-  * ⚖️ الترخيص: MIT License
-  * 📚 المصادر المقتبسة: لا توجد
-  * ═══════════════════════════════════════════════════════════════════════════
-  */
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 📌 ملخص توجيهي | Guiding Summary
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 📄 الملف: parser.ts
+ * 📂 المسار: packages/algorithms/src/formula/parser.ts
+ * 🎯 الهدف الرئيسي: محلل تنازلي (Recursive Descent) يحوّل الصيغة إلى شجرة AST
+ * 📋 المعايير: صفر اعتماديات، أسبقية PEMDAS، دعم الدوال والخلايا والثوابت
+ * 🧪 الاختبارات: packages/algorithms/tests/formula/parser.test.ts
+ * 🏷️ المعرف: ALGO-004
+ * 📅 تاريخ الإنشاء: 2026-08-19
+ * 🔄 الإصدار: v2.1.0
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 🧠 الطريقة المبتكرة | Innovative Pattern:
+ *    Recursive Descent + Precedence Climbing + Smart Error Hints
+ * ═══════════════════════════════════════════════════════════════════════════
+ * ⚠️ نقاط الخطر الإلزامية | Mandatory Gotchas:
+ *    1. أسبقية العمليات والاقتران اليمين للأس (^)
+ *    2. التمييز بين مرجع الخلية واستدعاء الدالة والثابت
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 🩹 البرمجة الدفاعية | Defensive Coding:
+ *    - ParseError class مع hints ذكية
+ *    - فحوصات نوع الرمز قبل كل خطوة
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 👤 المالك: Hossam El-Din Abdel-Moaty El-Khouly - All rights reserved
+ * ⚖️ الترخيص: MIT License
+ * 📚 المصادر المقتبسة: لا توجد
+ * ═══════════════════════════════════════════════════════════════════════════
+ */
 
 import { tokenize, type Token, type TokenType } from './tokenizer';
-import { 
-  MATH_CONSTANTS, 
-  ParseError, 
-  type FormulaAST, 
-  type BinaryOperator, 
-  type UnaryOperator, 
-  type ConstantName, 
-  type FunctionCall 
+import {
+  MATH_CONSTANTS,
+  ParseError,
+  type FormulaAST,
+  type BinaryOperator,
+  type UnaryOperator,
+  type ConstantName,
+  type FunctionCall,
 } from './ast';
 
 export * from './ast';
@@ -47,7 +47,7 @@ const ERROR_HINTS: Partial<Record<TokenType, string>> = {
   rparen: 'Do you have an extra closing parenthesis?',
   cell: 'Did you mean a cell reference like A1?',
   number: 'Expected a number',
-  ident: 'Expected a function name'
+  ident: 'Expected a function name',
 };
 
 /**
@@ -101,7 +101,7 @@ export class FormulaParser {
       throw new ParseError(
         `Expected ${type} but got "${token.value}"`,
         token.pos,
-        ERROR_HINTS[type]
+        ERROR_HINTS[type],
       );
     }
     return this.advance();
@@ -192,7 +192,7 @@ export class FormulaParser {
     throw new ParseError(
       `Unexpected token "${token.value}"`,
       token.pos,
-      `Expected a number, string, boolean, cell, function, or parentheses`
+      `Expected a number, string, boolean, cell, function, or parentheses`,
     );
   }
 
@@ -215,7 +215,7 @@ export class FormulaParser {
       throw new ParseError(
         `Expected "(" after function name "${name.value}"`,
         name.pos,
-        'Function calls require parentheses. Did you mean a constant?'
+        'Function calls require parentheses. Did you mean a constant?',
       );
     }
     return this.parseFunctionCall(name.value);

@@ -39,7 +39,18 @@
 
 export interface SvgElementSpec {
   readonly id: string;
-  readonly type: 'rect' | 'circle' | 'ellipse' | 'diamond' | 'triangle' | 'cloud' | 'star' | 'path' | 'text' | 'connector' | 'group';
+  readonly type:
+    | 'rect'
+    | 'circle'
+    | 'ellipse'
+    | 'diamond'
+    | 'triangle'
+    | 'cloud'
+    | 'star'
+    | 'path'
+    | 'text'
+    | 'connector'
+    | 'group';
   readonly x: number;
   readonly y: number;
   readonly width?: number;
@@ -95,7 +106,8 @@ export class SvgSerializer {
     // مطابقة Hex, rgb, rgba, hsl, hsla, أو أسماء الألوان البسيطة
     if (/^#(?:[0-9a-f]{3,4}|[0-9a-f]{6}|[0-9a-f]{8})$/.test(trimmed)) return trimmed;
     if (/^rgba?\(\s*\d+\s*,\s*\d+\s*,\s*\d+\s*(?:,\s*[\d.]+\s*)?\)$/.test(trimmed)) return trimmed;
-    if (/^[a-z]{3,20}$/.test(trimmed) && !/script|expression|javascript/i.test(trimmed)) return trimmed;
+    if (/^[a-z]{3,20}$/.test(trimmed) && !/script|expression|javascript/i.test(trimmed))
+      return trimmed;
     return fallback;
   }
 
@@ -107,8 +119,12 @@ export class SvgSerializer {
     const height = Math.max(10, scene.height || 600);
     const bgFill = SvgSerializer.sanitizeColor(scene.backgroundColor, '#ffffff');
     const defsXml = this.buildDefs();
-    const titleXml = scene.title ? `\n  <title>${SvgSerializer.escapeXml(scene.title)}</title>` : '';
-    const descXml = scene.description ? `\n  <desc>${SvgSerializer.escapeXml(scene.description)}</desc>` : '';
+    const titleXml = scene.title
+      ? `\n  <title>${SvgSerializer.escapeXml(scene.title)}</title>`
+      : '';
+    const descXml = scene.description
+      ? `\n  <desc>${SvgSerializer.escapeXml(scene.description)}</desc>`
+      : '';
     const elementsXml = scene.elements.map((el) => this.renderElement(el)).join('\n  ');
 
     return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}">${titleXml}${descXml}
@@ -126,8 +142,13 @@ export class SvgSerializer {
     const fill = SvgSerializer.sanitizeColor(el.fill, '#ffffff');
     const stroke = SvgSerializer.sanitizeColor(el.stroke, '#0284c7');
     const strokeWidth = Math.max(0, el.strokeWidth ?? 1.5);
-    const opacity = el.opacity !== undefined && el.opacity >= 0 && el.opacity <= 1 ? ` opacity="${el.opacity}"` : '';
-    const dash = el.strokeDasharray ? ` stroke-dasharray="${SvgSerializer.escapeXml(el.strokeDasharray)}"` : '';
+    const opacity =
+      el.opacity !== undefined && el.opacity >= 0 && el.opacity <= 1
+        ? ` opacity="${el.opacity}"`
+        : '';
+    const dash = el.strokeDasharray
+      ? ` stroke-dasharray="${SvgSerializer.escapeXml(el.strokeDasharray)}"`
+      : '';
     const filter = el.filter === 'shadow' ? ' filter="url(#soft-shadow)"' : '';
     const transform = this.buildTransform(el);
 
@@ -168,9 +189,17 @@ export class SvgSerializer {
     return ` transform="rotate(${el.rotation} ${cx} ${cy})"`;
   }
 
-  private renderTextElement(el: SvgElementSpec, idAttr: string, fill: string, opacity: string, transform: string): string {
+  private renderTextElement(
+    el: SvgElementSpec,
+    idAttr: string,
+    fill: string,
+    opacity: string,
+    transform: string,
+  ): string {
     const fontSize = el.fontSize ?? 14;
-    const fontFamily = el.fontFamily ? SvgSerializer.escapeXml(el.fontFamily) : 'Segoe UI, Cairo, sans-serif';
+    const fontFamily = el.fontFamily
+      ? SvgSerializer.escapeXml(el.fontFamily)
+      : 'Segoe UI, Cairo, sans-serif';
     const fontWeight = el.fontWeight ?? 500;
     const textAnchor = el.textAlign ? ` text-anchor="${el.textAlign}"` : '';
     const textFill = fill !== 'none' ? fill : '#1e293b';
@@ -206,7 +235,9 @@ export class SvgSerializer {
       for (let i = 0; i < 10; i++) {
         const r = i % 2 === 0 ? outerR : innerR;
         const angle = (i * Math.PI) / 5 - Math.PI / 2;
-        pts.push(`${(cx + r * Math.cos(angle)).toFixed(1)} ${(cy + r * Math.sin(angle)).toFixed(1)}`);
+        pts.push(
+          `${(cx + r * Math.cos(angle)).toFixed(1)} ${(cy + r * Math.sin(angle)).toFixed(1)}`,
+        );
       }
       return `M ${pts.join(' L ')} Z`;
     }

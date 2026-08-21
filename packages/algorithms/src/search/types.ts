@@ -34,11 +34,7 @@ export interface SearchOptions {
 }
 
 export type SearchTargetType =
-  | 'writer-block'
-  | 'calc-cell'
-  | 'impress-element'
-  | 'base-record'
-  | 'generic-text';
+  'writer-block' | 'calc-cell' | 'impress-element' | 'base-record' | 'generic-text';
 
 export interface SearchTargetItem {
   readonly id: string;

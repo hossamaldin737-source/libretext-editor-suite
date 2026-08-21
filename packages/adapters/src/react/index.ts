@@ -13,4 +13,4 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-export {ReactAdapter, createReactAdapter} from './react-adapter';
+export { ReactAdapter, createReactAdapter } from './react-adapter';

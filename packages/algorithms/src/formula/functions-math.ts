@@ -140,7 +140,9 @@ export function MEDIAN(...args: unknown[]): number {
 
 /** MODE: إيجاد القيمة الأكثر تكراراً */
 export function MODE(...args: unknown[]): number {
-  const values = flatten(args).map(toNum).filter((v): v is number => v !== null);
+  const values = flatten(args)
+    .map(toNum)
+    .filter((v): v is number => v !== null);
   if (values.length === 0) throw new Error('MODE requires at least one numeric value');
 
   const counts = new Map<number, number>();
@@ -196,13 +198,23 @@ function matchCriteria(val: unknown, criteria: unknown): boolean {
   }
 
   // مطابقة نصية مباشرة أو مع تجاهل التشكيل والهمزات العربية
-  const sVal = String(val ?? '').trim().toLowerCase();
+  const sVal = String(val ?? '')
+    .trim()
+    .toLowerCase();
   const sCrit = critStr.toLowerCase();
   if (sVal === sCrit) return true;
 
   // تطبيع الحروف العربية للمطابقة المرنة
-  const normVal = sVal.replace(/[\u064B-\u065F\u0670\u0640]/g, '').replace(/[أإآٱ]/g, 'ا').replace(/ى/g, 'ي').replace(/ة/g, 'ه');
-  const normCrit = sCrit.replace(/[\u064B-\u065F\u0670\u0640]/g, '').replace(/[أإآٱ]/g, 'ا').replace(/ى/g, 'ي').replace(/ة/g, 'ه');
+  const normVal = sVal
+    .replace(/[\u064B-\u065F\u0670\u0640]/g, '')
+    .replace(/[أإآٱ]/g, 'ا')
+    .replace(/ى/g, 'ي')
+    .replace(/ة/g, 'ه');
+  const normCrit = sCrit
+    .replace(/[\u064B-\u065F\u0670\u0640]/g, '')
+    .replace(/[أإآٱ]/g, 'ا')
+    .replace(/ى/g, 'ي')
+    .replace(/ة/g, 'ه');
   return normVal === normCrit;
 }
 
@@ -215,7 +227,12 @@ export function COUNTIF(range: unknown, criteria: unknown): number {
 /** SUMIF: جمع قيم الخلايا المطابقة لشرط معين */
 export function SUMIF(range: unknown, criteria: unknown, sumRange?: unknown): number {
   const checkItems = Array.isArray(range) ? flatten(range) : [range];
-  const sumItems = sumRange !== undefined ? (Array.isArray(sumRange) ? flatten(sumRange) : [sumRange]) : checkItems;
+  const sumItems =
+    sumRange !== undefined
+      ? Array.isArray(sumRange)
+        ? flatten(sumRange)
+        : [sumRange]
+      : checkItems;
 
   let total = 0;
   for (let i = 0; i < checkItems.length; i++) {
@@ -226,4 +243,3 @@ export function SUMIF(range: unknown, criteria: unknown, sumRange?: unknown): nu
   }
   return total;
 }
-

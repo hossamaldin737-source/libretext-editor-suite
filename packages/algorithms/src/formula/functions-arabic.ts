@@ -56,28 +56,130 @@ export interface CurrencyConfig {
 }
 
 export const ARABIC_CURRENCIES: Record<string, CurrencyConfig> = {
-  SAR: { primary: 'ريال سعودي', primaryDual: 'ريالان سعوديان', primaryPlural: 'ريالات سعودية', secondary: 'هللة', secondaryPlural: 'هللات', decimals: 2 },
-  EGP: { primary: 'جنيه مصري', primaryDual: 'جنيهان مصريان', primaryPlural: 'جنيهات مصرية', secondary: 'قرش', secondaryPlural: 'قروش', decimals: 2 },
-  AED: { primary: 'درهم إماراتي', primaryDual: 'درهمان إماراتيان', primaryPlural: 'دراهم إماراتية', secondary: 'فلس', secondaryPlural: 'فلوس', decimals: 2 },
-  KWD: { primary: 'دينار كويتي', primaryDual: 'ديناران كويتيان', primaryPlural: 'دنانير كويتية', secondary: 'فلس', secondaryPlural: 'فلوس', decimals: 3 },
-  QAR: { primary: 'ريال قطري', primaryDual: 'ريالان قطريان', primaryPlural: 'ريالات قطرية', secondary: 'درهم', secondaryPlural: 'دراهم', decimals: 2 },
-  OMR: { primary: 'ريال عماني', primaryDual: 'ريالان عمانيان', primaryPlural: 'ريالات عمانية', secondary: 'بيسة', secondaryPlural: 'بيسات', decimals: 3 },
-  BHD: { primary: 'دينار بحريني', primaryDual: 'ديناران بحرينيان', primaryPlural: 'دنانير بحرينية', secondary: 'فلس', secondaryPlural: 'فلوس', decimals: 3 },
-  JOD: { primary: 'دينار أردني', primaryDual: 'ديناران أردنيان', primaryPlural: 'دنانير أردنية', secondary: 'قرش', secondaryPlural: 'قروش', decimals: 2 },
-  USD: { primary: 'دولار أمريكي', primaryDual: 'دولاران أمريكيان', primaryPlural: 'دولارات أمريكية', secondary: 'سنت', secondaryPlural: 'سنتات', decimals: 2 },
-  EUR: { primary: 'يورو', primaryDual: 'يورو', primaryPlural: 'يورو', secondary: 'سنت', secondaryPlural: 'سنتات', decimals: 2 }
+  SAR: {
+    primary: 'ريال سعودي',
+    primaryDual: 'ريالان سعوديان',
+    primaryPlural: 'ريالات سعودية',
+    secondary: 'هللة',
+    secondaryPlural: 'هللات',
+    decimals: 2,
+  },
+  EGP: {
+    primary: 'جنيه مصري',
+    primaryDual: 'جنيهان مصريان',
+    primaryPlural: 'جنيهات مصرية',
+    secondary: 'قرش',
+    secondaryPlural: 'قروش',
+    decimals: 2,
+  },
+  AED: {
+    primary: 'درهم إماراتي',
+    primaryDual: 'درهمان إماراتيان',
+    primaryPlural: 'دراهم إماراتية',
+    secondary: 'فلس',
+    secondaryPlural: 'فلوس',
+    decimals: 2,
+  },
+  KWD: {
+    primary: 'دينار كويتي',
+    primaryDual: 'ديناران كويتيان',
+    primaryPlural: 'دنانير كويتية',
+    secondary: 'فلس',
+    secondaryPlural: 'فلوس',
+    decimals: 3,
+  },
+  QAR: {
+    primary: 'ريال قطري',
+    primaryDual: 'ريالان قطريان',
+    primaryPlural: 'ريالات قطرية',
+    secondary: 'درهم',
+    secondaryPlural: 'دراهم',
+    decimals: 2,
+  },
+  OMR: {
+    primary: 'ريال عماني',
+    primaryDual: 'ريالان عمانيان',
+    primaryPlural: 'ريالات عمانية',
+    secondary: 'بيسة',
+    secondaryPlural: 'بيسات',
+    decimals: 3,
+  },
+  BHD: {
+    primary: 'دينار بحريني',
+    primaryDual: 'ديناران بحرينيان',
+    primaryPlural: 'دنانير بحرينية',
+    secondary: 'فلس',
+    secondaryPlural: 'فلوس',
+    decimals: 3,
+  },
+  JOD: {
+    primary: 'دينار أردني',
+    primaryDual: 'ديناران أردنيان',
+    primaryPlural: 'دنانير أردنية',
+    secondary: 'قرش',
+    secondaryPlural: 'قروش',
+    decimals: 2,
+  },
+  USD: {
+    primary: 'دولار أمريكي',
+    primaryDual: 'دولاران أمريكيان',
+    primaryPlural: 'دولارات أمريكية',
+    secondary: 'سنت',
+    secondaryPlural: 'سنتات',
+    decimals: 2,
+  },
+  EUR: {
+    primary: 'يورو',
+    primaryDual: 'يورو',
+    primaryPlural: 'يورو',
+    secondary: 'سنت',
+    secondaryPlural: 'سنتات',
+    decimals: 2,
+  },
 };
 
-const ONES = ['', 'واحد', 'اثنان', 'ثلاثة', 'أربعة', 'خمسة', 'ستة', 'سبعة', 'ثمانية', 'تسعة', 'عشرة', 'أحد عشر', 'اثنا عشر', 'ثلاثة عشر', 'أربعة عشر', 'خمسة عشر', 'ستة عشر', 'سبعة عشر', 'ثمانية عشر', 'تسعة عشر'];
+const ONES = [
+  '',
+  'واحد',
+  'اثنان',
+  'ثلاثة',
+  'أربعة',
+  'خمسة',
+  'ستة',
+  'سبعة',
+  'ثمانية',
+  'تسعة',
+  'عشرة',
+  'أحد عشر',
+  'اثنا عشر',
+  'ثلاثة عشر',
+  'أربعة عشر',
+  'خمسة عشر',
+  'ستة عشر',
+  'سبعة عشر',
+  'ثمانية عشر',
+  'تسعة عشر',
+];
 const TENS = ['', '', 'عشرون', 'ثلاثون', 'أربعون', 'خمسون', 'ستون', 'سبعون', 'ثمانون', 'تسعون'];
-const HUNDREDS = ['', 'مائة', 'مائتان', 'ثلاثمائة', 'أربعمائة', 'خمسمائة', 'ستمائة', 'سبعمائة', 'ثمانمائة', 'تسعمائة'];
+const HUNDREDS = [
+  '',
+  'مائة',
+  'مائتان',
+  'ثلاثمائة',
+  'أربعمائة',
+  'خمسمائة',
+  'ستمائة',
+  'سبعمائة',
+  'ثمانمائة',
+  'تسعمائة',
+];
 
 const SCALES = [
   { singular: '', dual: '', plural: '', accusative: '' },
   { singular: 'ألف', dual: 'ألفان', plural: 'آلاف', accusative: 'ألفاً' },
   { singular: 'مليون', dual: 'مليونان', plural: 'ملايين', accusative: 'مليوناً' },
   { singular: 'مليار', dual: 'ملياران', plural: 'مليارات', accusative: 'ملياراً' },
-  { singular: 'ترليون', dual: 'ترليونان', plural: 'ترليونات', accusative: 'ترليوناً' }
+  { singular: 'ترليون', dual: 'ترليونان', plural: 'ترليونات', accusative: 'ترليوناً' },
 ];
 
 /** تحويل عدد حتى 999 إلى كلمات عربية */
@@ -110,7 +212,8 @@ function formatScaleGroup(groupVal: number, scaleIdx: number): string {
   if (groupVal === 1) return scale.singular;
   if (groupVal === 2) return scale.dual;
   if (groupVal >= 3 && groupVal <= 10) return `${convertThreeDigits(groupVal)} ${scale.plural}`;
-  if (groupVal >= 11 && groupVal <= 99) return `${convertThreeDigits(groupVal)} ${scale.accusative}`;
+  if (groupVal >= 11 && groupVal <= 99)
+    return `${convertThreeDigits(groupVal)} ${scale.accusative}`;
   return `${convertThreeDigits(groupVal)} ${scale.singular}`;
 }
 
@@ -142,7 +245,7 @@ export function TAFQEET(
   amount: unknown,
   currencyCode?: unknown,
   prefix: unknown = 'فقط',
-  suffix: unknown = 'لا غير'
+  suffix: unknown = 'لا غير',
 ): string {
   const num = typeof amount === 'number' ? amount : parseFloat(String(amount));
   if (isNaN(num)) return '';
@@ -264,7 +367,8 @@ export function ARABIC_LEN(text: unknown, ignoreTashkeel: unknown = true): numbe
  * تدعم المطابقة التامة أو البحث بجزء من الاسم (isPartial = true)
  */
 export function ARABIC_MATCH(text: unknown, pattern: unknown, isPartial: unknown = false): boolean {
-  if (text === null || text === undefined || pattern === null || pattern === undefined) return false;
+  if (text === null || text === undefined || pattern === null || pattern === undefined)
+    return false;
   const normText = NORMALIZE_ARABIC(text, true).toLowerCase();
   const normPattern = NORMALIZE_ARABIC(pattern, true).toLowerCase();
   if (Boolean(isPartial)) {
@@ -272,4 +376,3 @@ export function ARABIC_MATCH(text: unknown, pattern: unknown, isPartial: unknown
   }
   return normText === normPattern;
 }
-

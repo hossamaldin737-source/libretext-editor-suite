@@ -22,9 +22,7 @@ export const customerRecordsTemplate: DocumentTemplate = {
   description: 'قالب جداول السجلات المنظمة لإدارة قواعد البيانات والكيانات',
   doc: builder.doc([
     builder.heading(1, [builder.text('سجل المشتركين وقاعدة البيانات')]),
-    builder.paragraph([
-      builder.text('جدول بيانات العملاء مع تحديد المعرف وحالة الاشتراك.'),
-    ]),
+    builder.paragraph([builder.text('جدول بيانات العملاء مع تحديد المعرف وحالة الاشتراك.')]),
     builder.table([
       builder.tableRow([
         builder.tableCell([builder.paragraph([builder.text('ID')])]),
@@ -56,7 +54,9 @@ export const arabicNameSearchCensusTemplate: DocumentTemplate = {
   doc: builder.doc([
     builder.heading(1, [builder.text('سجل التحقق من الأسماء والمطابقة الذكية')]),
     builder.paragraph([
-      builder.text('جدول تدقيق سجلات الموظفين والعملاء مع دعم مطابقة الأسماء بتوحيد الهمزات والتاء المربوطة.'),
+      builder.text(
+        'جدول تدقيق سجلات الموظفين والعملاء مع دعم مطابقة الأسماء بتوحيد الهمزات والتاء المربوطة.',
+      ),
     ]),
     builder.table([
       builder.tableRow([
@@ -102,4 +102,3 @@ export const baseTemplates: DocumentTemplate[] = [
   customerRecordsTemplate,
   arabicNameSearchCensusTemplate,
 ];
-

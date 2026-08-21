@@ -66,7 +66,10 @@ function parseYamlKeyValues(yaml: string): DocumentMetadata {
     if (colonIdx === -1) continue;
 
     const key = line.slice(0, colonIdx).trim().toLowerCase();
-    const rawVal = line.slice(colonIdx + 1).trim().replace(/^['"](.*)['"]$/, '$1');
+    const rawVal = line
+      .slice(colonIdx + 1)
+      .trim()
+      .replace(/^['"](.*)['"]$/, '$1');
 
     assignMetadataField(meta, key, rawVal);
   }
@@ -85,6 +88,9 @@ function assignMetadataField(meta: DocumentMetadata, key: string, val: string): 
   else if (key === 'date') meta.date = val;
   else if (key === 'language') meta.language = val;
   else if (key === 'keywords' || key === 'tags') {
-    meta.keywords = val.split(',').map((k) => k.trim()).filter(Boolean);
+    meta.keywords = val
+      .split(',')
+      .map((k) => k.trim())
+      .filter(Boolean);
   }
 }

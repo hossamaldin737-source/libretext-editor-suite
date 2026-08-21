@@ -73,7 +73,7 @@ function generateGuideId(prefix: string): string {
 export function generateReferenceLines(
   activeRect: Rect,
   otherElements: SnappableElement[],
-  threshold: number = 5
+  threshold: number = 5,
 ): ReferenceLine[] {
   const lines: ReferenceLine[] = [];
 
@@ -91,26 +91,15 @@ export function generateReferenceLines(
 
   for (const elem of otherElements) {
     const target = elem.bounds;
-    const targetPointsX = [
-      target.x,
-      target.x + target.width / 2,
-      target.x + target.width,
-    ];
-    const targetPointsY = [
-      target.y,
-      target.y + target.height / 2,
-      target.y + target.height,
-    ];
+    const targetPointsX = [target.x, target.x + target.width / 2, target.x + target.width];
+    const targetPointsY = [target.y, target.y + target.height / 2, target.y + target.height];
 
     // فحص المحور الرأسي (X-axis snap)
     for (const ap of activePointsX) {
       for (const tp of targetPointsX) {
         if (Math.abs(ap.pos - tp) <= threshold) {
           const minY = Math.min(activeRect.y, target.y);
-          const maxY = Math.max(
-            activeRect.y + activeRect.height,
-            target.y + target.height
-          );
+          const maxY = Math.max(activeRect.y + activeRect.height, target.y + target.height);
           lines.push({
             id: generateGuideId('ref_v'),
             orientation: 'vertical',
@@ -128,10 +117,7 @@ export function generateReferenceLines(
       for (const tp of targetPointsY) {
         if (Math.abs(ap.pos - tp) <= threshold) {
           const minX = Math.min(activeRect.x, target.x);
-          const maxX = Math.max(
-            activeRect.x + activeRect.width,
-            target.x + target.width
-          );
+          const maxX = Math.max(activeRect.x + activeRect.width, target.x + target.width);
           lines.push({
             id: generateGuideId('ref_h'),
             orientation: 'horizontal',
@@ -154,7 +140,7 @@ export function generateReferenceLines(
 export function calculateDistanceBadges(
   activeRect: Rect,
   otherElements: SnappableElement[],
-  tolerance: number = 2
+  tolerance: number = 2,
 ): DistanceBadge[] {
   const badges: DistanceBadge[] = [];
   if (otherElements.length < 2) return badges;

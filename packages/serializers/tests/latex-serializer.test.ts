@@ -16,9 +16,9 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-import {describe, it, expect} from 'vitest';
-import {LatexSerializer} from '../src/advanced/latex-serializer';
-import type {DocNode, NodeId} from '@libretext/core';
+import { describe, it, expect } from 'vitest';
+import { LatexSerializer } from '../src/advanced/latex-serializer';
+import type { DocNode, NodeId } from '@libretext/core';
 
 const serializer = new LatexSerializer();
 
@@ -31,7 +31,11 @@ const createDoc = (content: DocNode['content']): DocNode => ({
 describe('LatexSerializer', () => {
   it('يقوم بتحويل المستند الكامل مع preamble', () => {
     const doc = createDoc([
-      {type: 'paragraph', id: 'p1' as NodeId, content: [{type: 'text', id: 't1' as NodeId, text: 'Hello'}]},
+      {
+        type: 'paragraph',
+        id: 'p1' as NodeId,
+        content: [{ type: 'text', id: 't1' as NodeId, text: 'Hello' }],
+      },
     ]);
     const result = serializer.serialize(doc);
     expect(result).toContain('\\documentclass{article}');
@@ -41,7 +45,11 @@ describe('LatexSerializer', () => {
 
   it('يقوم بتحويل الفقرات', () => {
     const doc = createDoc([
-      {type: 'paragraph', id: 'p1' as NodeId, content: [{type: 'text', id: 't1' as NodeId, text: 'Hello World'}]},
+      {
+        type: 'paragraph',
+        id: 'p1' as NodeId,
+        content: [{ type: 'text', id: 't1' as NodeId, text: 'Hello World' }],
+      },
     ]);
     const result = serializer.serialize(doc);
     expect(result).toContain('Hello World');
@@ -53,7 +61,7 @@ describe('LatexSerializer', () => {
         type: 'heading',
         id: 'h1' as NodeId,
         level: 1,
-        content: [{type: 'text', id: 't1' as NodeId, text: 'Title'}],
+        content: [{ type: 'text', id: 't1' as NodeId, text: 'Title' }],
       },
     ]);
     const result = serializer.serialize(doc);
@@ -66,7 +74,7 @@ describe('LatexSerializer', () => {
         type: 'heading',
         id: 'h2' as NodeId,
         level: 2,
-        content: [{type: 'text', id: 't1' as NodeId, text: 'Subtitle'}],
+        content: [{ type: 'text', id: 't1' as NodeId, text: 'Subtitle' }],
       },
     ]);
     const result = serializer.serialize(doc);
@@ -80,7 +88,17 @@ describe('LatexSerializer', () => {
         id: 'l1' as NodeId,
         ordered: false,
         items: [
-          {id: 'li1' as NodeId, type: 'list-item', content: [{type: 'paragraph', id: 'p1' as NodeId, content: [{type: 'text', id: 't1' as NodeId, text: 'Item'}]}]},
+          {
+            id: 'li1' as NodeId,
+            type: 'list-item',
+            content: [
+              {
+                type: 'paragraph',
+                id: 'p1' as NodeId,
+                content: [{ type: 'text', id: 't1' as NodeId, text: 'Item' }],
+              },
+            ],
+          },
         ],
       },
     ]);
@@ -97,7 +115,17 @@ describe('LatexSerializer', () => {
         id: 'l1' as NodeId,
         ordered: true,
         items: [
-          {id: 'li1' as NodeId, type: 'list-item', content: [{type: 'paragraph', id: 'p1' as NodeId, content: [{type: 'text', id: 't1' as NodeId, text: 'First'}]}]},
+          {
+            id: 'li1' as NodeId,
+            type: 'list-item',
+            content: [
+              {
+                type: 'paragraph',
+                id: 'p1' as NodeId,
+                content: [{ type: 'text', id: 't1' as NodeId, text: 'First' }],
+              },
+            ],
+          },
         ],
       },
     ]);
@@ -124,7 +152,13 @@ describe('LatexSerializer', () => {
       {
         type: 'blockquote',
         id: 'bq1' as NodeId,
-        content: [{type: 'paragraph', id: 'p1' as NodeId, content: [{type: 'text', id: 't1' as NodeId, text: 'Quote'}]}],
+        content: [
+          {
+            type: 'paragraph',
+            id: 'p1' as NodeId,
+            content: [{ type: 'text', id: 't1' as NodeId, text: 'Quote' }],
+          },
+        ],
       },
     ]);
     const result = serializer.serialize(doc);
@@ -133,9 +167,7 @@ describe('LatexSerializer', () => {
   });
 
   it('يقوم بتحويل الصور', () => {
-    const doc = createDoc([
-      {type: 'image', id: 'img1' as NodeId, src: 'image.png', alt: 'Test'},
-    ]);
+    const doc = createDoc([{ type: 'image', id: 'img1' as NodeId, src: 'image.png', alt: 'Test' }]);
     const result = serializer.serialize(doc);
     expect(result).toContain('\\includegraphics');
     expect(result).toContain('image.png');
@@ -147,8 +179,12 @@ describe('LatexSerializer', () => {
         type: 'paragraph',
         id: 'p1' as NodeId,
         content: [
-          {type: 'text', id: 't1' as NodeId, text: 'Hello '},
-          {type: 'bold', id: 'b1' as NodeId, content: [{type: 'text', id: 't2' as NodeId, text: 'World'}]},
+          { type: 'text', id: 't1' as NodeId, text: 'Hello ' },
+          {
+            type: 'bold',
+            id: 'b1' as NodeId,
+            content: [{ type: 'text', id: 't2' as NodeId, text: 'World' }],
+          },
         ],
       },
     ]);
@@ -162,8 +198,8 @@ describe('LatexSerializer', () => {
         type: 'paragraph',
         id: 'p1' as NodeId,
         content: [
-          {type: 'text', id: 't1' as NodeId, text: 'Use '},
-          {type: 'code', id: 'c1' as NodeId, code: 'npm install'},
+          { type: 'text', id: 't1' as NodeId, text: 'Use ' },
+          { type: 'code', id: 'c1' as NodeId, code: 'npm install' },
         ],
       },
     ]);
@@ -176,7 +212,7 @@ describe('LatexSerializer', () => {
       {
         type: 'paragraph',
         id: 'p1' as NodeId,
-        content: [{type: 'text', id: 't1' as NodeId, text: 'Price is $5 & tax is 10%'}],
+        content: [{ type: 'text', id: 't1' as NodeId, text: 'Price is $5 & tax is 10%' }],
       },
     ]);
     const result = serializer.serialize(doc);

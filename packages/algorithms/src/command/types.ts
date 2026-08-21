@@ -1,31 +1,31 @@
 /**
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 📌 ملخص توجيهي | Guiding Summary
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 📄 الملف: types.ts
-  * 📂 المسار: packages/algorithms/src/command/types.ts
-  * 🎯 الهدف الرئيسي: تعريف الأنواع الأساسية لنمط الأوامر (Command Pattern)
-  * 📋 المعايير: صفر اعتماديات، أنواع نقية، دعم SpatialCommand و TextCommand
-  * 🧪 الاختبارات: packages/algorithms/tests/command/types.test.ts
-  * 🏷️ المعرف: ALGO-001
-  * 📅 تاريخ الإنشاء: 2026-08-19
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 🧠 الطريقة المبتكرة | Innovative Pattern:
-  *    Discriminated Unions + Strict Type Guards for Command Routing
-  * ═══════════════════════════════════════════════════════════════════════════
-  * ⚠️ نقاط الخطر الإلزامية | Mandatory Gotchas:
-  *    1. تجاوز حجم الـ Payload عن الحد المسموح في الذاكرة
-  *    2. عدم تمييز نوع الأمر بشكل صحيح مما يسبب أخطاء في الـ Executor
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 🩹 البرمجة الدفاعية | Defensive Coding:
-  *    - استخدام readonly لجميع الخصائص
-  *    - Type Guards إلزامية للتحقق من نوع الأمر قبل التنفيذ
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 👤 المالك: Hossam El-Din Abdel-Moaty El-Khouly - All rights reserved
-  * ⚖️ الترخيص: MIT License
-  * 📚 المصادر المقتبسة: ProseMirror (MIT) - Command Pattern Inspiration
-  * ═══════════════════════════════════════════════════════════════════════════
-  */
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 📌 ملخص توجيهي | Guiding Summary
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 📄 الملف: types.ts
+ * 📂 المسار: packages/algorithms/src/command/types.ts
+ * 🎯 الهدف الرئيسي: تعريف الأنواع الأساسية لنمط الأوامر (Command Pattern)
+ * 📋 المعايير: صفر اعتماديات، أنواع نقية، دعم SpatialCommand و TextCommand
+ * 🧪 الاختبارات: packages/algorithms/tests/command/types.test.ts
+ * 🏷️ المعرف: ALGO-001
+ * 📅 تاريخ الإنشاء: 2026-08-19
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 🧠 الطريقة المبتكرة | Innovative Pattern:
+ *    Discriminated Unions + Strict Type Guards for Command Routing
+ * ═══════════════════════════════════════════════════════════════════════════
+ * ⚠️ نقاط الخطر الإلزامية | Mandatory Gotchas:
+ *    1. تجاوز حجم الـ Payload عن الحد المسموح في الذاكرة
+ *    2. عدم تمييز نوع الأمر بشكل صحيح مما يسبب أخطاء في الـ Executor
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 🩹 البرمجة الدفاعية | Defensive Coding:
+ *    - استخدام readonly لجميع الخصائص
+ *    - Type Guards إلزامية للتحقق من نوع الأمر قبل التنفيذ
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 👤 المالك: Hossam El-Din Abdel-Moaty El-Khouly - All rights reserved
+ * ⚖️ الترخيص: MIT License
+ * 📚 المصادر المقتبسة: ProseMirror (MIT) - Command Pattern Inspiration
+ * ═══════════════════════════════════════════════════════════════════════════
+ */
 
 /**
  * أنواع الأوامر المدعومة في النظام
@@ -35,10 +35,10 @@ export const CommandType = {
   SPATIAL: 'spatial',
   TEXT: 'text',
   FORMULA: 'formula',
-  SYSTEM: 'system'
+  SYSTEM: 'system',
 } as const;
 
-export type CommandTypeValue = typeof CommandType[keyof typeof CommandType];
+export type CommandTypeValue = (typeof CommandType)[keyof typeof CommandType];
 
 /**
  * الحمولة الأساسية لأي أمر
@@ -112,7 +112,7 @@ export interface CommandResult {
  * Command Handler signature
  */
 export type CommandHandler<T extends Command = Command> = (
-  cmd: T
+  cmd: T,
 ) => Promise<CommandResult> | CommandResult;
 
 // --- Type Guards (Defensive Coding) ---

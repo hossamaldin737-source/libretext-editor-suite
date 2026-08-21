@@ -13,4 +13,4 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-export type {Plugin, PluginOptions, PluginResult} from './types';
+export type { Plugin, PluginOptions, PluginResult } from './types';

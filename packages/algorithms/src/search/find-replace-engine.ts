@@ -50,7 +50,7 @@ export function escapeRegExp(str: string): string {
 export function findMatches(
   query: string,
   items: readonly SearchTargetItem[],
-  options: SearchOptions = {}
+  options: SearchOptions = {},
 ): readonly SearchMatch[] {
   if (!query || query.trim() === '') {
     return [];
@@ -115,7 +115,7 @@ export function findMatches(
 export function replaceMatchInText(
   originalText: string,
   match: SearchMatch,
-  replacement: string
+  replacement: string,
 ): string {
   if (!originalText) return '';
   const before = originalText.substring(0, match.startIndex);
@@ -130,7 +130,7 @@ export function replaceAllInText(
   originalText: string,
   query: string,
   replacement: string,
-  options: SearchOptions = {}
+  options: SearchOptions = {},
 ): ReplaceAllResult {
   if (!originalText || !query) {
     return { updatedText: originalText, count: 0 };

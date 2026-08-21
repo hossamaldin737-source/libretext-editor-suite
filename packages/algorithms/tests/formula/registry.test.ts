@@ -1,22 +1,22 @@
 /**
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 📌 ملخص توجيهي | Guiding Summary
-  * ═══════════════════════════════════════════════════════════════════════════
-  * 📄 الملف: registry.test.ts
-  * 📂 المسار: packages/algorithms/tests/formula/registry.test.ts
-  * 🎯 الهدف الرئيسي: اختبار سجل الدوال و registerOrReplace
-  * 📋 المعايير: تغطية 100%
-  * 🏷️ المعرف: TEST-ALGO-012
-  * 📅 تاريخ الإنشاء: 2026-08-19
-  * ═══════════════════════════════════════════════════════════════════════════
-  */
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 📌 ملخص توجيهي | Guiding Summary
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 📄 الملف: registry.test.ts
+ * 📂 المسار: packages/algorithms/tests/formula/registry.test.ts
+ * 🎯 الهدف الرئيسي: اختبار سجل الدوال و registerOrReplace
+ * 📋 المعايير: تغطية 100%
+ * 🏷️ المعرف: TEST-ALGO-012
+ * 📅 تاريخ الإنشاء: 2026-08-19
+ * ═══════════════════════════════════════════════════════════════════════════
+ */
 
 import { describe, it, expect } from 'vitest';
 import {
   FunctionRegistry,
   createFunctionRegistry,
   getDefaultFunctionRegistry,
-  getBuiltinFunction
+  getBuiltinFunction,
 } from '../../src/formula/registry';
 
 describe('ALGO-012: FunctionRegistry', () => {

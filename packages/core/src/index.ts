@@ -60,10 +60,10 @@ export type {
 
 // ─── بناء AST ───
 export * as builder from './ast/builder';
-export {getSchema, validateBlockNode, validateDocument, type NodeSchema} from './ast/schema';
+export { getSchema, validateBlockNode, validateDocument, type NodeSchema } from './ast/schema';
 
 // ─── الحالة والعمليات ───
-export type {EditorState, Selection, FullEditorState} from './state/editor-state';
+export type { EditorState, Selection, FullEditorState } from './state/editor-state';
 export {
   createEditorState,
   canUndo,
@@ -74,30 +74,24 @@ export {
   redo,
 } from './state/editor-state';
 
-export type {Operation, OperationType} from './state/operations';
-export {applyOperation, applyOperations} from './state/operations';
+export type { Operation, OperationType } from './state/operations';
+export { applyOperation, applyOperations } from './state/operations';
 
-export type {HistorySnapshot, HistoryState} from './state/history';
-export {
-  createHistory,
-  pushSnapshot,
-  popUndo,
-  popRedo,
-  clearHistory,
-} from './state/history';
+export type { HistorySnapshot, HistoryState } from './state/history';
+export { createHistory, pushSnapshot, popUndo, popRedo, clearHistory } from './state/history';
 
 // ─── الفهرسة والبحث ───
-export type {Indexer} from './indexer/indexer';
-export {buildIndexer, getNodeById, getNodesByType} from './indexer/indexer';
+export type { Indexer } from './indexer/indexer';
+export { buildIndexer, getNodeById, getNodesByType } from './indexer/indexer';
 
-export type {SearchOptions} from './indexer/search';
-export {search, simpleSearch} from './indexer/search';
+export type { SearchOptions } from './indexer/search';
+export { search, simpleSearch } from './indexer/search';
 
 // ─── الأدوات المساعدة ───
-export {generateId, isValidId} from './utils/id';
-export {validateDocument as validateDoc} from './utils/validation';
-export {pipe} from './utils/pipe';
-export {compose} from './utils/compose';
+export { generateId, isValidId } from './utils/id';
+export { validateDocument as validateDoc } from './utils/validation';
+export { pipe } from './utils/pipe';
+export { compose } from './utils/compose';
 
 // ─── الأدوات العربية ───
 export * from './utils/arabic-text';

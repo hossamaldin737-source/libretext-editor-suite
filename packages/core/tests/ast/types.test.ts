@@ -12,7 +12,7 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-import {describe, it, expect} from 'vitest';
+import { describe, it, expect } from 'vitest';
 import {
   paragraph,
   heading,
@@ -37,9 +37,9 @@ import {
   strikethrough,
   underline,
 } from '../../src/ast/builder';
-import {validateDocument} from '../../src/utils/validation';
-import {generateId, isValidId} from '../../src/utils/id';
-import {getSchema, validateBlockNode} from '../../src/ast/schema';
+import { validateDocument } from '../../src/utils/validation';
+import { generateId, isValidId } from '../../src/utils/id';
+import { getSchema, validateBlockNode } from '../../src/ast/schema';
 
 describe('AST Builder', () => {
   describe('Inline Nodes', () => {
@@ -127,9 +127,7 @@ describe('AST Builder', () => {
     });
 
     it('should create ordered list', () => {
-      const node = orderedList([
-        listItem([paragraph([text('أولاً')])]),
-      ]);
+      const node = orderedList([listItem([paragraph([text('أولاً')])])]);
       expect(node.type).toBe('list');
       expect(node.ordered).toBe(true);
     });
@@ -166,10 +164,7 @@ describe('AST Builder', () => {
 
   describe('Document', () => {
     it('should create document', () => {
-      const d = doc([
-        heading(1, [text('عنوان')]),
-        paragraph([text('فقرة')]),
-      ]);
+      const d = doc([heading(1, [text('عنوان')]), paragraph([text('فقرة')])]);
       expect(d.type).toBe('doc');
       expect(d.content).toHaveLength(2);
     });
@@ -216,17 +211,14 @@ describe('Schema', () => {
 
 describe('Validation', () => {
   it('should validate correct document', () => {
-    const d = doc([
-      heading(1, [text('عنوان')]),
-      paragraph([text('فقرة')]),
-    ]);
+    const d = doc([heading(1, [text('عنوان')]), paragraph([text('فقرة')])]);
     const result = validateDocument(d);
     expect(result.valid).toBe(true);
     expect(result.errors).toHaveLength(0);
   });
 
   it('should detect invalid document type', () => {
-    const d = {type: 'invalid', id: 'test', content: []} as any;
+    const d = { type: 'invalid', id: 'test', content: [] } as any;
     const result = validateDocument(d);
     expect(result.valid).toBe(false);
   });

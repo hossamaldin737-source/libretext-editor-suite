@@ -12,7 +12,7 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-import {describe, it, expect} from 'vitest';
+import { describe, it, expect } from 'vitest';
 import {
   createEditorState,
   canUndo,
@@ -22,10 +22,10 @@ import {
   undo,
   redo,
 } from '../../src/state/editor-state';
-import {paragraph, text, heading, doc} from '../../src/ast/builder';
-import type {Operation} from '../../src/state/operations';
-import {buildIndexer, getNodeById, getNodesByType} from '../../src/indexer/indexer';
-import {search, simpleSearch} from '../../src/indexer/search';
+import { paragraph, text, heading, doc } from '../../src/ast/builder';
+import type { Operation } from '../../src/state/operations';
+import { buildIndexer, getNodeById, getNodesByType } from '../../src/indexer/indexer';
+import { search, simpleSearch } from '../../src/indexer/search';
 
 describe('EditorState', () => {
   it('should create empty state', () => {
@@ -113,22 +113,31 @@ describe('EditorState', () => {
     const p1 = paragraph([text('أول')]);
     const p2 = paragraph([text('ثاني')]);
 
-    const state2 = apply(state, {type: 'insert-block', targetId: state.editor.document.id, payload: p1});
-    const state3 = apply(state2, {type: 'insert-block', targetId: state.editor.document.id, payload: p2});
+    const state2 = apply(state, {
+      type: 'insert-block',
+      targetId: state.editor.document.id,
+      payload: p1,
+    });
+    const state3 = apply(state2, {
+      type: 'insert-block',
+      targetId: state.editor.document.id,
+      payload: p2,
+    });
     const state4 = undo(state3);
     expect(state4.editor.canRedo).toBe(true);
 
-    const state5 = apply(state4, {type: 'insert-block', targetId: state4.editor.document.id, payload: paragraph([text('جديد')])});
+    const state5 = apply(state4, {
+      type: 'insert-block',
+      targetId: state4.editor.document.id,
+      payload: paragraph([text('جديد')]),
+    });
     expect(state5.editor.canRedo).toBe(false);
   });
 });
 
 describe('Indexer', () => {
   it('should build indexer from document', () => {
-    const d = doc([
-      heading(1, [text('عنوان')]),
-      paragraph([text('فقرة اختبارية')]),
-    ]);
+    const d = doc([heading(1, [text('عنوان')]), paragraph([text('فقرة اختبارية')])]);
     const indexer = buildIndexer(d);
     expect(indexer.nodeMap.size).toBeGreaterThan(0);
   });

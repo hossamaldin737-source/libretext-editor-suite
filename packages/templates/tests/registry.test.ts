@@ -163,34 +163,28 @@ describe('TPL-001 v2.0: TemplateRegistry', () => {
     });
 
     it('throws on empty id', () => {
-      expect(() => registry.register(mockTemplate({ id: '' }))).toThrow(
-        'id cannot be empty'
-      );
+      expect(() => registry.register(mockTemplate({ id: '' }))).toThrow('id cannot be empty');
     });
 
     it('throws on empty name', () => {
-      expect(() => registry.register(mockTemplate({ name: '' }))).toThrow(
-        'name cannot be empty'
-      );
+      expect(() => registry.register(mockTemplate({ name: '' }))).toThrow('name cannot be empty');
     });
 
     it('throws on empty domain', () => {
       expect(() => registry.register(mockTemplate({ domain: '' }))).toThrow(
-        'domain cannot be empty'
+        'domain cannot be empty',
       );
     });
 
     it('throws on invalid content (not a DocNode)', () => {
       expect(() =>
-        registry.register(mockTemplate({ content: null as unknown as DocNode }))
+        registry.register(mockTemplate({ content: null as unknown as DocNode })),
       ).toThrow('structural validation');
     });
 
     it('throws on invalid content (missing type field)', () => {
       expect(() =>
-        registry.register(
-          mockTemplate({ content: { id: 'x' } as unknown as DocNode })
-        )
+        registry.register(mockTemplate({ content: { id: 'x' } as unknown as DocNode })),
       ).toThrow('structural validation');
     });
 
@@ -251,17 +245,13 @@ describe('TPL-001 v2.0: TemplateRegistry', () => {
     });
 
     it('throws on missing template', () => {
-      expect(() => registry.update('nonexistent', { name: 'X' })).toThrow(
-        'Template not found'
-      );
+      expect(() => registry.update('nonexistent', { name: 'X' })).toThrow('Template not found');
     });
 
     it('validates updated template', () => {
       const tpl = mockTemplate({ id: 'tpl-1' });
       registry.register(tpl);
-      expect(() => registry.update('tpl-1', { name: '' })).toThrow(
-        'name cannot be empty'
-      );
+      expect(() => registry.update('tpl-1', { name: '' })).toThrow('name cannot be empty');
     });
 
     it('emits UPDATED event', () => {
@@ -332,7 +322,7 @@ describe('TPL-001 v2.0: TemplateRegistry', () => {
             version: 1,
             tags: ['a', 'b', 'c'],
           },
-        })
+        }),
       );
       registry.register(
         mockTemplate({
@@ -342,7 +332,7 @@ describe('TPL-001 v2.0: TemplateRegistry', () => {
             version: 1,
             tags: ['a', 'b'],
           },
-        })
+        }),
       );
 
       expect(registry.find({ tags: ['a', 'b'] })).toHaveLength(2);
@@ -373,7 +363,7 @@ describe('TPL-001 v2.0: TemplateRegistry', () => {
             updatedAt: Date.now(),
             version: 5,
           },
-        })
+        }),
       );
       registry.register(
         mockTemplate({
@@ -382,7 +372,7 @@ describe('TPL-001 v2.0: TemplateRegistry', () => {
             updatedAt: Date.now(),
             version: 1,
           },
-        })
+        }),
       );
 
       const results = registry.find({
@@ -402,7 +392,7 @@ describe('TPL-001 v2.0: TemplateRegistry', () => {
             version: 1,
             tags: ['important'],
           },
-        })
+        }),
       );
       registry.register(
         mockTemplate({
@@ -414,7 +404,7 @@ describe('TPL-001 v2.0: TemplateRegistry', () => {
             version: 1,
             tags: ['important'],
           },
-        })
+        }),
       );
 
       const results = registry.find({
@@ -462,9 +452,7 @@ describe('TPL-001 v2.0: TemplateRegistry', () => {
     });
 
     it('apply() uses custom cloneContent', () => {
-      const customClone = vi.fn(
-        (c: DocNode) => ({ ...c, _cloned: true }) as unknown as DocNode
-      );
+      const customClone = vi.fn((c: DocNode) => ({ ...c, _cloned: true }) as unknown as DocNode);
       const r = TemplateRegistry.create({ cloneContent: customClone });
       const tpl = mockTemplate();
       r.register(tpl);
@@ -582,9 +570,7 @@ describe('TPL-001 v2.0: TemplateRegistry', () => {
     });
 
     it('handles listener errors gracefully', () => {
-      const consoleSpy = vi
-        .spyOn(console, 'error')
-        .mockImplementation(() => {});
+      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
       const badListener = () => {
         throw new Error('Bad');
       };
@@ -745,9 +731,7 @@ describe('TPL-001 v2.0: TemplateRegistry', () => {
 
     it('on throws after close', () => {
       registry.close();
-      expect(() => registry.on(TemplateEventType.ADDED, () => {})).toThrow(
-        'is closed'
-      );
+      expect(() => registry.on(TemplateEventType.ADDED, () => {})).toThrow('is closed');
     });
 
     it('registerDomain throws after close', () => {

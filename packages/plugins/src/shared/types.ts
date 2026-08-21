@@ -17,7 +17,7 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-import type {BlockNode, DocNode, InlineNode} from '@libretext/core';
+import type { BlockNode, DocNode, InlineNode } from '@libretext/core';
 
 /**
  * واجهة الإضافة الأساسية.
@@ -85,7 +85,7 @@ export interface PluginResult {
  */
 export interface PluginContext {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  registerCommand(command: {id: string; name: string; handler: (...args: any[]) => any}): void;
+  registerCommand(command: { id: string; name: string; handler: (...args: any[]) => any }): void;
   getDocument?(): DocNode;
   setDocument?(doc: DocNode): void;
 }
