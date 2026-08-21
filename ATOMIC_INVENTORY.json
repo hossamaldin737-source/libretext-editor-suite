@@ -1,0 +1,1632 @@
+{
+  "generated": "2026-08-21T10:04:16.476Z",
+  "total": 160,
+  "summary": {
+    "active": 144,
+    "duplicate": 4,
+    "unused": 3,
+    "oversized": 9
+  },
+  "tags": [
+    {
+      "id": "ADAPTERS-SRC-INDEX",
+      "pkg": "adapters",
+      "sub": "src",
+      "file": "index.ts",
+      "lines": 21,
+      "hash": "6fbcbc90",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ADAPTERS-SRC-REACT-INDEX",
+      "pkg": "adapters",
+      "sub": "src/react",
+      "file": "index.ts",
+      "lines": 17,
+      "hash": "90a44d05",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ADAPTERS-SRC-REACT-REACT-ADAPTER",
+      "pkg": "adapters",
+      "sub": "src/react",
+      "file": "react-adapter.ts",
+      "lines": 150,
+      "hash": "816db429",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ADAPTERS-SRC-SHARED-INDEX",
+      "pkg": "adapters",
+      "sub": "src/shared",
+      "file": "index.ts",
+      "lines": 27,
+      "hash": "31ba7a23",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ADAPTERS-SRC-SHARED-SPATIAL-ADAPTER",
+      "pkg": "adapters",
+      "sub": "src/shared",
+      "file": "spatial-adapter.ts",
+      "lines": 103,
+      "hash": "152aa103",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ADAPTERS-SRC-SHARED-TYPES",
+      "pkg": "adapters",
+      "sub": "src/shared",
+      "file": "types.ts",
+      "lines": 75,
+      "hash": "bb3efb91",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ADAPTERS-SRC-VANILLA-INDEX",
+      "pkg": "adapters",
+      "sub": "src/vanilla",
+      "file": "index.ts",
+      "lines": 17,
+      "hash": "ecb216f1",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ADAPTERS-SRC-VANILLA-VANILLA-ADAPTER",
+      "pkg": "adapters",
+      "sub": "src/vanilla",
+      "file": "vanilla-adapter.ts",
+      "lines": 135,
+      "hash": "40b16195",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ADAPTERS-SRC-VUE-INDEX",
+      "pkg": "adapters",
+      "sub": "src/vue",
+      "file": "index.ts",
+      "lines": 17,
+      "hash": "6c4e69e9",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ADAPTERS-SRC-VUE-VUE-ADAPTER",
+      "pkg": "adapters",
+      "sub": "src/vue",
+      "file": "vue-adapter.ts",
+      "lines": 136,
+      "hash": "8724bd6a",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ADAPTERS-SRC-WEB-COMPONENT-INDEX",
+      "pkg": "adapters",
+      "sub": "src/web-component",
+      "file": "index.ts",
+      "lines": 17,
+      "hash": "e6a2c8df",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ADAPTERS-SRC-WEB-COMPONENT-WEB-COMPONENT-ADAPTER",
+      "pkg": "adapters",
+      "sub": "src/web-component",
+      "file": "web-component-adapter.ts",
+      "lines": 136,
+      "hash": "520ea0b4",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-COMMAND-EXECUTOR",
+      "pkg": "algorithms",
+      "sub": "src/command",
+      "file": "executor.ts",
+      "lines": 254,
+      "hash": "87a8bbdc",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-COMMAND-REGISTRY",
+      "pkg": "algorithms",
+      "sub": "src/command",
+      "file": "registry.ts",
+      "lines": 240,
+      "hash": "99477610",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-COMMAND-TYPES",
+      "pkg": "algorithms",
+      "sub": "src/command",
+      "file": "types.ts",
+      "lines": 131,
+      "hash": "8a5373be",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-FORMULA-ARABIC-ALIASES",
+      "pkg": "algorithms",
+      "sub": "src/formula",
+      "file": "arabic-aliases.ts",
+      "lines": 102,
+      "hash": "c8253c8c",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-FORMULA-AST",
+      "pkg": "algorithms",
+      "sub": "src/formula",
+      "file": "ast.ts",
+      "lines": 104,
+      "hash": "a082aa70",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-FORMULA-CELL-UTILS",
+      "pkg": "algorithms",
+      "sub": "src/formula",
+      "file": "cell-utils.ts",
+      "lines": 106,
+      "hash": "9891814d",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-FORMULA-DEPENDENCY-GRAPH",
+      "pkg": "algorithms",
+      "sub": "src/formula",
+      "file": "dependency-graph.ts",
+      "lines": 311,
+      "hash": "1d4f47e4",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-FORMULA-EVALUATOR-TYPES",
+      "pkg": "algorithms",
+      "sub": "src/formula",
+      "file": "evaluator-types.ts",
+      "lines": 37,
+      "hash": "665b1942",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-FORMULA-EVALUATOR",
+      "pkg": "algorithms",
+      "sub": "src/formula",
+      "file": "evaluator.ts",
+      "lines": 241,
+      "hash": "9482169e",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-FORMULA-FUNCTIONS-ARABIC",
+      "pkg": "algorithms",
+      "sub": "src/formula",
+      "file": "functions-arabic.ts",
+      "lines": 379,
+      "hash": "4d8eca6c",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-FORMULA-FUNCTIONS-FINANCIAL",
+      "pkg": "algorithms",
+      "sub": "src/formula",
+      "file": "functions-financial.ts",
+      "lines": 205,
+      "hash": "e85f2f02",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-FORMULA-FUNCTIONS-LOOKUP-DATE",
+      "pkg": "algorithms",
+      "sub": "src/formula",
+      "file": "functions-lookup-date.ts",
+      "lines": 296,
+      "hash": "ee7261e4",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-FORMULA-FUNCTIONS-MATH",
+      "pkg": "algorithms",
+      "sub": "src/formula",
+      "file": "functions-math.ts",
+      "lines": 246,
+      "hash": "1dc38ecb",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-FORMULA-FUNCTIONS-MATRIX",
+      "pkg": "algorithms",
+      "sub": "src/formula",
+      "file": "functions-matrix.ts",
+      "lines": 847,
+      "hash": "62301736",
+      "status": "oversized",
+      "priority": "high",
+      "note": "847 lines — needs splitting (50 lines/function max)"
+    },
+    {
+      "id": "ALGORITHMS-SRC-FORMULA-FUNCTIONS-TEXT",
+      "pkg": "algorithms",
+      "sub": "src/formula",
+      "file": "functions-text.ts",
+      "lines": 220,
+      "hash": "09e6bfbc",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-FORMULA-FUNCTIONS",
+      "pkg": "algorithms",
+      "sub": "src/formula",
+      "file": "functions.ts",
+      "lines": 291,
+      "hash": "ce4dd2a9",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-FORMULA-LATEX-ENGINE",
+      "pkg": "algorithms",
+      "sub": "src/formula",
+      "file": "latex-engine.ts",
+      "lines": 166,
+      "hash": "03ba36c3",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-FORMULA-MARKDOWN-ENGINE",
+      "pkg": "algorithms",
+      "sub": "src/formula",
+      "file": "markdown-engine.ts",
+      "lines": 197,
+      "hash": "b630a4db",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-FORMULA-MARKDOWN-FORMULA",
+      "pkg": "algorithms",
+      "sub": "src/formula",
+      "file": "markdown-formula.ts",
+      "lines": 559,
+      "hash": "bf0b11cd",
+      "status": "oversized",
+      "priority": "high",
+      "note": "559 lines — needs splitting (50 lines/function max)"
+    },
+    {
+      "id": "ALGORITHMS-SRC-FORMULA-PARSER",
+      "pkg": "algorithms",
+      "sub": "src/formula",
+      "file": "parser.ts",
+      "lines": 248,
+      "hash": "85764c33",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-FORMULA-REGISTRY",
+      "pkg": "algorithms",
+      "sub": "src/formula",
+      "file": "registry.ts",
+      "lines": 214,
+      "hash": "8bc7c03b",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-FORMULA-TOKENIZER",
+      "pkg": "algorithms",
+      "sub": "src/formula",
+      "file": "tokenizer.ts",
+      "lines": 262,
+      "hash": "b07dd687",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-GRAPH-DEPENDENCY",
+      "pkg": "algorithms",
+      "sub": "src/graph",
+      "file": "dependency.ts",
+      "lines": 242,
+      "hash": "1effdb79",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-GRAPH-ORTHOGONAL-ROUTER",
+      "pkg": "algorithms",
+      "sub": "src/graph",
+      "file": "orthogonal-router.ts",
+      "lines": 321,
+      "hash": "f6559de2",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-GRAPH-ROUTING-TYPES",
+      "pkg": "algorithms",
+      "sub": "src/graph",
+      "file": "routing-types.ts",
+      "lines": 89,
+      "hash": "4dc31eb0",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-GRAPH-ROUTING",
+      "pkg": "algorithms",
+      "sub": "src/graph",
+      "file": "routing.ts",
+      "lines": 54,
+      "hash": "90ac9b86",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-INDEX",
+      "pkg": "algorithms",
+      "sub": "src",
+      "file": "index.ts",
+      "lines": 210,
+      "hash": "dc104bcf",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-LOOKUP-HLOOKUP",
+      "pkg": "algorithms",
+      "sub": "src/lookup",
+      "file": "hlookup.ts",
+      "lines": 166,
+      "hash": "7b81ab93",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-MACRO-INDEX",
+      "pkg": "algorithms",
+      "sub": "src/macro",
+      "file": "index.ts",
+      "lines": 19,
+      "hash": "29c1acb5",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-MACRO-RECORDER",
+      "pkg": "algorithms",
+      "sub": "src/macro",
+      "file": "recorder.ts",
+      "lines": 144,
+      "hash": "0a1fd1b8",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-MACRO-REGISTRY",
+      "pkg": "algorithms",
+      "sub": "src/macro",
+      "file": "registry.ts",
+      "lines": 87,
+      "hash": "bacdb46a",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-MACRO-RUNNER",
+      "pkg": "algorithms",
+      "sub": "src/macro",
+      "file": "runner.ts",
+      "lines": 129,
+      "hash": "79c72d8b",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-MACRO-TYPES",
+      "pkg": "algorithms",
+      "sub": "src/macro",
+      "file": "types.ts",
+      "lines": 123,
+      "hash": "040c0aaa",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-SEARCH-FIND-REPLACE-ENGINE",
+      "pkg": "algorithms",
+      "sub": "src/search",
+      "file": "find-replace-engine.ts",
+      "lines": 161,
+      "hash": "f8db4dda",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-SEARCH-INDEX",
+      "pkg": "algorithms",
+      "sub": "src/search",
+      "file": "index.ts",
+      "lines": 18,
+      "hash": "6e429a49",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-SEARCH-TYPES",
+      "pkg": "algorithms",
+      "sub": "src/search",
+      "file": "types.ts",
+      "lines": 61,
+      "hash": "76b22a22",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-SIMULATION-CONTEXT",
+      "pkg": "algorithms",
+      "sub": "src/simulation",
+      "file": "context.ts",
+      "lines": 59,
+      "hash": "085db64a",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-SIMULATION-SIMULATOR",
+      "pkg": "algorithms",
+      "sub": "src/simulation",
+      "file": "simulator.ts",
+      "lines": 60,
+      "hash": "a9eb3d64",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-SORT-MERGESORT",
+      "pkg": "algorithms",
+      "sub": "src/sort",
+      "file": "mergesort.ts",
+      "lines": 128,
+      "hash": "c462b23d",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-SPATIAL-ALIGNMENT-ENGINE",
+      "pkg": "algorithms",
+      "sub": "src/spatial",
+      "file": "alignment-engine.ts",
+      "lines": 178,
+      "hash": "61eb9af1",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-SPATIAL-BEZIER-ENGINE",
+      "pkg": "algorithms",
+      "sub": "src/spatial",
+      "file": "bezier-engine.ts",
+      "lines": 233,
+      "hash": "71459369",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-SPATIAL-BOOLEAN-OPS",
+      "pkg": "algorithms",
+      "sub": "src/spatial",
+      "file": "boolean-ops.ts",
+      "lines": 100,
+      "hash": "c265d0e6",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-SPATIAL-COLLISION",
+      "pkg": "algorithms",
+      "sub": "src/spatial",
+      "file": "collision.ts",
+      "lines": 344,
+      "hash": "90ad3144",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-SPATIAL-COMMANDS",
+      "pkg": "algorithms",
+      "sub": "src/spatial",
+      "file": "commands.ts",
+      "lines": 228,
+      "hash": "6dcfa3df",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-SPATIAL-CONNECTOR-ROUTING",
+      "pkg": "algorithms",
+      "sub": "src/spatial",
+      "file": "connector-routing.ts",
+      "lines": 234,
+      "hash": "377d9d18",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-SPATIAL-MAPPER",
+      "pkg": "algorithms",
+      "sub": "src/spatial",
+      "file": "mapper.ts",
+      "lines": 283,
+      "hash": "3050cbcb",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-SPATIAL-MATRIX-2D",
+      "pkg": "algorithms",
+      "sub": "src/spatial",
+      "file": "matrix-2d.ts",
+      "lines": 179,
+      "hash": "e44c575c",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-SPATIAL-SMART-GUIDES",
+      "pkg": "algorithms",
+      "sub": "src/spatial",
+      "file": "smart-guides.ts",
+      "lines": 230,
+      "hash": "736acd4e",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-SPATIAL-TRANSFORMER",
+      "pkg": "algorithms",
+      "sub": "src/spatial",
+      "file": "transformer.ts",
+      "lines": 315,
+      "hash": "cd344f47",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-SPATIAL-TYPES",
+      "pkg": "algorithms",
+      "sub": "src/spatial",
+      "file": "types.ts",
+      "lines": 199,
+      "hash": "424b898b",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-SPATIAL-VECTOR-PATH",
+      "pkg": "algorithms",
+      "sub": "src/spatial",
+      "file": "vector-path.ts",
+      "lines": 445,
+      "hash": "42b736a7",
+      "status": "oversized",
+      "priority": "high",
+      "note": "445 lines — needs splitting (50 lines/function max)"
+    },
+    {
+      "id": "ALGORITHMS-SRC-STREETS-ARABIC-UTILS",
+      "pkg": "algorithms",
+      "sub": "src/streets",
+      "file": "arabic-utils.ts",
+      "lines": 95,
+      "hash": "a4bbbe30",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-STREETS-INDEX",
+      "pkg": "algorithms",
+      "sub": "src/streets",
+      "file": "index.ts",
+      "lines": 23,
+      "hash": "e76ce888",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-STREETS-SAMPLE-DATA",
+      "pkg": "algorithms",
+      "sub": "src/streets",
+      "file": "sample-data.ts",
+      "lines": 173,
+      "hash": "70bbf3bf",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-STREETS-SEARCH-ENGINE",
+      "pkg": "algorithms",
+      "sub": "src/streets",
+      "file": "search-engine.ts",
+      "lines": 151,
+      "hash": "48312f0f",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-STREETS-SIMILARITY",
+      "pkg": "algorithms",
+      "sub": "src/streets",
+      "file": "similarity.ts",
+      "lines": 168,
+      "hash": "1629f834",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-STREETS-TYPES",
+      "pkg": "algorithms",
+      "sub": "src/streets",
+      "file": "types.ts",
+      "lines": 92,
+      "hash": "1d08b48f",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-STRUCTURE-DISJOINT-SET",
+      "pkg": "algorithms",
+      "sub": "src/structure",
+      "file": "disjoint-set.ts",
+      "lines": 204,
+      "hash": "6260299e",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-TREE-LLRB",
+      "pkg": "algorithms",
+      "sub": "src/tree",
+      "file": "llrb.ts",
+      "lines": 226,
+      "hash": "f859da18",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-TYPES",
+      "pkg": "algorithms",
+      "sub": "src",
+      "file": "types.ts",
+      "lines": 67,
+      "hash": "334c443f",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-VECTOR-COMMON",
+      "pkg": "algorithms",
+      "sub": "src/vector",
+      "file": "common.ts",
+      "lines": 157,
+      "hash": "4b803159",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-VECTOR-COORDINATE-SYSTEM",
+      "pkg": "algorithms",
+      "sub": "src/vector",
+      "file": "coordinate-system.ts",
+      "lines": 119,
+      "hash": "6feb79ba",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-VECTOR-INDEX",
+      "pkg": "algorithms",
+      "sub": "src/vector",
+      "file": "index.ts",
+      "lines": 20,
+      "hash": "fc694ee8",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-VECTOR-MOUSE-ALGORITHMS",
+      "pkg": "algorithms",
+      "sub": "src/vector",
+      "file": "mouse-algorithms.ts",
+      "lines": 125,
+      "hash": "4a1d4a16",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "ALGORITHMS-SRC-VECTOR-SMART-ALIGNMENT",
+      "pkg": "algorithms",
+      "sub": "src/vector",
+      "file": "smart-alignment.ts",
+      "lines": 103,
+      "hash": "8e59b31c",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "CORE-SRC-AST-BUILDER",
+      "pkg": "core",
+      "sub": "src/ast",
+      "file": "builder.ts",
+      "lines": 166,
+      "hash": "fbe17040",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "CORE-SRC-AST-SCHEMA",
+      "pkg": "core",
+      "sub": "src/ast",
+      "file": "schema.ts",
+      "lines": 251,
+      "hash": "3099249f",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "CORE-SRC-AST-TYPES",
+      "pkg": "core",
+      "sub": "src/ast",
+      "file": "types.ts",
+      "lines": 276,
+      "hash": "9e041354",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "CORE-SRC-CONVERTERS-UNIVERSAL-FORMAT-CONVERTER",
+      "pkg": "core",
+      "sub": "src/converters",
+      "file": "universal-format-converter.ts",
+      "lines": 415,
+      "hash": "30d0a7ee",
+      "status": "oversized",
+      "priority": "high",
+      "note": "415 lines — needs splitting (50 lines/function max)"
+    },
+    {
+      "id": "CORE-SRC-ENGINES-FILE-TYPE-DETECTION",
+      "pkg": "core",
+      "sub": "src/engines",
+      "file": "file-type-detection.ts",
+      "lines": 268,
+      "hash": "5fc8b63f",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "CORE-SRC-ENGINES-HTML-PIPELINE",
+      "pkg": "core",
+      "sub": "src/engines",
+      "file": "html-pipeline.ts",
+      "lines": 177,
+      "hash": "07bb9f1e",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "CORE-SRC-ENGINES-IMAGE-PIPELINE",
+      "pkg": "core",
+      "sub": "src/engines",
+      "file": "image-pipeline.ts",
+      "lines": 347,
+      "hash": "9685a535",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "CORE-SRC-ENGINES-UNIFIED-INGESTION",
+      "pkg": "core",
+      "sub": "src/engines",
+      "file": "unified-ingestion.ts",
+      "lines": 211,
+      "hash": "7bd1378e",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "CORE-SRC-ENGINES-VALIDATION",
+      "pkg": "core",
+      "sub": "src/engines",
+      "file": "validation.ts",
+      "lines": 106,
+      "hash": "5f527850",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "CORE-SRC-INDEX",
+      "pkg": "core",
+      "sub": "src",
+      "file": "index.ts",
+      "lines": 128,
+      "hash": "b25ff9ff",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "CORE-SRC-INDEXER-INDEXER",
+      "pkg": "core",
+      "sub": "src/indexer",
+      "file": "indexer.ts",
+      "lines": 136,
+      "hash": "c53978e1",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "CORE-SRC-INDEXER-SEARCH",
+      "pkg": "core",
+      "sub": "src/indexer",
+      "file": "search.ts",
+      "lines": 107,
+      "hash": "4c40213e",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "CORE-SRC-PARSERS-FRONTMATTER-PARSER",
+      "pkg": "core",
+      "sub": "src/parsers",
+      "file": "frontmatter-parser.ts",
+      "lines": 97,
+      "hash": "eb959212",
+      "status": "duplicate",
+      "priority": "high",
+      "duplicateOf": "/home/sam2/Projects/libretext-editor-suite/packages/serializers/src/parsers/frontmatter-parser.ts",
+      "note": "Exact duplicate of packages/serializers/src/parsers/frontmatter-parser.ts"
+    },
+    {
+      "id": "CORE-SRC-PARSERS-MARKDOWN",
+      "pkg": "core",
+      "sub": "src/parsers",
+      "file": "markdown.ts",
+      "lines": 157,
+      "hash": "ab08e887",
+      "status": "duplicate",
+      "priority": "high",
+      "duplicateOf": "/home/sam2/Projects/libretext-editor-suite/packages/serializers/src/parsers/markdown.ts",
+      "note": "Exact duplicate of packages/serializers/src/parsers/markdown.ts"
+    },
+    {
+      "id": "CORE-SRC-STATE-EDITOR-STATE",
+      "pkg": "core",
+      "sub": "src/state",
+      "file": "editor-state.ts",
+      "lines": 210,
+      "hash": "7f71fd2b",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "CORE-SRC-STATE-HISTORY",
+      "pkg": "core",
+      "sub": "src/state",
+      "file": "history.ts",
+      "lines": 131,
+      "hash": "c62e4802",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "CORE-SRC-STATE-OPERATIONS",
+      "pkg": "core",
+      "sub": "src/state",
+      "file": "operations.ts",
+      "lines": 239,
+      "hash": "e821e625",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "CORE-SRC-STATE-TREE",
+      "pkg": "core",
+      "sub": "src/state",
+      "file": "tree.ts",
+      "lines": 243,
+      "hash": "3d3ef9c2",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "CORE-SRC-TYPES",
+      "pkg": "core",
+      "sub": "src",
+      "file": "types.ts",
+      "lines": 105,
+      "hash": "cdd2ca0a",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "CORE-SRC-UTILS-ARABIC-TEXT",
+      "pkg": "core",
+      "sub": "src/utils",
+      "file": "arabic-text.ts",
+      "lines": 229,
+      "hash": "665c8c53",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "CORE-SRC-UTILS-COMPOSE",
+      "pkg": "core",
+      "sub": "src/utils",
+      "file": "compose.ts",
+      "lines": 28,
+      "hash": "8539c47c",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "CORE-SRC-UTILS-CONTENT-VALIDATOR",
+      "pkg": "core",
+      "sub": "src/utils",
+      "file": "content-validator.ts",
+      "lines": 207,
+      "hash": "d9267062",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "CORE-SRC-UTILS-DOCUMENT-VALIDATOR",
+      "pkg": "core",
+      "sub": "src/utils",
+      "file": "document-validator.ts",
+      "lines": 255,
+      "hash": "b239f484",
+      "status": "unused",
+      "priority": "low",
+      "note": "Never imported by any other file"
+    },
+    {
+      "id": "CORE-SRC-UTILS-FORMULA-PARSER",
+      "pkg": "core",
+      "sub": "src/utils",
+      "file": "formula-parser.ts",
+      "lines": 405,
+      "hash": "fc7a483e",
+      "status": "oversized",
+      "priority": "high",
+      "note": "405 lines — needs splitting (50 lines/function max)"
+    },
+    {
+      "id": "CORE-SRC-UTILS-ID",
+      "pkg": "core",
+      "sub": "src/utils",
+      "file": "id.ts",
+      "lines": 71,
+      "hash": "315bea08",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "CORE-SRC-UTILS-PIPE",
+      "pkg": "core",
+      "sub": "src/utils",
+      "file": "pipe.ts",
+      "lines": 35,
+      "hash": "6736b04c",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "CORE-SRC-UTILS-VALIDATION",
+      "pkg": "core",
+      "sub": "src/utils",
+      "file": "validation.ts",
+      "lines": 267,
+      "hash": "06799e68",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "PLUGINS-SRC-CANVAS-DESIGNER-CANVAS-DESIGNER-PLUGIN",
+      "pkg": "plugins",
+      "sub": "src/canvas-designer",
+      "file": "canvas-designer-plugin.ts",
+      "lines": 110,
+      "hash": "6e8321e6",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "PLUGINS-SRC-CANVAS-DESIGNER-INDEX",
+      "pkg": "plugins",
+      "sub": "src/canvas-designer",
+      "file": "index.ts",
+      "lines": 19,
+      "hash": "8b9572ae",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "PLUGINS-SRC-CANVAS-DESIGNER-LAYER-TREE-ENGINE",
+      "pkg": "plugins",
+      "sub": "src/canvas-designer",
+      "file": "layer-tree-engine.ts",
+      "lines": 218,
+      "hash": "c86288ec",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "PLUGINS-SRC-CANVAS-DESIGNER-SCHEMA-REGISTRY",
+      "pkg": "plugins",
+      "sub": "src/canvas-designer",
+      "file": "schema-registry.ts",
+      "lines": 443,
+      "hash": "9269ec1f",
+      "status": "oversized",
+      "priority": "high",
+      "note": "443 lines — needs splitting (50 lines/function max)"
+    },
+    {
+      "id": "PLUGINS-SRC-CANVAS-DESIGNER-SCHEMA-TYPES",
+      "pkg": "plugins",
+      "sub": "src/canvas-designer",
+      "file": "schema-types.ts",
+      "lines": 108,
+      "hash": "3cc7aa29",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "PLUGINS-SRC-INDEX",
+      "pkg": "plugins",
+      "sub": "src",
+      "file": "index.ts",
+      "lines": 23,
+      "hash": "b4f255b7",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "PLUGINS-SRC-MATH-INDEX",
+      "pkg": "plugins",
+      "sub": "src/math",
+      "file": "index.ts",
+      "lines": 17,
+      "hash": "cffbc364",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "PLUGINS-SRC-MATH-MATH-PLUGIN",
+      "pkg": "plugins",
+      "sub": "src/math",
+      "file": "math-plugin.ts",
+      "lines": 214,
+      "hash": "923b6573",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "PLUGINS-SRC-MERMAID-INDEX",
+      "pkg": "plugins",
+      "sub": "src/mermaid",
+      "file": "index.ts",
+      "lines": 17,
+      "hash": "28e1fe37",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "PLUGINS-SRC-MERMAID-MERMAID-PLUGIN",
+      "pkg": "plugins",
+      "sub": "src/mermaid",
+      "file": "mermaid-plugin.ts",
+      "lines": 201,
+      "hash": "89fc98a9",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "PLUGINS-SRC-REGISTRY",
+      "pkg": "plugins",
+      "sub": "src",
+      "file": "registry.ts",
+      "lines": 195,
+      "hash": "d51b2071",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "PLUGINS-SRC-SHARED-INDEX",
+      "pkg": "plugins",
+      "sub": "src/shared",
+      "file": "index.ts",
+      "lines": 17,
+      "hash": "4962d5dc",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "PLUGINS-SRC-SHARED-TYPES",
+      "pkg": "plugins",
+      "sub": "src/shared",
+      "file": "types.ts",
+      "lines": 108,
+      "hash": "ebe136c6",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "PLUGINS-SRC-SHARED-TOOLS-INDEX",
+      "pkg": "plugins",
+      "sub": "src/shared-tools",
+      "file": "index.ts",
+      "lines": 16,
+      "hash": "ea4b34bc",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "PLUGINS-SRC-SHARED-TOOLS-UNIFIED-TOOLS-REGISTRY",
+      "pkg": "plugins",
+      "sub": "src/shared-tools",
+      "file": "unified-tools-registry.ts",
+      "lines": 267,
+      "hash": "da16dd2e",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "PLUGINS-SRC-VECTOR-INDEX",
+      "pkg": "plugins",
+      "sub": "src/vector",
+      "file": "index.ts",
+      "lines": 16,
+      "hash": "743f6310",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "PLUGINS-SRC-VECTOR-VECTOR-EDITOR-PLUGIN",
+      "pkg": "plugins",
+      "sub": "src/vector",
+      "file": "vector-editor-plugin.ts",
+      "lines": 90,
+      "hash": "711b35be",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "SERIALIZERS-SRC-ADVANCED-INDEX",
+      "pkg": "serializers",
+      "sub": "src/advanced",
+      "file": "index.ts",
+      "lines": 22,
+      "hash": "f27a8304",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "SERIALIZERS-SRC-ADVANCED-LATEX-SERIALIZER",
+      "pkg": "serializers",
+      "sub": "src/advanced",
+      "file": "latex-serializer.ts",
+      "lines": 183,
+      "hash": "105bd927",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "SERIALIZERS-SRC-ADVANCED-ODF-DRAW",
+      "pkg": "serializers",
+      "sub": "src/advanced",
+      "file": "odf-draw.ts",
+      "lines": 275,
+      "hash": "93626240",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "SERIALIZERS-SRC-ADVANCED-ODF-SERIALIZER",
+      "pkg": "serializers",
+      "sub": "src/advanced",
+      "file": "odf-serializer.ts",
+      "lines": 326,
+      "hash": "9e779514",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "SERIALIZERS-SRC-ADVANCED-PDF-SERIALIZER",
+      "pkg": "serializers",
+      "sub": "src/advanced",
+      "file": "pdf-serializer.ts",
+      "lines": 150,
+      "hash": "9cfc9ae1",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "SERIALIZERS-SRC-ADVANCED-SVG-SERIALIZER",
+      "pkg": "serializers",
+      "sub": "src/advanced",
+      "file": "svg-serializer.ts",
+      "lines": 267,
+      "hash": "557bb0a8",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "SERIALIZERS-SRC-ADVANCED-ZIP-ENGINE",
+      "pkg": "serializers",
+      "sub": "src/advanced",
+      "file": "zip-engine.ts",
+      "lines": 294,
+      "hash": "1d46a264",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "SERIALIZERS-SRC-BASIC-HTML-SERIALIZER",
+      "pkg": "serializers",
+      "sub": "src/basic",
+      "file": "html-serializer.ts",
+      "lines": 141,
+      "hash": "eef0b8f2",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "SERIALIZERS-SRC-BASIC-INDEX",
+      "pkg": "serializers",
+      "sub": "src/basic",
+      "file": "index.ts",
+      "lines": 21,
+      "hash": "07f3c6aa",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "SERIALIZERS-SRC-BASIC-MARKDOWN-SERIALIZER",
+      "pkg": "serializers",
+      "sub": "src/basic",
+      "file": "markdown-serializer.ts",
+      "lines": 135,
+      "hash": "aa2f7efa",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "SERIALIZERS-SRC-BASIC-TXT-SERIALIZER",
+      "pkg": "serializers",
+      "sub": "src/basic",
+      "file": "txt-serializer.ts",
+      "lines": 124,
+      "hash": "b4e83a95",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "SERIALIZERS-SRC-DOCX-DOCX-BUILDERS",
+      "pkg": "serializers",
+      "sub": "src/docx",
+      "file": "docx-builders.ts",
+      "lines": 222,
+      "hash": "7c932613",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "SERIALIZERS-SRC-DOCX-DOCX-CONVERTER",
+      "pkg": "serializers",
+      "sub": "src/docx",
+      "file": "docx-converter.ts",
+      "lines": 216,
+      "hash": "b9c10d64",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "SERIALIZERS-SRC-DOCX-DOCX-MODEL",
+      "pkg": "serializers",
+      "sub": "src/docx",
+      "file": "docx-model.ts",
+      "lines": 472,
+      "hash": "55543a97",
+      "status": "oversized",
+      "priority": "high",
+      "note": "472 lines — needs splitting (50 lines/function max)"
+    },
+    {
+      "id": "SERIALIZERS-SRC-DOCX-DOCX-TYPES",
+      "pkg": "serializers",
+      "sub": "src/docx",
+      "file": "docx-types.ts",
+      "lines": 125,
+      "hash": "faa20106",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "SERIALIZERS-SRC-DOCX-INDEX",
+      "pkg": "serializers",
+      "sub": "src/docx",
+      "file": "index.ts",
+      "lines": 26,
+      "hash": "64a66947",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "SERIALIZERS-SRC-DOCX-INLINE-PARSER",
+      "pkg": "serializers",
+      "sub": "src/docx",
+      "file": "inline-parser.ts",
+      "lines": 182,
+      "hash": "db3f0857",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "SERIALIZERS-SRC-DOCX-SECTION-RULES",
+      "pkg": "serializers",
+      "sub": "src/docx",
+      "file": "section-rules.ts",
+      "lines": 51,
+      "hash": "e9e3c664",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "SERIALIZERS-SRC-INDEX",
+      "pkg": "serializers",
+      "sub": "src",
+      "file": "index.ts",
+      "lines": 21,
+      "hash": "2428b649",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "SERIALIZERS-SRC-ODF-PACKAGE",
+      "pkg": "serializers",
+      "sub": "src",
+      "file": "odf-package.ts",
+      "lines": 134,
+      "hash": "3f2870a3",
+      "status": "unused",
+      "priority": "low",
+      "note": "Never imported by any other file"
+    },
+    {
+      "id": "SERIALIZERS-SRC-PARSERS-FRONTMATTER-PARSER",
+      "pkg": "serializers",
+      "sub": "src/parsers",
+      "file": "frontmatter-parser.ts",
+      "lines": 97,
+      "hash": "eb959212",
+      "status": "duplicate",
+      "priority": "high",
+      "duplicateOf": "/home/sam2/Projects/libretext-editor-suite/packages/core/src/parsers/frontmatter-parser.ts",
+      "note": "Exact duplicate of packages/core/src/parsers/frontmatter-parser.ts"
+    },
+    {
+      "id": "SERIALIZERS-SRC-PARSERS-MARKDOWN",
+      "pkg": "serializers",
+      "sub": "src/parsers",
+      "file": "markdown.ts",
+      "lines": 157,
+      "hash": "ab08e887",
+      "status": "duplicate",
+      "priority": "high",
+      "duplicateOf": "/home/sam2/Projects/libretext-editor-suite/packages/core/src/parsers/markdown.ts",
+      "note": "Exact duplicate of packages/core/src/parsers/markdown.ts"
+    },
+    {
+      "id": "STORAGE-SRC-INDEX",
+      "pkg": "storage",
+      "sub": "src",
+      "file": "index.ts",
+      "lines": 22,
+      "hash": "e8c8d678",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "STORAGE-SRC-INDEXEDDB-UTILS",
+      "pkg": "storage",
+      "sub": "src",
+      "file": "indexeddb-utils.ts",
+      "lines": 199,
+      "hash": "5b7c0970",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "STORAGE-SRC-INDEXEDDB",
+      "pkg": "storage",
+      "sub": "src",
+      "file": "indexeddb.ts",
+      "lines": 113,
+      "hash": "4149d7fc",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "STORAGE-SRC-LOCALSTORAGE",
+      "pkg": "storage",
+      "sub": "src",
+      "file": "localStorage.ts",
+      "lines": 85,
+      "hash": "a2eb9c47",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "STORAGE-SRC-MEMORY",
+      "pkg": "storage",
+      "sub": "src",
+      "file": "memory.ts",
+      "lines": 75,
+      "hash": "0808b8a5",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "STORAGE-SRC-SNAPSHOTS",
+      "pkg": "storage",
+      "sub": "src",
+      "file": "snapshots.ts",
+      "lines": 93,
+      "hash": "df33304f",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "STORAGE-SRC-STORAGE-UTILS",
+      "pkg": "storage",
+      "sub": "src",
+      "file": "storage-utils.ts",
+      "lines": 133,
+      "hash": "3e2a3a01",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "STORAGE-SRC-TYPES",
+      "pkg": "storage",
+      "sub": "src",
+      "file": "types.ts",
+      "lines": 248,
+      "hash": "0ca78a88",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "TEMPLATES-SRC-BASE-INDEX",
+      "pkg": "templates",
+      "sub": "src/base",
+      "file": "index.ts",
+      "lines": 105,
+      "hash": "bb9a27ad",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "TEMPLATES-SRC-CALC-CALC-TEMPLATES",
+      "pkg": "templates",
+      "sub": "src/calc",
+      "file": "calc-templates.ts",
+      "lines": 277,
+      "hash": "7f359c58",
+      "status": "unused",
+      "priority": "low",
+      "note": "Never imported by any other file"
+    },
+    {
+      "id": "TEMPLATES-SRC-CALC-INDEX",
+      "pkg": "templates",
+      "sub": "src/calc",
+      "file": "index.ts",
+      "lines": 265,
+      "hash": "857dbee4",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "TEMPLATES-SRC-IMPRESS-INDEX",
+      "pkg": "templates",
+      "sub": "src/impress",
+      "file": "index.ts",
+      "lines": 41,
+      "hash": "2bbb57fc",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "TEMPLATES-SRC-INDEX",
+      "pkg": "templates",
+      "sub": "src",
+      "file": "index.ts",
+      "lines": 31,
+      "hash": "8d0844e8",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "TEMPLATES-SRC-REGISTRY-TYPES",
+      "pkg": "templates",
+      "sub": "src",
+      "file": "registry-types.ts",
+      "lines": 233,
+      "hash": "ef2023a7",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "TEMPLATES-SRC-REGISTRY",
+      "pkg": "templates",
+      "sub": "src",
+      "file": "registry.ts",
+      "lines": 443,
+      "hash": "1f24d9fe",
+      "status": "oversized",
+      "priority": "high",
+      "note": "443 lines — needs splitting (50 lines/function max)"
+    },
+    {
+      "id": "TEMPLATES-SRC-WRITER-INDEX",
+      "pkg": "templates",
+      "sub": "src/writer",
+      "file": "index.ts",
+      "lines": 24,
+      "hash": "af490b1a",
+      "status": "active",
+      "priority": "medium"
+    },
+    {
+      "id": "TEMPLATES-SRC-WRITER-WRITER-TEMPLATES",
+      "pkg": "templates",
+      "sub": "src/writer",
+      "file": "writer-templates.ts",
+      "lines": 555,
+      "hash": "758a686f",
+      "status": "oversized",
+      "priority": "high",
+      "note": "555 lines — needs splitting (50 lines/function max)"
+    }
+  ]
+}

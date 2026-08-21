@@ -199,3 +199,81 @@
 
 - اكتمال PHASE-06 (طبقة المنطق والخوارزميات) بنسبة 100%.
 - المرحلة التالية: PHASE-07 (طبقة التخزين `@libretext/storage`).
+
+---
+
+## 2026-08-21
+
+### المنجزات
+
+- **Q-001:** تكريب محركات الأولوية العالية من النسخة الاحتياطية (9 ملفات):
+  - `html-pipeline.ts` (CORE-ENG-001) — تنقية HTML + تحويل ToRichTextDocument
+  - `file-type-detection.ts` (CORE-ENG-002) — التعرف على أنواع الملفات بإشارات متعددة
+  - `unified-ingestion.ts` (CORE-ENG-003) — خط الاستيراد الموحد مع إصلاح Mojibake
+  - `image-pipeline.ts` (CORE-ENG-004) — معالجة الصور (EXIF, قص, فلاتر, ضغط)
+  - `validation.ts` (CORE-016) — فحص وتعقيم HTML
+  - `universal-format-converter.ts` (CORE-017) — محول 20+ تنسيق (مكيّف: أزيلت الاعتمادية على zipUtils/ImageFormatEngine/VectorTracerEngine)
+  - `types.ts` (CORE-018) — DocumentModel, EditorPlugin, SharedFormattingState (مكيّف: أزيل React ComponentType)
+  - `latex-engine.ts` (ALGO-031) — محرك LaTeX → SVG/HTML بتحليل تنازلي تكراري
+  - `markdown-engine.ts` (ALGO-032) — محرك MD↔HTML ثنائي الاتجاه مع دعم LaTeX
+- **Q-002:** تكريب خوارزميات المتجهات والتفاعل (4 ملفات):
+  - `vector/common.ts` (ALGO-033) — Point2D, BoundingBox, debounce/throttle, deepClone
+  - `vector/coordinate-system.ts` (ALGO-034) — تحويل screen↔world, zoom towards mouse
+  - `vector/mouse-algorithms.ts` (ALGO-035) — 8 مقابض تحكم, Ray Casting
+  - `vector/smart-alignment.ts` (ALGO-036) — محاذاة ذكية (start/center/end)
+- **Q-003:** أسكريبتات الفهرسة التلقائية (3 ملفات):
+  - `scripts/update-indexes.ts` (INFRA-014) — فاحص شامل للمشروع (947 رمز في 7 حزم)
+  - `scripts/generate-inventory.ts` (INFRA-015) — مولّد جرد المكونات لكل محرر
+  - `scripts/atomic-inventory.ts` (INFRA-016) — مولّد الجرد الذري مع كشف التكرار والفجوات
+- ** kotob  scripts**
+  - `EDITOR_INVENTORY.md` — جرد المكونات (Writer 9, Calc 2, Impress 8, Base 2)
+  - `EXECUTION_QUEUE.md` — قائمة التنفيذ المرقمة Q-001..Q-024
+  - `ATOMIC_INVENTORY.md` — الجرد الذري (160 ملف: 144 نشط, 4 مكرر, 3 غير مستخدم, 9 كبير)
+  - `ATOMIC_INVENTORY.json` — بيانات الجرد الذري
+
+### نتائج التحليل الذري (Atomic Inventory)
+
+| الفئة | العدد | ملاحظات |
+|-------|-------|---------|
+| إجمالي الملفات | 160 | |
+| نشط | 144 | ✅ |
+| مكرر | 4 | 2 أزواج متطابقة (parsers) |
+| غير مستخدم | 3 | `document-validator.ts`, `odf-package.ts`, `calc-templates.ts` |
+| كبير (>400 سطر) | 9 | `functions-matrix.ts` (847) هو الأكبر |
+
+### التكرارات المكتشفة
+
+1. `core/src/parsers/frontmatter-parser.ts` = `serializers/src/parsers/frontmatter-parser.ts`
+2. `core/src/parsers/markdown.ts` = `serializers/src/parsers/markdown.ts`
+
+### الملفات غير المستخدمة
+
+1. `core/src/utils/document-validator.ts` (255 سطر)
+2. `serializers/src/odf-package.ts` (134 سطر)
+3. `templates/src/calc/calc-templates.ts` (277 سطر)
+
+### الملفات الكبيرة (>400 سطر)
+
+1. `algorithms/src/formula/functions-matrix.ts` — 847 سطر
+2. `algorithms/src/formula/markdown-formula.ts` — 559 سطر
+3. `templates/src/writer/writer-templates.ts` — 555 سطر
+4. `serializers/src/docx/docx-model.ts` — 472 سطر
+5. `algorithms/src/spatial/vector-path.ts` — 445 سطر
+6. `plugins/src/canvas-designer/schema-registry.ts` — 443 سطر
+7. `templates/src/registry.ts` — 443 سطر
+8. `core/src/converters/universal-format-converter.ts` — 415 سطر
+9. `core/src/utils/formula-parser.ts` — 405 سطر
+
+### التزامات Git
+
+- `fd04e2b` — تكريب HIGH Priority Engines (Q-001)
+- `688b419` — تكريب Vector/Interaction Algorithms (Q-002)
+- `4dd16c4` — أسكريبتات الفهرسة + EDITOR_INVENTORY + EXECUTION_QUEUE + FUNCTION_INDEX (Q-003)
+
+### الخطوة التالية
+
+- اتخاذ قرار بشأن:
+  1. حذف الملفات غير المستخدمة (3 ملفات)
+  2. إزالة التكرارات (esafer واحد من كل زوج)
+  3. تقسيم الملفات الكبيرة (9 ملفات >400 سطر)
+  4. حذف النسخة الاحتياطية بعد الانتهاء
