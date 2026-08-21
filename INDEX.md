@@ -83,9 +83,19 @@ libretext-editor-suite/
 │   │   │   │   ├── [CORE-007] indexer.ts        # الفهرسة / Indexer
 │   │   │   │   └── [CORE-008] search.ts         # واجهة البحث / Search interface
 │   │   │   │
-│   │   │   └── 📁 utils/                        # [CORE-009..010] دوال مساعدة / Utility functions
+│   │   │   ├── 📁 parsers/                      # محللات Markdown/FrontMatter
+│   │   │   │   ├── frontmatter-parser.ts        # محلل YAML FrontMatter
+│   │   │   │   └── markdown.ts                  # محلل Markdown
+│   │   │   │
+│   │   │   └── 📁 Utils/                        # [CORE-009..013] دوال مساعدة / Utility functions
 │   │   │       ├── [CORE-009] id.ts             # توليد المعرفات / ID generation
-│   │   │       └── [CORE-010] validation.ts     # التحقق من الصحة / Validation
+│   │   │       ├── [CORE-010] validation.ts     # التحقق من الصحة / Validation
+│   │   │       ├── [CORE-012] pipe.ts           # الخط أنابيب الوظيفي / Functional pipe
+│   │   │       ├── [CORE-013] compose.ts        # التركيب الوظيفي / Functional compose
+│   │   │       ├── arabic-text.ts               # أدوات النص العربي / Arabic text utilities
+│   │   │       ├── formula-parser.ts            # محلل صيغ Excel / Formula parser
+│   │   │       ├── content-validator.ts         # validators للكتل / Block validators
+│   │   │       └── document-validator.ts        # التحقق الشامل / Document validator
 │   │   │
 │   │   └── 📁 tests/                            # [TEST-CORE] اختبارات النواة / Core tests
 │   │       ├── [TEST-CORE-001] ast/types.test.ts          # اختبارات AST / AST tests
@@ -102,10 +112,17 @@ libretext-editor-suite/
 │   │   │   │   ├── [ALGO-002] executor.ts       # منفذ الأوامر / Command executor
 │   │   │   │   └── [ALGO-003] registry.ts       # سجل الأوامر / Command registry
 │   │   │   │
-│   │   │   ├── 📁 formula/                      # [ALGO-004..006] Expression Evaluator
+│   │   │   ├── 📁 formula/                      # [ALGO-004..006,018-019] Expression Evaluator
 │   │   │   │   ├── [ALGO-004] parser.ts         # محلل تنازلي / Recursive descent parser
 │   │   │   │   ├── [ALGO-005] evaluator.ts      # مُقيّم التعابير / Expression evaluator
-│   │   │   │   └── [ALGO-006] functions.ts      # دوال مدمجة / Built-in functions
+│   │   │   │   ├── [ALGO-006] functions.ts      # دوال مدمجة / Built-in functions
+│   │   │   │   ├── functions-math.ts            # دوال رياضية / Math functions
+│   │   │   │   ├── functions-text.ts            # دوال نصية / Text functions
+│   │   │   │   ├── functions-arabic.ts          # دوال عربية / Arabic functions
+│   │   │   │   ├── functions-financial.ts       # دوال مالية / Financial functions
+│   │   │   │   ├── functions-lookup-date.ts     # بحث وتواريخ / Lookup & Date functions
+│   │   │   │   ├── functions-matrix.ts          # دوال المصفوفات / Matrix & Lambda
+│   │   │   │   └── markdown-formula.ts          # محرك الصيغ / Formula engine
 │   │   │   │
 │   │   │   └── 📁 spatial/                      # [ALGO-007..009] Spatial Translation Engine
 │   │   │       ├── [ALGO-007] types.ts          # أنواع الإحداثيات / Coordinate types
@@ -140,21 +157,25 @@ libretext-editor-suite/
 │   │   └── 📁 tests/                            # [TEST-TPL] اختبارات القوالب / Template tests
 │   │
 │   ├── 📁 serializers/                          # [SER] المحولات / Serializers
-│   │   ├── 📁 markdown/                         # [SER-001] محول Markdown / Markdown serializer
-│   │   │   ├── [SER-001-01] markdown-serializer.ts
-│   │   │   └── [SER-001-02] index.ts
-│   │   ├── 📁 html/                             # [SER-002] محول HTML / HTML serializer
-│   │   │   ├── [SER-002-01] html-serializer.ts
-│   │   │   └── [SER-002-02] index.ts
-│   │   ├── 📁 txt/                              # [SER-003] محول TXT / TXT serializer
-│   │   │   ├── [SER-003-01] txt-serializer.ts
-│   │   │   └── [SER-003-02] index.ts
-│   │   ├── 📁 pdf/                              # [SER-004] محول PDF / PDF serializer
-│   │   │   ├── [SER-004-01] pdf-serializer.ts
-│   │   │   └── [SER-004-02] index.ts
-│   │   └── 📁 latex/                            # [SER-005] محول LaTeX / LaTeX serializer
-│   │       ├── [SER-005-01] latex-serializer.ts
-│   │       └── [SER-005-02] index.ts
+│   │   ├── 📁 basic/                            # المحولات الأساسية / Basic serializers
+│   │   │   ├── markdown-serializer.ts           # [SER-001] محول Markdown
+│   │   │   ├── html-serializer.ts               # [SER-002] محول HTML
+│   │   │   └── txt-serializer.ts                # [SER-003] محول TXT
+│   │   ├── 📁 advanced/                         # المحولات المتقدمة / Advanced serializers
+│   │   │   ├── pdf-serializer.ts                # [SER-004] محول PDF
+│   │   │   ├── latex-serializer.ts              # [SER-005] محول LaTeX
+│   │   │   └── zip-engine.ts                    # محرك ZIP / ZIP archive engine
+│   │   ├── 📁 docx/                             # [SER-006] محول Word DOCX
+│   │   │   ├── docx-types.ts                    # أنواع DOCX
+│   │   │   ├── docx-model.ts                    # نموذج المستند
+│   │   │   ├── inline-parser.ts                 # محلل التنسيقات المضمنة
+│   │   │   ├── docx-builders.ts                 # بناة العناصر
+│   │   │   ├── section-rules.ts                 # قواعد الأقسام
+│   │   │   ├── docx-converter.ts                # المحول الرئيسي
+│   │   │   └── index.ts                         # Barrel Export
+│   │   └── 📁 parsers/                          # محللات صفر اعتماديات
+│   │       ├── frontmatter-parser.ts            # محلل YAML FrontMatter
+│   │       └── markdown.ts                      # محلل Markdown
 │   │
 │   ├── 📁 adapters/                             # [ADAP] طبقات التكيف / Adapters
 │   │   ├── 📁 react/                            # [ADAP-001] React Adapter
@@ -244,42 +265,50 @@ libretext-editor-suite/
 | `CORE-009` | `packages/core/src/utils/id.ts` | توليد المعرفات | ID generation | تم |
 | `CORE-010` | `packages/core/src/utils/validation.ts` | التحقق من الصحة | Validation | تم |
 | `CORE-011` | `packages/core/src/index.ts` | التصدير العام | Public exports | تم |
+| `CORE-012` | `packages/core/src/utils/arabic-text.ts` | أدوات النص العربي | Arabic text utilities | تم |
+| `CORE-012` | `packages/core/src/utils/formula-parser.ts` | محلل صيغ Excel | Formula parser | تم |
+| `CORE-013` | `packages/core/src/utils/content-validator.ts` | validators للكتل | Block validators | تم |
+| `CORE-013` | `packages/core/src/utils/document-validator.ts` | التحقق الشامل | Document validator | تم |
+| `CORE-014` | `packages/core/src/parsers/frontmatter-parser.ts` | محلل YAML FrontMatter | FrontMatter parser | تم |
+| `CORE-014` | `packages/core/src/parsers/markdown.ts` | محلل Markdown | Markdown parser | تم |
 
 ### الخوارزميات - Algorithms (ALGO)
 
 | المعرف ID | المسار Path | الوصف Arabic | Description English | الحالة Status |
 |-----------|-------------|-------------|---------------------|---------------|
-| `ALGO-001` | `packages/algorithms/src/command/types.ts` | أنواع الأوامر | Command types | لم يبدأ |
-| `ALGO-002` | `packages/algorithms/src/command/executor.ts` | منفذ الأوامر | Command executor | لم يبدأ |
-| `ALGO-003` | `packages/algorithms/src/command/registry.ts` | سجل الأوامر | Command registry | لم يبدأ |
-| `ALGO-004` | `packages/algorithms/src/formula/parser.ts` | محلل تنازلي للصيغ | Expression parser | لم يبدأ |
-| `ALGO-005` | `packages/algorithms/src/formula/evaluator.ts` | مُقيّم التعابير | Expression evaluator | لم يبدأ |
-| `ALGO-006` | `packages/algorithms/src/formula/functions.ts` | دوال مدمجة | Built-in functions | لم يبدأ |
-| `ALGO-007` | `packages/algorithms/src/spatial/types.ts` | أنواع الإحداثيات المكانية | Spatial coordinate types | لم يبدأ |
-| `ALGO-008` | `packages/algorithms/src/spatial/mapper.ts` | المترجم المكاني | Spatial mapper | لم يبدأ |
-| `ALGO-009` | `packages/algorithms/src/spatial/commands.ts` | أوامر مكانية | Spatial commands | لم يبدأ |
-| `ALGO-010` | `packages/algorithms/src/index.ts` | Barrel Export | Public exports | لم يبدأ |
+| `ALGO-001` | `packages/algorithms/src/command/types.ts` | أنواع الأوامر | Command types | تم |
+| `ALGO-002` | `packages/algorithms/src/command/executor.ts` | منفذ الأوامر | Command executor | تم |
+| `ALGO-003` | `packages/algorithms/src/command/registry.ts` | سجل الأوامر | Command registry | تم |
+| `ALGO-004` | `packages/algorithms/src/formula/parser.ts` | محلل تنازلي للصيغ | Expression parser | تم |
+| `ALGO-005` | `packages/algorithms/src/formula/evaluator.ts` | مُقيّم التعابير | Expression evaluator | تم |
+| `ALGO-006` | `packages/algorithms/src/formula/functions.ts` | دوال مدمجة | Built-in functions | تم |
+| `ALGO-007` | `packages/algorithms/src/spatial/types.ts` | أنواع الإحداثيات المكانية | Spatial coordinate types | تم |
+| `ALGO-008` | `packages/algorithms/src/spatial/mapper.ts` | المترجم المكاني | Spatial mapper | تم |
+| `ALGO-009` | `packages/algorithms/src/spatial/commands.ts` | أوامر مكانية | Spatial commands | تم |
+| `ALGO-010` | `packages/algorithms/src/index.ts` | Barrel Export | Public exports | تم |
+| `ALGO-018` | `packages/algorithms/src/formula/functions-matrix.ts` | دوال المصفوفات والـ Lambda | Matrix & Lambda functions | تم |
+| `ALGO-019` | `packages/algorithms/src/formula/markdown-formula.ts` | محرك الصيغ | Formula engine | تم |
 
 ### التخزين - Storage (STORE)
 
 | المعرف ID | المسار Path | الوصف Arabic | Description English | الحالة Status |
 |-----------|-------------|-------------|---------------------|---------------|
-| `STORE-001` | `packages/storage/src/memory.ts` | In-Memory Store | In-memory store | لم يبدأ |
-| `STORE-002` | `packages/storage/src/localStorage.ts` | localStorage Adapter | localStorage adapter | لم يبدأ |
-| `STORE-003` | `packages/storage/src/indexeddb.ts` | IndexedDB Adapter | IndexedDB adapter | لم يبدأ |
-| `STORE-004` | `packages/storage/src/snapshots.ts` | Undo/Redo Snapshots | Undo/redo snapshots | لم يبدأ |
-| `STORE-005` | `packages/storage/src/index.ts` | Barrel Export | Public exports | لم يبدأ |
+| `STORE-001` | `packages/storage/src/memory.ts` | In-Memory Store | In-memory store | تم |
+| `STORE-002` | `packages/storage/src/localStorage.ts` | localStorage Adapter | localStorage adapter | تم |
+| `STORE-003` | `packages/storage/src/indexeddb.ts` | IndexedDB Adapter | IndexedDB adapter | تم |
+| `STORE-004` | `packages/storage/src/snapshots.ts` | Undo/Redo Snapshots | Undo/redo snapshots | تم |
+| `STORE-005` | `packages/storage/src/index.ts` | Barrel Export | Public exports | تم |
 
 ### القوالب - Templates (TPL)
 
 | المعرف ID | المسار Path | الوصف Arabic | Description English | الحالة Status |
 |-----------|-------------|-------------|---------------------|---------------|
-| `TPL-001` | `packages/templates/src/registry.ts` | Template Registry | Template registry | لم يبدأ |
-| `TPL-002` | `packages/templates/src/writer/` | قوالب Writer | Writer templates | لم يبدأ |
-| `TPL-003` | `packages/templates/src/calc/` | قوالب Calc | Calc templates | لم يبدأ |
-| `TPL-004` | `packages/templates/src/impress/` | قوالب Impress | Impress templates | لم يبدأ |
-| `TPL-005` | `packages/templates/src/base/` | قوالب Base | Base templates | لم يبدأ |
-| `TPL-006` | `packages/templates/src/index.ts` | Barrel Export | Public exports | لم يبدأ |
+| `TPL-001` | `packages/templates/src/registry.ts` | Template Registry | Template registry | تم |
+| `TPL-002` | `packages/templates/src/writer/` | قوالب Writer | Writer templates | تم |
+| `TPL-003` | `packages/templates/src/calc/` | قوالب Calc | Calc templates | تم |
+| `TPL-004` | `packages/templates/src/impress/` | قوالب Impress | Impress templates | تم |
+| `TPL-005` | `packages/templates/src/base/` | قوالب Base | Base templates | تم |
+| `TPL-006` | `packages/templates/src/index.ts` | Barrel Export | Public exports | تم |
 
 ### المحولات - Serializers
 
@@ -288,8 +317,11 @@ libretext-editor-suite/
 | `SER-001` | `packages/serializers/markdown/` | محول Markdown | Markdown serializer | تم |
 | `SER-002` | `packages/serializers/html/` | محول HTML | HTML serializer | تم |
 | `SER-003` | `packages/serializers/txt/` | محول TXT | TXT serializer | تم |
-| `SER-004` | `packages/serializers/pdf/` | محول PDF | PDF serializer | تم |
-| `SER-005` | `packages/serializers/latex/` | محول LaTeX | LaTeX serializer | تم |
+| `SER-004` | `packages/serializers/src/pdf/` | محول PDF | PDF serializer | تم |
+| `SER-005` | `packages/serializers/src/latex/` | محول LaTeX | LaTeX serializer | تم |
+| `SER-006` | `packages/serializers/src/docx/` | محول Word DOCX | DOCX converter | تم |
+| `SER-006-06` | `packages/serializers/src/parsers/markdown.ts` | محلل Markdown | Markdown parser | تم |
+| `SER-006-07` | `packages/serializers/src/parsers/frontmatter-parser.ts` | محلل YAML FrontMatter | FrontMatter parser | تم |
 
 ### طبقات التكيف - Adapters
 

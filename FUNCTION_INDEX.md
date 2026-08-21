@@ -43,9 +43,9 @@
 # 📇 فهرس الدوال والخوارزميات الشامل
 # Comprehensive Function & Algorithm Index
 
-> **تاريخ آخر تحديث:** 2026-08-20 (v4: Lookup/Date + Macro + Storage Utils synced)
-> **عدد الحزم:** 7 حزم
-> **إجمالي العناصر المفهرسة:** 180 عنصر (was 139)
+> **تاريخ آخر تحديث:** 2026-08-21 (v5: Fifth Backup Integration — Arabic, Formula, Markdown, DOCX)
+> **عدد الحزم:** 8 حزم
+> **إجمالي العناصر المفهرسة:** 232 عنصر (was 180)
 
 ---
 
@@ -398,6 +398,97 @@ storage (يعتمد على core + algorithms)
   ↑
 templates (يعتمد على storage)
 ```
+
+---
+
+## 📦 packages/core — Fifth Backup: Arabic Text Utilities (UTIL-AR-001)
+
+| # | المعرف | الاسم | النوع | الملف:سطر | الوصف | المعلمات | المُعاد | التبعيات |
+|---|--------|-------|-------|-----------|-------|----------|---------|----------|
+| 1/14 | CORE-012 | `isArabicChar()` | Function | `arabic-text.ts:70` | فحص حرف عربي | `char: string` | `boolean` | لا شيء |
+| 2/14 | CORE-012 | `containsArabic()` | Function | `arabic-text.ts:83` | فحص نص عربي | `text: string` | `boolean` | `ARABIC_RANGES` |
+| 3/14 | CORE-012 | `detectDirection()` | Function | `arabic-text.ts:94` | كشف اتجاه النص | `text: string` | `'rtl' \| 'ltr' \| 'auto'` | `isArabicChar` |
+| 4/14 | CORE-012 | `countArabicWords()` | Function | `arabic-text.ts:110` | عد الكلمات العربية | `text: string` | `number` | `containsArabic` |
+| 5/14 | CORE-012 | `removeDiacritics()` | Function | `arabic-text.ts:121` | إزالة التشكيل | `text: string` | `string` | `ARABIC_DIACRITICS` |
+| 6/14 | CORE-012 | `removeTatweel()` | Function | `arabic-text.ts:127` | إزالة التطويل | `text: string` | `string` | لا شيء |
+| 7/14 | CORE-012 | `normalizeArabicLetters()` | Function | `arabic-text.ts:133` | توحيد الحروف | `text: string` | `string` | `NORMALIZATION_MAP` |
+| 8/14 | CORE-012 | `normalizeArabic()` | Function | `arabic-text.ts:143` | توحيد شامل | `text: string` | `string` | `normalizeArabicLetters` |
+| 9/14 | CORE-012 | `arabicToWesternNumerals()` | Function | `arabic-text.ts:153` | تحويل أرقام عربية | `text: string` | `string` | `NUMERALS` |
+| 10/14 | CORE-012 | `westernToArabicNumerals()` | Function | `arabic-text.ts:166` | تحويل أرقام لاتينية | `text: string` | `string` | `NUMERALS` |
+| 11/14 | CORE-012 | `wrapWithDir()` | Function | `arabic-text.ts:188` | تغليف بـ dir | `text, direction?` | `string` | `detectDirection` |
+| 12/14 | CORE-012 | `embedBidi()` | Function | `arabic-text.ts:199` | إضافة BiDi marks | `text: string` | `string` | `detectDirection` |
+| 13/14 | CORE-012 | `arabicEquals()` | Function | `arabic-text.ts:212` | مقارنة عربية | `a, b` | `boolean` | `normalizeArabic` |
+| 14/14 | CORE-012 | `arabicIncludes()` | Function | `arabic-text.ts:217` | بحث عربي | `text, query` | `boolean` | `normalizeArabic` |
+
+### 📁 utils/ — Formula Parser (UTIL-FORM-001)
+
+| # | المعرف | الاسم | النوع | الملف:سطر | الوصف | المعلمات | المُعاد | التبعيات |
+|---|--------|-------|-------|-----------|-------|----------|---------|----------|
+| 1/10 | CORE-012 | `translateFormula()` | Function | `formula-parser.ts:124` | ترجمة صيغ عربية | `formula` | `string` | `arabicToWesternNumerals` |
+| 2/10 | CORE-012 | `parseFormula()` | Function | `formula-parser.ts:153` | تحليل صيغة | `rawFormula` | `FormulaValidation` | `translateFormula` |
+| 3/10 | CORE-012 | `validateFormula()` | Function | `formula-parser.ts:213` | التحقق من صحة الصيغة | `formula` | `FormulaValidation` | `parseFormula` |
+| 4/10 | CORE-012 | `columnToIndex()` | Function | `formula-parser.ts:222` | حرف عمود → فهرس | `column` | `number` | لا شيء |
+| 5/10 | CORE-012 | `indexToColumn()` | Function | `formula-parser.ts:231` | فهرس → حرف عمود | `index` | `string` | لا شيء |
+| 6/10 | CORE-012 | `parseCellReference()` | Function | `formula-parser.ts:243` | تحليل مرجع خلية | `ref` | `CellReference \| null` | لا شيء |
+| 7/10 | CORE-012 | `formatCellReference()` | Function | `formula-parser.ts:256` | تنسيق مرجع خلية | `col, row, absCol?, absRow?` | `string` | لا شيء |
+| 8/10 | CORE-012 | `hasCircularReference()` | Function | `formula-parser.ts:268` | فحص مراجع دائرية | `formula, currentCell` | `boolean` | `parseFormula` |
+| 9/10 | CORE-012 | `adjustReferences()` | Function | `formula-parser.ts:277` | تعديل مراجع نسبية | `formula, rowOffset, colOffset` | `string` | `translateFormula` |
+| 10/10 | CORE-012 | `sanitizeFormula()` | Function | `formula-parser.ts:315` | تنقية صيغة | `formula` | `string` | لا شيء |
+
+### 📁 parsers/ — Markdown & FrontMatter Parsers
+
+| # | المعرف | الاسم | النوع | الملف:سطر | الوصف | المعلمات | المُعاد | التبعيات |
+|---|--------|-------|-------|-----------|-------|----------|---------|----------|
+| 1/4 | SER-006-07 | `parseFrontMatter()` | Function | `frontmatter-parser.ts:39` | تحليل YAML FrontMatter | `text` | `ParsedFrontMatterResult` | لا شيء |
+| 2/4 | SER-006-06 | `parseMarkdown()` | Function | `markdown.ts:42` | تحليل Markdown لكتل | `markdown` | `ParsedMarkdown` | لا شيء |
+| 3/4 | SER-006-07 | `DocumentMetadata` | Interface | `frontmatter-parser.ts:21` | البيانات الوصفية | `title?, author?, ...` | `DocumentMetadata` | لا شيء |
+| 4/4 | SER-006-06 | `ContentBlock` | Interface | `markdown.ts:30` | كتلة محتوى | `type, level?, content?` | `ContentBlock` | `TableData` |
+
+### 📁 utils/ — Content & Document Validators (CORE-013)
+
+| # | المعرف | الاسم | النوع | الملف:سطر | الوصف | المعلمات | المُعاد | التبعيات |
+|---|--------|-------|-------|-----------|-------|----------|---------|----------|
+| 1/8 | CORE-013 | `validateHeadingBlock()` | Function | `content-validator.ts:74` | التحقق من عنوان | `block, pos, state` | `{validation, newState}` | `detectDirection` |
+| 2/8 | CORE-013 | `validateListBlock()` | Function | `content-validator.ts:110` | التحقق من قائمة | `block, pos` | `BlockValidation` | `detectDirection` |
+| 3/8 | CORE-013 | `validateTableBlock()` | Function | `content-validator.ts:136` | التحقق من جدول | `block, pos` | `BlockValidation` | `isTableContent` |
+| 4/8 | CORE-013 | `validateCodeBlock()` | Function | `content-validator.ts:173` | التحقق من كتلة كود | `block, pos` | `BlockValidation` | لا شيء |
+| 5/8 | CORE-013 | `validateBlock()` | Function | `content-validator.ts:191` | dispatcher لكل الكتل | `block, pos, state` | `{validation, newState}` | `validate*` |
+| 6/8 | CORE-013 | `validateDocument()` | Function | `document-validator.ts:147` | التحقق الشامل | `markdown` | `ValidationResult` | `parseFrontMatter`, `parseMarkdown` |
+| 7/8 | CORE-013 | `validateHeadingHierarchy()` | Function | `document-validator.ts:169` | التسلسل الهرمي | `content` | `{valid, errors}` | لا شيء |
+| 8/8 | CORE-013 | `validateTables()` | Function | `document-validator.ts:194` | التحقق من الجداول | `content` | `ContentValidationResult` | لا شيء |
+
+### 📁 formula/ — Matrix & Lambda Functions (ALGO-018)
+
+| # | المعرف | الاسم | النوع | الملف | الوصف | المعلمات | المُعاد | التبعيات |
+|---|--------|-------|-------|-------|-------|----------|---------|----------|
+| 1/6 | ALGO-018 | `MMULT` | Function | `functions-matrix.ts` | ضرب مصفوفتين | `a, b` | `number[][]` | لا شيء |
+| 2/6 | ALGO-018 | `TRANSPOSE` | Function | `functions-matrix.ts` | نقل مصفوفة | `matrix` | `number[][]` | لا شيء |
+| 3/6 | ALGO-018 | `SUMPRODUCT` | Function | `functions-matrix.ts` | مجموع حواصل الضرب | `...arrays` | `number` | لا شيء |
+| 4/6 | ALGO-018 | `LAMBDA` | Function | `functions-matrix.ts` | تعريف دالة مخصصة | `params, body` | `LambdaFn` | لا شيء |
+| 5/6 | ALGO-018 | `MAP` | Function | `functions-matrix.ts` | تطبيق Lambda على مصفوفة | `array, lambda` | `any[]` | `LAMBDA` |
+| 6/6 | ALGO-018 | `REDUCE` | Function | `functions-matrix.ts` | تجميع مصفوفة | `array, init, lambda` | `any` | `LAMBDA` |
+
+### 📁 formula/ — Markdown Formula Engine (ALGO-019)
+
+| # | المعرف | الاسم | النوع | الملف | الوصف | المعلمات | المُعاد | التبعيات |
+|---|--------|-------|-------|-------|-------|----------|---------|----------|
+| 1/4 | ALGO-019 | `evaluateFormula()` | Function | `markdown-formula.ts` | تقييم صيغة من نص | `text, context?` | `EvaluationResult` | `parseFormula` |
+| 2/4 | ALGO-019 | `extractFormulas()` | Function | `markdown-formula.ts` | استخراج الصيغ من نص | `text` | `FormulaEntry[]` | لا شيء |
+| 3/4 | ALGO-019 | `FormulaEngine` | Class | `markdown-formula.ts` | محرك صيغ شامل | `options?` | `FormulaEngine` | `evaluateFormula` |
+| 4/4 | ALGO-019 | `FormulaEngine.evaluate()` | Method | `markdown-formula.ts` | تقييم نص كامل | `text` | `string` | `extractFormulas` |
+
+### 📁 docx/ — DOCX Converter Module (SER-006)
+
+| # | المعرف | الاسم | النوع | الملف | الوصف | المعلمات | المُعاد | التبعيات |
+|---|--------|-------|-------|-------|-------|----------|---------|----------|
+| 1/8 | SER-006 | `convertMarkdownToDocx()` | Function | `docx-converter.ts:131` | تحويل Markdown → DOCX | `markdown, outputPath, options?` | `DocxConversionResult` | `Packer` |
+| 2/8 | SER-006 | `convertMarkdownToDocxBuffer()` | Function | `docx-converter.ts:107` | تحويل لبايتات DOCX | `markdown, options?` | `{buffer, warnings}` | `Packer` |
+| 3/8 | SER-006 | `convertToDocx()` | Function | `docx-converter.ts:158` | ملف → ملف DOCX | `inputPath, outputPath?` | `DocxConversionResult` | `convertMarkdownToDocx` |
+| 4/8 | SER-006 | `splitIntoSections()` | Function | `docx-converter.ts:38` | تقسيم لأقسام | `content, options, metadata` | `ISectionOptions[]` | `buildElements` |
+| 5/8 | SER-006 | `buildDocument()` | Function | `docx-converter.ts:71` | بناء مستند DOCX | `sections, metadata, title` | `Document` | لا شيء |
+| 6/8 | SER-006 | `tokenizeInline()` | Function | `inline-parser.ts:51` | تحليل تنسيقات مضمنة | `text` | `InlineToken[]` | لا شيء |
+| 7/8 | SER-006 | `parseInlineFormatting()` | Function | `inline-parser.ts:131` | تحويل لـ TextRun | `text, fontFamily?` | `(TextRun \| ExternalHyperlink)[]` | `tokenizeInline` |
+| 8/8 | SER-006 | `Packer.toBuffer()` | Static | `docx-model.ts:360` | تجميع مستند لبايتات | `doc` | `Uint8Array` | `ZipArchiveWriter` |
 
 ---
 
