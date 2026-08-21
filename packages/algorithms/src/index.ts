@@ -67,6 +67,12 @@ export * from './formula/functions-matrix';
 // Markdown Formula Engine
 export * from './formula/markdown-formula';
 
+// LaTeX Engine
+export * from './formula/latex-engine';
+
+// Markdown Engine
+export * from './formula/markdown-engine';
+
 // Macro System Exports
 export * from './macro/types';
 export { MacroRecorder } from './macro/recorder';

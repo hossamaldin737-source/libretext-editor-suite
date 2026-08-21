@@ -1,0 +1,5 @@
+<task>
+- Create html-pipeline.ts with inline RichTextData and CanvasBlockElement types, no React/external RichText imports, keeps all core helpers — for the HTML pipeline engine (html-pipeline.ts) / ... /
+- Create file-type-detection.ts with pure detection maps/helpers, removed PluginRegistry functions, inline simple sanitizer — for file-extension/MIME detection (file-type-detection.ts) / ... /
+- Create unified-ingestion.ts importing htmlToRichTextDocument from ./html-pipeline, keeping full class w/ canvas block calls simplified to empty array, encoding/sanitization logic intact — for the ingestion pipeline (unified-ingestion.ts) / ... /
+- Create image-pipeline.ts unchanged but w/ project header; browser API guards preserved — for the image pipeline helpers (image-pipeline.ts) / ... /

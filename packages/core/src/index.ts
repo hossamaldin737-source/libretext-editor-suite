@@ -105,3 +105,23 @@ export * from './parsers/markdown';
 
 // ─── مدقق المحتوى ───
 export * from './utils/content-validator';
+
+// ─── محركات النواة الجديدة ───
+export * from './engines/html-pipeline';
+export * from './engines/file-type-detection';
+export * from './engines/unified-ingestion';
+export * from './engines/image-pipeline';
+export * from './engines/validation';
+
+// ─── محول التنسيقات الشامل ───
+export * from './converters/universal-format-converter';
+
+// ─── أنواع المستندات الأساسية ───
+export {
+  type KnownDocumentType,
+  type SupportedFileFormat,
+  type DocumentModel,
+  type EditorPluginProps,
+  type EditorPlugin,
+  type SharedFormattingState,
+} from './types';
