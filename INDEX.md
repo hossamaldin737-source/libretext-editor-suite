@@ -313,6 +313,11 @@ libretext-editor-suite/
 | `ALGO-030` | `packages/algorithms/src/types.ts`                  | أنواع مشتركة              | Shared algorithm types    | تم            |
 | `ALGO-031` | `packages/algorithms/src/formula/latex-engine.ts`   | محرك LaTeX                | LaTeX equation engine    | تم            |
 | `ALGO-032` | `packages/algorithms/src/formula/markdown-engine.ts`| محرك Markdown             | Markdown engine          | تم            |
+| `ALGO-033` | `packages/algorithms/src/vector/common.ts`          | أدوات هندسية مشتركة      | Vector common utilities  | تم            |
+| `ALGO-034` | `packages/algorithms/src/vector/coordinate-system.ts`| محرك الإحداثيات          | Coordinate system        | تم            |
+| `ALGO-035` | `packages/algorithms/src/vector/mouse-algorithms.ts`| خوارزميات الفأرة         | Mouse algorithms         | تم            |
+| `ALGO-036` | `packages/algorithms/src/vector/smart-alignment.ts` | المحاذاة الذكي           | Smart alignment          | تم            |
+| `ALGO-037` | `packages/algorithms/src/vector/index.ts`            | Barrel Export             | Vector barrel export     | تم            |
 
 ### التخزين - Storage (STORE)
 

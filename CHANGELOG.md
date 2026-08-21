@@ -53,6 +53,14 @@
 - ✅ `packages/algorithms/src/formula/markdown-engine.ts` — محرك Markdown: تحويل ثنائي الاتجاه MD↔HTML [ALGO-032]
 - ✅ تحديث Barrel Export + 0 type errors + 856 tests pass
 
+### Vector & Interaction Algorithms — خوارزميات المتجهات والتفاعل (2026-08-21)
+
+- ✅ `packages/algorithms/src/vector/common.ts` — أدوات هندسية: Point2D, BoundingBox, distance, angle, rotate, debounce/throttle [ALGO-033]
+- ✅ `packages/algorithms/src/vector/coordinate-system.ts` — محرك الإحداثيات: screen↔world, zoom towards mouse, grid snap [ALGO-034]
+- ✅ `packages/algorithms/src/vector/mouse-algorithms.ts` — خوارزميات الفأرة: 8 مقابض تحجيم, RTL, تدوير, Ray Casting [ALGO-035]
+- ✅ `packages/algorithms/src/vector/smart-alignment.ts` — نظام المحاذاة الذكي: كشف start/center/end + threshold [ALGO-036]
+- ✅ تحديث Barrel Export + 0 type errors + 856 tests pass
+
 ### Fifth Backup Integration — تكامل النسخة الاحتياطية الخامسة (2026-08-21)
 
 - ✅ `packages/core/src/utils/arabic-text.ts` — أدوات النص العربي (RTL, Numerals, Diacritics) [UTIL-AR-001]

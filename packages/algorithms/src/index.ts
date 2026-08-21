@@ -159,5 +159,51 @@ export {
   findSimilarStreetPairs,
 } from './streets/similarity';
 
+// Vector & Interaction Algorithms
+export {
+  type Point2D as VecPoint2D,
+  type BoundingBox as VecBoundingBox,
+  type VectorMatrix2D,
+  generateId,
+  clamp,
+  degToRad,
+  radToDeg,
+  normalizeAngle,
+  distance,
+  angle,
+  lerp,
+  lerpPoint,
+  rotatePoint,
+  getBounds,
+  isPointInBox,
+  rectsIntersect,
+  deepClone,
+  debounce,
+  throttle,
+} from './vector/common';
+export {
+  CoordinateSystem,
+  defaultCoordinateSystem,
+  type Point as VecPoint,
+  type Viewport,
+  type GridConfig as VecGridConfig,
+} from './vector/coordinate-system';
+export {
+  stylesObjectToString,
+  columnSizeToPercentage,
+  calculateNewColumnSize,
+  calculateResizedDimensions,
+  calculateRotationAngle,
+  isPointInPolygon,
+  type ResizeState,
+} from './vector/mouse-algorithms';
+export {
+  SmartAlignmentSystem,
+  defaultSmartAlignment,
+  type RectBounds,
+  type AlignmentGuide,
+  type AlignmentResult,
+} from './vector/smart-alignment';
+
 // Shared Types
 export type { Point2D, AABB, DependencyGraphData, CycleDetectionResult } from './types';
