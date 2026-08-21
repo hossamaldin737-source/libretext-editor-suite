@@ -40,6 +40,19 @@
 - إنشاء SystemInventory.json [DOC-ADMIN-08] — جرد النظام.
 - إضافة القواعد الصارمة: الثيم الفاتح النقي، التفاعل بالماوس، السبورة البيضاء.
 
+### High Priority Engines Integration — تكامل المحركات ذات الأولوية العالية (2026-08-21)
+
+- ✅ `packages/core/src/engines/html-pipeline.ts` — محرك HTMLPipeline: sanitizeHtml, toRichTextDocument, exportToCleanHtml [CORE-ENG-001]
+- ✅ `packages/core/src/engines/file-type-detection.ts` — محرك التعرف على أنواع الملفات متعدد الإشارات [CORE-ENG-002]
+- ✅ `packages/core/src/engines/unified-ingestion.ts` — خط أنابيب الاستيراد الموحد مع إصلاح Mojibake [CORE-ENG-003]
+- ✅ `packages/core/src/engines/image-pipeline.ts` — محرك الصور: EXIF Orientation, Crop, Filters, Compress, Thumbnail [CORE-ENG-004]
+- ✅ `packages/core/src/engines/validation.ts` — محرك فحص وتعقيم HTML مع فحص توازن الوسوم [CORE-016]
+- ✅ `packages/core/src/converters/universal-format-converter.ts` — محول 20+ صيغة: استيراد وتصدير [CORE-017]
+- ✅ `packages/core/src/types.ts` — أنواع المستندات: DocumentModel, EditorPlugin, SharedFormattingState [CORE-018]
+- ✅ `packages/algorithms/src/formula/latex-engine.ts` — محرك LaTeX: Recursive Descent Parser → SVG/HTML [ALGO-031]
+- ✅ `packages/algorithms/src/formula/markdown-engine.ts` — محرك Markdown: تحويل ثنائي الاتجاه MD↔HTML [ALGO-032]
+- ✅ تحديث Barrel Export + 0 type errors + 856 tests pass
+
 ### Fifth Backup Integration — تكامل النسخة الاحتياطية الخامسة (2026-08-21)
 
 - ✅ `packages/core/src/utils/arabic-text.ts` — أدوات النص العربي (RTL, Numerals, Diacritics) [UTIL-AR-001]

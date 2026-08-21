@@ -276,6 +276,13 @@ libretext-editor-suite/
 | `CORE-013` | `packages/core/src/utils/document-validator.ts`   | التحقق الشامل         | Document validator    | تم            |
 | `CORE-014` | `packages/core/src/parsers/frontmatter-parser.ts` | محلل YAML FrontMatter | FrontMatter parser    | تم            |
 | `CORE-014` | `packages/core/src/parsers/markdown.ts`           | محلل Markdown         | Markdown parser       | تم            |
+| `CORE-ENG-001` | `packages/core/src/engines/html-pipeline.ts`      | محرك HTMLPipeline     | HTML pipeline engine  | تم            |
+| `CORE-ENG-002` | `packages/core/src/engines/file-type-detection.ts`| التعرف على الملفات   | File type detection   | تم            |
+| `CORE-ENG-003` | `packages/core/src/engines/unified-ingestion.ts`  | خط الاستيراد الموحد   | Unified ingestion     | تم            |
+| `CORE-ENG-004` | `packages/core/src/engines/image-pipeline.ts`     | محرك الصور            | Image pipeline        | تم            |
+| `CORE-016` | `packages/core/src/engines/validation.ts`          | محرك الفحص والتعقيم   | Validation engine     | تم            |
+| `CORE-017` | `packages/core/src/converters/universal-format-converter.ts` | محول التنسيقات الشامل | Universal format converter | تم |
+| `CORE-018` | `packages/core/src/types.ts`                       | أنواع المستندات       | Document types        | تم            |
 
 ### الخوارزميات - Algorithms (ALGO)
 
@@ -304,6 +311,8 @@ libretext-editor-suite/
 | `ALGO-028` | `packages/algorithms/src/formula/arabic-aliases.ts` | أسماء دوال عربية          | Arabic function aliases   | تم            |
 | `ALGO-029` | `packages/algorithms/src/streets/similarity.ts`     | بحث أسماء شوارع           | Street name similarity    | تم            |
 | `ALGO-030` | `packages/algorithms/src/types.ts`                  | أنواع مشتركة              | Shared algorithm types    | تم            |
+| `ALGO-031` | `packages/algorithms/src/formula/latex-engine.ts`   | محرك LaTeX                | LaTeX equation engine    | تم            |
+| `ALGO-032` | `packages/algorithms/src/formula/markdown-engine.ts`| محرك Markdown             | Markdown engine          | تم            |
 
 ### التخزين - Storage (STORE)
 
