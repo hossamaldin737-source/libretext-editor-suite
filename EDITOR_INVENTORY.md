@@ -1,0 +1,95 @@
+# 📋 جرد المكونات والأدوات لكل محرر
+
+# Editor Component & Tool Inventory
+
+> **تاريخ آخر تحديث:** 2026-08-21
+> **عدد المحررات:** 4
+
+---
+
+## 📝 المحرر النصي (Writer) (Writer)
+
+- **إجمالي الملفات:** 9
+- **المدمج:** 9
+- **المتبقي:** 0
+
+### المحركات (Engines)
+
+| # | الملف | الأسطر | الوصف | UI؟ | مدمج؟ |
+|---|-------|--------|-------|-----|-------|
+| 1 | `core/engines/HtmlPipelineEngine.ts` | 543 | محرك HTML Pipeline | ✅ | ✅ |
+| 2 | `core/engines/FileTypeDetectionEngine.ts` | 491 | التعرف على أنواع الملفات | ✅ | ✅ |
+| 3 | `core/engines/UnifiedIngestionPipeline.ts` | 333 | خط الاستيراد الموحد | ✅ | ✅ |
+| 4 | `core/engines/ImagePipelineEngine.ts` | 524 | محرك الصور | ✅ | ✅ |
+| 5 | `shared/engines/ValidationEngine.ts` | 108 | محرك الفحص والتعقيم | ✅ | ✅ |
+| 6 | `shared/engines/MarkdownEngine.ts` | 357 | محرك Markdown | ✅ | ✅ |
+| 7 | `shared/engines/LaTeXEngine.ts` | 319 | محرك LaTeX | ✅ | ✅ |
+
+### الأدوات (Tools)
+
+| # | الملف | الأسطر | الوصف | UI؟ | مدمج؟ |
+|---|-------|--------|-------|-----|-------|
+| 1 | `shared/converters/UniversalFormatConverter.ts` | 1897 | محول التنسيقات الشامل | ✅ | ✅ |
+| 2 | `core/types.ts` | 138 | أنواع المستندات | ✅ | ✅ |
+
+---
+
+## 📊 جدول البيانات (Calc) (Calc)
+
+- **إجمالي الملفات:** 2
+- **المدمج:** 2
+- **المتبقي:** 0
+
+### المحركات (Engines)
+
+| # | الملف | الأسطر | الوصف | UI؟ | مدمج؟ |
+|---|-------|--------|-------|-----|-------|
+| 1 | `shared/engines/DiagramEngine.ts` | 587 | محرك المخططات البيانية | ✅ | ✅ |
+| 2 | `shared/engines/MindMapEngine.ts` | 368 | محرك الخرائط المفهومية | ⚠️ | ✅ |
+
+---
+
+## 🎨 العرض التقديمي (Impress) (Impress)
+
+- **إجمالي الملفات:** 8
+- **المدمج:** 8
+- **المتبقي:** 0
+
+### المحركات (Engines)
+
+| # | الملف | الأسطر | الوصف | UI؟ | مدمج؟ |
+|---|-------|--------|-------|-----|-------|
+| 1 | `shared/vector-engine/snap.ts` | 241 | محرك التسنين المتعدد | ✅ | ✅ |
+| 2 | `shared/vector-engine/ref_line.ts` | 207 | خطوط الإرشاد الديناميكية | ✅ | ✅ |
+| 3 | `shared/vector-engine/control_handle_manager.ts` | 288 | مدير مقابض التحكم | ✅ | ✅ |
+| 4 | `shared/vector-engine/AutoLayoutEngine.ts` | 466 | محرك التخطيط التلقائي | ✅ | ✅ |
+| 5 | `shared/vector-engine/common.ts` | 239 | أدوات هندسية مشتركة | ✅ | ✅ |
+| 6 | `canvas/engine/CoordinateSystem.ts` | 116 | نظام الإحداثيات | ✅ | ✅ |
+| 7 | `canvas/engine/MouseAlgorithms.ts` | 176 | خوارزميات الفأرة | ✅ | ✅ |
+| 8 | `canvas/engine/SmartAlignment.ts` | 104 | المحاذاة الذكية | ✅ | ✅ |
+
+---
+
+## 🗄️ قاعدة البيانات (Base) (Base)
+
+- **إجمالي الملفات:** 2
+- **المدمج:** 2
+- **المتبقي:** 0
+
+### الأدوات (Tools)
+
+| # | الملف | الأسطر | الوصف | UI؟ | مدمج؟ |
+|---|-------|--------|-------|-----|-------|
+| 1 | `shared/engines/ComponentRegistry.ts` | 796 | سجل المكونات | ⚠️ | ✅ |
+| 2 | `shared/engines/ToolRegistry.ts` | 255 | سجل الأدوات | ⚠️ | ✅ |
+
+---
+
+## ملخص التكامل
+
+| المحرر | الملفات | مدمج | متبقي | النسبة |
+|--------|---------|------|-------|--------|
+| 📝 المحرر النصي (Writer) | 9 | 9 | 0 | 100% |
+| 📊 جدول البيانات (Calc) | 2 | 2 | 0 | 100% |
+| 🎨 العرض التقديمي (Impress) | 8 | 8 | 0 | 100% |
+| 🗄️ قاعدة البيانات (Base) | 2 | 2 | 0 | 100% |

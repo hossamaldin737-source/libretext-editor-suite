@@ -28,35 +28,47 @@
       "name": "@libretext/serializers-basic",
       "path": "packages/serializers",
       "description": "المحولات الأساسية - Markdown, HTML, TXT",
-      "dependencies": ["@libretext/core"]
+      "dependencies": [
+        "@libretext/core"
+      ]
     },
     {
       "id": "SER-004",
       "name": "@libretext/serializers-advanced",
       "path": "packages/serializers",
       "description": "المحولات المتقدمة - PDF, LaTeX",
-      "dependencies": ["@libretext/core"]
+      "dependencies": [
+        "@libretext/core"
+      ]
     },
     {
       "id": "ADAP-001",
       "name": "@libretext/adapters",
       "path": "packages/adapters",
       "description": "طبقات التكيف - React, Vue, Web Component, Vanilla JS",
-      "dependencies": ["@libretext/core"]
+      "dependencies": [
+        "@libretext/core"
+      ]
     },
     {
       "id": "PLUG-001",
       "name": "@libretext/plugins",
       "path": "packages/plugins",
       "description": "الإضافات الرسمية - Mermaid, Math",
-      "dependencies": ["@libretext/core"]
+      "dependencies": [
+        "@libretext/core"
+      ]
     },
     {
       "id": "PLAY-001",
       "name": "@libretext/playground",
       "path": "packages/playground",
       "description": "الملعب التجريبي التفاعلي",
-      "dependencies": ["@libretext/core", "@libretext/serializers-basic", "@libretext/adapters"]
+      "dependencies": [
+        "@libretext/core",
+        "@libretext/serializers-basic",
+        "@libretext/adapters"
+      ]
     }
   ],
   "phases": [
@@ -66,7 +78,14 @@
       "nameEn": "Development Environment",
       "status": "completed",
       "priority": "high",
-      "files": ["INFRA-001", "INFRA-002", "INFRA-003", "INFRA-004", "INFRA-005", "INFRA-006"]
+      "files": [
+        "INFRA-001",
+        "INFRA-002",
+        "INFRA-003",
+        "INFRA-004",
+        "INFRA-005",
+        "INFRA-006"
+      ]
     },
     {
       "id": "PHASE-01",
@@ -94,7 +113,11 @@
       "nameEn": "Basic Serializers",
       "status": "not_started",
       "priority": "high",
-      "files": ["SER-001", "SER-002", "SER-003"]
+      "files": [
+        "SER-001",
+        "SER-002",
+        "SER-003"
+      ]
     },
     {
       "id": "PHASE-03",
@@ -102,7 +125,10 @@
       "nameEn": "Advanced Serializers",
       "status": "not_started",
       "priority": "medium",
-      "files": ["SER-004", "SER-005"]
+      "files": [
+        "SER-004",
+        "SER-005"
+      ]
     },
     {
       "id": "PHASE-04",
@@ -110,7 +136,10 @@
       "nameEn": "Plugin System",
       "status": "not_started",
       "priority": "medium",
-      "files": ["PLUG-001", "PLUG-002"]
+      "files": [
+        "PLUG-001",
+        "PLUG-002"
+      ]
     },
     {
       "id": "PHASE-05",
@@ -118,7 +147,12 @@
       "nameEn": "Adapters",
       "status": "not_started",
       "priority": "medium",
-      "files": ["ADAP-001", "ADAP-002", "ADAP-003", "ADAP-004"]
+      "files": [
+        "ADAP-001",
+        "ADAP-002",
+        "ADAP-003",
+        "ADAP-004"
+      ]
     },
     {
       "id": "PHASE-06",
@@ -126,7 +160,11 @@
       "nameEn": "Playground",
       "status": "not_started",
       "priority": "low",
-      "files": ["PLAY-001", "PLAY-002", "PLAY-003"]
+      "files": [
+        "PLAY-001",
+        "PLAY-002",
+        "PLAY-003"
+      ]
     },
     {
       "id": "PHASE-07",
@@ -134,7 +172,12 @@
       "nameEn": "Documentation",
       "status": "not_started",
       "priority": "high",
-      "files": ["DOC-API-001", "DOC-GUIDE-002", "DOC-GUIDE-003", "DOC-GUIDE-004"]
+      "files": [
+        "DOC-API-001",
+        "DOC-GUIDE-002",
+        "DOC-GUIDE-003",
+        "DOC-GUIDE-004"
+      ]
     },
     {
       "id": "PHASE-08",
@@ -142,7 +185,11 @@
       "nameEn": "Security & Auditing",
       "status": "not_started",
       "priority": "high",
-      "files": ["SEC-001", "SEC-002", "SEC-003"]
+      "files": [
+        "SEC-001",
+        "SEC-002",
+        "SEC-003"
+      ]
     },
     {
       "id": "PHASE-09",
@@ -150,7 +197,10 @@
       "nameEn": "Comprehensive Tests",
       "status": "not_started",
       "priority": "high",
-      "files": ["TEST-CORE-001", "TEST-CORE-002"]
+      "files": [
+        "TEST-CORE-001",
+        "TEST-CORE-002"
+      ]
     },
     {
       "id": "PHASE-10",
@@ -158,7 +208,9 @@
       "nameEn": "Release & Distribution",
       "status": "not_started",
       "priority": "high",
-      "files": ["INFRA-007"]
+      "files": [
+        "INFRA-007"
+      ]
     }
   ],
   "strictRules": {
@@ -179,5 +231,16 @@
     "tests": 2,
     "infra": 8,
     "total": 61
+  },
+  "statistics": {
+    "totalFiles": 160,
+    "totalLines": 27198,
+    "totalFunctions": 488,
+    "totalClasses": 58,
+    "totalInterfaces": 242,
+    "totalTypes": 96,
+    "totalConstants": 63,
+    "totalPackages": 7,
+    "lastUpdated": "2026-08-21T09:38:27.150Z"
   }
 }

@@ -1,47 +1,19 @@
 /**
  * ═══════════════════════════════════════════════════════════════════════════
- * 📌 ملخص توجيهي | Guiding Summary
+ * 📌 Guiding Summary | Guiding Summary
  * ═══════════════════════════════════════════════════════════════════════════
- * 📄 الملف: update-indexes.ts
- * 📂 المسار: scripts/update-indexes.ts
- * 🎯 الهدف الرئيسي: سكربت تلقائي لفهرسة الدوال، الكلاسات، والtypes
- *    وتحديث SystemInventory.json بانتظام لضمان دقة التتبع.
- * 📋 المعايير:
- *    - مسح جميع ملفات المشروع في packages/
- *    - استخراج الدوال والكلاسات والـ interfaces والـ types
- *    - تحديث إحصائيات SystemInventory.json تلقائياً
- * 🧪 الاختبارات: تشغيل مباشر عبر tsx
- * 🏷️ المعرف: INFRA-014
- * 📅 تاريخ الإنشاء: 2026-08-20
+ * 📄 File: update-indexes.ts
+ * 📂 Path: scripts/update-indexes.ts
+ * 🎯 Main Goal: Comprehensive auto-indexing + Generation FUNCTION_INDEX.md + Update SystemInventory.json
+ * 📋 Criteria: Scan all files (packages source), Extract functions/classes/types
+ * 🧪 Tests: Run directly via `pnpm update:indexes`
+ * 🏷️ ID: INFRA-014
+ * 📅 Created: 2026-08-21 (Comprehensive improvement)
  * ═══════════════════════════════════════════════════════════════════════════
- * 🧠 الطريقة المبتكرة | Innovative Pattern:
- *    Automated Codebase Indexer + JSON Sync Engine
+ * 🧠 Innovative Pattern | Innovative Pattern:
+ *    Automated Codebase Indexer + FUNCTION_INDEX.md Generator + JSON Sync
  * ═══════════════════════════════════════════════════════════════════════════
- * ⚠️ نقاط الخطر الإلزامية | Mandatory Gotchas:
- *    1. استبعاد المجلدات الخارجية مثل node_modules و dist.
- *    2. التعامل الآمن مع الأخطاء عند الكتابة فوق ملفات الفهرس.
- * ═══════════════════════════════════════════════════════════════════════════
- * 🩹 البرمجة الدفاعية | Defensive Coding:
- *    - التحقق من وجود المجلدات قبل البحث
- *    - استخدام Try/Catch مع تقارير واضحة
- * ═══════════════════════════════════════════════════════════════════════════
- * 🔗 الملفات المرتبطة | Linked Files:
- *    - 📇 الفهرس: INDEX.md#INFRA-014
- *    - 📦 التبعيات: fs, path
- *    - 📄 مرتبط مباشر: SystemInventory.json
- *    - 📚 مراجع: AGENTS.md §10 & §12
- * ═══════════════════════════════════════════════════════════════════════════
- * 📊 الدوال والخوارزميات | Functions & Algorithms:
- *    - scanDirectory(): المسح التراجعي للملفات والمجلدات (#L65)
- *    - extractSymbolsFromFile(): استخراج رموز الكود من ملف (#L85)
- *    - runIndexUpdater(): 실행 الفهرسة التلقائية (#L115)
- * ═══════════════════════════════════════════════════════════════════════════
- * 📝 ملاحظات التطوير | Development Notes:
- *    - يمكن تشغيل السكربت عبر: pnpm update:indexes
- * ═══════════════════════════════════════════════════════════════════════════
- * 👤 المالك: Hossam El-Din Abdel-Moaty El-Khouly - All rights reserved
- * ⚖️ الترخيص: MIT License
- * 📚 المصادر المقتبسة: لا توجد.
+ * ©️ All rights reserved ©️ - 2026
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
@@ -50,112 +22,236 @@ import path from 'path';
 
 interface CodeSymbol {
   name: string;
-  type: 'function' | 'class' | 'interface' | 'type';
+  type: 'function' | 'class' | 'interface' | 'type' | 'constant' | 'enum';
   file: string;
   line: number;
+  params?: string;
+  description?: string;
 }
 
+interface PackageInfo {
+  name: string;
+  path: string;
+  symbols: CodeSymbol[];
+  fileCount: number;
+  totalLines: number;
+}
+
+const SKIP_DIRS = ['node_modules', 'dist', '.git', '.cache', 'coverage', '__tests__'];
+const ROOT_DIR = process.cwd();
+const PACKAGES_DIR = path.join(ROOT_DIR, 'packages');
+
 function scanDirectory(dir: string, fileList: string[] = []): string[] {
-  const skip = ['node_modules', 'dist', '.git', '.cache', 'coverage'];
-  const files = fs.readdirSync(dir);
-  for (const file of files) {
-    if (skip.includes(file)) continue;
-    const filePath = path.join(dir, file);
-    const stat = fs.statSync(filePath);
+  if (!fs.existsSync(dir)) return fileList;
+  const entries = fs.readdirSync(dir);
+  for (const entry of entries) {
+    if (SKIP_DIRS.includes(entry)) continue;
+    const fullPath = path.join(dir, entry);
+    const stat = fs.statSync(fullPath);
     if (stat.isDirectory()) {
-      scanDirectory(filePath, fileList);
-    } else if (filePath.endsWith('.ts') || filePath.endsWith('.tsx')) {
-      fileList.push(filePath);
+      scanDirectory(fullPath, fileList);
+    } else if ((fullPath.endsWith('.ts') || fullPath.endsWith('.tsx')) && !fullPath.endsWith('.test.ts')) {
+      fileList.push(fullPath);
     }
   }
   return fileList;
 }
 
-function extractSymbolsFromFile(filePath: string): CodeSymbol[] {
+function extractSymbols(filePath: string): CodeSymbol[] {
   const symbols: CodeSymbol[] = [];
   const content = fs.readFileSync(filePath, 'utf-8');
   const lines = content.split('\n');
+  const relativePath = path.relative(ROOT_DIR, filePath);
 
   for (let i = 0; i < lines.length; i++) {
-    const trimmed = lines[i]!;
-    const fnMatch = trimmed.match(/^export\s+(?:async\s+)?function\s+([a-zA-Z0-9_$]+)/);
+    const line = lines[i]!.trim();
+
+    // Functions
+    const fnMatch = line.match(/^export\s+(?:async\s+)?function\s+(\w+)/);
     if (fnMatch) {
-      symbols.push({ name: fnMatch[1]!, type: 'function', file: filePath, line: i + 1 });
+      const params = line.match(/\(([^)]*)\)/)?.[1]?.substring(0, 60) || '';
+      symbols.push({ name: fnMatch[1]!, type: 'function', file: relativePath, line: i + 1, params });
       continue;
     }
-    const classMatch = trimmed.match(/^export\s+class\s+([a-zA-Z0-9_$]+)/);
+
+    // Classes
+    const classMatch = line.match(/^export\s+class\s+(\w+)/);
     if (classMatch) {
-      symbols.push({ name: classMatch[1]!, type: 'class', file: filePath, line: i + 1 });
+      symbols.push({ name: classMatch[1]!, type: 'class', file: relativePath, line: i + 1 });
       continue;
     }
-    const intMatch = trimmed.match(/^export\s+interface\s+([a-zA-Z0-9_$]+)/);
+
+    // Interfaces
+    const intMatch = line.match(/^export\s+interface\s+(\w+)/);
     if (intMatch) {
-      symbols.push({ name: intMatch[1]!, type: 'interface', file: filePath, line: i + 1 });
+      symbols.push({ name: intMatch[1]!, type: 'interface', file: relativePath, line: i + 1 });
       continue;
     }
-    const typeMatch = trimmed.match(/^export\s+type\s+([a-zA-Z0-9_$]+)/);
+
+    // Types
+    const typeMatch = line.match(/^export\s+type\s+(\w+)/);
     if (typeMatch) {
-      symbols.push({ name: typeMatch[1]!, type: 'type', file: filePath, line: i + 1 });
+      symbols.push({ name: typeMatch[1]!, type: 'type', file: relativePath, line: i + 1 });
+      continue;
+    }
+
+    // Constants
+    const constMatch = line.match(/^export\s+const\s+(\w+)/);
+    if (constMatch) {
+      symbols.push({ name: constMatch[1]!, type: 'constant', file: relativePath, line: i + 1 });
+      continue;
+    }
+
+    // Enums
+    const enumMatch = line.match(/^export\s+enum\s+(\w+)/);
+    if (enumMatch) {
+      symbols.push({ name: enumMatch[1]!, type: 'enum', file: relativePath, line: i + 1 });
     }
   }
   return symbols;
 }
 
-function runIndexUpdater() {
-  console.log('🔄 [IndexUpdater] Starting automated codebase indexing...');
-  const rootDir = process.cwd();
-  const tsFiles = scanDirectory(rootDir);
+function getPackageNameFromPath(filePath: string): string {
+  const parts = filePath.split(path.sep);
+  const pkgIdx = parts.indexOf('packages');
+  if (pkgIdx >= 0 && parts[pkgIdx + 1]) return parts[pkgIdx + 1]!;
+  return 'unknown';
+}
 
-  let totalFunctions = 0;
-  let totalClasses = 0;
-  let totalInterfaces = 0;
-  let totalTypes = 0;
+function generateFunctionIndexMd(packages: PackageInfo[]): string {
+  const now = new Date().toISOString().split('T')[0];
+  let totalSymbols = 0;
+  for (const pkg of packages) totalSymbols += pkg.symbols.length;
 
-  for (const file of tsFiles) {
-    const symbols = extractSymbolsFromFile(file);
-    for (const sym of symbols) {
-      if (sym.type === 'function') totalFunctions++;
-      if (sym.type === 'class') totalClasses++;
-      if (sym.type === 'interface') totalInterfaces++;
-      if (sym.type === 'type') totalTypes++;
+  let md = `# 📇 فهرس Functions & Algorithms الشامل\n\n`;
+  md += `# Comprehensive Function & Algorithm Index\n\n`;
+  md += `> **تاريخ آخر Update:** ${now}\n`;
+  md += `> **عدد الحزم:** ${packages.length}\n`;
+  md += `> **Total العناصر المفهرسة:** ${totalSymbols} عنصر\n\n`;
+  md += `---\n\n`;
+
+  for (const pkg of packages) {
+    if (pkg.symbols.length === 0) continue;
+    md += `## 📦 packages/${pkg.name}\n\n`;
+
+    // Group by file
+    const byFile = new Map<string, CodeSymbol[]>();
+    for (const sym of pkg.symbols) {
+      const fileName = path.basename(sym.file);
+      if (!byFile.has(fileName)) byFile.set(fileName, []);
+      byFile.get(fileName)!.push(sym);
     }
+
+    for (const [fileName, syms] of byFile) {
+      md += `### 📁 ${fileName}\n\n`;
+      md += `| # | الاسم | الType | File:سطر | Parameters |\n`;
+      md += `|---|-------|-------|-----------|----------|\n`;
+
+      syms.forEach((sym, idx) => {
+        const typeEmoji = { function: '⚙️', class: '🏗️', interface: '📐', type: '🏷️', constant: '📌', enum: '📋' }[sym.type] || '';
+        md += `| ${idx + 1}/${syms.length} | \`${sym.name}\` | ${typeEmoji} ${sym.type} | \`${path.basename(sym.file)}:${sym.line}\` | \`${sym.params || '—'}\` |\n`;
+      });
+      md += `\n`;
+    }
+    md += `---\n\n`;
   }
 
-  console.log(`📊 [IndexUpdater] Scan completed:`);
-  console.log(`   - Total Files Scanned: ${tsFiles.length}`);
-  console.log(`   - Functions: ${totalFunctions}`);
-  console.log(`   - Classes: ${totalClasses}`);
-  console.log(`   - Interfaces: ${totalInterfaces}`);
-  console.log(`   - Types: ${totalTypes}`);
+  return md;
+}
 
-  const inventoryPath = path.join(rootDir, 'SystemInventory.json');
-  if (fs.existsSync(inventoryPath)) {
-    try {
-      const inventory = JSON.parse(fs.readFileSync(inventoryPath, 'utf-8'));
-      inventory.statistics = {
-        totalFiles: tsFiles.length,
-        totalFunctions,
-        totalClasses,
-        totalInterfaces,
-        totalTypes,
-        lastUpdated: new Date().toISOString(),
-      };
-      fs.writeFileSync(inventoryPath, JSON.stringify(inventory, null, 2), 'utf-8');
-      console.log('✅ [IndexUpdater] SystemInventory.json successfully updated.');
-    } catch (err) {
-      console.warn('⚠️ [IndexUpdater] Could not update SystemInventory.json:', err);
-    }
-  } else {
-    console.warn('⚠️ [IndexUpdater] SystemInventory.json not found — skipping update.');
+function updateSystemInventory(packages: PackageInfo[]): void {
+  const inventoryPath = path.join(ROOT_DIR, 'SystemInventory.json');
+  if (!fs.existsSync(inventoryPath)) {
+    console.warn('⚠️ SystemInventory.json not found — skipping.');
+    return;
   }
 
-  console.log('✨ [IndexUpdater] All indexes synchronized successfully.');
+  try {
+    const inventory = JSON.parse(fs.readFileSync(inventoryPath, 'utf-8'));
+
+    let totalFunctions = 0, totalClasses = 0, totalInterfaces = 0, totalTypes = 0, totalConstants = 0;
+    for (const pkg of packages) {
+      for (const sym of pkg.symbols) {
+        if (sym.type === 'function') totalFunctions++;
+        else if (sym.type === 'class') totalClasses++;
+        else if (sym.type === 'interface') totalInterfaces++;
+        else if (sym.type === 'type' || sym.type === 'enum') totalTypes++;
+        else if (sym.type === 'constant') totalConstants++;
+      }
+    }
+
+    inventory.statistics = {
+      totalFiles: packages.reduce((a, p) => a + p.fileCount, 0),
+      totalLines: packages.reduce((a, p) => a + p.totalLines, 0),
+      totalFunctions,
+      totalClasses,
+      totalInterfaces,
+      totalTypes,
+      totalConstants,
+      totalPackages: packages.length,
+      lastUpdated: new Date().toISOString(),
+    };
+
+    fs.writeFileSync(inventoryPath, JSON.stringify(inventory, null, 2), 'utf-8');
+    console.log('✅ SystemInventory.json updated.');
+  } catch (err) {
+    console.warn('⚠️ Could not update SystemInventory.json:', err);
+  }
+}
+
+function main() {
+  console.log('🔄 [IndexUpdater] Starting comprehensive codebase indexing...\n');
+
+  const packageDirs = fs.readdirSync(PACKAGES_DIR).filter((d) => {
+    const p = path.join(PACKAGES_DIR, d);
+    return fs.statSync(p).isDirectory() && fs.existsSync(path.join(p, 'src'));
+  });
+
+  const packages: PackageInfo[] = [];
+
+  for (const pkgName of packageDirs) {
+    const srcDir = path.join(PACKAGES_DIR, pkgName, 'src');
+    const files = scanDirectory(srcDir);
+    const allSymbols: CodeSymbol[] = [];
+    let totalLines = 0;
+
+    for (const file of files) {
+      const symbols = extractSymbols(file);
+      allSymbols.push(...symbols);
+      totalLines += fs.readFileSync(file, 'utf-8').split('\n').length;
+    }
+
+    packages.push({
+      name: pkgName,
+      path: `packages/${pkgName}`,
+      symbols: allSymbols,
+      fileCount: files.length,
+      totalLines,
+    });
+
+    console.log(`  📦 ${pkgName}: ${allSymbols.length} symbols in ${files.length} files (${totalLines} lines)`);
+  }
+
+  // Generate FUNCTION_INDEX.md
+  console.log('\n📝 Generating FUNCTION_INDEX.md...');
+  const functionIndexMd = generateFunctionIndexMd(packages);
+  const functionIndexPath = path.join(ROOT_DIR, 'FUNCTION_INDEX.md');
+  fs.writeFileSync(functionIndexPath, functionIndexMd, 'utf-8');
+  console.log(`✅ FUNCTION_INDEX.md written (${functionIndexMd.split('\n').length} lines)`);
+
+  // Update SystemInventory.json
+  console.log('\n📊 Updating SystemInventory.json...');
+  updateSystemInventory(packages);
+
+  // Summary
+  let total = 0;
+  for (const pkg of packages) total += pkg.symbols.length;
+  console.log(`\n✨ Done! ${packages.length} packages, ${total} symbols indexed.`);
 }
 
 import { fileURLToPath } from 'url';
-
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  runIndexUpdater();
+  main();
 }
 
-export { runIndexUpdater, scanDirectory, extractSymbolsFromFile };
+export { main as runIndexUpdater, scanDirectory, extractSymbols };

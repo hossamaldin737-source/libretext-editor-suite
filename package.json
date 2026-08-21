@@ -25,6 +25,7 @@
     "extract:lines": "tsx scripts/extract-line-numbers.ts",
     "extract:lines:ast": "tsx scripts/extract-line-numbers-ast.ts",
     "update:indexes": "tsx scripts/update-indexes.ts",
+    "inventory": "tsx scripts/generate-inventory.ts",
     "work:monitor": "tsx scripts/work-monitor.ts",
     "turbo": "turbo"
   },
